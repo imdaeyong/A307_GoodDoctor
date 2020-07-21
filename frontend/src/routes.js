@@ -1,9 +1,9 @@
 import Login from './views/accounts/Login.vue'
-import Signin from './views/accounts/Signin.vue'
+import Signup from './views/accounts/Signup.vue'
 import EmailCheck from './views/accounts/emailCheck.vue'
 import EmailSend from './views/accounts/emailSend.vue'
 import ChangePassword from './views/accounts/changePassword.vue'
-import SigninComplete from './views/accounts/SigninComplete.vue'
+import SignupComplete from './views/accounts/SignupComplete.vue'
 import FeedMain from './views/feed/IndexFeed.vue'
 import ErrorPage from './components/errorPage.vue'
 import PageNotFound from './components/PageNotFound.vue'
@@ -15,9 +15,9 @@ export default [
         component : Login
     },
     {
-        path : '/accounts/Signin',
-        name : 'Signin',
-        component : Signin
+        path : '/accounts/Signup',
+        name : 'Signup',
+        component : Signup
     },
     {
         path : 'accounts/changePassword',
@@ -35,9 +35,9 @@ export default [
         component : EmailSend
     },
     {
-        path: 'accounts/SigninComplete',
-        name : 'SigninComplete',
-        component : SigninComplete
+        path: 'accounts/SignupComplete',
+        name : 'SignupComplete',
+        component : SignupComplete
     },
     {
         path : '/feed/main',
