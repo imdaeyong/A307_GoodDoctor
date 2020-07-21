@@ -4,39 +4,56 @@
     text-align: left;
     margin-bottom: 1em;
 }
-.header .btn-home{
+  
+/**/
+.header-list, .header-dropdown-list{
+    float: left;
+}
+.btn-home{
     color: white;
     background-color: rgba(0,0,0,0);
     border: none;
     float:left;
     font-size: 1.5em;
     font-weight: bold;
-    float: left;
-    outline: 0;
     margin-left: 10em;
 }
-.header .input-search{
+.input-search{
     border : 1px solid black;
     border-right : white;
     border-radius: 1em 0em 0em 1em;
 	height : 1.5em;
 	width : 10em;
-    outline : 0;
     float: left;
     margin-top: 0.5em;
 }
-.header .btn-search{
+.btn-search{
 	border : 1px solid black;
 	border-left : white;
 	background-color : white;
 	border-radius: 0em 1em 1em 0em;
 	height : 1.5em;
-    outline : 0;
     margin-top: 0.5em;
+}
+/**/
+
+.btn-hospital-list{
+    margin-left: 25em;
     float: left;
 }
-.header div .btn-search-hospital, .btn-search-area,
-    .btn-write-review, .btn-member{
+.btn-area-list{
+    margin-left: 3em;
+    float: left;   
+}
+.btn-search-hospital, .btn-search-area{
+    font-size: 1em;
+    font-weight: 500;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: none;
+    margin-top: 0.5em;
+}
+.header .btn-write-review, .btn-member{
     font-size: 1em;
     font-weight: 500;
     background-color: rgba(0,0,0,0);
@@ -45,23 +62,31 @@
     margin-top: 0.5em;    
 }
 
-.btn-search-hospital{
-    margin-left: 25em;
-    outline: none;
+.dropdown-content {
+	border-radius : 0.8em 0.8em 0.8em 0.8em;
+	background-color : white;
+    padding : 0.8em;
+    margin-left: -9em;
+	display: none;
+	position: absolute;
+	z-index: 1;
+}
+.btn-hospital-list:hover .dropdown-content {display: block;}
+.dropdown-sub:hover{border: 0.1em solid #17a2b8;}
+.dropdown-sub{
+    border : 1px solid #ECE8E8;
+    background-color: white;
+    width: 7em;
+    height: 7em;
 }
 
-.btn-search-area{
-    
-    margin-left: 3em;
-    outline: none;
-}
+
+
 
 .btn-write-review{
     margin-left: 3em;
-    outline: none;
 }
 
 .btn-member{
     margin-left: 3em;
-    outline: 0;
 }
