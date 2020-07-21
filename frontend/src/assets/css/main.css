@@ -35,7 +35,7 @@
 	height : 1.5em;
     margin-top: 0.5em;
 }
-/**/
+/*병원별찾기*/
 
 .btn-hospital-list{
     margin-left: 25em;
@@ -72,17 +72,24 @@
 	z-index: 1;
 }
 .btn-hospital-list:hover .dropdown-content {display: block;}
-.dropdown-sub:hover{border: 0.1em solid #17a2b8;}
-.dropdown-sub{
+.btn-area-list:hover .dropdown-content {display: block;}
+.dropdown-sub-hospital:hover{border: 0.1em solid #17a2b8;}
+.dropdown-sub-area:hover{border: 0.1em solid #17a2b8;}
+
+.dropdown-sub-hospital{
     border : 1px solid #ECE8E8;
     background-color: white;
     width: 7em;
     height: 7em;
 }
-
-
-
-
+.dropdown-sub-area{
+    font-size: 1.1em;
+    border : 1px solid #ECE8E8;
+    background-color: white;
+    width: 4em;
+    height: 2em;
+}
+/*지역별찾기*/
 .btn-write-review{
     margin-left: 3em;
 }
