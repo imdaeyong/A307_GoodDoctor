@@ -1,0 +1,67 @@
+.header{
+	background-color: #17a2b8;
+    height : 3em;
+    text-align: left;
+    margin-bottom: 1em;
+}
+.header .btn-home{
+    color: white;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    float:left;
+    font-size: 1.5em;
+    font-weight: bold;
+    float: left;
+    outline: 0;
+    margin-left: 10em;
+}
+.header .input-search{
+    border : 1px solid black;
+    border-right : white;
+    border-radius: 1em 0em 0em 1em;
+	height : 1.5em;
+	width : 10em;
+    outline : 0;
+    float: left;
+    margin-top: 0.5em;
+}
+.header .btn-search{
+	border : 1px solid black;
+	border-left : white;
+	background-color : white;
+	border-radius: 0em 1em 1em 0em;
+	height : 1.5em;
+    outline : 0;
+    margin-top: 0.5em;
+    float: left;
+}
+.header div .btn-search-hospital, .btn-search-area,
+    .btn-write-review, .btn-member{
+    font-size: 1em;
+    font-weight: 500;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: none;
+    margin-top: 0.5em;    
+}
+
+.btn-search-hospital{
+    margin-left: 25em;
+    outline: none;
+}
+
+.btn-search-area{
+    
+    margin-left: 3em;
+    outline: none;
+}
+
+.btn-write-review{
+    margin-left: 3em;
+    outline: none;
+}
+
+.btn-member{
+    margin-left: 3em;
+    outline: 0;
+}
