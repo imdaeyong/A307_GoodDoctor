@@ -457,7 +457,7 @@ p {
 
 .btn-full-center {
     width: $c100;
-    background-color: #000;
+    background-color: $myColor;
     color: #eee;
     border-radius: 3px;
     font-weight: $f600;
@@ -465,6 +465,10 @@ p {
     height: 50px;
     line-height: 50px;
     margin-top: 5px;
+    &.disabled {
+        background: $disabledMyColor;
+        cursor: default;
+    }
 }
 
 .btn-bottom {
@@ -708,7 +712,8 @@ p {
     position: relative;
     margin-bottom: 10px;
     input[type="text"],
-    input[type="password"] {
+    input[type="password"],
+    input[type="passwordConfirmType"] {
         @include wrap;
         // input-label박스 사이즈
         height: 45px;
@@ -723,14 +728,12 @@ p {
             border:1px solid rgb(0, 0, 0)
         }
         &.error {
-            border-radius: 0;
-            border:none;
-            border-bottom: 1px solid $red;
+            border-radius: 3;
+            border: 1px solid $red;
         }
         &.complete {
-            border-radius: 0;
-            border:none;
-            border-bottom: 1px solid $myColor;
+            border-radius: 3;
+            border: 1px solid $myColor;
         }
         &.disabled {
             background: #eee;
@@ -750,16 +753,11 @@ p {
         font-weight: $f700;
         font-size: 15px;
     }
-
-    h4 {
-        @include ellipsis;
-    }
-
-
     .error-text {
         @include wrap;
         color: $red;
         margin-top: 3px;
+        margin-left: 3px;
     }
 }
 
@@ -796,7 +794,6 @@ p {
     //     width: 40px;
     // }
     h4 {
-        @include ellipsis;
         line-height: 1em;
         float:left;
     }
