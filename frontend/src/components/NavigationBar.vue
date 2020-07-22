@@ -159,10 +159,12 @@
                     <button class="btn-write-review" style="outline:0;">리뷰쓰기</button>
                 </div>
                 <div class="btn-member-list">
-                    <button class="btn-member" style="outline:0;"><b-icon-person-circle></b-icon-person-circle>닉네임</button>
-                    <div class="dropdown-content">
-                        <div>회원정보</div>
-                        <div>로그아웃</div>
+                    <button class="btn-member" style="outline:0;" v-on:click="memberInfoBtn()"><b-icon-person-circle></b-icon-person-circle>닉네임</button>
+                    <div class="member-dropdown-content" v-if="memberBtn">
+                        <div>
+                            <div><button class="member-dropdown-btn">회원정보</button></div>
+                            <div><button class="member-dropdown-btn">로그아웃</button></div>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -183,8 +185,10 @@
                 this.area.seoul = !this.area.seoul;
                 city = !city;
                 //this.area.seoul = !this.area.seoul;
+            },
+            memberInfoBtn(){
+                this.memberBtn = !this.memberBtn;
             }
-
         },
         data: () => {
             return {

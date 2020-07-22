@@ -38,7 +38,7 @@
 /*병원별찾기*/
 
 .btn-hospital-list{
-    margin-left: 25em;
+    margin-left: 23em;
     float: left;
 }
 .btn-area-list{
@@ -107,11 +107,25 @@
     margin-left: 3em;
     float: left;
 }
-.btn-member-list:hover .dropdown-content {display: block;}
 .btn-write-review{
     
 }
-
 .btn-member{
     margin-left: 3em;
+}
+.btn-member-list{
+    float: left;
+}
+.member-dropdown-content{
+    border-radius : 0.8em 0.8em 0.8em 0.8em;
+    border: 1px solid grey;
+    background-color : white;
+    margin-left: 2.2em;
+    padding : 0.8em;
+	position: absolute;
+	z-index: 1;
+}
+.member-dropdown-btn{
+    border : 1px solid #ECE8E8;
+    background-color: white;
 }
