@@ -10,18 +10,35 @@
       <h1>가입하기</h1>
       <div class="form-wrap">
         <div class="input-label">
-          <input v-model="nickName" id="nickName" placeholder="닉네임을 입력하세요." type="text" />
+          <input 
+            v-model="nickName" 
+            id="nickName" 
+            placeholder="닉네임을 입력하세요." 
+            type="text" 
+          />
           <label for="nickName">닉네임</label>
         </div>
 
         <div class="input-label">
-          <input v-model="email" id="email" placeholder="이메일을 입력하세요." type="text" />
+          <input 
+            v-model="email" 
+            v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
+            id="email" 
+            placeholder="이메일을 입력하세요." 
+            type="text" />
           <label for="email">이메일</label>
+          <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
 
         <div class="input-label">
-          <input v-model="password" id="password" :type="passwordType" placeholder="비밀번호를 입력하세요." />
+          <input 
+            v-model="password"
+            v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
+            id="password" 
+            :type="passwordType" 
+            placeholder="비밀번호를 입력하세요." />
           <label for="password">비밀번호</label>
+          <div class="error-text" v-if="error.password">{{error.password}}</div>
         </div>
 
         <div class="input-label">
@@ -32,6 +49,7 @@
             placeholder="비밀번호를 다시한번 입력하세요."
           />
           <label for="password-confirm">비밀번호 확인</label>
+          <div class="error-text" v-if="error.passwordConfirm">{{error.passwordConfirm}}</div>
         </div>
       </div>
 
@@ -42,7 +60,7 @@
 
       <span @click="termPopup=true">약관보기</span>
 
-      <button class="btn-bottom"
+      <button class="btn-full-center mt-4"
       :disabled="!isSubmit"
       :class="{disabled : !isSubmit}"
       @click="onjoin"
@@ -95,19 +113,23 @@ export default {
       .letters();
   },
   watch: {
-    password: function(v) {
-      this.checkForm();
-    },
     email: function(v) {
-      this.checkForm();
+      this.emailCheckForm();
+    },
+    password: function(v) {
+      this.pwdCheckForm();
+    },
+    passwordConfirm: function() {
+      this.passwordConfirmCheckForm()
     }
   },
   methods: {
-    checkForm() {
+    emailCheckForm() {
       if (this.email.length >= 0 && !EmailValidator.validate(this.email))
         this.error.email = "이메일 형식이 아닙니다.";
       else this.error.email = false;
-
+    },
+    pwdCheckForm() {
       if (
         this.password.length >= 0 &&
         !this.passwordSchema.validate(this.password)
@@ -116,13 +138,19 @@ export default {
       else this.error.password = false;
 
       let isSubmit = true;
-      Object.values(this.error).map(v => {
-        if (v) isSubmit = false;
-      });
-      this.isSubmit = isSubmit;
+        Object.values(this.error).map(v => {
+          if (v) isSubmit = false;
+        });
+        this.isSubmit = isSubmit;
+    },
+    passwordConfirmCheckForm() {
+      if (this.password !== this.passwordConfirm) {
+        this.error.passwordConfirm = "비밀번호가 일치하지 않습니다."
+      }
+      else this.error.passwordConfirm = false;
     },
     onjoin(){
-      axios.post(`${SERVER_URL}account/signup`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
+      axios.post(`${SERVER_URL}account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
       .then(res=>{
         this.$router.push("/emailCheck");
         //alert("회원가입 되었습니다. 로그인해주세요");

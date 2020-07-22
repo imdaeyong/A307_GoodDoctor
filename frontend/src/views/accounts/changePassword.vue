@@ -128,7 +128,7 @@ export default {
         //요청 후에는 버튼 비활성화
         this.isSubmit = false;
         console.log(oldPassword + " " + this.$session.get('user').email + " " + email + " " + newPassword);
-        axios.put(`${SERVER_URL}account/changepwd`,data)
+        axios.put(`${SERVER_URL}pwd`,data)
           .then(res=>{
             //요청이 끝나면 버튼 활성화
             userInfo.password = data.newPassword

@@ -55,11 +55,11 @@
         </div>
         <div class="wrap">
           <p>비밀번호를 잊으셨나요?</p>
-          <router-link to="/accounts/findPwd" class="btn--text">비밀번호 변경</router-link>
+          <router-link to="/accounts/findPwd" class="router-a">비밀번호 찾기</router-link>
         </div>
         <div class="wrap">
           <p>아직 회원이 아니신가요?</p>
-          <router-link to="/accounts/signup">가입하기</router-link>
+          <router-link to="/accounts/signup" class="router-a">가입하기</router-link>
         </div>
       </div>
     </div>
@@ -94,6 +94,8 @@ export default {
     };
   },
   created() {
+
+
     this.component = this;
 
     this.passwordSchema
@@ -107,19 +109,20 @@ export default {
     .letters();
     },
   watch: {
-    password: function(v) {
-      this.checkForm();
-    },
     email: function(v) {
-      this.checkForm();
-    }
+      this.emailCheckForm();
+    },
+    password: function(v) {
+      this.pwdCheckForm();
+    },
   },
   methods: {
-    checkForm() {
+    emailCheckForm() {
       if (this.email.length >= 0 && !EmailValidator.validate(this.email))
         this.error.email = "이메일 형식이 아닙니다.";
       else this.error.email = false;
-
+    },
+    pwdCheckForm() {
       if (
         this.password.length >= 0 &&
         !this.passwordSchema.validate(this.password)
@@ -127,34 +130,29 @@ export default {
         this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다.";
       else this.error.password = false;
 
-      // 이메일 검증
       let isSubmit = true;
-      Object.values(this.error).map(v => {
-        if (v) isSubmit = false;
-      });
-      this.isSubmit = isSubmit;
-
-    },
+        Object.values(this.error).map(v => {
+          if (v) isSubmit = false;
+        });
+        this.isSubmit = isSubmit;
+    },    
     onLogin(){
       let { email, password } = this;
       let data = {
         email,
         password
       };
-      axios.get(`${SERVER_URL}account/login?email=${this.email}&password=${this.password}`)
+      axios.get(`${SERVER_URL}account?email=${this.email}&password=${this.password}`)
         .then(res=>{
-            console.log(res);
             this.$session.start();
             this.$session.set('user', data);
 
             this.$router.push("/feed/main");
-            console.log(this.$session.get('user'));
             alert("로그인 성공");
             
           }
         )
         .catch(err=>{
-            console.log(err);
             alert("아이디 또는 비밀번호 실패입니다.");
             this.$router.push("/errorPage");
         })
