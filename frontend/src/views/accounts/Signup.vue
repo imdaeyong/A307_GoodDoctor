@@ -6,25 +6,25 @@
  -->
 <template>
   <div class="user join">
-    <div class="wrapC">
+    <div class="wrapC mt-5">
       <h1>가입하기</h1>
       <div class="form-wrap">
-        <div class="input-with-label">
+        <div class="input-label">
           <input v-model="nickName" id="nickName" placeholder="닉네임을 입력하세요." type="text" />
           <label for="nickName">닉네임</label>
         </div>
 
-        <div class="input-with-label">
+        <div class="input-label">
           <input v-model="email" id="email" placeholder="이메일을 입력하세요." type="text" />
           <label for="email">이메일</label>
         </div>
 
-        <div class="input-with-label">
+        <div class="input-label">
           <input v-model="password" id="password" :type="passwordType" placeholder="비밀번호를 입력하세요." />
           <label for="password">비밀번호</label>
         </div>
 
-        <div class="input-with-label">
+        <div class="input-label">
           <input
             v-model="passwordConfirm"
             :type="passwordConfirmType"
@@ -42,7 +42,9 @@
 
       <span @click="termPopup=true">약관보기</span>
 
-      <button class="btn-bottom" 
+      <button class="btn-bottom"
+      :disabled="!isSubmit"
+      :class="{disabled : !isSubmit}"
       @click="onjoin"
       >가입하기</button>
     </div>

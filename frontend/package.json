@@ -1,5 +1,5 @@
 {
-  "name": "saffy_vue",
+  "name": "Sub_PJT2",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,13 +13,13 @@
     "axios": "^0.19.2",
     "babel-eslint": "^10.0.3",
     "babel-preset-env": "^1.7.0",
-    "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.4.3",
     "email-validator": "^2.0.4",
-    "eslint-loader": "^4.0.2",
     "local-lib": "^0.1.0",
+    "node-sass": "^4.13.0",
     "password-validator": "^5.0.3",
+    "sass-loader": "^8.0.0",
     "vue": "^2.6.10",
     "vue-router": "^3.3.4",
     "vue-session": "^1.0.0",
@@ -42,10 +42,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "jest": "^24.9.0",
     "jest-transform-stub": "^2.0.0",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^8.0.2",
     "vue-jest": "^3.0.5",
-    "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
     "vue-test-utils": "^1.0.0-beta.11"
   },
