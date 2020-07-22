@@ -63,7 +63,8 @@
 }
 
 .dropdown-content {
-	border-radius : 0.8em 0.8em 0.8em 0.8em;
+    border-radius : 0.8em 0.8em 0.8em 0.8em;
+    border: 1px solid grey;
 	background-color : white;
     padding : 0.8em;
     margin-left: -9em;
@@ -90,8 +91,25 @@
     height: 2em;
 }
 /*지역별찾기*/
-.btn-write-review{
+
+.dropdown-sub-gu{ margin-top: 0.5em; }
+.dropdown-sub-gu .area{
+    height: 2em;
+    border-bottom: 2px solid black;
+    margin-bottom: 0.5em;
+}
+.gu-list div{
+    width : 20%;
+    float: left;
+}
+/* 리뷰쓰기 및 회원정보 */
+.btn-review-list{
     margin-left: 3em;
+    float: left;
+}
+.btn-member-list:hover .dropdown-content {display: block;}
+.btn-write-review{
+    
 }
 
 .btn-member{
