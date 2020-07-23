@@ -5,7 +5,7 @@
     Sub PJT I에서는 UX, 디자인 등을 포함하여 백엔드를 제외하여 개발합니다.
  -->
 <template>
-  <div class="user join">
+  <div class="user" id="login">
     <div class="wrapC mt-5">
       <h1>가입하기</h1>
       <div class="form-wrap">
@@ -65,6 +65,16 @@
       :class="{disabled : !isSubmit}"
       @click="onjoin"
       >가입하기</button>
+
+      <div class="sns-login mt-5">
+        <div class="text">
+          <p>SNS 가입도 돼요</p>
+          <div class="bar"></div>
+        </div>
+        <kakaoLogin :component="component" />
+        <GoogleLogin :component="component" />
+      </div>
+      
     </div>
   </div>
 </template>
@@ -75,8 +85,17 @@ import * as EmailValidator from "email-validator";
 import PV from "password-validator";
 import UserApi from "../../api/UserApi";
 import axios from 'axios'
+import '../../assets/css/style.scss'
+import '../../assets/css/user.scss'
+import KakaoLogin from "../../components/accounts/snsLogin/Kakao.vue"
+import GoogleLogin from "../../components/accounts/snsLogin/Google.vue"
+
 
 export default {
+  components: {
+    KakaoLogin,
+    GoogleLogin
+  },
   data: () => {
     return {
       email: "",
