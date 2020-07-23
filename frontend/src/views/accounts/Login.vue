@@ -1,6 +1,6 @@
 <template>
   <div class="user" id="login">
-    <div class="wrapC mt-5">
+    <div class="wrapC mt-3">
       <h1>
         <span style="color : #17a2b8">아파서 왔지?</span> 여기맞아
       </h1>
@@ -54,7 +54,7 @@
         </div>
         <div class="wrap">
           <p>비밀번호를 잊으셨나요?</p>
-          <router-link to="/accounts/findPwd" class="router-a">비밀번호 찾기</router-link>
+          <router-link to="/accounts/findPassword" class="router-a">비밀번호 찾기</router-link>
         </div>
         <div class="wrap">
           <p>아직 회원이 아니신가요?</p>
@@ -142,7 +142,7 @@ export default {
         email,
         password
       };
-      axios.get(`${SERVER_URL}account?email=${this.email}&password=${this.password}`)
+      axios.get(`${SERVER_URL}account/gooddoc?email=${this.email}&password=${this.password}`)
         .then(res=>{
             this.$session.start();
             this.$session.set('user', data);
