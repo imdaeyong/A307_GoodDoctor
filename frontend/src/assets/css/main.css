@@ -1,0 +1,132 @@
+.header{
+	background-color: #17a2b8;
+    height : 3em;
+    text-align: left;
+    margin-bottom: 1em;
+}
+  
+/**/
+.header-list, .header-dropdown-list{
+    float: left;
+}
+.btn-home{
+    color: white;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    float:left;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-left: 10em;
+}
+.input-search{
+    border : 1px solid black;
+    border-right : white;
+    border-radius: 1em 0em 0em 1em;
+	height : 1.5em;
+	width : 10em;
+    float: left;
+    margin-top: 0.5em;
+    
+}
+.btn-search{
+	border : 1px solid black;
+	border-left : white;
+	background-color : white;
+	border-radius: 0em 1em 1em 0em;
+	height : 1.5em;
+    margin-top: 0.5em;
+}
+/*병원별찾기*/
+
+.btn-hospital-list{
+    margin-left: 23em;
+    float: left;
+}
+.btn-area-list{
+    margin-left: 3em;
+    float: left;   
+}
+.btn-search-hospital, .btn-search-area{
+    font-size: 1em;
+    font-weight: 500;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: none;
+    margin-top: 0.5em;
+}
+.header .btn-write-review, .btn-member{
+    font-size: 1em;
+    font-weight: 500;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: none;
+    margin-top: 0.5em;    
+}
+
+.dropdown-content {
+    border-radius : 0.8em 0.8em 0.8em 0.8em;
+    border: 1px solid grey;
+	background-color : white;
+    padding : 0.8em;
+    margin-left: -9em;
+	display: none;
+	position: absolute;
+	z-index: 1;
+}
+.btn-hospital-list:hover .dropdown-content {display: block;}
+.btn-area-list:hover .dropdown-content {display: block;}
+.dropdown-sub-hospital:hover{border: 0.1em solid #17a2b8;}
+.dropdown-sub-area:hover{border: 0.1em solid #17a2b8;}
+
+.dropdown-sub-hospital{
+    border : 1px solid #ECE8E8;
+    background-color: white;
+    width: 7em;
+    height: 7em;
+}
+.dropdown-sub-area{
+    font-size: 1.1em;
+    border : 1px solid #ECE8E8;
+    background-color: white;
+    width: 4em;
+    height: 2em;
+}
+/*지역별찾기*/
+
+.dropdown-sub-gu{ margin-top: 0.5em; }
+.dropdown-sub-gu .area{
+    height: 2em;
+    border-bottom: 2px solid black;
+    margin-bottom: 0.5em;
+}
+.gu-list div{
+    width : 20%;
+    float: left;
+}
+/* 리뷰쓰기 및 회원정보 */
+.btn-review-list{
+    margin-left: 3em;
+    float: left;
+}
+.btn-write-review{
+    
+}
+.btn-member{
+    margin-left: 3em;
+}
+.btn-member-list{
+    float: left;
+}
+.member-dropdown-content{
+    border-radius : 0.8em 0.8em 0.8em 0.8em;
+    border: 1px solid grey;
+    background-color : white;
+    margin-left: 2.2em;
+    padding : 0.8em;
+	position: absolute;
+	z-index: 1;
+}
+.member-dropdown-btn{
+    border : 1px solid #ECE8E8;
+    background-color: white;
+}

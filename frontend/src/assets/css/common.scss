@@ -1,0 +1,53 @@
+@charset "utf-8";
+$c100: 100%;
+$h100: 100%;
+
+/* COLOR */
+
+$myColor: #17a2b8;
+$disabledMyColor: #198ea0;
+$black: #707070;
+$red: #EE4B55;
+$grey: #CCCCCC;
+
+/* FONT */
+
+$font-size__1: 1.786em; /*25px*/
+$font-size__2: 1.429em; /*20px*/
+$font-size__3: 1.286em; /*18px*/ 
+$font-size__4: 1em; /*14px*/
+$font-size__5: 0.857em; /*12px*/
+
+/*12px*/
+
+$f100:100;
+$f200:200;
+$f300:300;
+$f400:400;
+$f500:500;
+$f600:600;
+$f700:700;
+$f900:900;
+@mixin wrap {
+    width: 100%;
+    float: left;
+}
+
+@mixin div {
+    width: 100%;
+    float: left;
+    height: 1px;
+}
+
+@mixin background-img {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@mixin input-with-label {
+    @include wrap;
+    box-sizing: border-box;
+    background: #fff;
+}
+

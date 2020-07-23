@@ -30,9 +30,7 @@ export default {
   methods: {
     createHandler() {
       http
-        .post("/emailSend", {
-          email: this.email
-        })
+        .post("/email", {email: this.email})
         .then(({ data }) => {
           this.$store.state.authCode=data.object;
           // console.log("emailCheck");
