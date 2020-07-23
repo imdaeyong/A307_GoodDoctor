@@ -2,8 +2,7 @@
   <div class="user" id="login">
     <div class="wrapC mt-5">
       <h1>
-        로그인을 하고 나면
-        <br />좋은 일만 있을 거예요.
+        <span style="color : #17a2b8">아파서 왔지?</span> 여기맞아
       </h1>
 
       <div class="input-label">
@@ -69,6 +68,7 @@
 <script>
 const SERVER_URL="http://localhost:8080/"
 import axios from 'axios'
+import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
@@ -146,10 +146,9 @@ export default {
         .then(res=>{
             this.$session.start();
             this.$session.set('user', data);
-
             this.$router.push("/feed/main");
+            this.$bvModal.hide('bv-modal-example');
             alert("로그인 성공");
-            
           }
         )
         .catch(err=>{

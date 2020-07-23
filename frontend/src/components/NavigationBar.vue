@@ -159,7 +159,7 @@
                     <button class="btn-write-review" style="outline:0;">리뷰쓰기</button>
                 </div>
                 <div class="btn-member-list">
-                    <button class="btn-member" style="outline:0;" v-on:click="memberInfoBtn()"><b-icon-person-circle></b-icon-person-circle>닉네임</button>
+                    <button class="btn-member" style="outline:0;" v-on:click="memberInfoBtn()"><b-icon-person-circle></b-icon-person-circle> 닉네임</button>
                     <div class="member-dropdown-content" v-if="memberBtn">
                         <div>
                             <div><button class="member-dropdown-btn">회원정보</button></div>
