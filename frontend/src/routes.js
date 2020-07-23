@@ -7,10 +7,11 @@ import SignupComplete from './views/accounts/SignupComplete.vue'
 import FeedMain from './views/feed/IndexFeed.vue'
 import ErrorPage from './components/errorPage.vue'
 import PageNotFound from './components/PageNotFound.vue'
+import GoogleLogin from './components/accounts/snsLogin/Google.vue'
 
 export default [
     {
-        path : '/',
+        path : '/feed/main',
         name : 'FeedMain',
         component : FeedMain
     },
@@ -53,6 +54,11 @@ export default [
         path : '/PageNotFound',
         name : 'PageNotFound',
         component : PageNotFound
+    },
+    {
+        path: '/account/google',
+        name : 'GoogleLogin',
+        component : GoogleLogin
     },
     
 ]
