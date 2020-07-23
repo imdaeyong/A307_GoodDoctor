@@ -21,6 +21,8 @@
     "password-validator": "^5.0.3",
     "sass-loader": "^8.0.0",
     "vue": "^2.6.10",
+    "vue-google-oauth2": "^1.5.5",
+    "vue-kakao-login": "^1.0.5",
     "vue-router": "^3.3.4",
     "vue-session": "^1.0.0",
     "vuex": "^3.1.2"

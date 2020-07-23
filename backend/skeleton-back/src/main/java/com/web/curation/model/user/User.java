@@ -29,18 +29,17 @@ import java.time.LocalDateTime;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String uid;
+    private String id;
     
     @JsonIgnore
     private String password;
     private String email;
     private String nickname;
+    private int accountType;
+    
     
     @Column(insertable = false, updatable = false)
     private LocalDateTime createDate;
     
-    @Override
-    public String toString() {
-    	return "email : " + email+ " " + " password : " + password;
-    }
+    
 }
