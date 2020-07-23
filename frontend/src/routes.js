@@ -11,6 +11,11 @@ import GoogleLogin from './components/accounts/snsLogin/Google.vue'
 
 export default [
     {
+        path : '/',
+        name : 'FeedMain',
+        component : FeedMain
+    },
+    {
         path : '/feed/main',
         name : 'FeedMain',
         component : FeedMain
