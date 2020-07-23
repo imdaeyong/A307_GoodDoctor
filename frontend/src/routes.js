@@ -1,8 +1,8 @@
-import Login from './views/accounts/Login.vue'
 import Signup from './views/accounts/Signup.vue'
 import EmailCheck from './views/accounts/emailCheck.vue'
 import EmailSend from './views/accounts/emailSend.vue'
 import ChangePassword from './views/accounts/changePassword.vue'
+import FindPassword from './views/accounts/findPassword.vue'
 import SignupComplete from './views/accounts/SignupComplete.vue'
 import FeedMain from './views/feed/IndexFeed.vue'
 import ErrorPage from './components/errorPage.vue'
@@ -11,8 +11,8 @@ import PageNotFound from './components/PageNotFound.vue'
 export default [
     {
         path : '/',
-        name : 'Login',
-        component : Login
+        name : 'FeedMain',
+        component : FeedMain
     },
     {
         path : '/accounts/Signup',
@@ -20,29 +20,29 @@ export default [
         component : Signup
     },
     {
-        path : 'accounts/changePassword',
+        path : '/accounts/findPassword',
+        name : 'FindPassword',
+        component : FindPassword
+    },
+    {
+        path : '/accounts/changePassword',
         name : 'ChangePassword',
         component : ChangePassword
     },
     {
-        path : 'accounts/emailCheck',
+        path : '/accounts/emailCheck',
         name : 'EmailCheck',
         component : EmailCheck
     },
     {
-        path: 'accounts/emailSend',
+        path: '/accounts/emailSend',
         name : 'EmailSend',
         component : EmailSend
     },
     {
-        path: 'accounts/SignupComplete',
+        path: '/accounts/SignupComplete',
         name : 'SignupComplete',
         component : SignupComplete
-    },
-    {
-        path : '/feed/main',
-        name : 'FeedMain',
-        component : FeedMain
     },
     {
         path : '/errorPage',
