@@ -57,15 +57,15 @@ public class AccountController {
 	@GetMapping("/account/gooddoc")
 	@ApiOperation(value = "로그인")
 	public Object login(@RequestParam(required = true) final String email,
-			@RequestParam(required = true) final String password) {
-		Optional<User> userOpt = userDao.findUserByEmailAndPassword(email, password);
+			@RequestParam(required = true) final String password,
+			@RequestParam(required = true) final int accountType) {
+		Optional<User> userOpt = userDao.findUserByEmailAndPasswordAndAccountType(email, password, accountType);
 
 		ResponseEntity response = null;
 		if (userOpt.isPresent()) {
-			final BasicResponse result = new BasicResponse();
-			result.status = true;
-			result.data = "success";
-			response = new ResponseEntity<>(result, HttpStatus.OK);
+			User user = new User();
+			user = userOpt.get();
+			response = new ResponseEntity<>(user, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
@@ -148,23 +148,29 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
+	//구글로그인인지 + 이메일이 있는지 체크해서 있으면 로그인시켜주고 없으면 회원가입창으로!
 	@PostMapping("/account/google")
 	@Async
 	@ApiOperation(value = "구글로그인")
-	public ResponseEntity<BasicResponse> gLogin(@Valid @RequestBody Map<String, String> data) {
+	public Object gLogin(@Valid @RequestBody Map<String, String> data) {
 		final BasicResponse result = new BasicResponse();
+		String gEmail=data.get("gEmail");
+		String gNickname=data.get("gNickname");
 		User user = new User();
 		user.setAccountType(1);
-		user.setEmail(data.get("gEmail"));
-		user.setNickname(data.get("gNickname"));
+		user.setEmail(gEmail);
+		user.setNickname(gNickname);
+		user.setPassword("");
 		System.out.println(user);
 
-		result.status = true;
-		result.data = "success";
-		result.object = user;
-		
-		return new ResponseEntity<>(result, HttpStatus.OK);
-
+//		result.status = true;	
+//		result.data = "success";
+//		result.object = user;
+		if(userDao.getUserByEmailAndAccountType(gEmail, 1)!=null) {
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@GetMapping("/account/kakao")
