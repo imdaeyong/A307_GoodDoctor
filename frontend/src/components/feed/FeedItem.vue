@@ -1,26 +1,29 @@
 <template>
   <div class="feed-item">
-    <div class="top">
-      <div class="profile-image" :style="{'background-image': 'url('+defaultProfile+')'}"></div>
-      <div class="user-info">
-        <div class="user-name">
-          <button>SSAFY</button>
+    <div class="feed-wrap">
+      <div class="feed-top">
+        <img src= "../../assets/images/profile_default.png" alt="">
+        <div class="user-info">닉네임</div>
+        <div class="user-hospital">병원이름 <span>2020.07.13</span></div>
+      </div>
+      <div class="feed-card">
+        <img src= "../../assets/images/feed-sample.jpg" alt="">
+        <a href="">#새로나온차#미래내차</a><br>
+        이번에 현대 자동차에서 새롭게 선보이게 된 자동차인<br>
+        제네시스 G80이다.<br>
+        <span>더보기...</span>
+      </div>
+      <div class="feed-foot">
+        <div class="feed-btn-list">
+          <div class ="like"><button><b-icon-heart v-on:click="addLike()"></b-icon-heart></button></div>
+          <div class ="reply"><button><b-icon-chat-square v-on:click="openReply()"></b-icon-chat-square></button></div>
+          <div class ="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
         </div>
-        <p class="date">9시간 후</p>
-      </div>
-      <div class="content">
-        <p>이 글은 아주 좋습니다.</p>
-      </div>
-    </div>
-    <div class="feed-card">
-      <div class="img" :style="{'background-image': 'url('+defaultImage+')'}"></div>
-      <div class="contentsWrap">
-        <h4 class="title">사용자경험(UX)을 이해하는 팀원이 되기 위하여 - 사용자에게 '기본적인' UX를 선사하기 위해 우리 모두 알아야할 사실들</h4>
-        <div class="wrap">
-          <div class="url">
-            <a href="https://brunch.co.kr/@@63JW/25">https://brunch.co.kr/@@63JW/25</a>
-          </div>
-          <p class="date">2020.06.18</p>
+        <div class ="reply-list">
+          <img src= "../../assets/images/profile_default.png" alt="">
+          <div class="user-info">닉네임</div>
+          <input type="text" class="reply-content" placeholder="댓글달기...">
+          <button class="reply-submit">게시</button>
         </div>
       </div>
     </div>
@@ -33,6 +36,17 @@ import defaultProfile from "../../assets/images/profile_default.png";
 export default {
   data: () => {
     return { defaultImage, defaultProfile };
+  },
+  methods:{
+    addLike(){ //좋아요 버튼 클릭시 실행 함수
+      alert("하이");
+    },
+    openReply(){ //댓글 버튼 클릭시 실행 함수
+      this.$bvModal.show('bv-modal-feed');
+    },
+    addShare(){ //공유버튼 클릭시 실행 함수
+      alert("하이");
+    }
   }
 };
 </script>
