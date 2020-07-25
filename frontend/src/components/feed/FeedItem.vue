@@ -5,7 +5,6 @@
         <img src= "../../assets/images/profile_default.png" alt="">
         <div class="user-info">닉네임</div>
         <div class="user-hospital">병원이름 <span>2020.07.13</span></div>
-        <div v-if="this.$session.exists()">로그인됨</div>
       </div>
       <div class="feed-card">
         <img src= "../../assets/images/feed-sample.jpg" alt="">
@@ -16,9 +15,9 @@
       </div>
       <div class="feed-foot">
         <div class="feed-btn-list">
-          <div class ="like"><b-icon-heart></b-icon-heart></div>
-          <div class ="reply"><b-icon-chat-square></b-icon-chat-square></div>
-          <div class ="share"><b-icon-reply></b-icon-reply></div>
+          <div class ="like"><button><b-icon-heart v-on:click="addLike()"></b-icon-heart></button></div>
+          <div class ="reply"><button><b-icon-chat-square v-on:click="openReply()"></b-icon-chat-square></button></div>
+          <div class ="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
         </div>
         <div class ="reply-list">
           <img src= "../../assets/images/profile_default.png" alt="">
@@ -37,7 +36,17 @@ import defaultProfile from "../../assets/images/profile_default.png";
 export default {
   data: () => {
     return { defaultImage, defaultProfile };
+  },
+  methods:{
+    addLike(){ //좋아요 버튼 클릭시 실행 함수
+      alert("하이");
+    },
+    openReply(){ //댓글 버튼 클릭시 실행 함수
+      this.$bvModal.show('bv-modal-feed');
+    },
+    addShare(){ //공유버튼 클릭시 실행 함수
+      alert("하이");
+    }
   }
-
 };
 </script>
