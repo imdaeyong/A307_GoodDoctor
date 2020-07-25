@@ -9,6 +9,7 @@
     <div class="wrapC mt-5">
       <h1>가입하기</h1>
       <div class="form-wrap">
+
         <div class="input-label">
           <input 
             v-model="nickName" 
@@ -27,8 +28,26 @@
             placeholder="이메일을 입력하세요." 
             type="text" />
           <label for="email">이메일</label>
+          <label for="email" @click="emailAuthStart" class="right button">인증 하기</label>
           <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
+
+        <div v-if="emailAuthinput">
+          <div class="input-label">
+            <input 
+              type="text"
+              id ="inputAuth"
+              ref="inputAuth"
+              v-model="inputAuth"
+              placeholder="인증번호 입력"
+            />
+            <label for="inputAuth">인증번호</label>
+            <label for="inputAuth" @click="emailAuthCheck" class="right button">인증 확인</label>
+          </div>
+          <br>
+          <b>전송된 인증번호 : {{this.$store.state.authCode}}</b>
+        </div>
+
 
         <div class="input-label">
           <input 
@@ -45,6 +64,7 @@
           <input
             v-model="passwordConfirm"
             :type="passwordConfirmType"
+            v-bind:class="{error : error.passwordConfirm, complete:!error.passwordConfirm&&passwordConfirm.length!==0}"
             id="password-confirm"
             placeholder="비밀번호를 다시한번 입력하세요."
           />
@@ -81,15 +101,17 @@
 
 <script>
 const SERVER_URL="http://localhost:8080/"
-import * as EmailValidator from "email-validator";
-import PV from "password-validator";
-import UserApi from "../../api/UserApi";
+import * as EmailValidator from "email-validator"
+import PV from "password-validator"
+import UserApi from "../../api/UserApi"
 import axios from 'axios'
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
 import KakaoLogin from "../../components/accounts/snsLogin/Kakao.vue"
 import GoogleLogin from "../../components/accounts/snsLogin/Google.vue"
-
+//이메일 인증 관련 import
+import http from '@/util/http-common'
+import store from '@/vuex/store.js'
 
 export default {
   components: {
@@ -98,11 +120,13 @@ export default {
   },
   data: () => {
     return {
+      nickName: "",
       email: "",
       password: "",
       passwordConfirm: "",
       passwordSchema: new PV(),
-      nickName: "",
+      passwordType: "password",
+      passwordConfirmType: "password",
       isTerm: false,
       isLoading: false,
       error: {
@@ -113,9 +137,11 @@ export default {
         term: false
       },
       isSubmit: false,
-      passwordType: "password",
-      passwordConfirmType: "password",
-      termPopup: false
+      termPopup: false,
+      //인증 관련 변수
+      authCode:"",
+      inputAuth:"",
+      emailAuthinput: false,
     };
   },
   created() {
@@ -143,6 +169,26 @@ export default {
     }
   },
   methods: {
+    emailAuthCheck() {
+      console.log(this.$store.authCode);
+      if(this.$store.state.authCode!=this.inputAuth){
+        alert("인증번호를 다시 확인해주세요!");
+      }else{
+        alert("인증 되었습니다.")
+      }
+    },
+    emailAuthStart() {
+      this.emailAuthinput = true
+      console.log("이메일 인증 시작",this.emailAuthStart)
+      http
+        .post("/email", {email: this.email})
+        .then(({ data }) => {
+          this.$store.state.authCode=data.object
+        })
+        .catch(() => {
+          console.log("emailCheckError");
+        });
+    },
     emailCheckForm() {
       if (this.email.length >= 0 && !EmailValidator.validate(this.email))
         this.error.email = "이메일 형식이 아닙니다.";
@@ -153,7 +199,7 @@ export default {
         this.password.length >= 0 &&
         !this.passwordSchema.validate(this.password)
       )
-        this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다.";
+        this.error.password = "영문, 숫자 포함 8 자리이상이어야 합니다.";
       else this.error.password = false;
 
       let isSubmit = true;
@@ -172,16 +218,12 @@ export default {
       axios.post(`${SERVER_URL}account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
       .then(res=>{
         this.$router.push("/emailCheck");
-        //alert("회원가입 되었습니다. 로그인해주세요");
         alert("이메일 인증 페이지로 넘어갑니다.");
-        console.log(res)
       })
       .catch(err=>{
         if(err.response.data.data == "nickname_fail") alert("이미 존재하는 닉네임입니다.");
         else if(err.response.data.data == "email_fail") alert("이미 존재하는 이메일입니다.");
         this.$router.push("/errorPage");
-        console.log(err.data)
-        console.log(err.response.data.data);
       })
     }
   }
