@@ -49,7 +49,11 @@ button {
     padding: 0 20px;
     box-sizing: border-box;
 }
-
+.half {
+    margin-left: auto;
+    text-align: right;
+    width: 50%;
+}   
 
 .red {
     color: red;
@@ -174,7 +178,7 @@ button {
         // input-label박스 사이즈
         height: 45px;
         line-height: 1;
-        padding: 2px 105px 0 105px;
+        padding: 2px 60px 0 105px;
         box-sizing: border-box;
         // 평상시 박스 border
         border: 1px solid rgb(150, 150, 150);
@@ -216,6 +220,10 @@ button {
             background-color: transparent;
             outline: none;
             cursor: pointer;
+        }
+        &.authRight {
+            margin-left: 79%;
+            font-weight: 400;
         }
     }
 
