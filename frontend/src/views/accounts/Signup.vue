@@ -160,7 +160,7 @@ export default {
       this.emailCheckForm();
     },
     password: function(v) {
-      this.pwdCheckForm();
+      this.passwordCheckForm();
     },
     passwordConfirm: function() {
       this.passwordConfirmCheckForm()
@@ -192,7 +192,7 @@ export default {
         this.error.email = "이메일 형식이 아닙니다.";
       else this.error.email = false;
     },
-    pwdCheckForm() {
+    passwordCheckForm() {
       if (
         this.password.length >= 0 &&
         !this.passwordSchema.validate(this.password)
