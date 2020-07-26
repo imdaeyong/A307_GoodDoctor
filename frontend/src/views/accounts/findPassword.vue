@@ -3,24 +3,24 @@
     <div class="wrapC mt-5">
       <h1>비밀번호를 찾아요</h1>
 
-        <div class="input-label">
-          <input 
-            v-model="email" 
-            v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
-            id="email" 
-            placeholder="이메일을 입력하세요." 
-            type="text"/>
-          <label for="email">이메일</label>
-          <div class="error-text" v-if="error.email">{{error.email}}</div>
-        </div>
+      <div class="input-label">
+        <input 
+          v-model="email" 
+          v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
+          id="email" 
+          placeholder="이메일을 입력하세요." 
+          type="text"/>
+        <label for="email">이메일</label>
+        <div class="error-text" v-if="error.email">{{error.email}}</div>
+      </div>
 
-        <button 
-          class="btn-full-center mt-2"
-          :disabled="!isSubmit"
-          :class="{disabled : !isSubmit}"
-          @click="emailAuthStart"
-          >
-        비밀번호 보내기</button>
+      <button 
+        class="btn-full-center mt-2"
+        :disabled="!isSubmit"
+        :class="{disabled : !isSubmit}"
+        @click="sendPwdToEmail"
+        >
+      비밀번호 보내기</button>
     </div>   
   </div>
 </template>
@@ -51,17 +51,8 @@ export default {
     }
   },
   methods: {
-    emailAuthStart() {
-      this.emailAuthinput = true
-      console.log("이메일 인증 시작",this.emailAuthStart)
-      http
-        .post("/email", {email: this.email})
-        .then(({ data }) => {
-          this.$store.state.authCode=data.object
-        })
-        .catch(() => {
-          console.log("emailCheckError");
-        });
+    sendPwdToEmail() {
+      alert('입력하신 이메일로 비밀번호를 보냈습니다.')
     },
     emailCheckForm() {
       if (this.email.length >= 0 && !EmailValidator.validate(this.email))
