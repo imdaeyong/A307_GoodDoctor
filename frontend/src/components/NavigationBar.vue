@@ -163,7 +163,7 @@
                     <div class="member-dropdown-content" v-if="memberBtn">
                         <div>
                             <div><button class="member-dropdown-btn">회원정보</button></div>
-                            <div><button class="member-dropdown-btn">로그아웃</button></div>
+                            <div><button class="member-dropdown-btn" v-on:click="logout()">로그아웃</button></div>
                         </div> 
                     </div>
                 </div>
@@ -188,6 +188,9 @@
             },
             memberInfoBtn(){
                 this.memberBtn = !this.memberBtn;
+            },
+            logout(){
+                this.$store.state.userInfo = null;
             }
         },
         data: () => {
