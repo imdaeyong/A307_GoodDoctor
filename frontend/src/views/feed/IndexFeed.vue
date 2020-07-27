@@ -32,13 +32,6 @@ export default {
       this.$router.push("/changePassword");
     }
   },
-  created(){
-    if(this.$session == null) this.$bvModal.show('bv-modal-example');
-  },
-  mounted(){
-
-    
-  },
   data () {
     return {
       modal: false
