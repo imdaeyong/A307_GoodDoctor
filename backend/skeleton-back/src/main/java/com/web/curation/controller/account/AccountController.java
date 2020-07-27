@@ -65,7 +65,6 @@ public class AccountController {
 		if (userOpt.isPresent()) {
 			User user = new User();
 			user = userOpt.get();
-			System.out.println(user);
 			response = new ResponseEntity<>(user, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -174,52 +173,23 @@ public class AccountController {
 		}
 	}
 
-	@GetMapping("/account/kakao")
-	@ApiOperation(value = "카카오 로그인")
-	public Object kakaoLoginAndGetUserInfo(@RequestParam("access_token") final String access_token) {
-//		System.out.println(access_token);
-		
-		User user = new User();
-		String reqURL = "https://kapi.kakao.com/v2/user/me";
-		ResponseEntity response = null;
-		try {
-			URL url = new URL(reqURL);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("POST");
-
-			// 요청에 필요한 Header에 포함될 내용
-			conn.setRequestProperty("Authorization", "Bearer " + access_token);
-
-			int responseCode = conn.getResponseCode();
-//			System.out.println("responseCode : " + responseCode);
-
-			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-			String line = "";
-			String result = "";
-
-			while ((line = br.readLine()) != null) {
-				result += line;
-			}
-//	               System.out.println("response body : " + result);
-
-			JsonParser parser = new JsonParser();
-			JsonElement element = parser.parse(result);
-
-			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
-			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-			String email = kakao_account.getAsJsonObject().get("email").getAsString();
-			
-			user.setAccountType(2);
-			user.setEmail(email);
-			user.setNickname(nickname);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-//	      System.out.println(user.toString());
-		return new ResponseEntity<User>(user, HttpStatus.OK);
-	}
+	   @PostMapping("/account/kakao")
+	   @Async
+	   @ApiOperation(value = "카카오 로그인")
+	   public Object kLogin(@Valid @RequestBody Map<String, String> data) {
+	      
+	      String email = data.get("email");
+	      String nickname = data.get("nickname");
+	      User user = new User();
+	      user.setEmail(email);
+	      user.setNickname(nickname);
+	      user.setAccountType(2);
+	      user.setPassword("");
+	      
+	      if(userDao.getUserByEmailAndAccountType(email, 2) != null) {
+	         return new ResponseEntity<User>(user, HttpStatus.OK);
+	      } else {
+	         return new ResponseEntity<>(null, HttpStatus.OK);
+	      }
+	   }
 }
