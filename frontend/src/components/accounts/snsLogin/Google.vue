@@ -94,13 +94,15 @@ export default {
 
           axios.post(`http://localhost:8080/account/google`, {
               gNickname: gNickname,
-              gEmail: gEmail,
+              gEmail: gEmail
             })
-            .then(res => {
+            .then(data => {
+              
+              console.log(data)
             })
             .catch(err => {
-              this.$router.push("/errorPage");
-              console.log(err.data);
+              alert("로그인정보가 없습니다 회원가입 해주세요!")
+              console.log(err);
             });
         })
         .catch(error => {

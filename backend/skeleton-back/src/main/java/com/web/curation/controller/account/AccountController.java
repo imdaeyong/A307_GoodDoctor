@@ -58,14 +58,14 @@ public class AccountController {
 	@ApiOperation(value = "로그인")
 	public Object login(@RequestParam(required = true) final String email,
 			@RequestParam(required = true) final String password) {
+		
 		Optional<User> userOpt = userDao.findUserByEmailAndPassword(email, password);
 		
 		ResponseEntity response = null;
 		if (userOpt.isPresent()) {
-			final BasicResponse result = new BasicResponse();
-			result.status = true;
-			result.data = "success";
-			response = new ResponseEntity<>(result, HttpStatus.OK);
+			User user = new User();
+			user = userOpt.get();
+			response = new ResponseEntity<>(user, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
@@ -148,71 +148,48 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
+	//구글로그인인지 + 이메일이 있는지 체크해서 있으면 로그인시켜주고 없으면 회원가입창으로!
 	@PostMapping("/account/google")
 	@Async
 	@ApiOperation(value = "구글로그인")
-	public ResponseEntity<BasicResponse> gLogin(@Valid @RequestBody Map<String, String> data) {
+	public Object gLogin(@Valid @RequestBody Map<String, String> data) {
 		final BasicResponse result = new BasicResponse();
+		String gEmail=data.get("gEmail");
+		String gNickname=data.get("gNickname");
 		User user = new User();
 		user.setAccountType(1);
-		user.setEmail(data.get("gEmail"));
-		user.setNickname(data.get("gNickname"));
+		user.setEmail(gEmail);
+		user.setNickname(gNickname);
+		user.setPassword("");
 		System.out.println(user);
 
-		result.status = true;
-		result.data = "success";
-		result.object = user;
-		
-		return new ResponseEntity<>(result, HttpStatus.OK);
-
-	}
-
-	@GetMapping("/account/kakao")
-	@ApiOperation(value = "카카오 로그인")
-	public Object kakaoLoginAndGetUserInfo(@RequestParam("access_token") final String access_token) {
-//		System.out.println(access_token);
-		
-		User user = new User();
-		String reqURL = "https://kapi.kakao.com/v2/user/me";
-		ResponseEntity response = null;
-		try {
-			URL url = new URL(reqURL);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("POST");
-
-			// 요청에 필요한 Header에 포함될 내용
-			conn.setRequestProperty("Authorization", "Bearer " + access_token);
-
-			int responseCode = conn.getResponseCode();
-//			System.out.println("responseCode : " + responseCode);
-
-			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-			String line = "";
-			String result = "";
-
-			while ((line = br.readLine()) != null) {
-				result += line;
-			}
-//	               System.out.println("response body : " + result);
-
-			JsonParser parser = new JsonParser();
-			JsonElement element = parser.parse(result);
-
-			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
-			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-			String email = kakao_account.getAsJsonObject().get("email").getAsString();
-			
-			user.setAccountType(2);
-			user.setEmail(email);
-			user.setNickname(nickname);
-		} catch (IOException e) {
-			e.printStackTrace();
+//		result.status = true;	
+//		result.data = "success";
+//		result.object = user;
+		if(userDao.getUserByEmailAndAccountType(gEmail, 1)!=null) {
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
-
-//	      System.out.println(user.toString());
-		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
+
+	   @PostMapping("/account/kakao")
+	   @Async
+	   @ApiOperation(value = "카카오 로그인")
+	   public Object kLogin(@Valid @RequestBody Map<String, String> data) {
+	      
+	      String email = data.get("email");
+	      String nickname = data.get("nickname");
+	      User user = new User();
+	      user.setEmail(email);
+	      user.setNickname(nickname);
+	      user.setAccountType(2);
+	      user.setPassword("");
+	      
+	      if(userDao.getUserByEmailAndAccountType(email, 2) != null) {
+	         return new ResponseEntity<User>(user, HttpStatus.OK);
+	      } else {
+	         return new ResponseEntity<>(null, HttpStatus.OK);
+	      }
+	   }
 }

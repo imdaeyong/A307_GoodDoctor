@@ -146,7 +146,7 @@ export default {
         .then(res=>{
             this.$session.start();
             this.$session.set('user', data);
-            if(this.$session.exists()) alert("오 로그인있음");
+
             this.$router.push("/feed/main");
             this.$bvModal.hide('bv-modal-example');
             alert("로그인 성공");
