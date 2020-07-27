@@ -57,14 +57,15 @@ public class AccountController {
 	@GetMapping("/account/gooddoc")
 	@ApiOperation(value = "로그인")
 	public Object login(@RequestParam(required = true) final String email,
-			@RequestParam(required = true) final String password,
-			@RequestParam(required = true) final int accountType) {
-		Optional<User> userOpt = userDao.findUserByEmailAndPasswordAndAccountType(email, password, accountType);
+			@RequestParam(required = true) final String password) {
+		
+		Optional<User> userOpt = userDao.findUserByEmailAndPassword(email, password);
 
 		ResponseEntity response = null;
 		if (userOpt.isPresent()) {
 			User user = new User();
 			user = userOpt.get();
+			System.out.println(user);
 			response = new ResponseEntity<>(user, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

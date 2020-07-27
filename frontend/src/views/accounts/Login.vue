@@ -146,6 +146,8 @@ export default {
         .then(res=>{
             this.$session.start();
             this.$session.set('user', data);
+            this.$store.commit('addUserInfo')
+            console.log(res);
             this.$router.push("/feed/main");
             this.$bvModal.hide('bv-modal-example');
             alert("로그인 성공");
