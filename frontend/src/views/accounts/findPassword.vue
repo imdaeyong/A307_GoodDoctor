@@ -52,9 +52,10 @@ export default {
   },
   methods: {
     sendPwdToEmail() {
-      axios.post(`${SERVER_URL}/pwd`, {email: this.email})
+      axios.post(`${SERVER_URL}pwd`, {email: this.email})
         .then(res => {
           alert('입력하신 이메일로 비밀번호를 보냈습니다.')
+          this.$router.push("/feed/main");
         })
         .catch(err => {
           console.error(err) // 오류 내역 확인
