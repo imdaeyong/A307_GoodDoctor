@@ -1,35 +1,37 @@
 <template>
   <div class="user" id="join">
-    <div class="wrapC">
+    <div class="wrapC mt-5">
       <h1>비밀번호 변경</h1>
-      <div class="input-with-label">
+      <div class="input-label">
         <input v-model="oldPassword"
           :type="oldPasswordType"
           id="oldPassword" placeholder="사용하던 비밀번호를 입력해주세요."/>
         <label for="oldPassword">기존 비밀번호</label>
       </div>
 
-      <div class="input-with-label" >
+      <div class="input-label" >
         <input v-model="newPassword"
           :type="newPasswordType"
+          :class="{error : error.newPassword, complete:!error.newPassword&&newPassword.length!==0}"
           id="newPassword" placeholder="변경할 비밀번호를 입력하세요."/>
         <label for="newPassword">변경 비밀번호</label>
         <div class="error-text" v-if="error.newPassword">{{error.newPassword}}</div>
       </div>
 
-      <div class="input-with-label" >
+      <div class="input-label" >
         <input v-model="newPasswordConfirm"
           :type="newPasswordConfirmType"
+          :class="{error : error.newPasswordConfirm, complete:!error.newPasswordConfirm&&newPasswordConfirm.length!==0}"
           id="newPasswordConfirm" placeholder="변경할 비밀번호를 다시 한 번 입력하세요."/>
         <label for="newPasswordConfirm">비밀번호 확인</label>
         <div class="error-text" v-if="error.newPasswordConfirm">{{error.newPasswordConfirm}}</div>
       </div>
 
       <button
-        class="btn btn--back btn--login"
-        @click="onChange"
+        class="btn-full-center mt-2"
         :disabled="!isSubmit"
         :class="{disabled : !isSubmit}"
+        @click="passwordChange"
       >저장</button>
 
     </div>   
@@ -37,10 +39,14 @@
 </template>
 
 <script>
-import PV from "password-validator";
-import UserApi from "../../api/UserApi";
-import axios from 'axios';
-const SERVER_URL="http://localhost:8080/";
+import '../../assets/css/style.scss'
+import '../../assets/css/user.scss'
+import PV from "password-validator"
+import UserApi from "../../api/UserApi"
+import axios from 'axios'
+
+const SERVER_URL="http://localhost:8080/"
+
 export default {
   name: "ChangePassword",
   data: () => {
@@ -80,44 +86,37 @@ export default {
       .letters();
   },
   watch: {
-    oldPassword: function(v) {
-      this.checkForm();
-    },
     newPassword: function(v) {
-      this.checkForm();
+      this.newPasswordCheckForm();
     },
     newPasswordConfirm: function(v) {
-      this.checkForm();
+      this.newPasswordConfirmCheckForm();
     }
   },
   methods : {
-    checkForm() {
+    newPasswordCheckForm() {
       if (
         this.newPassword.length >= 0 &&
         !this.passwordSchema.validate(this.newPassword)
       )
-        this.error.newPassword = "영문,숫자 포함 8 자리이상이어야 합니다.";
+        this.error.newPassword = "영문, 숫자 포함 8 자리이상이어야 합니다.";
       else this.error.newPassword = false;
-
-      if (
-        this.newPasswordConfirm != this.newPassword
-      )
-        this.error.newPasswordConfirm = "새로운 비밀번호와 다릅니다.";
-      else this.error.newPasswordConfirm = false;
-
-      let isSubmit = true;
-      Object.values(this.error).map(v => {
-        if (v) isSubmit = false;
-      });
-      this.isSubmit = isSubmit;
     },
-    onChange(){
-      const userInfo = this.$session.get('user');
+    newPasswordConfirmCheckForm() {
+      if (this.newPassword !== this.newPasswordConfirm) {
+        this.error.newPasswordConfirm = "비밀번호가 일치하지 않습니다."
+      }
+      else this.error.newPasswordConfirm = false;
+    
       let isSubmit = true;
-      Object.values(this.error).map(v => {
-        if (v) isSubmit = false;
-      });
-      this.isSubmit = isSubmit;
+        Object.values(this.error).map(v => {
+          if (v) isSubmit = false;
+        });
+        this.isSubmit = isSubmit;    
+    },
+    passwordChange(){
+      const userInfo = this.$session.get('user');
+      
       if (this.isSubmit) {
         let { email, oldPassword, newPassword } = this;
         let data = {

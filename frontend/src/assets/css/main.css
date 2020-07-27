@@ -6,8 +6,9 @@
 }
   
 /**/
-.header-list, .header-dropdown-list{
+.header-list, .header-dropdown-list, .dropdown-list{
     float: left;
+    margin-top: 0.3em;
 }
 .btn-home{
     color: white;
@@ -75,9 +76,10 @@
 }
 .btn-hospital-list:hover .dropdown-content {display: block;}
 .btn-area-list:hover .dropdown-content {display: block;}
+.btn-member-list:hover .member-dropdown-content {display: block;}
 .dropdown-sub-hospital:hover{border: 0.1em solid #17a2b8;}
 .dropdown-sub-area:hover{border: 0.1em solid #17a2b8;}
-
+.member-dropdown-btn:hover{border: 0.1em solid #17a2b8;}
 .dropdown-sub-hospital{
     border : 1px solid #ECE8E8;
     background-color: white;
@@ -124,7 +126,8 @@
     margin-left: 2.2em;
     padding : 0.8em;
 	position: absolute;
-	z-index: 1;
+    z-index: 1;
+    display: none;
 }
 .member-dropdown-btn{
     border : 1px solid #ECE8E8;

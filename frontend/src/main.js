@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import VueRouter from 'vue-router';
-import routes from './routes'
+import router from './router'
 import store from './vuex/store'
 // bootstrap 등록
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
@@ -17,14 +16,10 @@ Vue.use(BootstrapVueIcons)
 Vue.use(GAuth, {clientId: '368553140660-aod20dbfaf14omsnvvpbcr8mugkao6uf.apps.googleusercontent.com', scope: 'profile email https://www.googleapis.com/auth/plus.login'})
 
 
+window.Kakao.init("a0edf003b12f290d0a04dd23ec8b921b");
 Vue.config.productionTip = false
 
 
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-    routes,
-});
 var sessionOptions = {
     persist: true
 };
