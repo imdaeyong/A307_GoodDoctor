@@ -33,7 +33,8 @@ export default {
     }
   },
   created(){
-    if(this.$session == null) this.$bvModal.show('bv-modal-example');
+    if(!this.$session.exists()) this.$bvModal.show('bv-modal-example');
+    console.log(this.$session.exists());
   },
   mounted(){
 
