@@ -28,21 +28,20 @@
             placeholder="이메일을 입력하세요." 
             type="text" />
           <label for="email">이메일</label>
-          <label for="email" @click="emailAuthStart" class="right button">인증 하기</label>
+          <label for="email" @click="emailAuthStart" class="right">인증 하기</label>
           <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
 
-        <div v-if="emailAuthinput">
+        <div class="half" v-if="emailAuthinput">
           <div class="input-label">
             <input 
               type="text"
               id ="inputAuth"
               ref="inputAuth"
               v-model="inputAuth"
-              placeholder="인증번호 입력"
             />
             <label for="inputAuth">인증번호</label>
-            <label for="inputAuth" @click="emailAuthCheck" class="right button">인증 확인</label>
+            <label for="inputAuth" @click="emailAuthCheck" class="authRight">확인</label>
           </div>
           <br>
           <b>전송된 인증번호 : {{this.$store.state.authCode}}</b>
@@ -73,12 +72,11 @@
         </div>
       </div>
 
-      <label>
+      <!-- <label>
         <input v-model="isTerm" type="checkbox" id="term" />
         <span>약관을 동의합니다.</span>
       </label>
-
-      <span @click="termPopup=true">약관보기</span>
+      <span @click="termPopup=true">약관보기</span> -->
 
       <button class="btn-full-center mt-4"
       :disabled="!isSubmit"
@@ -130,11 +128,11 @@ export default {
       isTerm: false,
       isLoading: false,
       error: {
+        nickName: false,
         email: false,
         password: false,
-        nickName: false,
         passwordConfirm: false,
-        term: false
+        authEmail: false,
       },
       isSubmit: false,
       termPopup: false,
@@ -162,7 +160,7 @@ export default {
       this.emailCheckForm();
     },
     password: function(v) {
-      this.pwdCheckForm();
+      this.passwordCheckForm();
     },
     passwordConfirm: function() {
       this.passwordConfirmCheckForm()
@@ -194,26 +192,28 @@ export default {
         this.error.email = "이메일 형식이 아닙니다.";
       else this.error.email = false;
     },
-    pwdCheckForm() {
+    passwordCheckForm() {
       if (
         this.password.length >= 0 &&
         !this.passwordSchema.validate(this.password)
       )
         this.error.password = "영문, 숫자 포함 8 자리이상이어야 합니다.";
       else this.error.password = false;
-
-      let isSubmit = true;
-        Object.values(this.error).map(v => {
-          if (v) isSubmit = false;
-        });
-        this.isSubmit = isSubmit;
     },
     passwordConfirmCheckForm() {
       if (this.password !== this.passwordConfirm) {
         this.error.passwordConfirm = "비밀번호가 일치하지 않습니다."
       }
       else this.error.passwordConfirm = false;
+    
+      let isSubmit = true;
+        Object.values(this.error).map(v => {
+          if (v) isSubmit = false;
+        });
+        this.isSubmit = isSubmit;    
     },
+
+
     onjoin(){
       axios.post(`${SERVER_URL}account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
       .then(res=>{
