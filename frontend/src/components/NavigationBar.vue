@@ -159,8 +159,8 @@
                     <button class="btn-write-review" style="outline:0;">리뷰쓰기</button>
                 </div>
                 <div class="btn-member-list">
-                    <button class="btn-member" style="outline:0;" v-on:click="memberInfoBtn()"><b-icon-person-circle></b-icon-person-circle> 닉네임</button>
-                    <div class="member-dropdown-content" v-if="memberBtn">
+                    <button class="btn-member" style="outline:0;"><b-icon-person-circle></b-icon-person-circle> 닉네임</button>
+                    <div class="member-dropdown-content">
                         <div>
                             <div><button class="member-dropdown-btn">회원정보</button></div>
                             <div><button class="member-dropdown-btn" v-on:click="logout()">로그아웃</button></div>
@@ -186,11 +186,13 @@
                 city = !city;
                 //this.area.seoul = !this.area.seoul;
             },
-            memberInfoBtn(){
-                this.memberBtn = !this.memberBtn;
-            },
             logout(){
-                this.$store.state.userInfo = null;
+                console.log(Object.values(this.$session));
+                this.$session.destroy();
+
+                console.log(Object.values(this.$session));
+                alert("로그아웃");
+                this.$bvModal.show('bv-modal-example');
             }
         },
         data: () => {
@@ -205,8 +207,7 @@
                 {display : false, name : "ulsan"},
                 {display : false, name : "daejeon"},
                 {display : false, name : "sejong"}    
-            ],
-            memberBtn : false
+            ]
             };
         }
     }
