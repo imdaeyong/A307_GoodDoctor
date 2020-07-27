@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import getters from './getters'
 import actions from './actions'
 import mutations from './mutations'
-import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex)
 
@@ -17,7 +16,7 @@ export default new Vuex.Store({
         authCode: "",
     },
     mutations: {
-        mutateUserInfo(state, userInfo) {
+        addUserInfo(state, userInfo) {
             state.userInfo = userInfo
         },
     },
@@ -29,11 +28,5 @@ export default new Vuex.Store({
             return state.userInfo;
         },
     },
-    plugins: [
-        //주목! : 여기에 쓴 모듈만 저장됩니다.
-        createPersistedState({
-          paths: ['userInfo'],
-        })
-    ],
     actions
 })
