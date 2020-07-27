@@ -187,10 +187,10 @@
                 //this.area.seoul = !this.area.seoul;
             },
             logout(){
-                console.log(Object.values(this.$session));
+                console.log(this.$session.exists());
                 this.$session.destroy();
 
-                console.log(Object.values(this.$session));
+                console.log(this.$session.exists());
                 alert("로그아웃");
                 this.$bvModal.show('bv-modal-example');
             }
