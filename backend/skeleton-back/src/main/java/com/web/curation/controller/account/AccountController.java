@@ -60,7 +60,7 @@ public class AccountController {
 			@RequestParam(required = true) final String password) {
 		
 		Optional<User> userOpt = userDao.findUserByEmailAndPassword(email, password);
-
+		
 		ResponseEntity response = null;
 		if (userOpt.isPresent()) {
 			User user = new User();
