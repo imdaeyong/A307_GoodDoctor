@@ -115,18 +115,17 @@ export default {
         this.isSubmit = isSubmit;    
     },
     passwordChange(){
-      const userInfo = this.$session.get('user');
+      const userInfo = this.$store.state.userInfo.data;
       
       if (this.isSubmit) {
         let { email, oldPassword, newPassword } = this;
         let data = {
-          email : this.$session.get('user').email,
+          email : this.$store.state.userInfo.data.email,
           oldPassword,
           newPassword
         };
         //요청 후에는 버튼 비활성화
         this.isSubmit = false;
-        console.log(oldPassword + " " + this.$session.get('user').email + " " + email + " " + newPassword);
         axios.put(`${SERVER_URL}pwd`,data)
           .then(res=>{
             //요청이 끝나면 버튼 활성화
