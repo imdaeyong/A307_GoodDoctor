@@ -37,6 +37,8 @@ Vue.use(VueRouter)
         name : 'ChangePassword',
         component : ChangePassword
     },
+
+
     {
         path : '/errorPage',
         name : 'ErrorPage',

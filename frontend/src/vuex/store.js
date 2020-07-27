@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import getters from './getters'
 import actions from './actions'
 import mutations from './mutations'
+import axios from 'axios'
+import router from "../router"
 import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex)
@@ -10,14 +12,22 @@ Vue.use(Vuex)
 const state = {
     isUser: false,
 }
-
+const SERVER_URL="http://localhost:8080/"
 export default new Vuex.Store({
     state: {
         userInfo: {},
+        isLogin: false,
         authCode: "",
     },
     mutations: {
-        mutateUserInfo(state, userInfo) {
+        addUserInfo(state, userInfo) {
+            state.userInfo = userInfo
+        },
+        // login
+        mutateIsLogin(state, isLogin){
+            state.isLogin = isLogin
+        },
+        mutateUserInfo(state, userInfo){
             state.userInfo = userInfo
         },
     },
@@ -29,11 +39,28 @@ export default new Vuex.Store({
             return state.userInfo;
         },
     },
+    actions:{
+        login(context, {email, password}) {
+             axios.get(`${SERVER_URL}account/gooddoc?email=${email}&password=${password}`)
+            .then(res=>{
+                context.commit('mutateIsLogin', true)
+                context.commit('mutateUserInfo', res)
+                
+                router.go(0);
+                alert("로그인 성공");
+            })
+            .catch(err=>{
+                alert("아이디 또는 비밀번호 실패입니다.");
+                router.push("/errorPage");
+            })
+
+        },
+        logout(context) {
+            context.commit('mutateIsLogin', false)
+            context.commit('mutateUserInfo', {})
+        }
+    },
     plugins: [
-        //주목! : 여기에 쓴 모듈만 저장됩니다.
-        createPersistedState({
-          paths: ['userInfo'],
-        })
-    ],
-    actions
+        createPersistedState()
+    ]
 })

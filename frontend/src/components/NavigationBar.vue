@@ -159,7 +159,10 @@
                     <button class="btn-write-review" style="outline:0;">리뷰쓰기</button>
                 </div>
                 <div class="btn-member-list">
-                    <button class="btn-member" style="outline:0;"><b-icon-person-circle></b-icon-person-circle> 닉네임</button>
+                    <button class="btn-member" style="outline:0;"><b-icon-person-circle></b-icon-person-circle>
+                    <span v-if="this.$store.state.isLogin"> {{this.$store.state.userInfo.data.nickname}}</span> 
+                    <span v-else> 닉네임</span>
+                    </button>
                     <div class="member-dropdown-content">
                         <div>
                             <div><button class="member-dropdown-btn">회원정보</button></div>
@@ -173,25 +176,19 @@
 </template>
 
 <script>
+    import store from '@/vuex/store.js'
     export default {
         methods:{
             toggle(city){
-                console.log(city);
-                console.log(this.area.length);
                 for(var i = 0; i < this.area.length; i++){
                     if(city == this.area[i].name) this.area[i].display = !this.area[i].display;
                     else this.area[i].display = false;
                 }
-                this.area.seoul = !this.area.seoul;
                 city = !city;
-                //this.area.seoul = !this.area.seoul;
             },
             logout(){
-                console.log(this.$session.exists());
+                store.dispatch('logout');
                 this.$session.destroy();
-
-                console.log(this.$session.exists());
-                alert("로그아웃");
                 this.$bvModal.show('bv-modal-example');
             }
         },

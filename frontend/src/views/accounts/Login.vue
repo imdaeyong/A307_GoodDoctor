@@ -74,6 +74,7 @@ import PV from "password-validator";
 import * as EmailValidator from "email-validator";
 import KakaoLogin from "../../components/accounts/snsLogin/Kakao.vue";
 import GoogleLogin from "../../components/accounts/snsLogin/Google.vue";
+import store from '@/vuex/store.js'
 
 export default {
   components: {
@@ -140,20 +141,8 @@ export default {
         email,
         password
       };
-      axios.get(`${SERVER_URL}account/gooddoc?email=${this.email}&password=${this.password}`)
-        .then(res=>{
-            this.$session.start();
-            this.$session.set('user', data);
-            if(this.$session.exists()) alert("오 로그인있음");
-            this.$router.push("/feed/main");
-            this.$bvModal.hide('bv-modal-example');
-            alert("로그인 성공");
-          }
-        )
-        .catch(err=>{
-            alert("아이디 또는 비밀번호 실패입니다.");
-            this.$router.push("/errorPage");
-        })
+      store.dispatch('login', {email: this.email, password: this.password});
+      if(this.$store.state.isLogin) this.$bvModal.hide('bv-modal-example');
     },
   },
 }
