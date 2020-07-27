@@ -95,8 +95,6 @@ export default {
     };
   },
   created() {
-
-
     this.component = this;
 
     this.passwordSchema

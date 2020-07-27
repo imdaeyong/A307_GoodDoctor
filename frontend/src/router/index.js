@@ -18,11 +18,6 @@ Vue.use(VueRouter)
         component : FeedMain
     },
     {
-        path : '/',
-        name : 'FeedMain',
-        component : FeedMain
-    },
-    {
         path : '/feed/main',
         name : 'FeedMain',
         component : FeedMain

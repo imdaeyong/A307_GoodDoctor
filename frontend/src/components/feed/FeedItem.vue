@@ -15,9 +15,9 @@
       </div>
       <div class="feed-foot">
         <div class="feed-btn-list">
-          <div class ="like"><button><b-icon-heart v-on:click="addLike()"></b-icon-heart></button></div>
-          <div class ="reply"><button><b-icon-chat-square v-on:click="openReply()"></b-icon-chat-square></button></div>
-          <div class ="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
+          <div class="like "><button><b-icon-heart v-on:click="addLike()"></b-icon-heart></button></div>
+          <div class="reply"><button><b-icon-chat-square v-on:click="openReply()"></b-icon-chat-square></button></div>
+          <div class="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
         </div>
         <div class ="reply-list">
           <img src= "../../assets/images/profile_default.png" alt="">
