@@ -3,20 +3,31 @@ import Vuex from 'vuex'
 import getters from './getters'
 import actions from './actions'
 import mutations from './mutations'
+import axios from 'axios'
+import router from "../router"
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex)
 
 const state = {
     isUser: false,
 }
-
+const SERVER_URL="http://localhost:8080/"
 export default new Vuex.Store({
     state: {
         userInfo: {},
+        isLogin: false,
         authCode: "",
     },
     mutations: {
         addUserInfo(state, userInfo) {
+            state.userInfo = userInfo
+        },
+        // login
+        mutateIsLogin(state, isLogin){
+            state.isLogin = isLogin
+        },
+        mutateUserInfo(state, userInfo){
             state.userInfo = userInfo
         },
     },
@@ -28,5 +39,28 @@ export default new Vuex.Store({
             return state.userInfo;
         },
     },
-    actions
+    actions:{
+        login(context, {email, password}) {
+             axios.get(`${SERVER_URL}account/gooddoc?email=${email}&password=${password}`)
+            .then(res=>{
+                context.commit('mutateIsLogin', true)
+                context.commit('mutateUserInfo', res)
+                
+                router.go(0);
+                alert("로그인 성공");
+            })
+            .catch(err=>{
+                alert("아이디 또는 비밀번호 실패입니다.");
+                router.push("/errorPage");
+            })
+
+        },
+        logout(context) {
+            context.commit('mutateIsLogin', false)
+            context.commit('mutateUserInfo', {})
+        }
+    },
+    plugins: [
+        createPersistedState()
+    ]
 })

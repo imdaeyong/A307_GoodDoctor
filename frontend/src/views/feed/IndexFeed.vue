@@ -22,6 +22,7 @@ import User from "../accounts/Login.vue";
 import "../../assets/css/main.css";
 import "../../assets/css/feed.scss";
 import "../../assets/css/feedModal.scss";
+import store from '@/vuex/store.js'
 export default {
   props: ["keyword"],
 
@@ -29,21 +30,11 @@ export default {
   },
   methods: {
     onChangePWD(){
-      this.$router.push("/changePassword");
+      this.$router.push("accounts/changePassword");
     }
-  },
-  created(){
-    if(!this.$session.exists()) this.$bvModal.show('bv-modal-example');
-    console.log(this.$session.exists());
   },
   mounted(){
-
-    
-  },
-  data () {
-    return {
-      modal: false
-    }
+    if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
   }
 };
 </script>

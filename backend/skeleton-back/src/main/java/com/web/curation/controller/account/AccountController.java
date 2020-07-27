@@ -60,9 +60,12 @@ public class AccountController {
 			@RequestParam(required = true) final String password) {
 		
 		Optional<User> userOpt = userDao.findUserByEmailAndPassword(email, password);
-		
+		System.out.println(email + " " + password + " 아아아아아");
+		System.out.println(userOpt.toString());
 		ResponseEntity response = null;
+		System.out.println(userOpt.isPresent());
 		if (userOpt.isPresent()) {
+			System.out.println("여기왔다.");
 			User user = new User();
 			user = userOpt.get();
 			response = new ResponseEntity<>(user, HttpStatus.OK);
