@@ -44,7 +44,7 @@ import '../../assets/css/user.scss'
 import PV from "password-validator"
 import UserApi from "../../api/UserApi"
 import axios from 'axios'
-
+import store from '@/vuex/store.js'
 const SERVER_URL="http://localhost:8080/"
 
 export default {
@@ -115,34 +115,19 @@ export default {
         this.isSubmit = isSubmit;    
     },
     passwordChange(){
-      const userInfo = this.$session.get('user');
+      const userInfo = store.state.userInfo.data;
       
       if (this.isSubmit) {
         let { email, oldPassword, newPassword } = this;
         let data = {
-          email : this.$session.get('user').email,
+          email : store.state.userInfo.data.email,
           oldPassword,
           newPassword
         };
         //요청 후에는 버튼 비활성화
         this.isSubmit = false;
-        console.log(oldPassword + " " + this.$session.get('user').email + " " + email + " " + newPassword);
-        axios.put(`${SERVER_URL}pwd`,data)
-          .then(res=>{
-            //요청이 끝나면 버튼 활성화
-            userInfo.password = data.newPassword
-            this.$session.set('user',userInfo);
-            this.isSubmit = true;
-            alert("비밀번호 변경 완료! 변경된 비밀번호로 로그인해주세요.");
-            this.$router.push("/");
-                        
-          })
-          .catch(err=>{
-            alert("기존 비밀번호가 틀렸습니다.");
-            console.log(err);
-            this.isSubmit = true;
-            this.$router.push("/errorPage");
-          })
+        //
+        store.dispatch('changePassword', data);
       }
     }
   }

@@ -8,7 +8,7 @@
           v-model="email" 
           v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
           id="email" 
-          placeholder="이메일을 입력하세요." 
+          placeholder="가입시 사용한 이메일을 입력하세요." 
           type="text"/>
         <label for="email">이메일</label>
         <div class="error-text" v-if="error.email">{{error.email}}</div>
@@ -52,7 +52,15 @@ export default {
   },
   methods: {
     sendPwdToEmail() {
-      alert('입력하신 이메일로 비밀번호를 보냈습니다.')
+      axios.post(`${SERVER_URL}pwd`, {email: this.email})
+        .then(res => {
+          alert('입력하신 이메일로 비밀번호를 보냈습니다.')
+          this.$router.push("/feed/main");
+        })
+        .catch(err => {
+          console.error(err) // 오류 내역 확인
+          alert('이메일 확인 부탁드립니다.')
+        })
     },
     emailCheckForm() {
       if (this.email.length >= 0 && !EmailValidator.validate(this.email))

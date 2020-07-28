@@ -60,9 +60,12 @@ public class AccountController {
 			@RequestParam(required = true) final String password) {
 		
 		Optional<User> userOpt = userDao.findUserByEmailAndPassword(email, password);
-		
+		System.out.println(email + " " + password + " 아아아아아");
+		System.out.println(userOpt.toString());
 		ResponseEntity response = null;
+		System.out.println(userOpt.isPresent());
 		if (userOpt.isPresent()) {
+			System.out.println("여기왔다.");
 			User user = new User();
 			user = userOpt.get();
 			response = new ResponseEntity<>(user, HttpStatus.OK);
@@ -192,4 +195,27 @@ public class AccountController {
 	         return new ResponseEntity<>(null, HttpStatus.OK);
 	      }
 	   }
+
+		// 이메일 인증
+		@PostMapping(value = "/pwd")
+		@Async
+		@ApiOperation(value = "비밀번호 찾기")
+		public ResponseEntity<BasicResponse> sendMailToFindPwd(@Valid @RequestBody Map<String, String> data) {
+			SimpleMailMessage simpleMessage = new SimpleMailMessage();
+
+			User user = userDao.findUserByEmail(data.get("email"));
+			simpleMessage.setTo(data.get("email"));
+			simpleMessage.setSubject("비밀번호 찾기 결과입니다.");
+			simpleMessage.setText("비밀번호: " +user.getPassword());
+			javaMailSender.send(simpleMessage);
+
+			// 추가로 뷰에 autoCode저장 + 확인필요
+			final BasicResponse result = new BasicResponse();
+			result.status = true;
+			result.data = "success";
+			result.object = user.getPassword();
+
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
+
 }
