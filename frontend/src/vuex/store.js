@@ -23,7 +23,6 @@ export default new Vuex.Store({
         addUserInfo(state, userInfo) {
             state.userInfo = userInfo
         },
-        // login
         mutateIsLogin(state, isLogin){
             state.isLogin = isLogin
         },
@@ -58,7 +57,23 @@ export default new Vuex.Store({
         logout(context) {
             context.commit('mutateIsLogin', false)
             context.commit('mutateUserInfo', {})
+        },
+        changePassword(context, data){
+            axios.put(`${SERVER_URL}pwd`,data)
+          .then(res=>{
+            //요청이 끝나면 버튼 활성화
+            context.commit('mutateIsLogin', false)
+            context.commit('mutateUserInfo', {})
+            alert("비밀번호 변경 완료! 변경된 비밀번호로 로그인해주세요.");
+            router.push("/");         
+          })
+          .catch(err=>{
+            alert("기존 비밀번호가 틀렸습니다.");
+            console.log(err);
+            router.push("/errorPage");
+          })
         }
+
     },
     plugins: [
         createPersistedState()
