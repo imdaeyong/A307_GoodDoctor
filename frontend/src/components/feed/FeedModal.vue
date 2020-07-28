@@ -1,6 +1,6 @@
 <template>
     <div class="feed-modal">
-        <div class="feed-wrap-modal">
+        <div class="feed-reply-modal">
             <div class="feed-top-modal">
                 <img src= "../../assets/images/profile_default.png" alt="">
                 <div class="user-info-modal">닉네임</div>
