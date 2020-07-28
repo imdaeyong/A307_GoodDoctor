@@ -25,13 +25,13 @@ VSCode
 STS
 ```
 
-## Build - Frontend ==VSCode==
+## Build - Frontend - VSCode
 ```bash
 npm i
 npm run serve -- --port 3000
 ```
 
-## Build - Backend ==STS==
+## Build - Backend - STS
 on STS
 ```bash
 git clone 이후, STS에서 File -> Open Projects from File System -> skeleton-back을 import하고 Finish
