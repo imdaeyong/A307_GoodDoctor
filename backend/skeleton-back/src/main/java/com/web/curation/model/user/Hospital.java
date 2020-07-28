@@ -10,14 +10,15 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ForeignKey;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,25 +26,25 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="\"user\"")
+@Table(name="\"feed\"")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class User {
+public class Hospital {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @JsonIgnore
-    private String password;
-    private String email;
-    private String nickname;
-    private int accountType;
-    
-    
-    @Column(insertable = false, updatable = false)
-    private LocalDateTime createDate;
+    private String name;
+    private String address;
+    private String sido;
+    private String gu;
+    private String phone;
+    private String url;
+    private String subject;
+    private Double lat;
+    private Double lng;
     
     
 }

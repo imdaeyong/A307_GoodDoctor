@@ -1,6 +1,6 @@
 <template>
   <div class="feed-item">
-    <div class="feed-wrap">
+    <div :class="'feed-wrap-'+feed.id" v-for="feed in feeds.data" v-bind:key="feed.id">
       <div class="feed-top">
         <img src= "../../assets/images/profile_default.png" alt="">
         <div class="user-info">닉네임</div>
@@ -9,15 +9,14 @@
       <div class="feed-card">
         <img src= "../../assets/images/feed-sample.jpg" alt="">
         <a href="">#새로나온차#미래내차</a><br>
-        이번에 현대 자동차에서 새롭게 선보이게 된 자동차인<br>
-        제네시스 G80이다.<br>
+        {{feed.content}}
         <span>더보기...</span>
       </div>
       <div class="feed-foot">
         <div class="feed-btn-list">
-          <div class="like "><button><b-icon-heart v-on:click="addLike()"></b-icon-heart></button></div>
-          <div class="reply"><button><b-icon-chat-square v-on:click="openReply()"></b-icon-chat-square></button></div>
-          <div class="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
+          <div class ="like"><button><b-icon-heart v-on:click="addLike()"></b-icon-heart></button></div>
+          <div class ="reply"><button><b-icon-chat-square v-on:click="openReply()"></b-icon-chat-square></button></div>
+          <div class ="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
         </div>
         <div class ="reply-list">
           <img src= "../../assets/images/profile_default.png" alt="">
@@ -33,9 +32,18 @@
 <script>
 import defaultImage from "../../assets/images/img-placeholder.png";
 import defaultProfile from "../../assets/images/profile_default.png";
+import axios from "axios";
+
 export default {
   data: () => {
-    return { defaultImage, defaultProfile };
+    return {
+      feeds : []
+    }
+  },
+  mounted(){
+    axios.get(`http://localhost:8080/feeds/`).then(data => {
+      this.feeds = data;
+    })
   },
   methods:{
     addLike(){ //좋아요 버튼 클릭시 실행 함수

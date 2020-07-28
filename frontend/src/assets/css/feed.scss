@@ -3,12 +3,13 @@
 .feed-item{
     position: relative;
 }
-.feed-wrap{
+[class^='feed-wrap-']{
     border: 1px solid rgba(194, 183, 183, 0.5);
-    position : absolute;
-    top : 30%;
+    position : relative;
+    align-content: center;
     left : 30%;
     width : 40%;
+    margin-bottom : 2em;
 }
 .feed-top{
     border-bottom: 1px solid rgba(194, 183, 183, 0.5);
