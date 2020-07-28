@@ -1,23 +1,18 @@
 # Sub PJT 02 ( 07/20 ~ 07/31 ) - 굿닥터
 
-# 목표
+## 목표
 SNS의 기본 기능을 완성시키고, 의료 SNS에 맞는 세부기능 구현
 
 # 기획
-## 와이어프레임
+### 와이어프레임
 [이동하기](https://lab.ssafy.com/s03-webmobile2-sub2/s03p12a307/blob/develop/doc/_%EC%84%9C%EC%9A%B8A307_%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84.pdf)
 
-## ERD (추후 수정 요망)
+### ERD (추후 수정 요망)
 [이동하기](https://lab.ssafy.com/s03-webmobile2-sub2/s03p12a307/blob/develop/doc/_%EC%84%9C%EC%9A%B8_A307_Database_ERD.png)
 
+---
 
 # 테스트하기
-
-## 저장소 클론하기
-* 깃 저장소를 로컬에 복사합니다.
-```bash
-git clone https://lab.ssafy.com/s03-webmobile2-sub2/s03p12a307.git
-```
 
 ## IDE
 ```
@@ -25,20 +20,27 @@ VSCode
 STS
 ```
 
-## Build - Frontend - VSCode
-```bash
+### 저장소 클론하기
+
+```
+깃 저장소를 로컬에 복사합니다.
+git clone https://lab.ssafy.com/s03-webmobile2-sub2/s03p12a307.git
+```
+
+
+### Run - Frontend
+```
 npm i
 npm run serve -- --port 3000
 ```
 
-## Build - Backend - STS
-on STS
-```bash
+### Run - Backend
+```
 git clone 이후, STS에서 File -> Open Projects from File System -> skeleton-back을 import하고 Finish
 skeleton-back 패키지 우클릭 -> run as -> Spring Boot App
 ```
 
-#서비스 설명
+# 서비스 설명
 ```
 ## 폴더 구조 - Frontend
 📦src
@@ -155,10 +157,10 @@ skeleton-back 패키지 우클릭 -> run as -> Spring Boot App
  ┃ ┃ ┃ ┃ ┃ ┗ 📜WebCurationApplicationTests.java
 ```
 
-# 사용법 ( AWS ) - 추가예정
+## 사용법 ( AWS ) - 추가예정
 
 
-# Sub03 추가 예정 기능
+## Sub03 추가 예정 기능
 *비급여 가격 정보*  
 *야간 응급실 정보*  
 *코로나 확진자 수 확인*  
