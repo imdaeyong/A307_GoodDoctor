@@ -123,6 +123,24 @@ public class AccountController {
 		}
 	}
 
+	@PostMapping(value = "/pwd")
+	   @Async
+	   @ApiOperation(value = "비밀번호 찾기")
+	   public Object sendMailToFindPwd(@Valid @RequestBody Map<String, String> data) {
+	      SimpleMailMessage simpleMessage = new SimpleMailMessage();
+
+	      String email = data.get("email");
+	      User user = userDao.getUserByEmail(email);
+	      simpleMessage.setTo(email);
+	      simpleMessage.setSubject(email + "님에 대한 비밀번호 찾기 결과입니다");
+	      simpleMessage.setText(email + "님에 대한 비밀번호는 " + user.getPassword());
+	      if(user.getAccountType()==0)
+	      javaMailSender.send(simpleMessage);
+	      
+	      System.out.println(user);
+	      return new ResponseEntity<>(user, HttpStatus.OK);
+	   }
+	
 	// 이메일 인증
 	@PostMapping(value = "/email")
 	@Async
@@ -148,44 +166,47 @@ public class AccountController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	//구글로그인인지 + 이메일이 있는지 체크해서 있으면 로그인시켜주고 없으면 회원가입창으로!
-	@PostMapping("/account/google")
-	@Async
-	@ApiOperation(value = "구글로그인")
-	public Object gLogin(@Valid @RequestBody Map<String, String> data) {
-		final BasicResponse result = new BasicResponse();
-		String gEmail=data.get("gEmail");
-		String gNickname=data.get("gNickname");
-		User user = new User();
-		user.setAccountType(1);
-		user.setEmail(gEmail);
-		user.setNickname(gNickname);
-		user.setPassword("");
-		System.out.println("구글로그인 " + user);
-		
+	// 구글로그인인지 + 이메일이 있는지 체크해서 있으면 로그인시켜주고 없으면 회원가입!
+	   @PostMapping("/account/google")
+	   @Async
+	   @ApiOperation(value = "구글로그인")
+	   public Object gLogin(@Valid @RequestBody Map<String, String> data) {
+	      final BasicResponse result = new BasicResponse();
+	      String gEmail = data.get("gEmail");
+	      String gNickname = data.get("gNickname");
+	      User user = new User();
+	      user.setAccountType(1);
+	      user.setEmail(gEmail);
+	      user.setNickname(gNickname);
+	      user.setPassword("");
 
-		if(userDao.getUserByEmailAndAccountType(gEmail, 1)==null) 
-			userDao.save(user);
-		
-		
-		return new ResponseEntity<>(user, HttpStatus.OK);
-	}
+	      if (userDao.getUserByEmailAndAccountType(gEmail, 1) == null) {
+	         userDao.save(user);
+	      } else {
+	         user = userDao.getUserByEmailAndAccountType(gEmail, 1);
+	      }
+
+	      return new ResponseEntity<>(user, HttpStatus.OK);
+	   }
 
 	   @PostMapping("/account/kakao")
 	   @Async
 	   @ApiOperation(value = "카카오 로그인")
 	   public Object kLogin(@Valid @RequestBody Map<String, String> data) {
-	      
+
 	      String email = data.get("email");
 	      String nickname = data.get("nickname");
 	      User user = new User();
+	      user.setAccountType(2);
 	      user.setEmail(email);
 	      user.setNickname(nickname);
-	      user.setAccountType(2);
 	      user.setPassword("");
-	      
-	      if(userDao.getUserByEmailAndAccountType(email, 2) == null)
-	    	  userDao.save(user);
-	      return new ResponseEntity<User>(user, HttpStatus.OK);
+
+	      if (userDao.getUserByEmailAndAccountType(email, 2) == null) {
+	         userDao.save(user);
+	      } else {
+	         user = userDao.getUserByEmailAndAccountType(email, 2);
+	      }
+	      return new ResponseEntity<>(user, HttpStatus.OK);
 	   }
 }

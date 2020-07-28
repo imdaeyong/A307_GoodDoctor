@@ -4,8 +4,8 @@
       <div class="feed-wrap" v-bind:data="feed.data">
         <div class="feed-top">
           <img src= "../../assets/images/profile_default.png" alt="">
-          <div class="user-info">닉네임</div>
-          <div class="user-hospital">병원이름<span>2020.07.13</span></div>
+          <div class="user-info">{{feed.user.nickname}}</div>
+          <div class="user-hospital">{{feed.hospital.name}}<span>2020.07.13</span></div>
         </div>
         <div class="feed-card">
           <img src= "../../assets/images/feed-sample.jpg" alt="">

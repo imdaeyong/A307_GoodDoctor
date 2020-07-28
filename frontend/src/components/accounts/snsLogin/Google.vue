@@ -100,11 +100,12 @@ export default {
             .then(data => {
               store.commit('mutateUserInfo', data)
               store.commit('mutateIsLogin', true)
-              if(store.state.isLogin) this.$bvModal.hide('bv-modal-example');
-    
+              alert("구글 계정으로 로그인 완료!");
+              this.$router.go(0);
             })
             .catch(err => {
               alert("로그인정보가 없습니다 회원가입 해주세요!")
+              //회원가입으로 보내고
               console.log(err);
             });
         })

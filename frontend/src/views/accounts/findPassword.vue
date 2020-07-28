@@ -54,7 +54,13 @@ export default {
     sendPwdToEmail() {
       axios.post(`${SERVER_URL}pwd`, {email: this.email})
         .then(res => {
-          alert('입력하신 이메일로 비밀번호를 보냈습니다.')
+          if(res.data.accountType==0){
+            alert(this.email+'로 비밀번호를 보냈습니다.')
+          }else if(res.data.accountType==1){
+            alert("구글 간편 로그인 계정입니다. 카카오 로그인해주세요!")
+          }else {
+            alert("카카오 간편 로그인 계정입니다. 카카오 로그인해주세요!")
+          }
           this.$router.push("/feed/main");
         })
         .catch(err => {
