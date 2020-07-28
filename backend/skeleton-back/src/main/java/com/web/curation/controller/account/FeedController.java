@@ -1,23 +1,18 @@
 package com.web.curation.controller.account;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.web.curation.dao.user.FeedDao;
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.user.Feed;
-import com.web.curation.model.user.User;
+import com.web.curation.model.user.FeedMapping;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -42,7 +37,9 @@ public class FeedController {
 	@GetMapping("/")
 	@ApiOperation(value = "모든 피드 가져오기")
 	public Object getFeeds() {
-		List<Feed> feeds = feedDao.findAll();
+		System.out.println("--------------------");
+		List<FeedMapping> feeds = feedDao.findAllBy();
+//		List<Feed> feeds = feedDao.findAll();
 		ResponseEntity response = null;
 		if (!feeds.isEmpty()) {
 			response = new ResponseEntity<>(feeds, HttpStatus.OK);

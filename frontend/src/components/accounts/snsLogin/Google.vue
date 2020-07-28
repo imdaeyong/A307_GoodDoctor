@@ -76,6 +76,7 @@
 
 <script>
 import axios from "axios";
+import store from "@/vuex/store";
 export default {
   data: () => {
     return {
@@ -97,8 +98,10 @@ export default {
               gEmail: gEmail
             })
             .then(data => {
-              
-              console.log(data)
+              store.commit('mutateUserInfo', data)
+              store.commit('mutateIsLogin', true)
+              if(store.state.isLogin) this.$bvModal.hide('bv-modal-example');
+    
             })
             .catch(err => {
               alert("로그인정보가 없습니다 회원가입 해주세요!")
@@ -106,6 +109,7 @@ export default {
             });
         })
         .catch(error => {
+           this.$router.push("/errorPage");
         });
     }
   }

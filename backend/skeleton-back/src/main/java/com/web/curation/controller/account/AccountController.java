@@ -161,16 +161,14 @@ public class AccountController {
 		user.setEmail(gEmail);
 		user.setNickname(gNickname);
 		user.setPassword("");
-		System.out.println(user);
+		System.out.println("구글로그인 " + user);
+		
 
-//		result.status = true;	
-//		result.data = "success";
-//		result.object = user;
-		if(userDao.getUserByEmailAndAccountType(gEmail, 1)!=null) {
-			return new ResponseEntity<>(user, HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
+		if(userDao.getUserByEmailAndAccountType(gEmail, 1)==null) 
+			userDao.save(user);
+		
+		
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	   @PostMapping("/account/kakao")
@@ -186,10 +184,8 @@ public class AccountController {
 	      user.setAccountType(2);
 	      user.setPassword("");
 	      
-	      if(userDao.getUserByEmailAndAccountType(email, 2) != null) {
-	         return new ResponseEntity<User>(user, HttpStatus.OK);
-	      } else {
-	         return new ResponseEntity<>(null, HttpStatus.OK);
-	      }
+	      if(userDao.getUserByEmailAndAccountType(email, 2) == null)
+	    	  userDao.save(user);
+	      return new ResponseEntity<User>(user, HttpStatus.OK);
 	   }
 }

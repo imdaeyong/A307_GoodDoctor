@@ -34,6 +34,7 @@
 
 <script>
     import axios from 'axios'
+    import store from '@/vuex/store'
     export default {
         methods: {
             kakaoLogin() {
@@ -60,21 +61,18 @@
                              email : userInfo.email,
                              nickname : userInfo.nickname
                          })
-                         .then(res => {
-                            console.log(res);
-                            console.log("데이터베이스에 회원 정보가 있음!");
-                         })
+                         .then(data => {
+                            store.commit('mutateUserInfo', data)
+                            store.commit('mutateIsLogin', true)
+                            if(store.state.isLogin) this.$bvModal.hide('bv-modal-example');
+                            })
                          .catch(err => {
                              console.log(err);
                             console.log("데이터베이스에 회원 정보가 없음!");
                          })
-                        console.log(userInfo);
-                        alert("로그인 성공!");
-                        this.$bvModal.hide("bv-modal-example");
                     },
                     fail : error => {
                         this.$router.push("/errorPage");
-                        console.log(error);
                     }
                 })
             }

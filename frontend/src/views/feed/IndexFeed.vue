@@ -2,8 +2,7 @@
   <div>
     <NavBar />
     <FeedItem />
-    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop>
-      <User/>
+   <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   <User/>
     </b-modal>
     
     <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>

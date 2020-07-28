@@ -40,9 +40,9 @@ public class Feed {
 	@JoinColumn(name ="user_id")
     private User user;
     
-//    @ManyToOne
-//	@JoinColumn(name ="hospital_id")
-//    private Hospital hospital;
+    @ManyToOne
+	@JoinColumn(name ="hospital_id")
+    private Hospital hospital;
     
     private String content;
     @Column(insertable = false, updatable = false)
