@@ -1,4 +1,4 @@
-package com.web.curation.controller.account;
+package com.web.curation.controller.feed;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.dao.user.FeedDao;
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.user.FeedMapping;
+import com.web.curation.model.mapping.FeedMapping;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -37,9 +37,7 @@ public class FeedController {
 	@GetMapping("/")
 	@ApiOperation(value = "모든 피드 가져오기")
 	public Object getFeeds() {
-		System.out.println("--------------------");
 		List<FeedMapping> feeds = feedDao.findAllBy();
-//		List<Feed> feeds = feedDao.findAll();
 		ResponseEntity response = null;
 		if (!feeds.isEmpty()) {
 			response = new ResponseEntity<>(feeds, HttpStatus.OK);
@@ -50,3 +48,5 @@ public class FeedController {
 	}
 	
 }
+
+//user_id, feed_id, content

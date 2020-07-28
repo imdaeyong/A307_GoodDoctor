@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="\"feed\"")
+@Table(name="\"hospital\"")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
