@@ -3,45 +3,32 @@
     <NavBar/>
     <div class="user">
       <div class="wrapC mt-5">
-        <h1>프로필화면 입니다.</h1>
+        <h1 style="text-align:center;">회원 정보</h1>
       </div>
     </div>
     <b-container fluid class="bv-example-row bv-example-row-flex-cols">
       <b-row align-v="stretch">
 
-        <b-col cols="3" style="background-color:red; text-align:center;">
+        <b-col class='border-right' cols="3" style="text-align:center">
           <h1 class="mt-3">index</h1>
-          <button @click="toggle('myProfile')">내 정보</button>
-          <button @click="toggle('myHospital')">관심 정보</button>
-          <button @click="toggle('myReview')">내 리뷰</button>
+          <button @click="toggle('myProfile')" class="mt-3" style="outline: 0"><h5>내 정보</h5></button>
+          <br>  
+          <button @click="toggle('myHospital')" class="mt-3" style="outline: 0"><h5>관심 정보</h5></button>
+          <br>  
+          <button @click="toggle('myReview')" class="mt-3" style="outline: 0"><h5>내 리뷰</h5></button>
         </b-col>
         
-        <b-col cols="9" style="background-color:ivory; text-align:center;">
+        <b-col cols="9" style="text-align:center;">
           <div v-if="categories[0].display">
-            <h1 class="mt-3">내 정보</h1>
-            <h1>닉네임, 아이디, 비밀번호 연결할 페이지</h1>
-            <b-row>
-              <div>
-                <img src= "../../assets/images/profile_default.png" alt="" style="width: 14rem">
-                <div class="user-info-modal">닉네임</div>
-              </div>
-              <b-col >
-                <p>닉네임:</p>
-                <p>아이디(이메일):</p>
-                <button class="btn-full-center mt-4"><a href="/accounts/changepassword">비밀번호 변경</a></button>
-              </b-col>
-            </b-row>
+            <myProfile/>
           </div>
 
           <div v-if="categories[1].display">
-            <h1 class="mt-3">내 관심 정보</h1>
-            <h1>내가 관심있어하는 정보를 확인 및 수정합니다. </h1>
+            <myHospital/>
           </div>
 
           <div v-if="categories[2].display">
-            <h1 class="mt-3">내 리뷰</h1>
-            <h1>내가 작성한 리뷰를 확인합니다.</h1>
-            <FeedModal/>
+            <myReview/>
           </div>
 
         </b-col>
@@ -54,11 +41,19 @@
 <script>
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
-import FeedModal from "../../components/feed/FeedModal.vue";
 import NavBar from "../../components/NavigationBar.vue";
+import myProfile from "../../components/accounts/profile/myProfile.vue"
+import myHospital from "../../components/accounts/profile/myHospital.vue"
+import myReview from "../../components/accounts/profile/myReview.vue"
+
 export default {
   name: 'Profile',
-   components: { FeedModal, NavBar},
+  components: {
+    NavBar,
+    myProfile,
+    myHospital,
+    myReview
+  },
   methods: {
     toggle(text) {
       for(var i = 0; i < this.categories.length; i++) {

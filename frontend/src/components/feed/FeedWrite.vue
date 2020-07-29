@@ -1,6 +1,6 @@
 <template>
   <div>
-      <NavBar/>
+    <NavBar/>
   </div>
 </template>
 
@@ -8,7 +8,9 @@
 import NavBar from "../../components/NavigationBar.vue";
 export default {
   name: 'Profile',
-   components: {  NavBar}
+  components: {
+    NavBar
+  }
 }
 </script>
 

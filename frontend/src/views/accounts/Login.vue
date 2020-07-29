@@ -67,9 +67,10 @@
 
 <script>
 const SERVER_URL="http://localhost:8080/"
-import axios from 'axios'
+
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
+import axios from 'axios'
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
 import KakaoLogin from "../../components/accounts/snsLogin/Kakao.vue";

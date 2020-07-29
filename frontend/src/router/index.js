@@ -10,6 +10,8 @@ import ErrorPage from '../components/errorPage.vue'
 import PageNotFound from '../components/PageNotFound.vue'
 import GoogleLogin from '../components/accounts/snsLogin/Google.vue'
 import FeedWrite from '../components/feed/FeedWrite.vue'
+import FeedHospitalList from '../components/feed/FeedHospitalList.vue'
+
 Vue.use(VueRouter)
 
   const routes = [
@@ -48,8 +50,11 @@ Vue.use(VueRouter)
         name : 'ChangePassword',
         component : ChangePassword
     },
-
-
+    {
+        path : '/feed/hospitallist',
+        name : 'FeedHospitalList',
+        component : FeedHospitalList
+    },
     {
         path : '/errorPage',
         name : 'ErrorPage',

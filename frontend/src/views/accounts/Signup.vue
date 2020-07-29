@@ -42,8 +42,9 @@
               v-bind:class="{complete:inputAuth.length==6}"
             />
             <label for="inputAuth">인증번호</label>
-            <label for="inputAuth" @click="emailAuthCheck" class="authRight"><button><span style="font-weight: bold">확인</span></button>
-              </label>
+            <label for="inputAuth" @click="emailAuthCheck" class="authRight">
+              <span style="font-weight: bold">확인</span>
+            </label>
           </div>
           <br>
           <b>전송된 인증번호 : {{this.$store.state.authCode}}</b>
