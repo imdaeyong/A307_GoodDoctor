@@ -2,13 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Signup from '../views/accounts/Signup.vue'
+import Profile from '../views/accounts/profile.vue'
 import ChangePassword from '../views/accounts/changePassword.vue'
 import FindPassword from '../views/accounts/findPassword.vue'
 import FeedMain from '../views/feed/IndexFeed.vue'
 import ErrorPage from '../components/errorPage.vue'
 import PageNotFound from '../components/PageNotFound.vue'
 import GoogleLogin from '../components/accounts/snsLogin/Google.vue'
-
+import FeedWrite from '../components/feed/FeedWrite.vue'
 Vue.use(VueRouter)
 
   const routes = [
@@ -23,9 +24,19 @@ Vue.use(VueRouter)
         component : FeedMain
     },
     {
+        path : '/feed/write',
+        name : 'FeedWrite',
+        component : FeedWrite
+    },
+    {
         path : '/accounts/Signup',
         name : 'Signup',
         component : Signup
+    },
+    {
+        path : '/accounts/profile',
+        name : 'Profile',
+        component : Profile
     },
     {
         path : '/accounts/findPassword',

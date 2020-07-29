@@ -76,16 +76,16 @@ export default {
         content : feedData
  
       };
-      alert(comment.userId + " " + comment.feedId + " " + comment.content);
       axios.post(`${SERVER_URL}comments/`,comment)
       .then(data =>{
-
+        alert("댓글등록 완료");
+        this.$router.go(0);
       })
       .catch(err =>{
 
       })
       
-      this.$router.go(0);
+      
     }
   }
 };

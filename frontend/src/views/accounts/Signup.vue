@@ -39,9 +39,11 @@
               id ="inputAuth"
               ref="inputAuth"
               v-model="inputAuth"
+              v-bind:class="{complete:inputAuth.length==6}"
             />
             <label for="inputAuth">인증번호</label>
-            <label for="inputAuth" @click="emailAuthCheck" class="authRight">확인</label>
+            <label for="inputAuth" @click="emailAuthCheck" class="authRight"><button><span style="font-weight: bold">확인</span></button>
+              </label>
           </div>
           <br>
           <b>전송된 인증번호 : {{this.$store.state.authCode}}</b>
@@ -83,15 +85,6 @@
       :class="{disabled : !isSubmit}"
       @click="onjoin"
       >가입하기</button>
-
-      <div class="sns-login mt-5">
-        <div class="text">
-          <p>SNS 가입도 돼요</p>
-          <div class="bar"></div>
-        </div>
-        <kakaoLogin :component="component" />
-        <GoogleLogin :component="component" />
-      </div>
       
     </div>
   </div>
@@ -105,17 +98,12 @@ import UserApi from "../../api/UserApi"
 import axios from 'axios'
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
-import KakaoLogin from "../../components/accounts/snsLogin/Kakao.vue"
-import GoogleLogin from "../../components/accounts/snsLogin/Google.vue"
 //이메일 인증 관련 import
 import http from '@/util/http-common'
 import store from '@/vuex/store.js'
 
 export default {
-  components: {
-    KakaoLogin,
-    GoogleLogin
-  },
+  name: "Singup",
   data: () => {
     return {
       nickName: "",
@@ -228,4 +216,3 @@ export default {
   }
 };
 </script>
-
