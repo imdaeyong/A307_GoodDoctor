@@ -156,7 +156,7 @@
                     </div>
                 </div>
                 <div class="btn-review-list">
-                    <button class="btn-write-review" style="outline:0;">리뷰쓰기</button>
+                    <button class="btn-write-review" style="outline:0;"><router-link to="/feed/write" style="text-decoration : none; color : white;">리뷰쓰기</router-link></button>
                 </div>
                 <div class="btn-member-list">
                     <button class="btn-member" style="outline:0;"><b-icon-person-circle></b-icon-person-circle>
@@ -165,7 +165,7 @@
                     </button>
                     <div class="member-dropdown-content">
                         <div>
-                            <div><button class="member-dropdown-btn">회원정보</button></div>
+                            <div><button class="member-dropdown-btn"><router-link to="/accounts/profile" style="text-decoration : none; color : black;">회원정보</router-link></button></div>
                             <div><button class="member-dropdown-btn" v-on:click="logout()">로그아웃</button></div>
                         </div> 
                     </div>
