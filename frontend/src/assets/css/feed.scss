@@ -1,5 +1,7 @@
 @charset "utf-8";
-
+*{
+    outline: 0;
+}
 .feed-item{
     position: relative;
 }
@@ -88,4 +90,26 @@
         }
     }
     
+}
+// 리뷰 작성 부분
+.review-write-btn{
+    margin-top: -2em;
+    margin-bottom: 2em;
+    position : relative;
+    border: 1px solid rgba(194, 183, 183, 0.7);
+    padding: 0.2em;
+    border-radius: 0em 0em 1em 1em;
+    left : 30%;
+    width: 4em;
+    button{
+        color: #17a2b8;
+        font-weight: bold;
+    }
+}
+
+.review-write-form{
+    .review-write{
+        padding-top: 1em;
+        text-align: center;
+    }
 }
