@@ -57,3 +57,15 @@
         
     </div>
 </template>
+<script>
+const SERVER_URL="http://localhost:8080/"
+import axios from "axios";
+import store from '@/vuex/store.js'
+export default {
+    mounted(){
+        axios.get(`${SERVER_URL}comments/${this.feedId}`).then(data => {
+
+    })
+  }
+}
+</script>

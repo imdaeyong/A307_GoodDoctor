@@ -20,6 +20,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,11 +58,14 @@ public class CommentController {
 	@Autowired
 	CommentDao commentDao;
 
-	@GetMapping("/")
-	@ApiOperation(value = "모든 댓글 가져오기")
-	public Object getComments() {
-		//List<CommentMapping> comments = commentDao.findAllBy();
+	@GetMapping("/{feedId}")
+	@ApiOperation(value = "댓글 가져오기")
+	public Object getComments(@Valid @PathVariable("feedId") int feedId) {
+		List<CommentMapping> comments = commentDao.findAllByFeedId(feedId);
 		ResponseEntity response = null;
+		for(CommentMapping temp: comments) {
+			System.out.println(temp.getId() + " 댓글 아이디 출력입니다!!!!!!!!!!!!!!!!!!!!!!!!");
+		}
 //		if (!comments.isEmpty()) {
 //			response = new ResponseEntity<>(comments, HttpStatus.OK);
 //		} else {
