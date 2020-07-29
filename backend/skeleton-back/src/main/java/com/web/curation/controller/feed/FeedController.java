@@ -12,13 +12,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.dao.user.FeedDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.mapping.FeedMapping;
+import com.web.curation.model.user.Feed;
+import com.web.curation.model.user.SignupRequest;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -81,6 +85,21 @@ public class FeedController {
 		}
 		return response;
 	}
+	
+	@PostMapping("/")
+	@ApiOperation(value = "피드 작성하기")
+	public Object addFeed(@Valid @RequestBody Feed request) {
+		ResponseEntity response = null;
+		
+		Feed feed = feedDao.getFeedById(request.getId());
+		feed.setContent(request.getContent());
+		feed.setNew(false);
+		
+		feedDao.save(feed);
+		response = new ResponseEntity<>(feed, HttpStatus.OK);
+		return response;
+	}
+	
 }
 
 //user_id, feed_id, content

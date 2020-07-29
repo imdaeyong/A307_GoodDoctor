@@ -5,8 +5,6 @@
       <User/>
     </b-modal>
     <div>
-
-
       <!-- 기존에 내가 작성한 Feed목록 -->
       <div v-for="feed in feeds" v-bind:key="feed.id">
         <div v-if="feed.isNew">
@@ -19,10 +17,10 @@
             
             <div class ="review-write-form">
               <div v-if="openWrite == feed.id" class ="review-write">
-                <textarea name="" id="" cols="65%" rows="10">
+                <textarea name="" id="" cols="65%" rows="10" v-model="feed.review">
 
                 </textarea>
-                <button v-on:click="addReview()">작성</button>
+                <button v-on:click="addReview(feed.id, feed.review)">작성</button>
               </div>
             </div>
           </div>
@@ -116,25 +114,36 @@ export default {
         userId : this.userId,
         feedId : feedId,
         content : feedData
- 
       };
-      // axios.post(`${SERVER_URL}comments/`,comment)
-      // .then(data =>{
-      //   alert("댓글등록 완료");
-      //   this.$router.go(0);
-      // })
-      // .catch(err =>{
+      axios.post(`${SERVER_URL}comments/`,comment)
+      .then(data =>{
+        alert("댓글등록 완료");
+        this.$router.go(0);
+      })
+      .catch(err =>{
 
-      // })
+      })
     },
     feedWrite(id){
       //id를 받아서 펼치게 될 경우를 정해준다.
       this.openWrite = id;
     },
-    addReview(){
+    addReview(feedId, reviewData){
+      // let review = {
+      //   feedId : feedId,
+      //   reviewData : reviewData
+      // }
+      alert(feedId + " " + reviewData);
 
+      axios.post(`${SERVER_URL}feeds/`,{id:feedId, content:reviewData})
+      .then(data =>{
+        alert("리뷰작성 완료");
+        this.$router.go(0);
+      })
+      .catch(err =>{
+
+      })
     }
   }
 }
 </script>
-

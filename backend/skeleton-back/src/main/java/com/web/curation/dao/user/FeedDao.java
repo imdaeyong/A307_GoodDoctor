@@ -12,4 +12,5 @@ public interface FeedDao extends JpaRepository<Feed, String> {
     Feed getFeedById(int id);
     List<FeedMapping> findAllBy();
     List<FeedMapping> findAllByUserId(int userId);
+    
 }
