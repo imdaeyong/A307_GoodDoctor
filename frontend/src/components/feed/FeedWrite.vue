@@ -135,7 +135,7 @@ export default {
       // }
       alert(feedId + " " + reviewData);
 
-      axios.post(`${SERVER_URL}feeds/`,{id:feedId, content:reviewData})
+      axios.put(`${SERVER_URL}feeds/`,{id:feedId, content:reviewData})
       .then(data =>{
         alert("리뷰작성 완료");
         this.$router.go(0);

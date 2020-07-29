@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,9 +31,9 @@ import io.swagger.annotations.ApiResponses;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @ApiResponses(value = { @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
-		@ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
-		@ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
-		@ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
+      @ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
+      @ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
+      @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 @EnableSwagger2
 //@CrossOrigin(origins = { "http://localhost:3000" }) //이쪽에 있는 내용만 받아온다는것.
 @CrossOrigin(origins = { "*" })
@@ -40,28 +41,28 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @RequestMapping("/feeds")
 public class FeedController {
 
-	@Autowired
-	FeedDao feedDao;
+   @Autowired
+   FeedDao feedDao;
 
-	@GetMapping("/")
-	@ApiOperation(value = "모든 피드 가져오기")
-	public Object getFeeds() {
-		List<FeedMapping> feeds = feedDao.findAllBy();
-		ResponseEntity response = null;
-		if (!feeds.isEmpty()) {
-			response = new ResponseEntity<>(feeds, HttpStatus.OK);
-		} else {
-			response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
-		return response;
-	}
+   @GetMapping("/")
+   @ApiOperation(value = "모든 피드 가져오기")
+   public Object getFeeds() {
+      List<FeedMapping> feeds = feedDao.findAllBy();
+      ResponseEntity response = null;
+      if (!feeds.isEmpty()) {
+         response = new ResponseEntity<>(feeds, HttpStatus.OK);
+      } else {
+         response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+      }
+      return response;
+   }
 
-	@GetMapping("/{userId}")
-	@ApiOperation(value = "모든 피드 가져오기")
-	public Object getFeedsByUserId(@Valid @PathVariable("userId") int userId) {
-		
-		List<FeedMapping> feeds = feedDao.findAllByUserId(userId);
-		Collections.sort(feeds, new Comparator<FeedMapping>() {
+   @GetMapping("/{userId}")
+   @ApiOperation(value = "모든 피드 가져오기")
+   public Object getFeedsByUserId(@Valid @PathVariable("userId") int userId) {
+      
+      List<FeedMapping> feeds = feedDao.findAllByUserId(userId);
+      Collections.sort(feeds, new Comparator<FeedMapping>() {
             @Override
             public int compare(FeedMapping s1, FeedMapping s2) {
                 if (s1.getIsNew()) {
@@ -71,35 +72,35 @@ public class FeedController {
                 }
             }
         });
-//		System.out.println("=========================================");
-//		for(FeedMapping temp : feeds) {
-//			System.out.println(temp.getUser());
-//			System.out.println(temp.getIsNew() + " 불린");
-//		}
-//		System.out.println("=========================================");
-		ResponseEntity response = null;
-		if (!feeds.isEmpty()) {
-			response = new ResponseEntity<>(feeds, HttpStatus.OK);
-		} else {
-			response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
-		return response;
-	}
-	
-	@PostMapping("/")
-	@ApiOperation(value = "피드 작성하기")
-	public Object addFeed(@Valid @RequestBody Feed request) {
-		ResponseEntity response = null;
-		
-		Feed feed = feedDao.getFeedById(request.getId());
-		feed.setContent(request.getContent());
-		feed.setNew(false);
-		
-		feedDao.save(feed);
-		response = new ResponseEntity<>(feed, HttpStatus.OK);
-		return response;
-	}
-	
+//      System.out.println("=========================================");
+//      for(FeedMapping temp : feeds) {
+//         System.out.println(temp.getUser());
+//         System.out.println(temp.getIsNew() + " 불린");
+//      }
+//      System.out.println("=========================================");
+      ResponseEntity response = null;
+      if (!feeds.isEmpty()) {
+         response = new ResponseEntity<>(feeds, HttpStatus.OK);
+      } else {
+         response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+      }
+      return response;
+   }
+   
+   @PutMapping("/")
+   @ApiOperation(value = "피드 작성하기")
+   public Object addFeed(@Valid @RequestBody Feed request) {
+      ResponseEntity response = null;
+      
+      Feed feed = feedDao.getFeedById(request.getId());
+      feed.setContent(request.getContent());
+      feed.setNew(false);
+      
+      feedDao.save(feed);
+      response = new ResponseEntity<>(feed, HttpStatus.OK);
+      return response;
+   }
+   
 }
 
 //user_id, feed_id, content
