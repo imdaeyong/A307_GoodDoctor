@@ -82,7 +82,6 @@ export default {
       openWrite : "",
       feeds : [],
       nickname : "",
-      isLogin : false,
       userId : "",
       content : ""
     }
