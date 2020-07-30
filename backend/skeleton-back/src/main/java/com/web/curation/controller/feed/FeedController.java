@@ -12,18 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.dao.user.FeedDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.mapping.FeedMapping;
 import com.web.curation.model.user.Feed;
-import com.web.curation.model.user.SignupRequest;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -72,12 +69,6 @@ public class FeedController {
                 }
             }
         });
-//      System.out.println("=========================================");
-//      for(FeedMapping temp : feeds) {
-//         System.out.println(temp.getUser());
-//         System.out.println(temp.getIsNew() + " 불린");
-//      }
-//      System.out.println("=========================================");
       ResponseEntity response = null;
       if (!feeds.isEmpty()) {
          response = new ResponseEntity<>(feeds, HttpStatus.OK);
