@@ -66,11 +66,12 @@ public class CommentController {
 		for(CommentMapping temp: comments) {
 			System.out.println(temp.getId() + " 댓글 아이디 출력입니다!!!!!!!!!!!!!!!!!!!!!!!!");
 		}
-//		if (!comments.isEmpty()) {
-//			response = new ResponseEntity<>(comments, HttpStatus.OK);
-//		} else {
-//			response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-//		}
+		if (!comments.isEmpty()) {
+			response = new ResponseEntity<>(comments, HttpStatus.OK);
+			System.out.println("넣었음");
+		} else {
+			response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 		return response;
 	}
 	

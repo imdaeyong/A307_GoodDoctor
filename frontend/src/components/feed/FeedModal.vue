@@ -16,31 +16,15 @@
         </div>
         <div class="feed-foot-modal">
             <div class="feed-reply-content">
-                <div class="feed-reply">
-                    <div>
-                        <img src= "../../assets/images/profile_default.png" alt="">
-                        <div class="user-info">긍정인</div><br>
-                    </div><br>
-                    <div class="reply">오 정말 좋은데요?</div>
-                    <div class="reply-time"><span>3일전</span></div>
-                </div>
-
-                <div class="feed-reply">
-                    <div>
-                        <img src= "../../assets/images/profile_default.png" alt="">
-                        <div class="user-info">불편러</div><br>
-                    </div><br>
-                    <div class="reply">아니 이 비싼걸 누가사냐</div>
-                    <div class="reply-time"><span>4일전</span></div>
-                </div>
-
-                <div class="feed-reply">
-                    <div>
-                        <img src= "../../assets/images/profile_default.png" alt="">
-                        <div class="user-info">Eknom</div><br>
-                    </div><br>
-                    <div class="reply">돈없으면 못사는거지뭐...</div>
-                    <div class="reply-time"><span>5일전</span></div>
+                <div v-for="reply in replys" v-bind:key="reply.id">
+                    <div class="feed-reply">
+                        <div>
+                            <img src= "../../assets/images/profile_default.png" alt="">
+                            <div class="user-info">긍정인</div><br>
+                        </div><br>
+                        <div class="reply">{{reply.content}}</div>
+                        <div class="reply-time"><span>3일전</span></div>
+                    </div>
                 </div>
             </div>
             <div class="feed-btn-list">
@@ -62,10 +46,17 @@ const SERVER_URL="http://localhost:8080/"
 import axios from "axios";
 import store from '@/vuex/store.js'
 export default {
+    data: () => {
+        return {
+        replys : []
+        }
+    },
     mounted(){
-        axios.get(`${SERVER_URL}comments/${this.feedId}`).then(data => {
-
-    })
-  }
+        axios.get(`${SERVER_URL}comments/${store.state.feedInfo}`).then(data => {
+            console.log(data.data);
+            this.replys = data.data; //해당 댓글 정보들을 가져온다.
+        })
+    }
+  
 }
 </script>
