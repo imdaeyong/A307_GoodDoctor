@@ -63,9 +63,13 @@ public class FeedController {
             @Override
             public int compare(FeedMapping s1, FeedMapping s2) {
                 if (s1.getIsNew()) {
-                    return -1;
+                	if(s1.getId() > s2.getId())
+                		return -1;
+                	else return 1;
                 } else {
-                    return 1;
+                	if(s1.getId() > s2.getId())
+                		return -1;
+                	else return 1;
                 }
             }
         });

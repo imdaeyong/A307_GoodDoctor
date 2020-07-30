@@ -26,6 +26,7 @@
 
 <script>
 import axios from "axios";
+import http from '@/util/http-common'
 export default {
   data: () => {
     return {
@@ -38,9 +39,9 @@ export default {
 
     if (this.$route.query.subject == undefined) {
       // console.log(this.$route.query.sido + " " + this.$route.query.gugun);
-      axios
+      http
         .get(
-          `http://localhost:8080/hospitals/city?sido=${this.$route.query.sido}&gu=${this.$route.query.gu}`
+          `city?sido=${this.$route.query.sido}&gu=${this.$route.query.gu}`
         )
         .then((response) => {
           // console.log(response);
@@ -48,9 +49,9 @@ export default {
         })
         .catch((error) => {});
     } else {
-      axios
+      http
         .get(
-          `http://localhost:8080/hospitals/subject?subject=${this.$route.query.subject}`
+          `hospitals/subject?subject=${this.$route.query.subject}`
         )
         .then((response) => {
           console.log(response);
