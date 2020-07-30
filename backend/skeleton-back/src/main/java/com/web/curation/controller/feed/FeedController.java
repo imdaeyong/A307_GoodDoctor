@@ -46,6 +46,20 @@ public class FeedController {
    public Object getFeeds() {
       List<FeedMapping> feeds = feedDao.findAllBy();
       ResponseEntity response = null;
+      Collections.sort(feeds, new Comparator<FeedMapping>() {
+          @Override
+          public int compare(FeedMapping s1, FeedMapping s2) {
+              if (s1.getIsNew()) {
+              	if(s1.getId() > s2.getId())
+              		return -1;
+              	else return 1;
+              } else {
+              	if(s1.getId() > s2.getId())
+              		return -1;
+              	else return 1;
+              }
+          }
+      });
       if (!feeds.isEmpty()) {
          response = new ResponseEntity<>(feeds, HttpStatus.OK);
       } else {
@@ -57,7 +71,6 @@ public class FeedController {
    @GetMapping("/{userId}")
    @ApiOperation(value = "모든 피드 가져오기")
    public Object getFeedsByUserId(@Valid @PathVariable("userId") int userId) {
-      
       List<FeedMapping> feeds = feedDao.findAllByUserId(userId);
       Collections.sort(feeds, new Comparator<FeedMapping>() {
             @Override
@@ -72,7 +85,7 @@ public class FeedController {
                 	else return 1;
                 }
             }
-        });
+      });
       ResponseEntity response = null;
       if (!feeds.isEmpty()) {
          response = new ResponseEntity<>(feeds, HttpStatus.OK);
