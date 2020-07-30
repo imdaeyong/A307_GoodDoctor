@@ -9,13 +9,10 @@ import org.springframework.data.repository.query.Param;
 import com.web.curation.model.user.Hospital;
 
 public interface HospitalDao extends JpaRepository<Hospital, String> {
-
-   List<Hospital> findAllBySubject(String subject);
+   List<Hospital> findTop100AllBySubject(String subject);
    Hospital findById(int id);
-   List<Hospital> findAllBySidoAndGu(String sido, String gu);
-   
+   List<Hospital> findTop100AllBySidoAndGu(String sido, String gu);
    int countBySubject(String subject);
-
    int countBySidoAndGu(String sido, String gu);
 
 }
