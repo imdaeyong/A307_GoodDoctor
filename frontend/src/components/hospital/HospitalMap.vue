@@ -5,22 +5,23 @@
 </template>
 
 <script>
-var map;
-let loc_lat;
-let loc_lon;
-
+import axios from "axios";
+import http from '@/util/http-common'
 export default {
   data: () => {
     return {
-        markerPositions1: [
-            [33.452278, 126.567803],
-            [33.452671, 126.574792],
-            [33.451744, 126.572441]
-        ],
-        curLat: "",
-        curLon: "",
-        markers:[],
+      map: null,
+      hospitalLoc: [],
+      pageLimit: 10,
+      pageOffet: 0,
     };
+  },
+
+  watch: {
+    "$route.query": function () {
+      this.initComponent();
+      this.initMap();
+    },
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -30,50 +31,60 @@ export default {
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src =
-        "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=8cbe81440a2dc401533a67159970a3ac";
+        "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=8cbe81440a2dc401533" +
+        "a67159970a3ac";
       document.head.appendChild(script);
     }
   },
   methods: {
-    initMap() {
-      var multi = new kakao.maps.LatLng(37.5012743, 127.039585);
-      var map = new kakao.maps.Map(document.getElementById('map'), {
-      center : multi, // 지도의 중심좌표
-      level : 10   // 지도의 확대 레벨
-      });
-      let marker = new kakao.maps.Marker({
-          position: multi
-      });
-      marker.setMap(map);
-
+    initComponent() {
+      http
+        .get("/hospitals/pagelink", {
+          params: {
+            limit: this.pageLimit,
+            offset: `${this.$route.query.no - this.pageLimit}`,
+            subject: this.$route.query.subject,
+            sido: this.$route.query.sido,
+            gu: this.$route.query.gu,
+          },
+        })
+        .then((response) => {
+          this.hospitalLoc = response.data;
+          this.initMap();
+        })
+        .catch((error) => {});
     },
-    displayMarker(markerPositions) {
-      if (this.markers.length > 0) {
-        this.markers.forEach((marker) => marker.setMap(null));
-      }
+    initMap() {
+      //마커 이미지!
+      var imageSrc =
+        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+      var imageSize = new kakao.maps.Size(24, 35);
+      var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-      const positions = markerPositions.map(
-        (position) => new kakao.maps.LatLng(...position)
+      var multi = new kakao.maps.LatLng(37.5012743, 127.039585);
+      var map = new kakao.maps.Map(document.getElementById("map"), {
+        center: multi, // 지도의 중심좌표
+        level: 9, // 지도의 확대 레벨
+      });
+      var marker = new kakao.maps.Marker({ position: multi });
+
+      for (var i = 0; i < this.hospitalLoc.length; i++) {
+        marker = new kakao.maps.Marker({
+          position: new kakao.maps.LatLng(
+            this.hospitalLoc[i].lng,
+            this.hospitalLoc[i].lat
+          ),
+          title: "병원", //marker.mc에 title담기는거같음
+          image: markerImage,
+          clickable: true, //마커 클릭시 지도 동작x
+          map: map,
+        });
+      }
+      map.setCenter(
+        new kakao.maps.LatLng(this.hospitalLoc[1].lng, this.hospitalLoc[1].lat)
       );
-
-      if (positions.length > 0) {
-        this.markers = positions.map(
-          (position) =>
-            new kakao.maps.Marker({
-              map: this.map,
-              position,
-            })
-        );
-
-        const bounds = positions.reduce(
-          (bounds, latlng) => bounds.extend(latlng),
-          new kakao.maps.LatLngBounds()
-        );
-
-        this.map.setBounds(bounds);
-      }
-    }
-  }
+    },
+  },
 };
 </script>
 
