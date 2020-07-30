@@ -6,13 +6,13 @@ import mutations from './mutations'
 import axios from 'axios'
 import router from "../router"
 import createPersistedState from 'vuex-persistedstate';
+import http from '@/util/http-common'
 
 Vue.use(Vuex)
 
 const state = {
     isUser: false,
 }
-const SERVER_URL="http://localhost:8080/"
 
 export default new Vuex.Store({
     state: {
@@ -45,7 +45,7 @@ export default new Vuex.Store({
     },
     actions:{
         login(context, {email, password}) {
-             axios.get(`${SERVER_URL}account/gooddoc?email=${email}&password=${password}`)
+            http.get(`account/gooddoc?email=${email}&password=${password}`)
             .then(res=>{
                 context.commit('mutateIsLogin', true)
                 context.commit('mutateUserInfo', res)
@@ -64,7 +64,7 @@ export default new Vuex.Store({
             context.commit('mutateUserInfo', {})
         },
         changePassword(context, data){
-            axios.put(`${SERVER_URL}pwd`,data)
+            http.put(`pwd`,data)
           .then(res=>{
             //요청이 끝나면 버튼 활성화
             context.commit('mutateIsLogin', false)

@@ -42,9 +42,9 @@
     </div>
 </template>
 <script>
-const SERVER_URL="http://localhost:8080/"
 import axios from "axios";
 import store from '@/vuex/store.js'
+import http from '@/util/http-common'
 export default {
     data: () => {
         return {
@@ -52,7 +52,7 @@ export default {
         }
     },
     mounted(){
-        axios.get(`${SERVER_URL}comments/${store.state.feedInfo}`).then(data => {
+        http.get(`comments/${store.state.feedInfo}`).then(data => {
             console.log(data.data);
             this.replys = data.data; //해당 댓글 정보들을 가져온다.
         })

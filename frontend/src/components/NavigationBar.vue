@@ -220,7 +220,6 @@
 
 <script>
     import store from '@/vuex/store.js'
-    import axios from 'axios'
     export default {
         methods:{
             logout(){

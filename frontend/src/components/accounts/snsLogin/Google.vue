@@ -77,6 +77,7 @@
 <script>
 import axios from "axios";
 import store from "@/vuex/store";
+import http from '@/util/http-common'
 export default {
   data: () => {
     return {
@@ -93,7 +94,7 @@ export default {
           var gNickname = gProfile.getName();
           var gEmail = gProfile.getEmail();
 
-          axios.post(`http://localhost:8080/account/google`, {
+          http.post(`account/google`, {
               gNickname: gNickname,
               gEmail: gEmail
             })

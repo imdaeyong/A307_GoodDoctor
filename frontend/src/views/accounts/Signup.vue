@@ -92,7 +92,6 @@
 </template>
 
 <script>
-const SERVER_URL="http://localhost:8080/"
 import * as EmailValidator from "email-validator"
 import PV from "password-validator"
 import UserApi from "../../api/UserApi"
@@ -204,7 +203,7 @@ export default {
 
 
     onjoin(){
-      axios.post(`${SERVER_URL}account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
+      http.post(`account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
       .then(res=>{
         this.$router.push("/emailCheck");
         alert("이메일 인증 페이지로 넘어갑니다.");

@@ -45,7 +45,6 @@ import PV from "password-validator"
 import UserApi from "../../api/UserApi"
 import axios from 'axios'
 import store from '@/vuex/store.js'
-const SERVER_URL="http://localhost:8080/"
 
 export default {
   name: "ChangePassword",
