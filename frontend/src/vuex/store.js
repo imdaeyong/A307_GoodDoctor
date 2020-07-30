@@ -19,6 +19,7 @@ export default new Vuex.Store({
         userInfo: {},
         isLogin: false,
         authCode: "",
+        feedInfo: ""
     },
     mutations: {
         addUserInfo(state, userInfo) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
         mutateUserInfo(state, userInfo){
             state.userInfo = userInfo
         },
+        mutateFeedInfo(state, feedInfo){
+            state.feedInfo = feedInfo
+        }
     },
     getters: {
         authCode(state) {
@@ -73,6 +77,9 @@ export default new Vuex.Store({
             console.log(err);
             router.push("/errorPage");
           })
+        },
+        openReply(context, feedInfo){
+            context.commit('mutateFeedInfo', feedInfo)
         }
 
     },
