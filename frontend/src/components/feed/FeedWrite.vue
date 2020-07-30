@@ -12,7 +12,7 @@
             <div class="feed-top">
               <img src= "../../assets/images/profile_default.png" alt="">
               <div class="user-info">{{feed.user.nickname}} <span style="color : red; font-weight : bold"> NEW !!!NEW !!!</span> </div>
-              <div class="user-hospital">{{feed.hospital.name}}<span>2020.07.13</span></div>
+              <div class="user-hospital">{{feed.hospital.name}}<span>{{feed.updateDate}}</span></div>
             </div>
             
             <div class ="review-write-form">
