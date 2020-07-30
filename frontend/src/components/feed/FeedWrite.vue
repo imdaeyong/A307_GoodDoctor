@@ -34,7 +34,7 @@
             <div class="feed-top">
               <img src= "../../assets/images/profile_default.png" alt="">
               <div class="user-info">{{feed.user.nickname}}</div>
-              <div class="user-hospital">{{feed.hospital.name}}<span>{{feed.createDate}}</span></div>
+              <div class="user-hospital">{{feed.hospital.name}}<span>{{feed.updateDate}}</span></div>
             </div>
             <div class="feed-card">
               <img src= "../../assets/images/feed-sample.jpg" alt="">
