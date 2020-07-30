@@ -1,6 +1,9 @@
 <template>
   <div>
     <NavBar/>
+    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
+      <User/>
+    </b-modal>
     <div class="user">
       <div class="wrapC mt-5">
         <h1 style="text-align:center;">회원 정보</h1>
@@ -42,17 +45,22 @@
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
 import NavBar from "../../components/NavigationBar.vue";
+import User from "../../views/accounts/Login.vue";
 import myProfile from "../../components/accounts/profile/myProfile.vue"
 import myHospital from "../../components/accounts/profile/myHospital.vue"
 import myReview from "../../components/accounts/profile/myReview.vue"
-
+import store from '@/vuex/store.js'
 export default {
   name: 'Profile',
   components: {
     NavBar,
     myProfile,
     myHospital,
-    myReview
+    myReview,
+    User
+  },
+  mounted(){
+    if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
   },
   methods: {
     toggle(text) {
