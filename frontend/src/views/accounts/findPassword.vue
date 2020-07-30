@@ -32,7 +32,6 @@ import axios from 'axios'
 import http from '@/util/http-common'
 import * as EmailValidator from "email-validator"
 
-const SERVER_URL="http://localhost:8080/"
 
 export default {
   name: "findPassword",
@@ -52,7 +51,7 @@ export default {
   },
   methods: {
     sendPwdToEmail() {
-      axios.post(`${SERVER_URL}pwd`, {email: this.email})
+      http.post(`pwd`, {email: this.email})
         .then(res => {
           if(res.data.accountType==0){
             alert(this.email+'로 비밀번호를 보냈습니다.')

@@ -36,13 +36,12 @@
 </template>
 
 <script>
-const SERVER_URL="http://localhost:8080/"
 
 import defaultImage from "../../assets/images/img-placeholder.png";
 import defaultProfile from "../../assets/images/profile_default.png";
 import axios from "axios";
 import store from '@/vuex/store.js'
-
+import http from '@/util/http-common'
 export default {
   data: () => {
     return {
@@ -54,7 +53,7 @@ export default {
     }
   },
   mounted(){
-    axios.get(`${SERVER_URL}feeds/`).then(data => {
+    http.get(`feeds/`).then(data => {
       this.feeds = data;
       this.nickname = store.state.userInfo.data.nickname;
       this.isLogin = store.state.isLogin;
@@ -79,7 +78,7 @@ export default {
         content : feedData
  
       };
-      axios.post(`${SERVER_URL}comments/`,comment)
+      http.post(`comments/`,comment)
       .then(data =>{
         alert("댓글등록 완료");
         this.$router.go(0);

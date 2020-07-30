@@ -66,7 +66,6 @@
 </template>
 
 <script>
-const SERVER_URL="http://localhost:8080/"
 
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
@@ -76,7 +75,6 @@ import * as EmailValidator from "email-validator";
 import KakaoLogin from "../../components/accounts/snsLogin/Kakao.vue";
 import GoogleLogin from "../../components/accounts/snsLogin/Google.vue";
 import store from '@/vuex/store.js'
-
 export default {
   components: {
     KakaoLogin,

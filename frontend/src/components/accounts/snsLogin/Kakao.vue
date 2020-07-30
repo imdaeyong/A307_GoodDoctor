@@ -35,6 +35,7 @@
 <script>
     import axios from 'axios'
     import store from '@/vuex/store'
+    import http from '@/util/http-common'
     export default {
         methods: {
             kakaoLogin() {
@@ -57,7 +58,7 @@
                             account_type : 2,
                         }
 
-                         axios.post(`http://localhost:8080/account/kakao`,{
+                         http.post(`account/kakao`,{
                              email : userInfo.email,
                              nickname : userInfo.nickname
                          })

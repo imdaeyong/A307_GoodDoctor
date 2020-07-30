@@ -69,12 +69,12 @@
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
 
 <script>
-const SERVER_URL="http://localhost:8080/"
 import NavBar from "../../components/NavigationBar.vue";
 import User from "../../views/accounts/Login.vue";
 import "../../assets/css/feedWrite.scss";
 import axios from "axios";
 import store from '@/vuex/store.js'
+import http from '@/util/http-common'
 export default {
   components: { NavBar, User },
   data: () => {
@@ -91,7 +91,7 @@ export default {
     else{this.nickname = store.state.userInfo.data.nickname;
       this.isLogin = store.state.isLogin;
       this.userId = store.state.userInfo.data.id
-      axios.get(`${SERVER_URL}feeds/${this.userId}`)
+      http.get(`feeds/${this.userId}`)
       .then(data => {
         this.feeds = data.data;
         console.log(this.feeds);
@@ -114,7 +114,7 @@ export default {
         feedId : feedId,
         content : feedData
       };
-      axios.post(`${SERVER_URL}comments/`,comment)
+      http.post(`comments/`,comment)
       .then(data =>{
         alert("댓글등록 완료");
         this.$router.go(0);
@@ -128,13 +128,8 @@ export default {
       this.openWrite = id;
     },
     addReview(feedId, reviewData){
-      // let review = {
-      //   feedId : feedId,
-      //   reviewData : reviewData
-      // }
-      alert(feedId + " " + reviewData);
 
-      axios.put(`${SERVER_URL}feeds/`,{id:feedId, content:reviewData})
+      http.put(`feeds/`,{id:feedId, content:reviewData})
       .then(data =>{
         alert("리뷰작성 완료");
         this.$router.go(0);
