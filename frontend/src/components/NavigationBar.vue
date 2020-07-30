@@ -229,22 +229,9 @@
                 this.$bvModal.show('bv-modal-example');
                 this.$router.go(0);
             },
-              selectSubject(subject) {
-                this.subject = subject;
-                // console.log("subject : " + subject + " / this.sido : " + this.sido + " / this.gugun : " + this.gugun);
-                
-                this.$router.push(`hospital?no=10&subject=${subject}`); 
-                this.$router.go(0);
-            },
-            selectGu(gu) {
-                if(this.sido=="부산")
-                    this.gugun="부산"+gu
-                else 
-                    this.gugun=gu;
-
-                // console.log("subject : " + this.subject + " / this.sido : " + this.sido + " / this.gugun : " + this.gugun);
-                this.$router.push(`hospital?no=10&sido=${this.sido}&gu=${this.gugun}`);      
-                this.$router.go(0);       
+            selectSubject(subject) {
+                console.log(subject);
+                this.$router.push(`/hospital/main?subject=${subject}`);
             },
             selectCity(city){
                 this.sido=city;
@@ -256,12 +243,18 @@
                 }
                 city = !city;
             },
+            selectGu(gu) {
+                if(this.sido=="부산")
+                    this.gugun="부산"+gu
+                else 
+                    this.gugun=gu;
+                this.$router.push(`/hospital/main?sido=${this.sido}&gu=${this.gugun}`);
+            },
         },
         data: () => {
             return {
                 sido:"",
                 gugun:"",
-                subject:"",
                 area: [
                     {display : false, name : "서울"},
                     {display : false, name : "경기"},
