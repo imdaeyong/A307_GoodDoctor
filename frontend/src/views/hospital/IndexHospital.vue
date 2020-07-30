@@ -1,24 +1,20 @@
 <template>
   <div>
     <NavBar />
-    <div class="user">
-      <div class="wrapC mt-5">
-        <h1>병원 리스트 페이지입니다.</h1>
-        <page-link />
-      </div>
+    <div class="mt-5">
+      <h1 class="d-flex justify-content-center mb-4">병원 리스트 페이지</h1>
+      <PageLink/>
+      <b-container fluid class="bv-example-row bv-example-row-flex-cols" style="width:72%">
+        <b-row align-v="stretch">
+          <b-col cols="7" class="border-right">
+            <HospitalItem/>
+          </b-col>
+          <b-col cols="5">
+            <HospitalMap/>
+          </b-col>
+        </b-row>
+      </b-container>
     </div>
-
-    <b-container fluid class="bv-example-row bv-example-row-flex-cols">
-      <b-row align-v="stretch">
-        <b-col cols="8" class="border-right" style="background-color: ivory">
-          <HospitalItem/>
-        </b-col>
-        <b-col cols="4">
-          <HospitalMap/>
-        </b-col>
-      </b-row>
-    </b-container>
-    
   </div>
 </template>
 
@@ -38,3 +34,6 @@ export default {
 };
 </script>
 
+<style>
+
+</style>

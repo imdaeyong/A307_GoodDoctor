@@ -8,7 +8,7 @@
           <div class="user-hospital">{{feed.hospital.name}}<span>{{feed.updateDate}}</span></div>
         </div>
         <div class="feed-card">
-          <img src= "../../assets/images/feed-sample.jpg" alt="">
+          <img src="../../assets/images/feed/1.png" alt="">
           <a href="">#새로나온차#미래내차</a><br>
           {{feed.content}}
           

@@ -1,24 +1,22 @@
 <template>
-
-    <div>
-      <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
-        <b-card no-body class="overflow-hidden my-3 ml-4" style="max-width: 1000px;">
-          <b-row no-gutters>
-            <b-col md="2">
-              <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-            </b-col>
-            <b-col md="10">
-              <b-card-body>
-                <b-card-title>{{hospital.name}}</b-card-title>
-                <b-card-text>주소 : {{hospital.address}}</b-card-text>
-                <b-card-text>전화번호 : {{hospital.phone}}</b-card-text>
-                <b-card-text>진료과목 : {{hospital.subject}}</b-card-text>
-              </b-card-body>
-            </b-col>
-          </b-row>
-        </b-card>
-      </div>
-
+  <div>
+    <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
+      <b-card no-body class="overflow-hidden my-3 ml-4">
+        <b-row no-gutters>
+          <b-col md="3">
+            <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
+          </b-col>
+          <b-col md="9">
+            <b-card-body class="py-2">
+              <b-card-title>{{hospital.name}}</b-card-title>
+              <b-card-text class="mb-1">주소 : {{hospital.address}}</b-card-text>
+              <b-card-text class="mb-1">전화번호 : {{hospital.phone}}</b-card-text>
+              <b-card-text class="mb-1">진료과목 : {{hospital.subject}}</b-card-text>
+            </b-card-body>
+          </b-col>
+        </b-row>
+      </b-card>
+    </div>
   </div>
 </template>
 

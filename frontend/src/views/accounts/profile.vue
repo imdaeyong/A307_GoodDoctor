@@ -1,9 +1,6 @@
 <template>
   <div>
     <NavBar/>
-    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
-      <User/>
-    </b-modal>
     <div class="user">
       <div class="wrapC mt-5">
         <h1 style="text-align:center;">회원 정보</h1>
@@ -14,11 +11,11 @@
 
         <b-col class='border-right' cols="3" style="text-align:center">
           <h2 class="mt-3" style="line-height: 66px; height: 60px; background-color : #17a2b8; color : white;">목차</h2>
-          <button @click="toggle('myProfile')" class="mt-3" style="outline: 0"><h5>내 정보</h5></button>
+          <button @click="toggle('myProfile')" class="mt-3 hoverMycolor" style="outline: 0"><h5>내 정보</h5></button>
           <br>  
-          <button @click="toggle('myHospital')" class="mt-3" style="outline: 0"><h5>관심 정보</h5></button>
+          <button @click="toggle('myHospital')" class="mt-3 hoverMycolor" style="outline: 0"><h5>관심 정보</h5></button>
           <br>  
-          <button @click="toggle('myReview')" class="mt-3" style="outline: 0"><h5>내 리뷰</h5></button>
+          <button @click="toggle('myReview')" class="mt-3 hoverMycolor" style="outline: 0"><h5>내 리뷰</h5></button>
         </b-col>
         
         <b-col cols="9" style="text-align:center;">
@@ -44,8 +41,7 @@
 <script>
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
-import NavBar from "../../components/NavigationBar.vue";
-import User from "../../views/accounts/Login.vue";
+import NavBar from "../../components/NavigationBar.vue"
 import myProfile from "../../components/accounts/profile/myProfile.vue"
 import myHospital from "../../components/accounts/profile/myHospital.vue"
 import myReview from "../../components/accounts/profile/myReview.vue"
@@ -57,7 +53,6 @@ export default {
     myProfile,
     myHospital,
     myReview,
-    User
   },
   mounted(){
     if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');

@@ -7,7 +7,7 @@
                 <div class="user-hospital-modal">병원이름 <span>2020.07.13</span></div>
             </div>
             <div class="feed-card-modal">
-                <img src= "../../assets/images/feed-sample.jpg" alt=""><br>
+                <img src= "../../assets/images/feed/1.png" alt=""><br>
                 <a href="">#새로나온차#미래내차</a><br>
                 이번에 현대 자동차에서 새롭게 선보이게 된 자동차인<br>
                 제네시스 G80이다.<br>

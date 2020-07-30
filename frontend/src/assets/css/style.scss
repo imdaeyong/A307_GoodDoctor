@@ -63,7 +63,11 @@ button {
 .border-right {
     border-right: 10px solid black;
 }
-
+.hoverMycolor {
+    &:hover {
+        color: $myColor;
+    }
+}
 
 /*button default*/
 .btn {

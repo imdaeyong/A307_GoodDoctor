@@ -1,5 +1,5 @@
 <template>
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center" style="z-index: 1;">
 
     <li class="page-item" v-if="prev">
       <router-link :to="`/list?no=${ (startPageIndex - 1) * listRowCount }&subject=${subject}&sido=${sido}&gu=${gu}`" class="page-link" aria-label="Previous" @click.native="movePage(startPageIndex - 1)">
@@ -17,6 +17,7 @@
         <span aria-hidden="true">&raquo;</span>
       </router-link>
     </li>
+
   </ul>
 </template>
 
@@ -24,7 +25,7 @@
 import axios from 'axios'
 import http from '@/util/http-common'
 export default {
-  name: "row",
+  name: "PageLink",
   data() {
     return {
       totalListItemCount: 0,
