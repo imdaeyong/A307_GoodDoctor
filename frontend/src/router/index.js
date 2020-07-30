@@ -8,9 +8,10 @@ import FindPassword from '../views/accounts/findPassword.vue'
 import FeedMain from '../views/feed/IndexFeed.vue'
 import ErrorPage from '../components/errorPage.vue'
 import PageNotFound from '../components/PageNotFound.vue'
+import GoogleLogin from '../components/accounts/snsLogin/Google.vue'
 import FeedWrite from '../components/feed/FeedWrite.vue'
-import Hospital from '../views/hospital/IndexHospital.vue'
-import List from '../components/hospital/HospitalItem.vue'
+import HospitalMain from '../views/hospital/IndexHospital.vue'
+import KakaoMap from '../components/hospital/HospitalMap.vue'
 
 Vue.use(VueRouter)
 
@@ -61,15 +62,19 @@ Vue.use(VueRouter)
         component : PageNotFound
     },
     {
-        path : '/hospital',
-        name : 'Hospital',
-        component : Hospital,
-        children:[
-            {
-              path: '/list',
-              component: List,
-            }
-          ]
+        path: '/account/google',
+        name : 'GoogleLogin',
+        component : GoogleLogin
+    },
+    {
+        path : '/hospital/main',
+        name : 'HospitalMain',
+        component : HospitalMain
+    },
+    {
+        path : '/hospital/map',
+        name : 'HospitalMap',
+        component : KakaoMap
     },
 
   ]
