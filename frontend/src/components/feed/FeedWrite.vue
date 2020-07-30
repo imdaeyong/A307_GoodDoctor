@@ -38,7 +38,7 @@
             </div>
             <div class="feed-card">
               <img src= "../../assets/images/feed/1.png" alt="">
-              <a href="">#새로나온차#미래내차</a><br>
+              <a href="">#진료잘봄#호감</a><br>
               {{feed.content}}
               
               <span>더보기...</span>
