@@ -9,7 +9,7 @@
         <input
           v-model="email"
           v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
-          @keyup.enter="Login"
+          @keyup.enter="onLogin"
           id="email"
           placeholder="이메일을 입력하세요."
           type="text"
@@ -24,7 +24,7 @@
           type="password"
           v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
           id="password"
-          @keyup.enter="Login"
+          @keyup.enter="onLogin"
           placeholder="비밀번호를 입력하세요."
         />
         <label for="password">비밀번호</label>
@@ -146,8 +146,4 @@ export default {
     },
   },
 }
-
 </script>
-
-<style scoped>
-</style>
