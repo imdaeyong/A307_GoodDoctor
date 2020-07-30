@@ -2,7 +2,11 @@
     <div class="nav-bar">
         <div class="header">
             <div class="header-list">
-                <button class="btn-home" style="outline:0;"><b-icon-heart-half></b-icon-heart-half>굿 닥터</button>
+                <button class="btn-home" style="outline:0;">
+                    <router-link to="/" style="text-decoration : none; color : white;">
+                        <b-icon-heart-half></b-icon-heart-half>굿 닥터
+                    </router-link>     
+                </button>
                 <input type="text" class="input-search ml-4">
                 <button class="btn-search" style="outline:0;"><b-icon-search></b-icon-search></button>
             </div>
