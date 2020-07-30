@@ -12,5 +12,5 @@ public interface FeedMapping {
 	int getId();
 	LocalDateTime getCreateDate();
 	LocalDateTime getUpdateDate();
-	
+	boolean getIsNew();
 }

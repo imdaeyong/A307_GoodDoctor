@@ -9,6 +9,7 @@
         <input
           v-model="email"
           v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
+          @keyup.enter="onLogin"
           id="email"
           placeholder="이메일을 입력하세요."
           type="text"
@@ -146,8 +147,4 @@ export default {
     },
   },
 }
-
 </script>
-
-<style scoped>
-</style>

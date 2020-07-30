@@ -10,7 +10,7 @@
       <b-row align-v="stretch">
 
         <b-col class='border-right' cols="3" style="text-align:center">
-          <h1 class="mt-3">index</h1>
+          <h1 class="mt-3" style="line-height: 56px; height: 60px; border-bottom: solid #17a2b8">목차</h1>
           <button @click="toggle('myProfile')" class="mt-3" style="outline: 0"><h5>내 정보</h5></button>
           <br>  
           <button @click="toggle('myHospital')" class="mt-3" style="outline: 0"><h5>관심 정보</h5></button>
@@ -58,7 +58,7 @@ export default {
     toggle(text) {
       for(var i = 0; i < this.categories.length; i++) {
         if(text == this.categories[i].name) {
-          this.categories[i].display = !this.categories[i].display
+          this.categories[i].display = true
         } else {
           this.categories[i].display = false
         }
@@ -76,7 +76,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

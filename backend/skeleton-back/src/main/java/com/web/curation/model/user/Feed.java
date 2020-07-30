@@ -50,4 +50,5 @@ public class Feed {
     @Column(insertable = false)
     private LocalDateTime updateDate;
     
+    private boolean isNew;
 }

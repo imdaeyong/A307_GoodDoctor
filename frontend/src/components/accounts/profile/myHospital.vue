@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>지금 관심있는 병원 정보</h1>
+    <h1 class="mt-3">지금 관심있는 병원 정보</h1>
   </div>
 </template>
 

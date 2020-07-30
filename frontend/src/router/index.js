@@ -10,7 +10,8 @@ import ErrorPage from '../components/errorPage.vue'
 import PageNotFound from '../components/PageNotFound.vue'
 import GoogleLogin from '../components/accounts/snsLogin/Google.vue'
 import FeedWrite from '../components/feed/FeedWrite.vue'
-import FeedHospitalList from '../components/feed/FeedHospitalList.vue'
+import HospitalMain from '../views/hospital/IndexHospital.vue'
+import KakaoMap from '../components/hospital/HospitalMap.vue'
 
 Vue.use(VueRouter)
 
@@ -51,11 +52,6 @@ Vue.use(VueRouter)
         component : ChangePassword
     },
     {
-        path : '/feed/hospitallist',
-        name : 'FeedHospitalList',
-        component : FeedHospitalList
-    },
-    {
         path : '/errorPage',
         name : 'ErrorPage',
         component : ErrorPage
@@ -70,6 +66,17 @@ Vue.use(VueRouter)
         name : 'GoogleLogin',
         component : GoogleLogin
     },
+    {
+        path : '/hospital/main',
+        name : 'HospitalMain',
+        component : HospitalMain
+    },
+    {
+        path : '/hospital/map',
+        name : 'HospitalMap',
+        component : KakaoMap
+    },
+
   ]
 
   const router = new VueRouter({
