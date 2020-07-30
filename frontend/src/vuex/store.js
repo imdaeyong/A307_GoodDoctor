@@ -13,6 +13,7 @@ const state = {
     isUser: false,
 }
 const SERVER_URL="http://localhost:8080/"
+
 export default new Vuex.Store({
     state: {
         userInfo: {},

@@ -2,16 +2,20 @@
     <div class="nav-bar">
         <div class="header">
             <div class="header-list">
-                <button class="btn-home" style="outline:0;"><b-icon-heart-half></b-icon-heart-half> 굿 닥터</button>
+                <button class="btn-home" style="outline:0;">
+                    <router-link to="/" style="text-decoration : none; color : white;">
+                        <b-icon-heart-half></b-icon-heart-half>굿 닥터
+                    </router-link>     
+                </button>
                 <input type="text" class="input-search ml-4">
                 <button class="btn-search" style="outline:0;"><b-icon-search></b-icon-search></button>
             </div>
             <div class="dropdown-list">
                 <div class="btn-hospital-list">
                     <button class="btn-search-hospital" style="outline:0;">병원찾기<b-icon-caret-down-fill></b-icon-caret-down-fill></button>
-                    <div class="dropdown-content">
+                    <div class="dropdown-content" style="z-index: 2;">
                         <div class="drop-platform">
-                             <button @click="selectSubject('치과')" class="dropdown-sub-hospital" ><img src="../assets/images/hospital/hospital1.png" alt=""><br>치과</button>
+                            <button @click="selectSubject('치과')" class="dropdown-sub-hospital" ><img src="../assets/images/hospital/hospital1.png" alt=""><br>치과</button>
                             <button @click="selectSubject('피부과')" class="dropdown-sub-hospital" ><img src="../assets/images/hospital/hospital2.png" alt=""><br>피부과</button>
                             <button @click="selectSubject('성형외과')" class="dropdown-sub-hospital" ><img src="../assets/images/hospital/hospital3.png" alt=""><br>성형외과</button>
                             <button @click="selectSubject('안과')" class="dropdown-sub-hospital" ><img src="../assets/images/hospital/hospital4.png" alt=""><br>안과</button>
@@ -33,7 +37,7 @@
                 </div>
                 <div class="btn-area-list">
                     <button class="btn-search-area" style="outline:0;">지역별찾기<b-icon-caret-down-fill></b-icon-caret-down-fill></button>
-                    <div class="dropdown-content">
+                    <div class="dropdown-content" style="z-index: 2;">
                         <div class="drop-platform">
                             <button class="dropdown-sub-area" v-on:click="selectCity('서울')" value="서울"><b-icon-geo-alt></b-icon-geo-alt>서울</button>
                             <button class="dropdown-sub-area" v-on:click="selectCity('경기')" value="경기"><b-icon-geo-alt></b-icon-geo-alt>경기</button>
@@ -47,7 +51,7 @@
                             <button class="dropdown-sub-area" v-on:click="selectCity('충남')" value="충남"><b-icon-geo-alt></b-icon-geo-alt>충남</button>
                         </div>
                         <div>
-                            <div class ="dropdown-sub-gu" v-if="area[0].display">
+                            <div class ="dropdown-sub-gu" v-if="area[0].display" style="z-index: 2;">
                                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>서울</div>
                                 <div class ="gu-list">
                                     <div><a @click="selectGu('강남구')" href="#" >강남구</a></div>

@@ -37,10 +37,12 @@
 
 <script>
 const SERVER_URL="http://localhost:8080/"
+
 import defaultImage from "../../assets/images/img-placeholder.png";
 import defaultProfile from "../../assets/images/profile_default.png";
 import axios from "axios";
 import store from '@/vuex/store.js'
+
 export default {
   data: () => {
     return {

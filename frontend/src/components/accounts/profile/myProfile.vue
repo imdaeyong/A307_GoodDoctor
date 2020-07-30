@@ -1,10 +1,11 @@
 <template>
   <div>
-    <h1 class="mt-3">소중한 내 정보</h1>
-    <b-row>
-      <div class="ml-4">
+    <h1 class="mt-3">소중한 내 정보 지켜줄게요</h1>
+    <b-row class="mt-4">
+      <div class="ml-4 mt-1">
         <img  src= "../../../assets/images/profile_default.png" alt="" style="width: 14rem">
-        <div class="user-info-modal">닉네임</div>
+        <div class="user-info-modal mt-3">닉네임</div>
+        <div class="user-info-modal mt-3"><a href="#" style="color : #17a2b8">아이콘 변경</a></div>
       </div>
       <b-col class="right">
         <h3>닉네임: <span  style="color : #17a2b8">{{this.$store.state.userInfo.data.nickname}}</span></h3>

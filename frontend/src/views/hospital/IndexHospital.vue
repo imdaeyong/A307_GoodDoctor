@@ -14,7 +14,9 @@
 
         <b-col cols="4">
           <h1>지도map</h1>
-          <HospitalMap :key="$route.fullPath" />
+          <div style="z-index: 1;">
+           <HospitalMap :key="$route.fullPath" style="z-index: 0;"/>
+          </div>
         </b-col>
       </b-row>
     </b-container>
