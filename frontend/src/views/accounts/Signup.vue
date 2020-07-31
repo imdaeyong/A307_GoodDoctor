@@ -42,12 +42,9 @@
               v-bind:class="{complete:inputAuth.length==6}"
             />
             <label for="inputAuth">인증번호</label>
-            <label for="inputAuth" @click="emailAuthCheck" class="authRight">
-              <span style="font-weight: bold">확인</span>
-            </label>
+            <label for="inputAuth" @click="emailAuthCheck" class="authRight"><button><span style="font-weight: bold">확인</span></button>
+              </label>
           </div>
-          <br>
-          <b>전송된 인증번호 : {{this.$store.state.authCode}}</b>
         </div>
 
 
@@ -92,6 +89,7 @@
 </template>
 
 <script>
+const SERVER_URL="http://i3a307.p.ssafy.io:8080/"
 import * as EmailValidator from "email-validator"
 import PV from "password-validator"
 import UserApi from "../../api/UserApi"
@@ -203,7 +201,7 @@ export default {
 
 
     onjoin(){
-      http.post(`account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
+      axios.post(`${SERVER_URL}account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
       .then(res=>{
         this.$router.push("/emailCheck");
         alert("이메일 인증 페이지로 넘어갑니다.");
