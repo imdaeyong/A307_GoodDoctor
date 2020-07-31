@@ -1,8 +1,13 @@
 <template>
   <div>
     <NavBar/>
+
     <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
       <User/>
+    </b-modal>
+
+    <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
+      <FeedModal />
     </b-modal>
     <div>
       <!-- 기존에 내가 작성한 Feed목록 -->
@@ -46,7 +51,7 @@
             <div class="feed-foot">
               <div class="feed-btn-list">
                 <div class ="like"><button v-on:click="addLike()"><b-icon-heart ></b-icon-heart></button></div>
-                <div class ="reply"><button><b-icon-chat-square v-on:click="openReply()"></b-icon-chat-square></button></div>
+                <div class ="reply"><button><b-icon-chat-square v-on:click="openReply(feed.id)"></b-icon-chat-square></button></div>
                 <div class ="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
               </div>
               <div class ="reply-list">
@@ -75,8 +80,14 @@ import "../../assets/css/feedWrite.scss";
 import axios from "axios";
 import store from '@/vuex/store.js'
 import http from '@/util/http-common'
+import FeedModal from "../feed/FeedModal.vue";
+
 export default {
-  components: { NavBar, User },
+  components: { 
+    FeedModal,
+    NavBar, 
+    User 
+  },
   data: () => {
     return {
       openWrite : "",
@@ -102,7 +113,8 @@ export default {
     addLike(){ //좋아요 버튼 클릭시 실행 함수
       alert("하이");
     },
-    openReply(){ //댓글 버튼 클릭시 실행 함수
+    openReply(feedInfo){ //댓글 버튼 클릭시 실행 함수
+      store.dispatch('openReply', feedInfo);
       this.$bvModal.show('bv-modal-feed');
     },
     addShare(){ //공유버튼 클릭시 실행 함수
