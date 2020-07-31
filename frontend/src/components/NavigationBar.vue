@@ -59,59 +59,64 @@
                                     <div><a @click="selectGu('서초구')" href="#">서초구</a></div>
                                     <div><a @click="selectGu('마포구')" href="#">마포구</a></div>
                                     <div><a @click="selectGu('강서구')" href="#">강서구</a></div><br>
-                                    <div><a @click="selectGu('중구')" href="#">중구</a></div>
-                                    <div><a @click="selectGu('양천구')" href="#">양천구</a></div>
-                                    <div><a @click="selectGu('종로구')" href="#">종로구</a></div>
-                                    <div><a @click="selectGu('용산구')" href="#">용산구</a></div><br>
+                                    <div><a @click="selectGu('영등포구')" href="#">영등포구</a></div>
                                     <div><a @click="selectGu('강동구')" href="#">강동구</a></div>
-                                    <div><a @click="selectGu('서대문구')" href="#">서대문구</a></div>
-                                    <div><a @click="selectGu('성동구')" href="#">성동구</a><br></div>
-                                    <div><a @click="selectGu('관악구')" href="#">관악구</a></div>
-                                    <div><a @click="selectGu('은평구')" href="#">은평구</a></div><br>
+                                    <div><a @click="selectGu('성북구')" href="#">성북구</a></div>
+                                    <div><a @click="selectGu('은평구')" href="#">은평구</a></div>
+                                    <div><a @click="selectGu('관악구')" href="#">관악구</a></div><br>
+                                    <div><a @click="selectGu('구로구')" href="#">구로구</a></div>
+                                    <div><a @click="selectGu('노원구')" href="#">노원구</a></div>
                                     <div><a @click="selectGu('동대문구')" href="#">동대문구</a></div>
                                     <div><a @click="selectGu('동작구')" href="#">동작구</a></div>
-                                    <div><a @click="selectGu('노원구')" href="#">노원구</a></div>
-                                    <div><a @click="selectGu('도봉구')" href="#">도봉구</a></div>
-                                    <div><a @click="selectGu('영등포구')" href="#">영등포구</a></div><br>
+                                    <div><a @click="selectGu('양천구')" href="#">양천구</a></div>
                                     <div><a @click="selectGu('중랑구')" href="#">중랑구</a></div>
-                                    <div><a @click="selectGu('강북구')" href="#">강북구</a></div>
-                                    <div><a @click="selectGu('금천구')" href="#">금천구</a></div>
                                     <div><a @click="selectGu('광진구')" href="#">광진구</a></div>
-                                    <div><a @click="selectGu('성북구')" href="#">성북구</a></div><br>
-                                    <div><a @click="selectGu('구로구')" href="#">구로구</a></div>
+                                    <div><a @click="selectGu('강북구')" href="#">강북구</a></div><br>
+                                    <div><a @click="selectGu('중구')" href="#">중구</a></div>
+                                    <div><a @click="selectGu('종로구')" href="#">종로구</a></div><br>
+                                    <div><a @click="selectGu('성동구')" href="#">성동구</a><br></div>
+                                    <div><a @click="selectGu('서대문구')" href="#">서대문구</a></div>
+                                    <div><a @click="selectGu('용산구')" href="#">용산구</a></div>
+                                    <div><a @click="selectGu('금천구')" href="#">금천구</a></div>
                                 </div>
                                 
                             </div>
                             <div class ="dropdown-sub-gu" v-if="area[1].display">
                                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>경기</div>
                                 <div class ="gu-list">
-                                    <div><a @click="selectGu('수원')" href="#">수원</a></div><div><a @click="selectGu('김포')" href="#">김포</a></div>
-                                    <div><a @click="selectGu('고양')" href="#">고양</a></div><div><a @click="selectGu('영통')" href="#">영통</a></div><div><a @click="selectGu('용인')" href="#">용인</a></div><br>
-                                    <div><a @click="selectGu('일산')" href="#">일산</a></div><div><a @click="selectGu('성남')" href="#">성남</a></div>
-                                    <div><a @click="selectGu('기흥')" href="#">기흥</a></div><div><a @click="selectGu('부천')" href="#">부천</a></div><div><a @click="selectGu('분당')" href="#">분당</a></div><br>
-                                    <div><a @click="selectGu('안성')" href="#">안성</a></div><div><a @click="selectGu('남양주')" href="#">남양주</a></div>
-                                    <div><a @click="selectGu('과천')" href="#">과천</a></div><div><a @click="selectGu('오산')" href="#">오산</a></div><div><a @click="selectGu('동두천')" href="#">동두천</a></div><br>
-                                    <div><a @click="selectGu('광명')" href="#">광명</a></div><div><a @click="selectGu('의왕')" href="#">의왕</a></div>
-                                    <div><a @click="selectGu('양주')" href="#">양주</a></div><div><a @click="selectGu('안양')" href="#">안양</a></div><div><a @click="selectGu('이천')" href="#">이천</a></div><br>
-                                    <div><a @click="selectGu('의정부')" href="#">의정부</a></div><div><a @click="selectGu('시흥')" href="#">시흥</a></div>
-                                    <div><a @click="selectGu('평택')" href="#">평택</a></div><div><a @click="selectGu('파주')" href="#">파주</a></div><div><a @click="selectGu('안산')" href="#">안산</a></div><br>
-                                    <div><a @click="selectGu('하남')" href="#">하남</a></div><div><a @click="selectGu('포천')" href="#">포천</a></div>
-                                    <div><a @click="selectGu('광주')" href="#">광주</a></div><div><a @click="selectGu('화성')" href="#">화성</a></div><div><a @click="selectGu('연천')" href="#">연천</a></div><br>
-                                    <div><a @click="selectGu('군포')" href="#">군포</a></div><div><a @click="selectGu('여주')" href="#">여주</a></div>
-                                    <div><a @click="selectGu('가평')" href="#">가평</a></div><div><a @click="selectGu('구리')" href="#">구리</a></div><div><a @click="selectGu('양평')" href="#">양평</a></div>
+                                    <div><a @click="selectGu('부천')" href="#">부천</a></div>
+                                    <div><a @click="selectGu('화성')" href="#">화성</a></div>
+                                    <div><a @click="selectGu('일산')" href="#">일산</a></div>
+                                    <div><a @click="selectGu('성남분당')" href="#">성남분당</a></div>
+                                    <div><a @click="selectGu('남양주')" href="#">남양주</a></div><br>
+                                    <div><a @click="selectGu('김포')" href="#">김포</a></div>
+                                    <div><a @click="selectGu('고양덕양')" href="#">고양덕양</a></div>
+                                    <div><a @click="selectGu('시흥')" href="#">시흥</a></div>
+                                    <div><a @click="selectGu('의정부')" href="#">의정부</a></div>
+                                    <div><a @click="selectGu('평택')" href="#">평택</a></div><br>
+                                    <div><a @click="selectGu('광명')" href="#">광명</a></div>
                                 </div>
                             </div>
                             <div class ="dropdown-sub-gu" v-if="area[2].display">
                                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>부산</div>
                                 <div class ="gu-list">
-                                    <div><a @click="selectGu('광안리')" href="#">광안리</a></div><div><a @click="selectGu('해운대')" href="#">해운대</a></div><div><a @click="selectGu('센텀시티')" href="#">센텀시티</a></div><br>
-                                    <div><a @click="selectGu('송도')" href="#">송도</a></div><div><a @click="selectGu('중구')" href="#">중구</a></div>
-                                    <div><a @click="selectGu('남구')" href="#">남구</a></div><div><a @click="selectGu('강서구')" href="#">강서구</a></div><div><a @click="selectGu('서구')" href="#">서구</a></div><br>
-                                    <div><a @click="selectGu('북구')" href="#">북구</a></div><div><a @click="selectGu('연제구')" href="#">연제구</a></div>
-                                    <div><a @click="selectGu('동구')" href="#">동구</a></div><div><a @click="selectGu('동래구')" href="#">동래구</a></div><div><a @click="selectGu('수영구')" href="#">수영구</a></div><br>
-                                    <div><a @click="selectGu('영도구')" href="#">영도구</a></div><div><a @click="selectGu('사하구')" href="#">사하구</a></div>
-                                    <div><a @click="selectGu('사상구')" href="#">사상구</a></div><div><a @click="selectGu('부산진구')" href="#">진구</a></div><div><a @click="selectGu('금정구')" href="#">금정구</a></div><br>
+                                    <div><a @click="selectGu('진구')" href="#">진구</a></div>
+                                    <div><a @click="selectGu('해운대구')" href="#">해운대구</a></div>
+                                    <div><a @click="selectGu('동래구')" href="#">동래구</a></div>
+                                    <div><a @click="selectGu('금정구')" href="#">금정구</a></div>
+                                    <div><a @click="selectGu('사하구')" href="#">사하구</a></div><br>
+                                    <div><a @click="selectGu('남구')" href="#">남구</a></div>
+                                    <div><a @click="selectGu('연제구')" href="#">연제구</a></div>
+                                    <div><a @click="selectGu('북구')" href="#">북구</a></div>
+                                    <div><a @click="selectGu('사상구')" href="#">사상구</a></div>
+                                    <div><a @click="selectGu('동구')" href="#">동구</a></div><br>
+                                    <div><a @click="selectGu('수영구')" href="#">수영구</a></div>
                                     <div><a @click="selectGu('기장군')" href="#">기장군</a></div>
+                                    <div><a @click="selectGu('광안리')" href="#">광안리</a></div>
+                                    <div><a @click="selectGu('영도구')" href="#">영도구</a></div>
+                                    <div><a @click="selectGu('송도')" href="#">송도</a></div>
+                                    <div><a @click="selectGu('강서구')" href="#">강서구</a></div><br>
+                                    <div><a @click="selectGu('중구')" href="#">중구</a></div>
                                 </div>
                             </div>
 
@@ -119,28 +124,35 @@
                                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>경남</div>
                                 <div class ="gu-list">
                                     <div><a @click="selectGu('김해시')" href="#">김해시</a></div><div><a @click="selectGu('양산시')" href="#">양산시</a></div>
-                                    <div><a @click="selectGu('진주시')" href="#">진주시</a></div><div><a @click="selectGu('성산구')" href="#">성산구</a></div><div><a @click="selectGu('남동구')" href="#">남동구</a></div><br>
-                                    <div><a @click="selectGu('의창구')" href="#">의창구</a></div><div><a @click="selectGu('합포구')" href="#">합포구</a></div>
-                                    <div><a @click="selectGu('회원구')" href="#">회원구</a></div><div><a @click="selectGu('거제시')" href="#">거제시</a></div><div><a @click="selectGu('중구')" href="#">중구</a></div><br>
-                                    <div><a @click="selectGu('통영시')" href="#">통영시</a></div><div><a @click="selectGu('진해구')" href="#">진해구</a></div><div><a @click="selectGu('동구')" href="#">동구</a></div>
+                                    <div><a @click="selectGu('진주시')" href="#">진주시</a></div><div><a @click="selectGu('성산구')" href="#">성산구</a></div>
+                                    <div><a @click="selectGu('의창구')" href="#">의창구</a></div><br><div><a @click="selectGu('합포구')" href="#">합포구</a></div>
+                                    <div><a @click="selectGu('회원구')" href="#">회원구</a></div><div><a @click="selectGu('거제시')" href="#">거제시</a></div>
+                                    <div><a @click="selectGu('통영시')" href="#">통영시</a></div><div><a @click="selectGu('진해구')" href="#">진해구</a></div></div>
                                 </div>
                             </div>
                             <div class ="dropdown-sub-gu" v-if="area[4].display">
                                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>인천</div>
                                 <div class ="gu-list">
-                                    <div><a @click="selectGu('송도')" href="#">송도</a></div><div><a @click="selectGu('구월동')" href="#">구월동</a></div>
-                                    <div><a @click="selectGu('청라')" href="#">청라</a></div><div><a @click="selectGu('연수구')" href="#">연수구</a></div><div><a @click="selectGu('남동구')" href="#">남동구</a></div><br>
-                                    <div><a @click="selectGu('서구')" href="#">서구</a></div><div><a @click="selectGu('부평')" href="#">부평</a></div>
-                                    <div><a @click="selectGu('미추홀구')" href="#">미추홀구</a></div><div><a @click="selectGu('계양구')" href="#">계양구</a></div><div><a @click="selectGu('중구')" href="#">중구</a></div><br>
-                                    <div><a @click="selectGu('강화군')" href="#">강화군</a></div><div><a @click="selectGu('옹진군')" href="#">옹진군</a></div><div><a @click="selectGu('동구')" href="#">동구</a></div>
+                                    <div><a @click="selectGu('남동구')" href="#">남동구</a></div>
+                                    <div><a @click="selectGu('부평구')" href="#">부평구</a></div>
+                                    <div><a @click="selectGu('미추홀구')" href="#">미추홀구</a></div>
+                                    <div><a @click="selectGu('서구')" href="#">서구</a></div>
+                                    <div><a @click="selectGu('계양구')" href="#">계양구</a></div>
+                                    <div><a @click="selectGu('연수구')" href="#">연수구</a></div><br>
+                                    <div><a @click="selectGu('동구')" href="#">동구</a></div>
+                                    <div><a @click="selectGu('남구')" href="#">남구</a></div>
+                                    <div><a @click="selectGu('중구')" href="#">중구</a></div>
+                                    <div><a @click="selectGu('강화군')" href="#">강화군</a></div>
+                                    <div><a @click="selectGu('옹진군')" href="#">옹진군</a></div>
                                 </div>
                             </div>
                             
                             <div class ="dropdown-sub-gu" v-if="area[5].display">
                                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>대구</div>
                                 <div class ="gu-list">
-                                    <div><a @click="selectGu('동성로')" href="#">동성로</a></div><div><a @click="selectGu('달서구')" href="#">달서구</a></div>
-                                    <div><a @click="selectGu('수성구')" href="#">수성구</a></div><div><a @click="selectGu('중구')" href="#">중구</a></div><div><a @click="selectGu('남구')" href="#">남구</a></div><br>
+                                    <div><a @click="selectGu('달서구')" href="#">달서구</a></div>
+                                    <div><a @click="selectGu('수성구')" href="#">수성구</a></div>
+                                    <div><a @click="selectGu('중구')" href="#">중구</a></div><div><a @click="selectGu('남구')" href="#">남구</a></div><br>
                                     <div><a @click="selectGu('서구')" href="#">서구</a></div><div><a @click="selectGu('동구')" href="#">동구</a></div>
                                     <div><a @click="selectGu('북구')" href="#">북구</a></div><div><a @click="selectGu('달성군')" href="#">달성군</a></div>
                                 </div>
@@ -150,7 +162,8 @@
                                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>경북</div>
                                 <div class ="gu-list">
                                     <div><a @click="selectGu('구미시')" href="#">구미시</a></div><div><a @click="selectGu('경산시')" href="#">경산시</a></div>
-                                    <div><a @click="selectGu('포항남구')" href="#">포항남구</a></div><div><a @click="selectGu('경주시')" href="#">경주시</a></div><div><a @click="selectGu('포항북구')" href="#">포항북구</a></div><br>
+                                    <div><a @click="selectGu('포항남구')" href="#">포항남구</a></div><div><a @click="selectGu('경주시')" href="#">경주시</a></div>
+                                    <div><a @click="selectGu('포항북구')" href="#">포항북구</a></div><br>
                                     <div><a @click="selectGu('영주시')" href="#">영주시</a></div><div><a @click="selectGu('안동시')" href="#">안동시</a></div>
                                     <div><a @click="selectGu('김천시')" href="#">김천시</a></div>
                                 </div>
@@ -158,7 +171,6 @@
                             <div class ="dropdown-sub-gu" v-if="area[7].display">
                                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>대전</div>
                                 <div class ="gu-list">
-                                    <div><a @click="selectGu('둔산동')" href="#">둔산동</a></div><div><a @click="selectGu('은행동')" href="#">은행동</a></div>
                                     <div><a @click="selectGu('대덕구')" href="#">대덕구</a></div><div><a @click="selectGu('동구')" href="#">동구</a></div><div><a @click="selectGu('서구')" href="#">서구</a></div><br>
                                     <div><a @click="selectGu('유성구')" href="#">유성구</a></div><div><a @click="selectGu('중구')" href="#">중구</a></div>
                                 </div>
@@ -193,11 +205,9 @@
                                     <div><a @click="selectGu('홍성군')" href="#">홍성군</a></div>
                                     <div><a @click="selectGu('공주시')" href="#">공주시</a></div><br>
                                 </div>
-                                
                             </div>
                         </div>
-                    </div>
-                 </div>
+                </div>
                 <div class="btn-review-list">
                     <button class="btn-write-review" style="outline:0;"><router-link to="/feed/write" style="text-decoration : none; color : white;">리뷰쓰기</router-link></button>
                 </div>
@@ -220,6 +230,7 @@
 
 <script>
     import store from '@/vuex/store.js'
+    import http from '@/util/http-common'
     export default {
          methods:{
             logout(){
@@ -228,11 +239,11 @@
                 this.$bvModal.show('bv-modal-example');
                 this.$router.go(0);
             },
-              selectSubject(subject) {
+            selectSubject(subject) {
                 this.subject = subject;
                 // console.log("subject : " + subject + " / this.sido : " + this.sido + " / this.gugun : " + this.gugun);
                 
-                this.$router.push(`hospital?no=10&subject=${subject}`); 
+                this.$router.push(`../hospital?no=10&subject=${subject}`); 
                 this.$router.go(0);
             },
             selectGu(gu) {
@@ -242,8 +253,8 @@
                     this.gugun=gu;
 
                 // console.log("subject : " + this.subject + " / this.sido : " + this.sido + " / this.gugun : " + this.gugun);
-                this.$router.push(`hospital?no=10&sido=${this.sido}&gu=${this.gugun}`);      
-                this.$router.go(0);       
+                this.$router.push(`../hospital?no=10&sido=${this.sido}&gu=${this.gugun}`);      
+                this.$router.go(0);
             },
             selectCity(city){
                 this.sido=city;

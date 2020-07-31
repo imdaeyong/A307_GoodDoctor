@@ -10,7 +10,13 @@
       <FeedModal />
     </b-modal>
     <div>
+      <div v-if="feeds.length == 0">
+        <div class="feed-wrap">
+          <div style="text-align:center"><h3><b-icon-emoji-frown animation="throb"></b-icon-emoji-frown>  QR코드를 안찍어서<br> 작성할 수 있는 피드가 없어요</h3></div>
+        </div>
+      </div>
       <!-- 기존에 내가 작성한 Feed목록 -->
+      <div v-else>
       <div v-for="feed in feeds" v-bind:key="feed.id">
         <div v-if="feed.isNew">
           <div class="feed-wrap" v-bind:data="feed.data">
@@ -66,7 +72,8 @@
             </div>
           </div>
         </div>
-      </div>      
+      </div>
+      </div> 
     </div>
   </div>
 </template>
