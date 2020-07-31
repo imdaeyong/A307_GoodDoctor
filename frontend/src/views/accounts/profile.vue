@@ -1,6 +1,10 @@
 <template>
   <div>
     <NavBar/>
+    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
+      <User/>
+    </b-modal>
+
     <div class="user">
       <div class="wrapC mt-5">
         <h1 style="text-align:center;">회원 정보</h1>
@@ -46,6 +50,9 @@ import myProfile from "../../components/accounts/profile/myProfile.vue"
 import myHospital from "../../components/accounts/profile/myHospital.vue"
 import myReview from "../../components/accounts/profile/myReview.vue"
 import store from '@/vuex/store.js'
+import User from "../../../src/views/accounts/Login.vue";
+import FeedModal from "../../../src/components/feed/FeedModal.vue";
+
 export default {
   name: 'Profile',
   components: {
@@ -53,6 +60,7 @@ export default {
     myProfile,
     myHospital,
     myReview,
+    User
   },
   mounted(){
     if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');

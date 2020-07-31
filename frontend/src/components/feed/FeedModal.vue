@@ -9,8 +9,7 @@
             <div class="feed-card-modal">
                 <img src= "../../assets/images/feed/1.png" alt=""><br>
                 <a href="">#진료잘봄#호감</a><br>
-                이번에 현대 자동차에서 새롭게 선보이게 된 자동차인<br>
-                제네시스 G80이다.<br>
+                한림대학교 강남성심병원갔더니 아픈곳이 없네요?? 굳굳 <br>
                 <span>더보기...</span>
             </div>
         </div>

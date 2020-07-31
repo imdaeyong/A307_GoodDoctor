@@ -1,25 +1,15 @@
 <template>
   <div id="app">
-    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
-      <User/>
-    </b-modal>
     <router-view/>
   </div>
 </template>
 
 <script>
-import store from '../src/vuex/store.js'
-import User from "../src/views/accounts/Login.vue";
-import FeedModal from "../src/components/feed/FeedModal.vue";
 
 export default {
   name: "app",
   components: {
-    User
   },
-  mounted(){
-    if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
-  }
 }
 </script>
 
