@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.dao.user.FeedDao;
+import com.web.curation.dao.user.HistoryDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.mapping.FeedMapping;
 import com.web.curation.model.user.Feed;
+import com.web.curation.model.user.History;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -40,26 +42,33 @@ public class FeedController {
 
    @Autowired
    FeedDao feedDao;
+   @Autowired
+   HistoryDao historyDao;
 
    @GetMapping("/")
    @ApiOperation(value = "모든 피드 가져오기")
    public Object getFeeds() {
-      List<FeedMapping> feeds = feedDao.findAllBy();
+      List<Feed> feeds = feedDao.findAllBy();
+      List<History> history = historyDao.findAllByUserId(1);
+      for (Feed feed : feeds) {
+    	  history.stream().filter(x-> x.getFeed().getId() == feed.getId()).forEach(x -> feed.setClick(true));
+      }
+      feeds.stream().forEach(x-> System.out.println(x.toString()));
       ResponseEntity response = null;
-      Collections.sort(feeds, new Comparator<FeedMapping>() {
-          @Override
-          public int compare(FeedMapping s1, FeedMapping s2) {
-              if (s1.getIsNew()) {
-              	if(s1.getId() > s2.getId())
-              		return -1;
-              	else return 1;
-              } else {
-              	if(s1.getId() > s2.getId())
-              		return -1;
-              	else return 1;
-              }
-          }
-      });
+//      Collections.sort(feeds, new Comparator<Feed>() {
+//          @Override
+//          public int compare(Feed s1, Feed s2) {
+//              if (s1.getIsNew()) {
+//              	if(s1.getId() > s2.getId())
+//              		return -1;
+//              	else return 1;
+//              } else {
+//              	if(s1.getId() > s2.getId())
+//              		return -1;
+//              	else return 1;
+//              }
+//          }
+//      });
       if (!feeds.isEmpty()) {
          response = new ResponseEntity<>(feeds, HttpStatus.OK);
       } else {

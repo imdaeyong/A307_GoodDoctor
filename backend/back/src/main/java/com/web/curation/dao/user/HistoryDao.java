@@ -7,10 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.web.curation.model.mapping.FeedMapping;
 import com.web.curation.model.user.Feed;
+import com.web.curation.model.user.History;
 
-public interface FeedDao extends JpaRepository<Feed, String> {
-    Feed getFeedById(int id);
-    List<Feed> findAllBy();
-    List<FeedMapping> findAllByUserId(int userId);
+public interface HistoryDao extends JpaRepository<History, String> {
+    List<History> findAllByUserId(int userId);
     
 }

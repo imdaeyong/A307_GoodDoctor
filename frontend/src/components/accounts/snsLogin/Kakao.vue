@@ -41,7 +41,7 @@
             kakaoLogin() {
                 // console.log(window.Kakao);
                 window.Kakao.Auth.login({
-                    scope : 'account_email, gender',
+                    scope : 'account_email, profile',
                     success: this.GetMe,
                 });
             },
