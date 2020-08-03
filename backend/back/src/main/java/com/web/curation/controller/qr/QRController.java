@@ -61,7 +61,6 @@ public class QRController {
 	@Autowired
 	UserDao userDao;
 	
-	
 	@GetMapping("/{hospitalId}")
 	@ApiOperation(value = "모든 피드 가져오기")
 	public RedirectView redirectQr(@Valid @PathVariable("hospitalId") int hospitalId, HttpServletResponse response) throws IOException {
@@ -75,9 +74,9 @@ public class QRController {
 		feed.setUser(user);
 		feed.setHospital(hospital);
 		feedDao.save(feed);
-//		response.sendRedirect("http://localhost:3000/feed/write");
 		RedirectView redirectView = new RedirectView();
 	    redirectView.setUrl("http://localhost:3000/feed/write");
+	    //redirectView.setUrl("http://i3a307.p.ssafy.io/feed/write");
 		return redirectView;
 	}
 }

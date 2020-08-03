@@ -13,7 +13,7 @@
             <div class="dropdown-list">
                 <div class="btn-hospital-list">
                     <button class="btn-search-hospital" style="outline:0;">병원찾기<b-icon-caret-down-fill></b-icon-caret-down-fill></button>
-                    <div class="dropdown-content" style="z-index: 2;">
+                    <div class="dropdown-content" style="z-index: 5;">
                         <div class="drop-platform">
                             <button @click="selectSubject('치과')" class="dropdown-sub-hospital" ><img src="../assets/images/hospital/hospital1.png" alt=""><br>치과</button>
                             <button @click="selectSubject('피부과')" class="dropdown-sub-hospital" ><img src="../assets/images/hospital/hospital2.png" alt=""><br>피부과</button>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="btn-area-list">
                     <button class="btn-search-area" style="outline:0;">지역별찾기<b-icon-caret-down-fill></b-icon-caret-down-fill></button>
-                    <div class="dropdown-content" style="z-index: 2;">
+                    <div class="dropdown-content" style="z-index: 5;">
                         <div class="drop-platform">
                             <button class="dropdown-sub-area" v-on:click="selectCity('서울')" value="서울"><b-icon-geo-alt></b-icon-geo-alt>서울</button>
                             <button class="dropdown-sub-area" v-on:click="selectCity('경기')" value="경기"><b-icon-geo-alt></b-icon-geo-alt>경기</button>
