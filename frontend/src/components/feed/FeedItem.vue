@@ -38,12 +38,12 @@
 </template>
 
 <script>
-
 import defaultImage from "../../assets/images/img-placeholder.png";
 import defaultProfile from "../../assets/images/profile_default.png";
 import axios from "axios";
 import store from '@/vuex/store.js'
 import http from '@/util/http-common'
+
 export default {
   data: () => {
     return {

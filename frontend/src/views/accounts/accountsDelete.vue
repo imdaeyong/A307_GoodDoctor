@@ -38,9 +38,13 @@
 <script>
 import * as EmailValidator from "email-validator"
 import http from '@/util/http-common'
+import store from '../../vuex/store.js'
 
 export default {
   name: "accountsDelete",
+  created() {
+    this.id = store.state.userInfo.data.id
+  },
   watch: {
     email: function() {
       this.emailCheckForm()
@@ -48,6 +52,7 @@ export default {
   },
   data() {
     return {
+      id: "",
       nickName: "",
       email: "",
       error: {
@@ -69,9 +74,10 @@ export default {
       this.isSubmit = isSubmit;
     },
     accountsDelete() {
-      http.delete(`/account`, {params: {nickName: this.nickName, email: this.email}})
+      http.delete(`/account`, {params: {id: this.id, nickName: this.nickName, email: this.email}})
         .then(res => {
           alert('탈퇴가 정상적으로 처리 되었습니다.')
+          this.$router.push('/feed/main')
         })
         .catch(err => {
           alert('오류가 발생했습니다. 다시 시도해 주세요.')
