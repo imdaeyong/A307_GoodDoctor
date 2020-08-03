@@ -19,10 +19,10 @@
                     <div class="feed-reply">
                         <div>
                             <img src= "../../assets/images/profile_default.png" alt="">
-                            <div class="user-info">긍정인</div><br>
+                            <div class="user-info">{{reply.nickname}}</div><br>
                         </div><br>
                         <div class="reply">{{reply.content}}</div>
-                        <div class="reply-time"><span>3일전</span></div>
+                        <div class="reply-time"><span> 3일전</span></div>
                     </div>
                 </div>
             </div>
@@ -33,8 +33,8 @@
             </div>
             <div class ="reply-list">
                 <img src= "../../assets/images/profile_default.png" alt="">
-                <input type="text" class="reply-content" placeholder="댓글달기...">
-                <button class="reply-submit">게시</button>
+                <input type="text" class="reply-content" placeholder="댓글달기..." v-model="data">
+                <button class="reply-submit" v-on:click="addReply(feedId, data)">게시</button> 
             </div>
         </div>
         
@@ -47,14 +47,39 @@ import http from '@/util/http-common'
 export default {
     data: () => {
         return {
-        replys : []
+        replys : [],
+        userId : "",
+        data : "",
+        nickname : "",
+        feedId : ""
         }
     },
     mounted(){
+        this.userId = store.state.userInfo.data.id
+        this.feedId = store.state.feedInfo
+        this.nickname = store.state.userInfo.data.nickname;
         http.get(`comments/${store.state.feedInfo}`).then(data => {
             console.log(data.data);
             this.replys = data.data; //해당 댓글 정보들을 가져온다.
-        })
+        }) 
+    },
+    methods:{
+        addReply(feedId, feedData){
+            let comment = {
+                userId : this.userId,
+                feedId : feedId,
+                content : feedData,
+                nickname : this.nickname
+            };
+            http.post(`comments/`,comment)
+            .then(data =>{
+                alert("댓글등록 완료");
+                this.$router.go(0);
+            })
+            .catch(err =>{
+
+            })  
+        }
     }
   
 }

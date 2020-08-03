@@ -28,8 +28,12 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
     private int userId;
+    
     private int feedId;
 	private String content;
 	@Column(insertable = false, updatable = false)
     private LocalDateTime createDate;
+
+    private String nickname;
+    
 }
