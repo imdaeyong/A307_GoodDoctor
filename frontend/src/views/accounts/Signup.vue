@@ -89,7 +89,9 @@
 </template>
 
 <script>
-const SERVER_URL="http://i3a307.p.ssafy.io:8080/"
+// const SERVER_URL="http://i3a307.p.ssafy.io:8080/"
+const SERVER_URL="http://localhost:8080/"
+
 import * as EmailValidator from "email-validator"
 import PV from "password-validator"
 import UserApi from "../../api/UserApi"
@@ -111,14 +113,12 @@ export default {
       passwordSchema: new PV(),
       passwordType: "password",
       passwordConfirmType: "password",
-      isTerm: false,
-      isLoading: false,
       error: {
         nickName: false,
         email: false,
         password: false,
         passwordConfirm: false,
-        authEmail: false,
+        authEmail: true,
       },
       isSubmit: false,
       termPopup: false,
@@ -150,23 +150,30 @@ export default {
     },
     passwordConfirm: function() {
       this.passwordConfirmCheckForm()
-    }
+    },
+    error: function() {
+      this.signupCheck()
+    },
+    emailAuthinput: function() {
+      this.signupCheck()
+    },
   },
   methods: {
     emailAuthCheck() {
-      console.log(this.$store.authCode);
       if(this.$store.state.authCode!=this.inputAuth){
         alert("인증번호를 다시 확인해주세요!");
       }else{
+        this.error.authEmail = false
         alert("인증 되었습니다.")
+        this.emailAuthinput = false
       }
     },
     emailAuthStart() {
       this.emailAuthinput = true
-      console.log("이메일 인증 시작",this.emailAuthStart)
       http
         .post("/email", {email: this.email})
         .then(({ data }) => {
+          alert('입력하신 이메일로 인증번호가 발송되었습니다.')
           this.$store.state.authCode=data.object
         })
         .catch(() => {
@@ -190,8 +197,9 @@ export default {
       if (this.password !== this.passwordConfirm) {
         this.error.passwordConfirm = "비밀번호가 일치하지 않습니다."
       }
-      else this.error.passwordConfirm = false;
-    
+      else this.error.passwordConfirm = false;      
+    },
+    signupCheck() {
       let isSubmit = true;
         Object.values(this.error).map(v => {
           if (v) isSubmit = false;
@@ -203,8 +211,8 @@ export default {
     onjoin(){
       axios.post(`${SERVER_URL}account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
       .then(res=>{
-        this.$router.push("/emailCheck");
-        alert("이메일 인증 페이지로 넘어갑니다.");
+        alert("회원 가입되었습니다. 로그인 해주세요");
+        this.$router.push("/feed/main")
       })
       .catch(err=>{
         if(err.response.data.data == "nickname_fail") alert("이미 존재하는 닉네임입니다.");

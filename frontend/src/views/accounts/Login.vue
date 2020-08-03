@@ -66,7 +66,6 @@
 </template>
 
 <script>
-
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
 import axios from 'axios'
