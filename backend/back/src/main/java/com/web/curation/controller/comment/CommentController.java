@@ -32,7 +32,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.web.curation.dao.user.CommentDao;
-import com.web.curation.dao.user.UserDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.mapping.CommentMapping;
 import com.web.curation.model.mapping.FeedMapping;
@@ -58,9 +57,6 @@ public class CommentController {
 
 	@Autowired
 	CommentDao commentDao;
-	
-	@Autowired
-	UserDao userDao;
 
 	@GetMapping("/{feedId}")
 	@ApiOperation(value = "댓글 가져오기")

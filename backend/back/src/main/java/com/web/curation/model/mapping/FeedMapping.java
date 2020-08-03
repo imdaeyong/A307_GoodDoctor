@@ -12,5 +12,7 @@ public interface FeedMapping {
 	int getId();
 	LocalDateTime getCreateDate();
 	LocalDateTime getUpdateDate();
+	int getLikes();
 	boolean getIsNew();
+	boolean getIsClick();
 }
