@@ -50,6 +50,6 @@ public class Feed {
     @Column(insertable = false)
     private LocalDateTime updateDate;
     private int likes;
-    private boolean isNew;
+    private Boolean isNew;
     private boolean isClick;
 }

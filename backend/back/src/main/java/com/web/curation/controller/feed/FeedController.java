@@ -55,20 +55,12 @@ public class FeedController {
       }
       feeds.stream().forEach(x-> System.out.println(x.toString()));
       ResponseEntity response = null;
-//      Collections.sort(feeds, new Comparator<Feed>() {
-//          @Override
-//          public int compare(Feed s1, Feed s2) {
-//              if (s1.getIsNew()) {
-//              	if(s1.getId() > s2.getId())
-//              		return -1;
-//              	else return 1;
-//              } else {
-//              	if(s1.getId() > s2.getId())
-//              		return -1;
-//              	else return 1;
-//              }
-//          }
-//      });
+      Collections.sort(feeds, new Comparator<Feed>() {
+	       @Override
+	       public int compare(Feed s1, Feed s2) {
+	        	  return s2.getId() - s1.getId();
+	       }
+	  });
       if (!feeds.isEmpty()) {
          response = new ResponseEntity<>(feeds, HttpStatus.OK);
       } else {
@@ -84,17 +76,19 @@ public class FeedController {
       Collections.sort(feeds, new Comparator<FeedMapping>() {
             @Override
             public int compare(FeedMapping s1, FeedMapping s2) {
-                if (s1.getIsNew()) {
-                	if(s1.getId() > s2.getId())
-                		return -1;
-                	else return 1;
-                } else {
-                	if(s1.getId() > s2.getId())
-                		return -1;
-                	else return 1;
-                }
+            	return s2.getId() - s1.getId();
             }
       });
+      Collections.sort(feeds, new Comparator<FeedMapping>() {
+          @Override
+          public int compare(FeedMapping s1, FeedMapping s2) {
+              if(s1.getIsNew() && !s2.getIsNew()) {
+            	  return -1;
+              }
+              else return 1;
+          }
+      });
+   
       ResponseEntity response = null;
       if (!feeds.isEmpty()) {
          response = new ResponseEntity<>(feeds, HttpStatus.OK);
@@ -111,12 +105,13 @@ public class FeedController {
       
       Feed feed = feedDao.getFeedById(request.getId());
       feed.setContent(request.getContent());
-      feed.setNew(false);
-      
+      feed.setIsNew(true);
       feedDao.save(feed);
       response = new ResponseEntity<>(feed, HttpStatus.OK);
       return response;
    }
+   
+   
    
 }
 

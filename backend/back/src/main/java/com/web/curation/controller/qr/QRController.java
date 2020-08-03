@@ -67,7 +67,7 @@ public class QRController {
 		
 		Feed feed = new Feed();
 		feed.setContent("");
-		feed.setNew(true);
+		feed.setIsNew(true);
 		Hospital hospital = hospitalDao.findById(hospitalId);
 		//test 계정 ( 임시 )
 		User user = userDao.getUserById(1);
