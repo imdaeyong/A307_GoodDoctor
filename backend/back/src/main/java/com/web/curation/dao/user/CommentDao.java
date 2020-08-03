@@ -11,5 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommentDao extends JpaRepository<Comment, String> {
     Comment getCommentById(int id);
-    List<CommentMapping> findAllByFeedId(int feedId);
+    List<Comment> findAllByFeedId(int feedId);
 }

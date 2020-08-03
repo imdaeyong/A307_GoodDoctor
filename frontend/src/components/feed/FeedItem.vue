@@ -1,6 +1,6 @@
 <template>
   <div class="feed-item">
-    <div v-for="feed in feeds.data" v-bind:key="feed.id">
+    <div v-for="(feed, index) in feeds.data" v-bind:key="feed.id" v-bind:index="index">
       <div v-if="!feed.isNew">
         <div class="feed-wrap" v-bind:data="feed.data">
           <div class="feed-top">
@@ -17,9 +17,13 @@
           </div>
           <div class="feed-foot">
             <div class="feed-btn-list">
-              <div class ="like"><button v-on:click="addLike()"><b-icon-heart ></b-icon-heart></button></div>
+              <div class ="like"><button v-on:click="addLike(feed.isLike, index)">
+                <b-icon-heart v-if="!feed.isLike"></b-icon-heart>
+                <b-icon-heart-fill v-else></b-icon-heart-fill></button>
+              </div>
               <div class ="reply"><button><b-icon-chat-square v-on:click="openReply(feed.id)"></b-icon-chat-square></button></div>
               <div class ="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
+              <span v-if="feed.like != 0">{{feed.like}}명이 이 게시글을 좋아합니다.</span> 
             </div>
             <div class ="reply-list">
               <img src= "../../assets/images/profile_default.png" alt="">
@@ -51,7 +55,8 @@ export default {
       nickname : "",
       isLogin : false,
       userId : "",
-      content : ""
+      content : "",
+      likes : []
     }
   },
   mounted(){
@@ -61,10 +66,13 @@ export default {
       this.isLogin = store.state.isLogin;
       this.userId = store.state.userInfo.data.id
     })
+
   },
   methods:{
-    addLike(){ //좋아요 버튼 클릭시 실행 함수
-      alert("하이");
+    addLike(isLike, index){ //좋아요 버튼 클릭시 실행 함수
+      //만약에 isLike가 false라면
+      //this.feeds[index].isLike = true;// = !this.feeds[index].isLike
+      alert(index + " " + isLike);
     },
     openReply(feedInfo){ //댓글 버튼 클릭시 실행 함수
       store.dispatch('openReply', feedInfo);
@@ -77,8 +85,8 @@ export default {
       let comment = {
         userId : this.userId,
         feedId : feedId,
-        content : feedData
- 
+        content : feedData,
+        nickname : this.nickname
       };
       http.post(`comments/`,comment)
       .then(data =>{
@@ -87,9 +95,7 @@ export default {
       })
       .catch(err =>{
 
-      })
-      
-      
+      })  
     }
   }
 };
