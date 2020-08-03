@@ -5,24 +5,53 @@
       <User/>
     </b-modal>
 
-    <div class="user">
+    <!-- <div class="user">
       <div class="wrapC mt-5">
         <h1 style="text-align:center;">회원 정보</h1>
       </div>
-    </div>
+    </div> -->
     <b-container fluid class="bv-example-row bv-example-row-flex-cols">
       <b-row align-v="stretch">
+        <b-col class='mt-5' cols="2" style="text-align:center">
+          <h3>굿닥터 회원 정보</h3>
+          
+          <div v-if="categories[0].display" style="background-color: #17a2b8; border-radius: 10px;">
+            <button @click="toggle('myProfile')" class="myProfile abled" style="outline: 0">
+              <p>내 정보</p>
+            </button>
+          </div>
+          <div v-else>
+            <button @click="toggle('myProfile')" class="myProfile disabled" style="outline: 0">
+              <p>내 정보</p>
+            </button>
+          </div>
 
-        <b-col class='border-right' cols="3" style="text-align:center">
-          <h2 class="mt-3" style="line-height: 55px; height: 50px; background-color : #17a2b8; color : white; border-radius:4px">목차</h2>
-          <button @click="toggle('myProfile')" class="mt-3 hoverMycolor" style="outline: 0"><h5>내 정보</h5></button>
-          <br>  
-          <button @click="toggle('myHospital')" class="mt-3 hoverMycolor" style="outline: 0"><h5>관심 정보</h5></button>
-          <br>  
-          <button @click="toggle('myReview')" class="mt-3 hoverMycolor" style="outline: 0"><h5>내 리뷰</h5></button>
+
+          <div v-if="categories[1].display" style="background-color: #17a2b8; border-radius: 10px;">
+            <button @click="toggle('myHospital')" class="myProfile abled" style="outline: 0">
+              <p>관심 정보</p>
+            </button>
+          </div>
+          <div v-else>
+            <button @click="toggle('myHospital')" class="myProfile disabled" style="outline: 0">
+              <p>관심 정보</p>
+            </button>
+          </div>
+
+          <div v-if="categories[2].display" style="background-color: #17a2b8; border-radius: 10px;">
+            <button @click="toggle('myReview')" class="myProfile abled" style="outline: 0">
+              <p>내 리뷰</p>
+            </button>
+          </div>
+          <div v-else>
+            <button @click="toggle('myReview')" class="myProfile disabled" style="outline: 0">
+              <p>내 리뷰</p>
+            </button>
+          </div>
+
         </b-col>
         
-        <b-col cols="9" style="text-align:center;">
+        <b-col class='mt-5' cols="10" style="text-align:center;">
           <div v-if="categories[0].display">
             <myProfile/>
           </div>

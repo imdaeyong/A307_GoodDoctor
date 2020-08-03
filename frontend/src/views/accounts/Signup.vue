@@ -1,9 +1,3 @@
-
-<!--
-    가입하기는 기본적인 폼만 제공됩니다
-    기능명세에 따라 개발을 진행하세요.
-    Sub PJT I에서는 UX, 디자인 등을 포함하여 백엔드를 제외하여 개발합니다.
- -->
 <template>
   <div class="user" id="login">
     <div class="wrapC mt-5">
@@ -11,7 +5,8 @@
       <div class="form-wrap">
 
         <div class="input-label">
-          <input 
+          <input
+            v-bind:class="{error : error.nickName, complete:nickName.length!==0}"
             v-model="nickName" 
             id="nickName" 
             placeholder="닉네임을 입력하세요." 
@@ -26,7 +21,7 @@
             v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
             id="email" 
             placeholder="이메일을 입력하세요." 
-            type="text" />
+            type="text"/>
           <label for="email">이메일</label>
           <label for="email" @click="emailAuthStart" class="right">인증 하기</label>
           <div class="error-text" v-if="error.email">{{error.email}}</div>
@@ -142,10 +137,10 @@ export default {
       .letters();
   },
   watch: {
-    email: function(v) {
+    email: function() {
       this.emailCheckForm();
     },
-    password: function(v) {
+    password: function() {
       this.passwordCheckForm();
     },
     passwordConfirm: function() {
@@ -201,13 +196,11 @@ export default {
     },
     signupCheck() {
       let isSubmit = true;
-        Object.values(this.error).map(v => {
-          if (v) isSubmit = false;
-        });
-        this.isSubmit = isSubmit;    
+      Object.values(this.error).map(v => {
+        if (v) isSubmit = false;
+      });
+      this.isSubmit = isSubmit;    
     },
-
-
     onjoin(){
       axios.post(`${SERVER_URL}account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
       .then(res=>{

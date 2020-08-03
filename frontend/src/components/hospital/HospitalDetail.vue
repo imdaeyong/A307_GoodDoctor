@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1 class="mt-4">지금 관심있는 병원 정보</h1>
+      <h1>병원 디테일 페이지 입니다.</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "myHospital",
+    name: "HospitalDetail",
+
 }
 </script>
 
