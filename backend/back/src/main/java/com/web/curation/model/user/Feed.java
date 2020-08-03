@@ -51,5 +51,5 @@ public class Feed {
     private LocalDateTime updateDate;
     private int likes;
     private Boolean isNew;
-    private boolean isClick;
+    private Boolean isClick;
 }

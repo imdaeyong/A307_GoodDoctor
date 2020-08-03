@@ -51,7 +51,7 @@ public class FeedController {
       List<Feed> feeds = feedDao.findAllBy();
       List<History> history = historyDao.findAllByUserId(1);
       for (Feed feed : feeds) {
-    	  history.stream().filter(x-> x.getFeed().getId() == feed.getId()).forEach(x -> feed.setClick(true));
+    	  history.stream().filter(x-> x.getFeed().getId() == feed.getId()).forEach(x -> feed.setIsClick(true));
       }
       feeds.stream().forEach(x-> System.out.println(x.toString()));
       ResponseEntity response = null;

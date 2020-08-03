@@ -18,12 +18,12 @@
           <div class="feed-foot">
             <div class="feed-btn-list">
               <div class ="like"><button v-on:click="addLike(feed.isLike, index)">
-                <b-icon-heart v-if="!feed.isLike"></b-icon-heart>
+                <b-icon-heart v-if="feed.isClick"></b-icon-heart>
                 <b-icon-heart-fill v-else></b-icon-heart-fill></button>
               </div>
               <div class ="reply"><button><b-icon-chat-square v-on:click="openReply(feed.id)"></b-icon-chat-square></button></div>
               <div class ="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
-              <span v-if="feed.like != 0">{{feed.like}}명이 이 게시글을 좋아합니다.</span> 
+              <span v-if="feed.like != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span> 
             </div>
             <div class ="reply-list">
               <img src= "../../assets/images/profile_default.png" alt="">
