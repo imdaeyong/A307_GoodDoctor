@@ -66,7 +66,6 @@
 </template>
 
 <script>
-
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
 import axios from 'axios'
@@ -75,7 +74,9 @@ import * as EmailValidator from "email-validator";
 import KakaoLogin from "../../components/accounts/snsLogin/Kakao.vue";
 import GoogleLogin from "../../components/accounts/snsLogin/Google.vue";
 import store from '@/vuex/store.js'
+
 export default {
+  name: "Login",
   components: {
     KakaoLogin,
     GoogleLogin

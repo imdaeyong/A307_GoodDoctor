@@ -18,6 +18,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -209,4 +210,19 @@ public class AccountController {
 	      }
 	      return new ResponseEntity<>(user, HttpStatus.OK);
 	   }
+	   
+	   @DeleteMapping("/account")
+	   @ApiOperation(value = "회원 탈퇴")
+       public Object remove(@RequestParam("nickName") String nickName, @RequestParam("email") String email, @RequestParam("id") int id) {
+         
+          User user = userDao.getUserByEmailAndNicknameAndId(email, nickName, id);
+         
+          if(user != null) {
+             userDao.delete(user);
+             return new ResponseEntity<>(user, HttpStatus.OK);
+          } else {
+             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+          }
+         
+       }
 }

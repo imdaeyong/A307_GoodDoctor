@@ -21,44 +21,44 @@
 </template>
 
 <script>
-    import axios from "axios";
-    import http from '@/util/http-common'
-    export default {
-        name : 'list',
-        data: () => {
-            return {
-                hospitals: [], 
-                pageLimit: 10, 
-                pageOffet: 0
-                };
-        },
-        created() {
-            this.initComponent();
-        },
-        watch: {
-            '$route.query': function () {
-                this.initComponent();
-            }
-        },
-        methods: {
-            initComponent() {
-                http
-                    .get('hospitals/pagelink', {
-                        params: {
-                            limit: this.pageLimit,
-                            offset: `${this.$route.query.no - this.pageLimit}`,
-                            subject : this.$route.query.subject,
-                            sido : this.$route.query.sido,
-                            gu : this.$route.query.gu,
-                        }
-                    })
-                    .then((data) => {
-                        this.hospitals = data
-                    })
-                    .catch((error) => {
-                        alert('에러가 발생했습니다.');
-                    });
-            }
-        },
+import axios from "axios";
+import http from '@/util/http-common'
+export default {
+  name : 'HospitalItem',
+  data: () => {
+    return {
+      hospitals: [], 
+      pageLimit: 10, 
+      pageOffet: 0
     }
+  },
+  created() {
+    this.initComponent();
+  },
+  watch: {
+    '$route.query': function () {
+      this.initComponent();
+    }
+  },
+  methods: {
+    initComponent() {
+      http
+        .get('hospitals/pagelink', {
+          params: {
+            limit: this.pageLimit,
+            offset: `${this.$route.query.no - this.pageLimit}`,
+            subject : this.$route.query.subject,
+            sido : this.$route.query.sido,
+            gu : this.$route.query.gu,
+          }
+        })
+        .then((data) => {
+            this.hospitals = data
+        })
+        .catch((error) => {
+            alert('에러가 발생했습니다.');
+        });
+    }
+  },
+}
 </script>

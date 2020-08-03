@@ -1,6 +1,6 @@
 <template>
   <div>
-		<h1 class="mt-3">실속있는 내 리뷰</h1>
+		<h1 class="mt-4">실속있는 내 리뷰</h1>
   </div>
 </template>
 

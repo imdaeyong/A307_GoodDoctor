@@ -63,9 +63,31 @@ button {
 .border-right {
     border-right: 10px solid black;
 }
-.hoverMycolor {
+
+.myProfile {
+    &.abled {
+        border-radius: 10px;
+        width: 100%;
+        height: 44px;
+        color: white;
+        p {
+            margin-top: .5rem;
+            font-size: $font-size__3;
+        }
+    }
+    &.disabled {
+        border-radius: 10px;
+        width: 100%;
+        height: 44px;
+        p {
+            margin-top: .5rem;
+            font-size: $font-size__3;
+        }
+    }
+    
     &:hover {
-        color: $myColor;
+        background-color: $disabledMyColor;
+        color: white;
     }
 }
 
@@ -211,7 +233,6 @@ button {
             &:hover, &:focus {
                 border:1px solid #000;
             }
-
         }
     }
     label {
