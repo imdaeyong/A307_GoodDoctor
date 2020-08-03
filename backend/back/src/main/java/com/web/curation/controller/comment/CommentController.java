@@ -61,11 +61,8 @@ public class CommentController {
 	@GetMapping("/{feedId}")
 	@ApiOperation(value = "댓글 가져오기")
 	public Object getComments(@Valid @PathVariable("feedId") int feedId) {
-		List<CommentMapping> comments = commentDao.findAllByFeedId(feedId);
+		List<Comment> comments = commentDao.findAllByFeedId(feedId);
 		ResponseEntity response = null;
-		for(CommentMapping temp: comments) {
-			System.out.println(temp.getId() + " 댓글 아이디 출력입니다!!!!!!!!!!!!!!!!!!!!!!!!");
-		}
 		if (!comments.isEmpty()) {
 			response = new ResponseEntity<>(comments, HttpStatus.OK);
 			System.out.println("넣었음");
@@ -78,11 +75,9 @@ public class CommentController {
 	@PostMapping("/")
 	@ApiOperation(value = "모든 댓글 등록하기")
 	public Object getCommentByFeedId(@Valid @RequestBody Comment comment) {
-		System.out.println("--------------------댓글-----------------");
-		System.out.println(comment.getUserId());
-		System.out.println(comment.getFeedId());
 		ResponseEntity response = null;
 		BasicResponse result = new BasicResponse();
+		
 		if (commentDao.save(comment) != null) {
 			result.status = true;
 			result.data = "success";

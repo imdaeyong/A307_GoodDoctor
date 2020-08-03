@@ -26,30 +26,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="\"feed\"")
+@Table(name="\"history\"")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Feed {
-    @Id
+public class History {
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;	
-
+	
+	@ManyToOne
+	@JoinColumn(name ="feed_id")
+    private Feed feed;
+    
     @ManyToOne
 	@JoinColumn(name ="user_id")
     private User user;
-    
-    @ManyToOne
-	@JoinColumn(name ="hospital_id")
-    private Hospital hospital;
-    
-    private String content;
-    @Column(insertable = false, updatable = false)
-    private LocalDateTime createDate;
-    @Column(insertable = false)
-    private LocalDateTime updateDate;
-    private int likes;
-    private Boolean isNew;
-    private boolean isClick;
 }
