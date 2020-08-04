@@ -112,7 +112,7 @@ export default {
     else{this.nickname = store.state.userInfo.data.nickname;
       this.isLogin = store.state.isLogin;
       this.userId = store.state.userInfo.data.id
-      http.get(`feeds/${this.userId}`)
+      http.get(`feeds/write/${this.userId}`)
       .then(data => {
         this.feeds = data.data;
         console.log(this.feeds);
@@ -139,7 +139,12 @@ export default {
       http.post(`comments/`,comment)
       .then(data =>{
         alert("댓글등록 완료");
-        this.$router.go(0);
+        http.get(`feeds/write/${this.userId}`)
+        .then(data => {
+          this.feeds = data.data;
+          console.log(this.feeds);
+        })
+        //this.$router.go(0);
       })
       .catch(err =>{
 
@@ -169,6 +174,7 @@ export default {
         this.newImgSrc = e.target.result;
         console.log(e.target.result);
       }
+      const formdata = new Formdata();
     }
   }
 }

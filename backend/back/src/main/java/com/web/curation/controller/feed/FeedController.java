@@ -46,11 +46,11 @@ public class FeedController {
    @Autowired
    HistoryDao historyDao;
 
-   @GetMapping("/")
+   @GetMapping("/{userId}")
    @ApiOperation(value = "모든 피드 가져오기")
-   public Object getFeeds() {
+   public Object getFeeds(@Valid @PathVariable("userId") int userId)  {
       List<Feed> feeds = feedDao.findAllBy();
-      List<History> history = historyDao.findAllByUserId(1);
+      List<History> history = historyDao.findAllByUserId(userId);
       for (Feed feed : feeds) {
     	  history.stream().filter(x-> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
       }
@@ -70,7 +70,7 @@ public class FeedController {
       return response;
    }
 
-   @GetMapping("/{userId}")
+   @GetMapping("write/{userId}")
    @ApiOperation(value = "모든 피드 가져오기")
    public Object getFeedsByUserId(@Valid @PathVariable("userId") int userId) {
       List<FeedMapping> feeds = feedDao.findAllByUserId(userId);
