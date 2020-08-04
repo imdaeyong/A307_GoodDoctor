@@ -110,7 +110,7 @@ public class FeedController {
       ResponseEntity response = null;
       Feed feed = feedDao.getFeedById(request.getId());
       feed.setContent(request.getContent());
-      feed.setIsNew(true);
+      feed.setIsNew(false);
       feedDao.save(feed);
       response = new ResponseEntity<>(feed, HttpStatus.OK);
       return response;
@@ -126,7 +126,7 @@ public class FeedController {
 	      file.transferTo(new File("C:\\temptemp\\"+file.getOriginalFilename()));
 	      return response;
 	   }
-   ///////////////////////////////////
+
    @PutMapping("/like")
    @ApiOperation(value = "좋아요 값 업데이트하기")
    public Object updateLike(@Valid @RequestBody HashMap<String, String> request) throws Exception {
