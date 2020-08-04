@@ -1,5 +1,7 @@
 package com.web.curation.controller.feed;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -13,10 +15,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.curation.dao.user.FeedDao;
 import com.web.curation.dao.user.HistoryDao;
@@ -103,14 +108,25 @@ public class FeedController {
    @ApiOperation(value = "피드 작성하기")
    public Object addFeed(@Valid @RequestBody Feed request) {
       ResponseEntity response = null;
-      
       Feed feed = feedDao.getFeedById(request.getId());
       feed.setContent(request.getContent());
-      feed.setIsNew(true);
+      feed.setIsNew(false);
       feedDao.save(feed);
       response = new ResponseEntity<>(feed, HttpStatus.OK);
       return response;
    }
+   
+   //이미지 업로드 테스트
+   @PostMapping("/")
+   @ApiOperation(value = "이미지 업로드")
+   public Object addImage(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	      System.out.println(file.getOriginalFilename() + " =================================================");
+	      ResponseEntity response = null;
+	      response = new ResponseEntity<>(null, HttpStatus.OK);
+	      file.transferTo(new File("C:\\temptemp\\"+file.getOriginalFilename()));
+	      return response;
+	   }
+
    @PutMapping("/like")
    @ApiOperation(value = "좋아요 값 업데이트하기")
    public Object updateLike(@Valid @RequestBody HashMap<String, String> request) throws Exception {
