@@ -28,8 +28,8 @@
             
             <div class ="review-write-form">
               <div v-if="openWrite == feed.id" class ="review-write">
-                <input type="file" v-on:change="upload" class="review-img-upload">
-                <img :src="newImgSrc">
+                <input type="file" id="file" ref="file" v-on:change="upload" class="review-img-upload"/>
+                <img :src="preview">
                 <textarea name="" id="" cols="60%" rows="3" v-model="feed.review">
 
                 </textarea><br>
@@ -77,6 +77,10 @@
       </div>
       </div> 
     </div>
+
+
+
+
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -104,7 +108,10 @@ export default {
       nickname : "",
       userId : "",
       content : "",
-      newImgSrc : ''
+      newImgSrc: '',
+      file: '',
+      img : '',
+      preview : ''
     }
   },
    mounted(){
@@ -139,11 +146,7 @@ export default {
       http.post(`comments/`,comment)
       .then(data =>{
         alert("댓글등록 완료");
-        http.get(`feeds/write/${this.userId}`)
-        .then(data => {
-          this.feeds = data.data;
-          console.log(this.feeds);
-        })
+        
         //this.$router.go(0);
       })
       .catch(err =>{
@@ -155,10 +158,24 @@ export default {
       this.openWrite = id;
     },
     addReview(feedId, reviewData){
-
+      
       http.put(`feeds/`,{id:feedId, content:reviewData})
       .then(data =>{
         alert("리뷰작성 완료");
+      })
+      .catch(err =>{
+
+      })
+
+      ////////////////////////////////
+      let formData = new FormData();
+      formData.append('file', this.file);
+      console.log(formData);
+      http.post(`feeds/`, formData,{
+        headers:{'Content-Type':'multipart/form-data'}
+      })
+      .then(data =>{
+        alert("이미지업로드 완료");
         this.$router.go(0);
       })
       .catch(err =>{
@@ -166,16 +183,25 @@ export default {
       })
     },
     upload(e){
-      let file = e.target.files;
+      let file = e.target.files[0];
+      this.file = file;
+      
+      this.img = require('C:/temptemp/'+file.name);
+      this.preview = URL.createObjectURL(file);
+      console.log(this.preview);
+
+
       let reader = new FileReader();
 
-      reader.readAsDataURL(file[0]);
+      reader.readAsDataURL(file);
       reader.onload = e => {
-        this.newImgSrc = e.target.result;
+        this.preview = e.target.result;
         console.log(e.target.result);
       }
-      const formdata = new Formdata();
-    }
+      console.log(file);
+    },
+
+
   }
 }
 </script>
