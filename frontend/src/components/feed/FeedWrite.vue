@@ -28,9 +28,11 @@
             
             <div class ="review-write-form">
               <div v-if="openWrite == feed.id" class ="review-write">
-                <textarea name="" id="" cols="65%" rows="10" v-model="feed.review">
+                <input type="file" v-on:change="upload" class="review-img-upload">
+                <img :src="newImgSrc">
+                <textarea name="" id="" cols="60%" rows="3" v-model="feed.review">
 
-                </textarea>
+                </textarea><br>
                 <button v-on:click="addReview(feed.id, feed.review)">작성</button>
               </div>
             </div>
@@ -101,7 +103,8 @@ export default {
       feeds : [],
       nickname : "",
       userId : "",
-      content : ""
+      content : "",
+      newImgSrc : ''
     }
   },
    mounted(){
@@ -156,6 +159,16 @@ export default {
       .catch(err =>{
 
       })
+    },
+    upload(e){
+      let file = e.target.files;
+      let reader = new FileReader();
+
+      reader.readAsDataURL(file[0]);
+      reader.onload = e => {
+        this.newImgSrc = e.target.result;
+        console.log(e.target.result);
+      }
     }
   }
 }
