@@ -68,9 +68,12 @@ export default {
       });
 
       var markers =[];
-              
+      var centerLng=0;
+      var centerLat=0;
       for (var i = 0; i < this.hospitalLoc.length; i++) {
-        var info = this.hospitalLoc[i]
+        var info = this.hospitalLoc[i];
+        centerLng+=info.lng;
+        centerLat+=info.lat;
         
         var marker = new kakao.maps.Marker({
           position : new kakao.maps.LatLng(info.lng, info.lat),
@@ -92,6 +95,7 @@ export default {
         
         markers.push(marker);
       }
+      map.setCenter(new kakao.maps.LatLng(centerLng/10, centerLat/10));
 
        // 마커 클러스터러를 생성합니다 
       var clusterer = new kakao.maps.MarkerClusterer({
@@ -113,7 +117,7 @@ export default {
         
     });
       clusterer.addMarkers(markers);
-      
+       
     },
     hospitalDetail(id){
       return function() {
