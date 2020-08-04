@@ -11,5 +11,5 @@ import com.web.curation.model.user.History;
 
 public interface HistoryDao extends JpaRepository<History, String> {
     List<History> findAllByUserId(int userId);
-    
+    History findByFeedIdAndUserId(int feedId, int userId);
 }

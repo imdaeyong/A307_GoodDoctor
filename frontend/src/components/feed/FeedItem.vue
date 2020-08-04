@@ -17,8 +17,8 @@
           </div>
           <div class="feed-foot">
             <div class="feed-btn-list">
-              <div class ="like"><button v-on:click="addLike(feed.isLike, index)">
-                <b-icon-heart v-if="feed.isClick"></b-icon-heart>
+              <div class ="like"><button v-on:click="addLike(feed.isClick, index, feed.id)">
+                <b-icon-heart v-if="!feed.isClick"></b-icon-heart>
                 <b-icon-heart-fill v-else></b-icon-heart-fill></button>
               </div>
               <div class ="reply"><button><b-icon-chat-square v-on:click="openReply(feed.id)"></b-icon-chat-square></button></div>
@@ -69,10 +69,14 @@ export default {
 
   },
   methods:{
-    addLike(isLike, index){ //좋아요 버튼 클릭시 실행 함수
+    addLike(isClick, index, feedId){ //좋아요 버튼 클릭시 실행 함수
       //만약에 isLike가 false라면
       //this.feeds[index].isLike = true;// = !this.feeds[index].isLike
-      alert(index + " " + isLike);
+      alert(index + " " + isClick);
+      http.put(`feeds/like`,{feedId:feedId, userId:this.userId, isClick:isClick})
+      .then({
+      
+      })
     },
     openReply(feedInfo){ //댓글 버튼 클릭시 실행 함수
       store.dispatch('openReply', feedInfo);

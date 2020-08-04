@@ -35,12 +35,6 @@ public class History {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;	
-	
-	@ManyToOne
-	@JoinColumn(name ="feed_id")
-    private Feed feed;
-    
-    @ManyToOne
-	@JoinColumn(name ="user_id")
-    private User user;
+    private int feedId;
+    private int userId;
 }

@@ -2,6 +2,7 @@ package com.web.curation.controller.feed;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -51,9 +52,9 @@ public class FeedController {
       List<Feed> feeds = feedDao.findAllBy();
       List<History> history = historyDao.findAllByUserId(1);
       for (Feed feed : feeds) {
-    	  history.stream().filter(x-> x.getFeed().getId() == feed.getId()).forEach(x -> feed.setIsClick(true));
+    	  history.stream().filter(x-> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
       }
-      feeds.stream().forEach(x-> System.out.println(x.toString()));
+      //feeds.stream().forEach(x-> System.out.println(x.toString()));
       ResponseEntity response = null;
       Collections.sort(feeds, new Comparator<Feed>() {
 	       @Override
@@ -110,7 +111,27 @@ public class FeedController {
       response = new ResponseEntity<>(feed, HttpStatus.OK);
       return response;
    }
-   
+   @PutMapping("/like")
+   @ApiOperation(value = "좋아요 값 업데이트하기")
+   public Object updateLike(@Valid @RequestBody HashMap<String, String> request) throws Exception {
+      ResponseEntity response = null;
+      System.out.println(request);
+      int feedId = Integer.parseInt(request.get("feedId"));
+      int userId = Integer.parseInt(request.get("userId"));
+      if (request.get("isClick").equals("false")) {//좋아요 누르는 경우 ( likes+1,history테이블에 값 추가 )
+    	  History history = new History();
+          history.setFeedId(feedId);
+          history.setUserId(userId);
+    	  feedDao.plusLikes(feedId);
+    	  historyDao.save(history);
+      } else {//좋아요 이미 눌러진 경우 ( likes -1, history테이블에서 값 제거 )
+    	  feedDao.minusLikes(feedId);
+    	  History history = historyDao.findByFeedIdAndUserId(feedId, userId);
+    	  historyDao.delete(history);
+      }
+      response = new ResponseEntity<>(null, HttpStatus.OK);
+      return response;
+   }
    
    
 }
