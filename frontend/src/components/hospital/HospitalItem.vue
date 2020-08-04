@@ -12,6 +12,7 @@
               <b-card-text class="mb-1">주소 : {{hospital.address}}</b-card-text>
               <b-card-text class="mb-1">전화번호 : {{hospital.phone}}</b-card-text>
               <b-card-text class="mb-1">진료과목 : {{hospital.subject}}</b-card-text>
+              <button @click="hospitalDetail(hospital.id)">상세보기</button>
             </b-card-body>
           </b-col>
         </b-row>
@@ -41,6 +42,16 @@ export default {
     }
   },
   methods: {
+     hospitalDetail(id){
+      console.log(id)
+      http.get('/hospitals/'+id)
+        .then(data => {
+          console.log(data);
+        })
+        .catch(err => {
+          console.log(err);
+        })   
+    },
     initComponent() {
       http
         .get('hospitals/pagelink', {

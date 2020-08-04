@@ -64,26 +64,79 @@ export default {
       var multi = new kakao.maps.LatLng(37.5012743, 127.039585);
       var map = new kakao.maps.Map(document.getElementById("map"), {
         center: multi, // 지도의 중심좌표
-        level: 9, // 지도의 확대 레벨
+        level: 13, // 지도의 확대 레벨
       });
-      var marker = new kakao.maps.Marker({ position: multi });
 
+      var markers =[];
+              
       for (var i = 0; i < this.hospitalLoc.length; i++) {
-        marker = new kakao.maps.Marker({
-          position: new kakao.maps.LatLng(
-            this.hospitalLoc[i].lng,
-            this.hospitalLoc[i].lat
-          ),
-          title: "병원", //marker.mc에 title담기는거같음
-          image: markerImage,
-          clickable: true, //마커 클릭시 지도 동작x
-          map: map,
+        var info = this.hospitalLoc[i]
+        
+        var marker = new kakao.maps.Marker({
+          position : new kakao.maps.LatLng(info.lng, info.lat),
+          title:info.name, 
+          image:markerImage,
+          clickable:true //마커 클릭시 지도 동작x
         });
+
+        var iwContent = '<div style="display:inline-block; width:auto;text-align:center;">'+info.name+'</div>',
+        iwRemoveable = false;
+
+        var infowindow = new kakao.maps.InfoWindow({
+            content : iwContent
+        });
+
+        kakao.maps.event.addListener(marker, 'click', this.hospitalDetail(info.id));
+        kakao.maps.event.addListener(marker, 'mouseover', this.iwOpen(map,marker,infowindow));
+        kakao.maps.event.addListener(marker, 'mouseout', this.iwClose(infowindow));
+        
+        markers.push(marker);
       }
-      map.setCenter(
-        new kakao.maps.LatLng(this.hospitalLoc[1].lng, this.hospitalLoc[1].lat)
-      );
+
+       // 마커 클러스터러를 생성합니다 
+      var clusterer = new kakao.maps.MarkerClusterer({
+          map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+          averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+          minLevel: 2, // 지도레벨이 어느정도 이상일때 클러스터 보일지
+          disableClickZoom: true
+      });
+      kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
+       var level = map.getLevel(); 
+        if(level<=2){
+           map.setLevel(1);
+           map.setCenter(cluster.getCenter());
+        }else{            
+          // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
+          map.setLevel(level-2, {anchor: cluster.getCenter()});
+          map.setCenter(cluster.getCenter());
+        }       
+        
+    });
+      clusterer.addMarkers(markers);
+      
     },
+    hospitalDetail(id){
+      return function() {
+        console.log(id)
+        http.get('/hospitals/'+id)
+          .then(data => {
+            console.log(data);
+          })
+          .catch(err => {
+            console.log(err);
+          })   
+      }
+    },
+    iwOpen(map,marker,infowindow){
+       return function() {
+         infowindow.open(map, marker);
+       }
+    },
+    iwClose(infowindow){
+       return function() {
+         infowindow.close();
+       }
+    }
   },
 };
 </script>
