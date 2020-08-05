@@ -78,9 +78,6 @@
       </div> 
     </div>
 
-
-
-
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -159,6 +156,15 @@ export default {
     },
     addReview(feedId, reviewData){
       
+      let feed = {
+        id : feedId,
+        content : reviewData
+      }
+      let formData = new FormData();
+      formData.append('file', this.file);
+      console.log(formData);
+
+
       http.put(`feeds/`,{id:feedId, content:reviewData})
       .then(data =>{
         alert("리뷰작성 완료");
@@ -167,20 +173,19 @@ export default {
 
       })
 
-      ////////////////////////////////
-      let formData = new FormData();
-      formData.append('file', this.file);
-      console.log(formData);
+      //////////////////////////////
+      
       http.post(`feeds/`, formData,{
         headers:{'Content-Type':'multipart/form-data'}
       })
       .then(data =>{
         alert("이미지업로드 완료");
-        this.$router.go(0);
+        
       })
       .catch(err =>{
 
       })
+      this.$router.go(0);
     },
     upload(e){
       let file = e.target.files[0];
