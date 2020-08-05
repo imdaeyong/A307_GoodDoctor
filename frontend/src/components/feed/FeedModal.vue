@@ -74,7 +74,11 @@ export default {
             http.post(`comments/`,comment)
             .then(data =>{
                 alert("댓글등록 완료");
-                this.$router.go(0);
+                http.get(`comments/${store.state.feedInfo}`).then(data => {
+                    console.log(data.data);
+                    this.replys = data.data; //해당 댓글 정보들을 가져온다.
+                    this.data = "";
+                }) 
             })
             .catch(err =>{
 

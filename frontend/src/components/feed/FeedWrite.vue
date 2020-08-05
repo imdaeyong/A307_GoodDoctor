@@ -28,9 +28,11 @@
             
             <div class ="review-write-form">
               <div v-if="openWrite == feed.id" class ="review-write">
-                <textarea name="" id="" cols="65%" rows="10" v-model="feed.review">
+                <input type="file" id="file" ref="file" v-on:change="upload" class="review-img-upload"/>
+                <img :src="preview">
+                <textarea name="" id="" cols="60%" rows="3" v-model="feed.review">
 
-                </textarea>
+                </textarea><br>
                 <button v-on:click="addReview(feed.id, feed.review)">작성</button>
               </div>
             </div>
@@ -75,6 +77,7 @@
       </div>
       </div> 
     </div>
+
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -101,7 +104,11 @@ export default {
       feeds : [],
       nickname : "",
       userId : "",
-      content : ""
+      content : "",
+      newImgSrc: '',
+      file: '',
+      img : '',
+      preview : ''
     }
   },
    mounted(){
@@ -109,7 +116,7 @@ export default {
     else{this.nickname = store.state.userInfo.data.nickname;
       this.isLogin = store.state.isLogin;
       this.userId = store.state.userInfo.data.id
-      http.get(`feeds/${this.userId}`)
+      http.get(`feeds/write/${this.userId}`)
       .then(data => {
         this.feeds = data.data;
         console.log(this.feeds);
@@ -136,7 +143,8 @@ export default {
       http.post(`comments/`,comment)
       .then(data =>{
         alert("댓글등록 완료");
-        this.$router.go(0);
+        
+        //this.$router.go(0);
       })
       .catch(err =>{
 
@@ -147,16 +155,58 @@ export default {
       this.openWrite = id;
     },
     addReview(feedId, reviewData){
+      
+      let feed = {
+        id : feedId,
+        content : reviewData
+      }
+      let formData = new FormData();
+      formData.append('file', this.file);
+      console.log(formData);
+
 
       http.put(`feeds/`,{id:feedId, content:reviewData})
       .then(data =>{
         alert("리뷰작성 완료");
-        this.$router.go(0);
       })
       .catch(err =>{
 
       })
-    }
+
+      //////////////////////////////
+      
+      http.post(`feeds/`, formData,{
+        headers:{'Content-Type':'multipart/form-data'}
+      })
+      .then(data =>{
+        alert("이미지업로드 완료");
+        
+      })
+      .catch(err =>{
+
+      })
+      this.$router.go(0);
+    },
+    upload(e){
+      let file = e.target.files[0];
+      this.file = file;
+      
+      this.img = require('C:/temptemp/'+file.name);
+      this.preview = URL.createObjectURL(file);
+      console.log(this.preview);
+
+
+      let reader = new FileReader();
+
+      reader.readAsDataURL(file);
+      reader.onload = e => {
+        this.preview = e.target.result;
+        console.log(e.target.result);
+      }
+      console.log(file);
+    },
+
+
   }
 }
 </script>

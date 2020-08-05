@@ -13,6 +13,10 @@ import Hospital from '../views/hospital/IndexHospital.vue'
 import List from '../components/hospital/HospitalItem.vue'
 import Map from "../components/hospital/HospitalMap.vue"
 import AccountsDelete from "../views/accounts/accountsDelete.vue"
+import SearchHospital from '../views/search/IndexSearch.vue'
+import SearchList from '../components/search/SearchItem.vue'
+import SearchMap from "../components/search/SearchMap.vue"
+import SearchFeed from '../views/feed/IndexFeed.vue'
 
 Vue.use(VueRouter)
 
@@ -82,8 +86,26 @@ Vue.use(VueRouter)
             }
           ]
     },
-
-
+    {
+        path : '/search/hospital',
+        name : 'SearchHospital',
+        component : SearchHospital,
+        children:[
+            {
+              path: '/searchList',
+              component: SearchList,
+            },
+            {
+                path: '/searchMap',
+                component: SearchMap,
+            }
+          ]
+    },
+    {
+        path : '/search/feed',
+        name : 'SearchFeed',
+        component : SearchFeed,
+    }
   ]
 
   const router = new VueRouter({
