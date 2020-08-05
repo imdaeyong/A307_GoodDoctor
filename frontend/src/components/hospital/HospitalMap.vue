@@ -1,6 +1,7 @@
 <template>
   <div class="my-3" id="app">
     <div id="map"></div>
+    <img src = "@/assets/images/hospital/hospital_marker.png"/>
   </div>
 </template>
 
@@ -39,10 +40,8 @@ export default {
     this.$store.subscribe((mutation, state) => {
       if(mutation.type=="addHospitalZoom"){
         var zoomer = this.$store.getters.hospitalZoom;
-        console.log("실시간변경",zoomer.lng,zoomer.lat)
         this.map.setLevel(3);
         this.map.setCenter(new kakao.maps.LatLng(zoomer.lng,zoomer.lat))
-        console.log(this.map.getCenter)
       }
     })
     
@@ -113,8 +112,12 @@ export default {
           map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
           averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
           minLevel: 2, // 지도레벨이 어느정도 이상일때 클러스터 보일지
-          disableClickZoom: true
+          disableClickZoom: true,
+          calculator: [3, 5, 10], 
       });
+
+  
+
       kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
        var level = map.getLevel(); 
         if(level<=2){
@@ -127,6 +130,7 @@ export default {
         }       
     });
       clusterer.addMarkers(markers);
+      
       if(clusterer._clusters.length==1){
         map.setLevel(10);
       }
@@ -161,6 +165,6 @@ export default {
 <style>
 #map {
   width: 500px;
-  height:700px;
+  height:600px;
 }
 </style>
