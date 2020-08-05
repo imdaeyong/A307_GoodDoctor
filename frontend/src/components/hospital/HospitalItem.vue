@@ -13,6 +13,7 @@
               <b-card-text class="mb-1">전화번호 : {{hospital.phone}}</b-card-text>
               <b-card-text class="mb-1">진료과목 : {{hospital.subject}}</b-card-text>
               <button @click="hospitalDetail(hospital.id)">상세보기</button>
+              <button @click="hospitalZoom(hospital)">지도에서 보기</button>
             </b-card-body>
           </b-col>
         </b-row>
@@ -42,6 +43,10 @@ export default {
     }
   },
   methods: {
+    hospitalZoom(id){
+      this.$store.commit('addHospitalZoom',id);
+      console.log(this.$store.getters.hospitalZoom)
+    },
      hospitalDetail(id){
       console.log(id)
       http.get('/hospitals/'+id)
@@ -69,7 +74,8 @@ export default {
         .catch((error) => {
             alert('에러가 발생했습니다.');
         });
-    }
+    },
+    
   },
 }
 </script>

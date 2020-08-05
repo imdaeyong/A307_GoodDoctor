@@ -22,6 +22,7 @@ export default {
       this.initComponent();
       this.initMap();
     },
+    
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -35,6 +36,16 @@ export default {
         "a67159970a3ac";
       document.head.appendChild(script);
     }
+    this.$store.subscribe((mutation, state) => {
+      if(mutation.type=="addHospitalZoom"){
+        var zoomer = this.$store.getters.hospitalZoom;
+        console.log("실시간변경",zoomer.lng,zoomer.lat)
+        this.map.setCenter(new kakao.maps.LatLng(zoomer.lng,zoomer.lat))
+        this.map.setLevel(3);
+        console.log(this.map.getCenter)
+      }
+    })
+    
   },
   methods: {
     initComponent() {
@@ -64,7 +75,7 @@ export default {
       var multi = new kakao.maps.LatLng(37.5012743, 127.039585);
       var map = new kakao.maps.Map(document.getElementById("map"), {
         center: multi, // 지도의 중심좌표
-        level: 13, // 지도의 확대 레벨
+        level: 12, // 지도의 확대 레벨
       });
 
       var markers =[];
@@ -114,10 +125,12 @@ export default {
           map.setLevel(level-2, {anchor: cluster.getCenter()});
           map.setCenter(cluster.getCenter());
         }       
-        
     });
       clusterer.addMarkers(markers);
-       
+      if(clusterer._clusters.length==1){
+        map.setLevel(10);
+      }
+      this.map=map;
     },
     hospitalDetail(id){
       return function() {
@@ -147,7 +160,7 @@ export default {
 
 <style>
 #map {
-  width: 400px;
-  height: 300px;
+  width: 500px;
+  height:700px;
 }
 </style>
