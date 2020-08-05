@@ -40,8 +40,8 @@ export default {
       if(mutation.type=="addHospitalZoom"){
         var zoomer = this.$store.getters.hospitalZoom;
         console.log("실시간변경",zoomer.lng,zoomer.lat)
-        this.map.setCenter(new kakao.maps.LatLng(zoomer.lng,zoomer.lat))
         this.map.setLevel(3);
+        this.map.setCenter(new kakao.maps.LatLng(zoomer.lng,zoomer.lat))
         console.log(this.map.getCenter)
       }
     })
