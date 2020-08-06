@@ -12,13 +12,13 @@
               <b-card-title class="mt-2">{{hospital.name}}</b-card-title>
               <b-card-text class="mt-2">평점| 리뷰수</b-card-text>
               <b-card-text class="mt-2">진료과목 : {{hospital.subject}}</b-card-text>
-              <button @click="hospitalDetail(hospital.id)">상세보기</button>
-              <button @click="hospitalZoom(hospital)">지도에서 보기</button>
+        
             </b-card-body>
           </b-col>
         </b-row>
         
       </b-card>
+      <button @click="hospitalZoom(hospital)">지도에서 보기</button>
     </div>
   </div>
 </template>
@@ -48,8 +48,9 @@ export default {
   methods: {
     hospitalDataSend(id) {
       this.$router.push({name: "HospitalDetail", params: {"id": id}})
+    },
     hospitalZoom(id){
-      this.$store.commit('addHospitalZoom',id);
+      this.$store.commit('addHospitalZoom',id)
     },
     initComponent() {
       http
