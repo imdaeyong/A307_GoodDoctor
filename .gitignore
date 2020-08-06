@@ -1,3 +1,4 @@
 backend/.metadata/
 backend/Servers
 frontend/node_modules
+backend/back/src/main/resources/
