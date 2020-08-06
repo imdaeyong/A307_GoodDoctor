@@ -115,17 +115,22 @@ public class FeedController {
       response = new ResponseEntity<>(feed, HttpStatus.OK);
       return response;
    }
+
    
    //이미지 업로드 테스트
    @PostMapping("/")
    @ApiOperation(value = "이미지 업로드")
    public Object addImage(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
-	      System.out.println(file.getOriginalFilename() + " =================================================");
-	      ResponseEntity response = null;
-	      response = new ResponseEntity<>(null, HttpStatus.OK);
-	      file.transferTo(new File("C:\\temptemp\\"+file.getOriginalFilename()));
-	      return response;
-	   }
+	   System.out.println(file.getOriginalFilename() + " =================================================");
+	   ResponseEntity response = null;
+	   response = new ResponseEntity<>(null, HttpStatus.OK);
+	   file.transferTo(new File("C:\\temptemp\\"+file.getOriginalFilename()));
+	   //DB저장용 String
+	   String img = "C:\\temptemp\\"+file.getOriginalFilename();
+	   //Feed feed = feedDao.getFeedById(request.getId());
+	   //feedDao.save(feed);
+	   return response;
+   }
 
    @PutMapping("/like")
    @ApiOperation(value = "좋아요 값 업데이트하기")
@@ -145,7 +150,18 @@ public class FeedController {
     	  History history = historyDao.findByFeedIdAndUserId(feedId, userId);
     	  historyDao.delete(history);
       }
-      response = new ResponseEntity<>(null, HttpStatus.OK);
+      List<Feed> feeds = feedDao.findAllBy();
+      List<History> history = historyDao.findAllByUserId(userId);
+      Collections.sort(feeds, new Comparator<Feed>() {
+	       @Override
+	       public int compare(Feed s1, Feed s2) {
+	        	  return s2.getId() - s1.getId();
+	       }
+	  });
+      for (Feed feed : feeds) {
+    	  history.stream().filter(x-> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
+      }
+      response = new ResponseEntity<>(feeds, HttpStatus.OK);
       return response;
    }
    

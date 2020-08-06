@@ -69,7 +69,7 @@
                             this.$router.go(0);
                         })
                          .catch(err => {
-                            alert("데이터베이스에 회원 정보가 없음!");
+                             alert("이미 가입된 이메일입니다")
                          })
                     },
                     fail : error => {
