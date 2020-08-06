@@ -55,6 +55,29 @@
         }
       }
     }
+    .add-option {
+      .bar {
+          width: calc(100% - 40px);
+      }
+      .wrap {
+          p {
+              margin-top: 5px;
+              margin-bottom: 0px;
+          }
+      }
+      p {
+          float: left;
+      }
+      a {
+          float: right;
+          color:#000;
+          font-weight: $f600;
+      }
+      .router-a:hover {
+          text-decoration: none;
+          color: $myColor;
+      }  
+    }
   }
   //회원가입
   &.join {
