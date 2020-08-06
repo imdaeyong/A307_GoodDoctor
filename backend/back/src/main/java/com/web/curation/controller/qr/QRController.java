@@ -73,6 +73,7 @@ public class QRController {
 		User user = userDao.getUserById(1);
 		feed.setUser(user);
 		feed.setHospital(hospital);
+		feed.setIsClick(false);
 		feedDao.save(feed);
 		RedirectView redirectView = new RedirectView();
 	    redirectView.setUrl("http://localhost:3000/feed/write");
