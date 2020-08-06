@@ -13,13 +13,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.web.curation.model.mapping.FeedMapping;
 import com.web.curation.model.user.Feed;
 
 public interface FeedDao extends JpaRepository<Feed, String> {
     Feed getFeedById(int id);
     List<Feed> findAllBy();
-    List<FeedMapping> findAllByUserId(int userId);
+    List<Feed> findAllByUserId(int userId);
     
     @Transactional
     @Modifying
