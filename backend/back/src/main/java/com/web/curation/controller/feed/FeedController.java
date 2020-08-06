@@ -26,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.curation.dao.user.FeedDao;
 import com.web.curation.dao.user.HistoryDao;
 import com.web.curation.model.BasicResponse;
-import com.web.curation.model.mapping.FeedMapping;
 import com.web.curation.model.user.Feed;
 import com.web.curation.model.user.History;
 
@@ -78,16 +77,16 @@ public class FeedController {
    @GetMapping("write/{userId}")
    @ApiOperation(value = "모든 피드 가져오기")
    public Object getFeedsByUserId(@Valid @PathVariable("userId") int userId) {
-      List<FeedMapping> feeds = feedDao.findAllByUserId(userId);
-      Collections.sort(feeds, new Comparator<FeedMapping>() {
+      List<Feed> feeds = feedDao.findAllByUserId(userId);
+      Collections.sort(feeds, new Comparator<Feed>() {
             @Override
-            public int compare(FeedMapping s1, FeedMapping s2) {
+            public int compare(Feed s1, Feed s2) {
             	return s2.getId() - s1.getId();
             }
       });
-      Collections.sort(feeds, new Comparator<FeedMapping>() {
+      Collections.sort(feeds, new Comparator<Feed>() {
           @Override
-          public int compare(FeedMapping s1, FeedMapping s2) {
+          public int compare(Feed s1, Feed s2) {
               if(s1.getIsNew() && !s2.getIsNew()) {
             	  return -1;
               }

@@ -8,6 +8,7 @@
     <div class="mt-5">
       <h1 class="d-flex justify-content-center mb-4">병원 리스트 페이지</h1>
       <PageLink/>
+
       <b-container fluid class="bv-example-row bv-example-row-flex-cols" style="width:72%">
         <b-row align-v="stretch">
           <b-col cols="7" class="border-right">
@@ -18,6 +19,7 @@
           </b-col>
         </b-row>
       </b-container>
+      
     </div>
   </div>
 </template>
@@ -43,7 +45,7 @@ export default {
   },
   mounted(){
     if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
-  }
+  },
 };
 </script>
 

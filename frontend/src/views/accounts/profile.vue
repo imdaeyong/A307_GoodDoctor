@@ -16,35 +16,35 @@
           <h3>굿닥터 회원 정보</h3>
           
           <div v-if="categories[0].display" style="background-color: #17a2b8; border-radius: 10px;">
-            <button @click="toggle('myProfile')" class="myProfile abled" style="outline: 0">
+            <button @click="toggle('myProfile')" class="Profile abled" style="outline: 0">
               <p>내 정보</p>
             </button>
           </div>
           <div v-else>
-            <button @click="toggle('myProfile')" class="myProfile disabled" style="outline: 0">
+            <button @click="toggle('myProfile')" class="Profile disabled" style="outline: 0">
               <p>내 정보</p>
             </button>
           </div>
 
 
           <div v-if="categories[1].display" style="background-color: #17a2b8; border-radius: 10px;">
-            <button @click="toggle('myHospital')" class="myProfile abled" style="outline: 0">
+            <button @click="toggle('myHospital')" class="Profile abled" style="outline: 0">
               <p>관심 정보</p>
             </button>
           </div>
           <div v-else>
-            <button @click="toggle('myHospital')" class="myProfile disabled" style="outline: 0">
+            <button @click="toggle('myHospital')" class="Profile disabled" style="outline: 0">
               <p>관심 정보</p>
             </button>
           </div>
 
           <div v-if="categories[2].display" style="background-color: #17a2b8; border-radius: 10px;">
-            <button @click="toggle('myReview')" class="myProfile abled" style="outline: 0">
+            <button @click="toggle('myReview')" class="Profile abled" style="outline: 0">
               <p>내 리뷰</p>
             </button>
           </div>
           <div v-else>
-            <button @click="toggle('myReview')" class="myProfile disabled" style="outline: 0">
+            <button @click="toggle('myReview')" class="Profile disabled" style="outline: 0">
               <p>내 리뷰</p>
             </button>
           </div>

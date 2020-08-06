@@ -10,9 +10,11 @@
       <b-col class="right mt-3">
         <h3> - 닉네임: <span  style="color : #17a2b8">{{this.$store.state.userInfo.data.nickname}}</span></h3>
         <h3 class="mt-5"> - 아이디(이메일): <span style="color : #17a2b8">{{this.$store.state.userInfo.data.email}}</span></h3>
-        <h3 class="mt-5">- <a href="/accounts/changepassword"><span style="color : #17a2b8">비밀번호 변경</span></a></h3>
-        <h3 class="mt-5">- <a href="/accounts/delete"><span style="color : #17a2b8">탈퇴하기</span></a></h3>
-      </b-col>
+        <div class="row mt-5">
+          <a href="/accounts/changepassword"><button class="myProfile"><h3>비밀번호 변경</h3></button></a>
+          <a href="/accounts/delete"><button class="myProfile left"><h3>탈퇴하기</h3></button></a>
+        </div>
+        </b-col>
     </b-row>
   </div>
 </template>

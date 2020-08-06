@@ -19,7 +19,8 @@ export default new Vuex.Store({
         userInfo: {},
         isLogin: false,
         authCode: "",
-        feedInfo: ""
+        feedInfo: "",
+        hospitalZoom:{},
     },
     mutations: {
         addUserInfo(state, userInfo) {
@@ -33,7 +34,10 @@ export default new Vuex.Store({
         },
         mutateFeedInfo(state, feedInfo){
             state.feedInfo = feedInfo
-        }
+        },
+        addHospitalZoom(state,hospitalZoom){
+            state.hospitalZoom=hospitalZoom
+        },
     },
     getters: {
         authCode(state) {
@@ -42,6 +46,9 @@ export default new Vuex.Store({
         userInfo(state) {
             return state.userInfo;
         },
+        hospitalZoom(state){
+            return state.hospitalZoom;
+        }
     },
     actions:{
         login(context, {email, password}) {

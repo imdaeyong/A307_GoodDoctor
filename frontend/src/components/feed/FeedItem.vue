@@ -65,12 +65,20 @@ export default {
     }
   },
   mounted(){
-    this.userId = store.state.userInfo.data.id
-    http.get(`feeds/${this.userId}`).then(data => {
-      this.feeds = data;
-      this.nickname = store.state.userInfo.data.nickname;
-      this.isLogin = store.state.isLogin;
-    })
+    if(!this.$route.query.word){
+      this.userId = store.state.userInfo.data.id
+      http.get(`feeds/${this.userId}`).then(data => {
+        this.feeds = data;
+        this.nickname = store.state.userInfo.data.nickname;
+        this.isLogin = store.state.isLogin;
+      })
+    } else {
+      http.get(`search/feed?word=${this.$route.query.word}`).then(data => {
+        this.feeds = data;
+        this.nickname = store.state.userInfo.data.nickname;
+        this.isLogin = store.state.isLogin;
+      })
+    }
 
   },
   methods:{

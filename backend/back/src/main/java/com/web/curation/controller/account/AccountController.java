@@ -77,6 +77,7 @@ public class AccountController {
 	@PostMapping("/account")
 	@ApiOperation(value = "가입하기")
 	public Object signup(@Valid @RequestBody SignupRequest request) {
+		
 		if (userDao.getUserByEmail(request.getEmail()) != null) {
 			final BasicResponse result = new BasicResponse();
 			result.status = true;

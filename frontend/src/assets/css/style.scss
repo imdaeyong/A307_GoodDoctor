@@ -64,7 +64,7 @@ button {
     border-right: 10px solid black;
 }
 
-.myProfile {
+.Profile {
     &.abled {
         border-radius: 10px;
         width: 100%;
@@ -90,17 +90,37 @@ button {
         color: white;
     }
 }
+    
+.myProfile {
+    background-color: $disabledMyColor;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-left: 5rem;
+    height: 50px;
+    text-align: center;
+    width: 200px;
+    h3 {        
+        color: white;
+        margin-top: 0.4rem;
+        margin-bottom: 0px;
+    }
+    &:hover {
+        background-color: $myColor;
+        color: white;
+    }
+}
+
+.HospitalDetail {
+    text-align: center;
+    width: 70%;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
 
 /*button default*/
-.btn {
-    &:not([disabled]) {
-        &:hover,
-        &:focus,
-        &.active {
-            box-shadow: none;
-            -webkit-box-shadow: none;
-        }
-    }
+.btn {    
     font-weight: 500;
     font-size: 1em;
     color: red;
@@ -109,8 +129,41 @@ button {
     height: 50px;
     line-height: 58px;
     border-radius: 3px;
-    box-shadow: 8px 8px 15px rgba(0, 0, 0,
-            0.1);
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1);
+    &:not([disabled]) {
+        &:hover,
+        &:focus,
+        &.active {
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+    }
+}
+
+.btn-left {
+    font-weight: 500;
+    font-size: 1em;
+    text-align:left;
+    cursor:pointer;
+    height: 120px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.03);
+    &:hover,
+    &:focus,
+    &.active {
+        border: 1px solid $myColor ;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+    };
+
+    h4 {
+        margin-top: 4px;
+        margin-bottom: 7px;
+        
+    }
+    p {
+        margin-bottom: 0em;
+        height: 20px;
+    }
 }
 
 .btn-full-center {

@@ -1,21 +1,24 @@
 <template>
   <div>
     <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
-      <b-card no-body class="overflow-hidden my-3 ml-4">
+      <b-card no-body @click="hospitalDataSend(hospital.id)" class="overflow-hidden my-3 ml-4 btn-left">
+
         <b-row no-gutters>
           <b-col md="3">
-            <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
+            <b-card-img src="https://picsum.photos/400/400/?image=114" alt="Image" class="rounded-0"></b-card-img>
           </b-col>
           <b-col md="9">
             <b-card-body class="py-2">
-              <b-card-title>{{hospital.name}}</b-card-title>
-              <b-card-text class="mb-1">주소 : {{hospital.address}}</b-card-text>
-              <b-card-text class="mb-1">전화번호 : {{hospital.phone}}</b-card-text>
-              <b-card-text class="mb-1">진료과목 : {{hospital.subject}}</b-card-text>
+              <b-card-title class="mt-2">{{hospital.name}}</b-card-title>
+              <b-card-text class="mt-2">평점| 리뷰수</b-card-text>
+              <b-card-text class="mt-2">진료과목 : {{hospital.subject}}</b-card-text>
+        
             </b-card-body>
           </b-col>
         </b-row>
+        
       </b-card>
+      <button @click="hospitalZoom(hospital)">지도에서 보기</button>
     </div>
   </div>
 </template>
@@ -23,13 +26,15 @@
 <script>
 import axios from "axios";
 import http from '@/util/http-common'
+
 export default {
   name : 'HospitalItem',
   data: () => {
     return {
       hospitals: [], 
       pageLimit: 10, 
-      pageOffet: 0
+      pageOffet: 0,
+      seletDatsId: ""
     }
   },
   created() {
@@ -41,6 +46,12 @@ export default {
     }
   },
   methods: {
+    hospitalDataSend(id) {
+      this.$router.push({name: "HospitalDetail", params: {"id": id}})
+    },
+    hospitalZoom(id){
+      this.$store.commit('addHospitalZoom',id)
+    },
     initComponent() {
       http
         .get('hospitals/pagelink', {
@@ -58,7 +69,8 @@ export default {
         .catch((error) => {
             alert('에러가 발생했습니다.');
         });
-    }
+    },
+    
   },
 }
 </script>
