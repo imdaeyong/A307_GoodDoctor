@@ -96,7 +96,6 @@ export default {
             content : iwContent
         });
 
-        kakao.maps.event.addListener(marker, 'click', this.hospitalDetail(info.id));
         kakao.maps.event.addListener(marker, 'mouseover', this.iwOpen(map,marker,infowindow));
         kakao.maps.event.addListener(marker, 'mouseout', this.iwClose(infowindow));
         

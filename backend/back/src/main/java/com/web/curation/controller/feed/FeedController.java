@@ -66,6 +66,7 @@ public class FeedController {
 		}
 	}
 
+	
 	@GetMapping("write/{userId}") // feeds/write
 	@ApiOperation(value = "피드 작성 화면에서 {userId}의 피드 가져오기")
 	public Object getFeedsByUserId(@Valid @PathVariable("userId") int userId) {

@@ -1,5 +1,6 @@
 package com.web.curation.controller.search;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.dao.FeedDao;
+import com.web.curation.dao.HistoryDao;
 import com.web.curation.dao.HospitalDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.Feed;
+import com.web.curation.model.History;
 import com.web.curation.model.Hospital;
 
 import io.swagger.annotations.ApiOperation;
@@ -38,11 +41,17 @@ public class SearchController {
 	HospitalDao hospitalDao;
 	@Autowired
 	FeedDao feedDao;
+	@Autowired
+	HistoryDao historyDao;
 
 	@GetMapping("feed")
 	@ApiOperation(value = "검색한 모든 피드 가져오기")
-	public Object searchFeed(@RequestParam("word") String word) {
+	public Object searchFeed(@RequestParam("word") String word, @RequestParam("userId") int userId) {
 		Set<Feed> list = feedDao.findAllByWord(word);
+		List<History> history = historyDao.findAllByUserId(userId);
+		for (Feed feed : list) {
+			history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
+		}
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 

@@ -62,21 +62,21 @@ export default {
     }
   },
   mounted(){
+    this.userId = store.state.userInfo.data.id
     if(!this.$route.query.word){
-      this.userId = store.state.userInfo.data.id
       http.get(`feeds/${this.userId}`).then(data => {
         this.feeds = data;
         this.nickname = store.state.userInfo.data.nickname;
         this.isLogin = store.state.isLogin;
       })
     } else {
-      http.get(`search/feed?word=${this.$route.query.word}`).then(data => {
+      http.get(`search/feed?word=${this.$route.query.word}&userId=${this.userId}`).then(data => {
         this.feeds = data;
         this.nickname = store.state.userInfo.data.nickname;
         this.isLogin = store.state.isLogin;
+        this.$route.query.word = false;
       })
     }
-
   },
   methods:{
     addLike(isClick, feedId){ //좋아요 버튼 클릭시 실행 함수
