@@ -9,7 +9,3 @@ export default {
   name: "myHospital",
 }
 </script>
-
-<style>
-
-</style>

@@ -2,7 +2,6 @@
   <div class="user" id="join">
     <div class="wrapC mt-5">
       <h1>비밀번호를 찾아요</h1>
-
       <div class="input-label">
         <input 
           v-model="email" 
@@ -28,10 +27,8 @@
 <script>
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
-import axios from 'axios'
 import http from '@/util/http-common'
 import * as EmailValidator from "email-validator"
-
 
 export default {
   name: "findPassword",

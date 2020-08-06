@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import store from '../../../vuex/store.js'
 import '../../../assets/css/style.scss'
+import store from '../../../vuex/store.js'
 
 export default {
     name: "myProfile",

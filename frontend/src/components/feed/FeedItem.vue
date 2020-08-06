@@ -10,23 +10,22 @@
           </div>
           <div class="feed-card">
             <img src="../../assets/images/feed/1.png" alt="">
-            <a href="">#진료잘봄#호감</a><br>
-            {{feed.content}}
-            
-            <span>더보기...</span>
+            <div>
+              <a href="">#진료잘봄 #호감</a><br>
+              {{feed.content}}
+              <span>더보기...</span>
+            </div>
           </div>
           <div class="feed-foot">
             <div class="feed-btn-list">
-              <div class ="like" v-on:click="addLike(feed.isClick, index, feed.id)"><button>
-                <b-icon-heart v-show="!feed.isClick"></b-icon-heart>
-                <b-icon-heart-fill v-show="feed.isClick"></b-icon-heart-fill>
-                <!--<b-icon-heart v-if="!feed.isClick"></b-icon-heart>
-                <b-icon-heart-fill v-else></b-icon-heart-fill>-->
+              <div class ="like" @click="addLike(feed.isClick, feed.id)">
+                <button id="heart" style="outline : 0;">
+                  <b-icon-heart v-show="!feed.isClick"></b-icon-heart>
+                  <b-icon-heart-fill class = "f-heart" v-show="feed.isClick"  style="color : red;"></b-icon-heart-fill>
                 </button>
-                
               </div>
-              <div class ="reply"><button><b-icon-chat-square v-on:click="openReply(feed.id)"></b-icon-chat-square></button></div>
-              <div class ="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
+              <div class ="reply"><button><b-icon-chat-square @click="openReply(feed)"></b-icon-chat-square></button></div>
+              <div class ="share"><button><b-icon-reply @click="addShare()"></b-icon-reply></button></div>
               <span v-if="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span> 
             </div>
             <div class ="reply-list">
@@ -36,7 +35,7 @@
                 <span v-else> 닉네임</span>
               </div>
               <input type="text" class="reply-content" placeholder="댓글달기..." v-model="feed.data">
-              <button class="reply-submit" v-on:click="addReply(feed.id, feed.data)">게시</button> 
+              <button class="reply-submit" @click="addReply(feed.id, feed.data)">게시</button> 
             </div>
           </div>
         </div>
@@ -48,7 +47,6 @@
 <script>
 import defaultImage from "../../assets/images/img-placeholder.png";
 import defaultProfile from "../../assets/images/profile_default.png";
-import axios from "axios";
 import store from '@/vuex/store.js'
 import http from '@/util/http-common'
 
@@ -60,8 +58,7 @@ export default {
       isLogin : false,
       userId : "",
       content : "",
-      likes : [],
-      click : true,
+      click : true
     }
   },
   mounted(){
@@ -82,7 +79,7 @@ export default {
 
   },
   methods:{
-    addLike(isClick, index, feedId){ //좋아요 버튼 클릭시 실행 함수
+    addLike(isClick, feedId){ //좋아요 버튼 클릭시 실행 함수
       if (this.click) {
         this.click = !this.click;
         http.put(`feeds/like`,{feedId:feedId, userId:this.userId, isClick:isClick})
@@ -93,10 +90,9 @@ export default {
       }else{
         //alert("");
       }
-      
     },
-    openReply(feedInfo){ //댓글 버튼 클릭시 실행 함수
-      store.dispatch('openReply', feedInfo);
+    openReply(feed){ //댓글 버튼 클릭시 실행 함수
+      store.dispatch('openReply', feed);
       this.$bvModal.show('bv-modal-feed');
     },
     addShare(){ //공유버튼 클릭시 실행 함수

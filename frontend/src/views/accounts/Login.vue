@@ -4,7 +4,6 @@
       <h1>
         <span style="color : #17a2b8">아파서 왔지?</span> 여기맞아
       </h1>
-
       <div class="input-label">
         <input
           v-model="email"
@@ -68,7 +67,6 @@
 <script>
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
-import axios from 'axios'
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
 import KakaoLogin from "../../components/accounts/snsLogin/Kakao.vue";

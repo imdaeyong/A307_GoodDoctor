@@ -9,7 +9,3 @@ export default {
 	name: "myReview"
 }
 </script>
-
-<style>
-
-</style>

@@ -75,16 +75,11 @@
 </template>
 
 <script>
-import axios from "axios";
-import store from "@/vuex/store";
+import store from "@/vuex/store"
 import http from '@/util/http-common'
+
 export default {
-  data: () => {
-    return {
-      gEmail: "",
-      gNickname: ""
-    };
-  },
+  name: "Google",
   methods: {
     handleClickGetAuth() {
       this.$gAuth.signIn()
