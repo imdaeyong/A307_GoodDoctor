@@ -43,7 +43,7 @@ export default {
   },
   mounted(){
     if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
-  }
+  },
 };
 </script>
 
