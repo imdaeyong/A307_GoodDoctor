@@ -74,10 +74,12 @@ export default {
       this.isSubmit = isSubmit;
     },
     accountsDelete() {
-      http.delete(`/account`, {params:{id: this.id}})
+      http.delete(`/account`, {params:{id: this.id, nickname: this.nickName, email: this.email}})
         .then(res => {
           alert('탈퇴가 정상적으로 처리 되었습니다.')
+          store.dispatch('logout');
           this.$router.push('/feed/main')
+          this.$router.go(0);
         })
         .catch(err => {
           alert('오류가 발생했습니다. 다시 시도해 주세요.')

@@ -186,8 +186,9 @@ public class AccountController {
 
 	@DeleteMapping("/account")
 	@ApiOperation(value = "회원 탈퇴")
-	public Object remove(@RequestParam("id") int id) {
-		User user = userDao.getUserById(id);
+	public Object remove(@RequestParam("nickname") String nickName, @RequestParam("email") String email,
+			@RequestParam("id") int id) {
+		User user = userDao.getUserByEmailAndNicknameAndId(email, nickName, id);
 		if (user != null) {
 			userDao.delete(user);
 			return new ResponseEntity<>(user, HttpStatus.OK);

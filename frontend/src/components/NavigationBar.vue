@@ -240,7 +240,6 @@
          methods:{
             logout(){
                 store.dispatch('logout');
-                this.$session.destroy();
                 this.$bvModal.show('bv-modal-example');
                 this.$router.go(0);
             },
