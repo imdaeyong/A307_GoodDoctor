@@ -17,9 +17,13 @@
           </div>
           <div class="feed-foot">
             <div class="feed-btn-list">
-              <div class ="like"><button v-on:click="addLike(feed.isClick, index, feed.id)">
-                <b-icon-heart v-if="!feed.isClick"></b-icon-heart>
-                <b-icon-heart-fill v-else></b-icon-heart-fill></button>
+              <div class ="like" v-on:click="addLike(feed.isClick, index, feed.id)"><button>
+                <b-icon-heart v-show="!feed.isClick"></b-icon-heart>
+                <b-icon-heart-fill v-show="feed.isClick"></b-icon-heart-fill>
+                <!--<b-icon-heart v-if="!feed.isClick"></b-icon-heart>
+                <b-icon-heart-fill v-else></b-icon-heart-fill>-->
+                </button>
+                
               </div>
               <div class ="reply"><button><b-icon-chat-square v-on:click="openReply(feed.id)"></b-icon-chat-square></button></div>
               <div class ="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
@@ -56,30 +60,40 @@ export default {
       isLogin : false,
       userId : "",
       content : "",
-      likes : []
+      likes : [],
+      click : true,
     }
   },
   mounted(){
-    this.userId = store.state.userInfo.data.id
-    http.get(`feeds/${this.userId}`).then(data => {
-      this.feeds = data;
-      this.nickname = store.state.userInfo.data.nickname;
-      this.isLogin = store.state.isLogin;
-    })
+    if(!this.$route.query.word){
+      this.userId = store.state.userInfo.data.id
+      http.get(`feeds/${this.userId}`).then(data => {
+        this.feeds = data;
+        this.nickname = store.state.userInfo.data.nickname;
+        this.isLogin = store.state.isLogin;
+      })
+    } else {
+      http.get(`search/feed?word=${this.$route.query.word}`).then(data => {
+        this.feeds = data;
+        this.nickname = store.state.userInfo.data.nickname;
+        this.isLogin = store.state.isLogin;
+      })
+    }
 
   },
   methods:{
     addLike(isClick, index, feedId){ //좋아요 버튼 클릭시 실행 함수
-      //만약에 isLike가 false라면
-      http.put(`feeds/like`,{feedId:feedId, userId:this.userId, isClick:isClick})
-      .then({
+      if (this.click) {
+        this.click = !this.click;
+        http.put(`feeds/like`,{feedId:feedId, userId:this.userId, isClick:isClick})
+        .then(data => {
+          this.feeds = data;
+          this.click = true;
+        })
+      }else{
+        //alert("");
+      }
       
-      })
-      http.get(`feeds/${this.userId}`).then(data => {
-      this.feeds = data;
-      this.nickname = store.state.userInfo.data.nickname;
-      this.isLogin = store.state.isLogin;
-      })
     },
     openReply(feedInfo){ //댓글 버튼 클릭시 실행 함수
       store.dispatch('openReply', feedInfo);
