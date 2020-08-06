@@ -5,15 +5,15 @@
 </template>
 
 <script>
-import axios from "axios";
 import http from '@/util/http-common'
+
 export default {
+  name: 'HospitalMap',
   data: () => {
     return {
       map: null,
       hospitalLoc: [],
       pageLimit: 10,
-      pageOffet: 0,
     };
   },
 
@@ -43,7 +43,6 @@ export default {
         this.map.setCenter(new kakao.maps.LatLng(zoomer.lng,zoomer.lat))
       }
     })
-    
   },
   methods: {
     initComponent() {
@@ -69,7 +68,6 @@ export default {
         "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
       var imageSize = new kakao.maps.Size(24, 35);
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
       var multi = new kakao.maps.LatLng(37.5012743, 127.039585);
       var map = new kakao.maps.Map(document.getElementById("map"), {
         center: multi, // 지도의 중심좌표
@@ -116,7 +114,7 @@ export default {
       });
 
       kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
-       var level = map.getLevel(); 
+        var level = map.getLevel(); 
         if(level<=2){
            map.setLevel(1);
            map.setCenter(cluster.getCenter());
@@ -125,24 +123,13 @@ export default {
           map.setLevel(level-2, {anchor: cluster.getCenter()});
           map.setCenter(cluster.getCenter());
         }       
-    });
+      });
       clusterer.addMarkers(markers);
       
       if(clusterer._clusters.length==1){
         map.setLevel(10);
       }
       this.map=map;
-    },
-    hospitalDetail(id){
-      return function() {
-        http.get('/hospitals/'+id)
-          .then(data => {
-            //데이터 받아오기
-          })
-          .catch(err => {
-            //데이터 받아오기 오류
-          })   
-      }
     },
     iwOpen(map,marker,infowindow){
        return function() {
@@ -154,11 +141,11 @@ export default {
          infowindow.close();
        }
     }
-  },
+  }
 };
 </script>
 
-<style>
+<style scoped>
 #map {
   width: 500px;
   height:600px;

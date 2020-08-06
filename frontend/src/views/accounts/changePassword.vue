@@ -42,8 +42,6 @@
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
 import PV from "password-validator"
-import UserApi from "../../api/UserApi"
-import axios from 'axios'
 import store from '@/vuex/store.js'
 
 export default {
@@ -123,9 +121,7 @@ export default {
           oldPassword,
           newPassword
         };
-        //요청 후에는 버튼 비활성화
         this.isSubmit = false;
-        //
         store.dispatch('changePassword', data);
       }
     }

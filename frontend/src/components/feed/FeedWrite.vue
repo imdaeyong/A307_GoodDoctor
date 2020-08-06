@@ -51,16 +51,23 @@
             </div>
             <div class="feed-card">
               <img src= "../../assets/images/feed/1.png" alt="">
-              <a href="">#진료잘봄#호감</a><br>
-              {{feed.content}}
-              
-              <span>더보기...</span>
+              <div>
+                <a href="">#진료잘봄#호감</a><br>
+                {{feed.content}}
+                <span>더보기...</span>
+              </div>
             </div>
             <div class="feed-foot">
               <div class="feed-btn-list">
-                <div class ="like"><button v-on:click="addLike()"><b-icon-heart ></b-icon-heart></button></div>
-                <div class ="reply"><button><b-icon-chat-square v-on:click="openReply(feed.id)"></b-icon-chat-square></button></div>
+                <div class ="like" @click="addLike(feed.isClick, feed.id)">
+                  <button id="heart" style="outline : 0;">
+                    <b-icon-heart v-show="!feed.isClick"></b-icon-heart>
+                    <b-icon-heart-fill class = "f-heart" v-show="feed.isClick"  style="color : red;"></b-icon-heart-fill>
+                  </button>
+                </div>
+                <div class ="reply"><button><b-icon-chat-square v-on:click="openReply(feed)"></b-icon-chat-square></button></div>
                 <div class ="share"><button><b-icon-reply v-on:click="addShare()"></b-icon-reply></button></div>
+                <span v-if="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span> 
               </div>
               <div class ="reply-list">
                 <img src= "../../assets/images/profile_default.png" alt="">
@@ -86,13 +93,12 @@
 <script>
 import NavBar from "../../components/NavigationBar.vue";
 import User from "../../views/accounts/Login.vue";
-import "../../assets/css/feedWrite.scss";
-import axios from "axios";
 import store from '@/vuex/store.js'
 import http from '@/util/http-common'
 import FeedModal from "../feed/FeedModal.vue";
 
 export default {
+  name: 'FeedWrite',
   components: { 
     FeedModal,
     NavBar, 
@@ -104,6 +110,7 @@ export default {
       feeds : [],
       nickname : "",
       userId : "",
+      click : true,
       content : "",
       newImgSrc: '',
       file: '',
@@ -111,24 +118,31 @@ export default {
       preview : ''
     }
   },
-   mounted(){
-    if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
-    else{this.nickname = store.state.userInfo.data.nickname;
-      this.isLogin = store.state.isLogin;
-      this.userId = store.state.userInfo.data.id
-      http.get(`feeds/write/${this.userId}`)
+  mounted(){
+  if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
+  else{
+    this.nickname = store.state.userInfo.data.nickname;
+    this.isLogin = store.state.isLogin;
+    this.userId = store.state.userInfo.data.id
+    http.get(`feeds/write/${this.userId}`)
       .then(data => {
         this.feeds = data.data;
-        console.log(this.feeds);
       })
     }
   },
   methods:{
-    addLike(){ //좋아요 버튼 클릭시 실행 함수
-      alert("하이");
+    addLike(isClick, feedId){ //좋아요 버튼 클릭시 실행 함수
+      if (this.click) {
+        this.click = !this.click;
+        http.put(`feeds/like`,{feedId:feedId, userId:this.userId, isClick:isClick})
+        .then(data => {
+          this.feeds = data;
+          this.click = true;
+        })
+      }
     },
-    openReply(feedInfo){ //댓글 버튼 클릭시 실행 함수
-      store.dispatch('openReply', feedInfo);
+    openReply(feed){ //댓글 버튼 클릭시 실행 함수
+      store.dispatch('openReply', feed);
       this.$bvModal.show('bv-modal-feed');
     },
     addShare(){ //공유버튼 클릭시 실행 함수
@@ -143,28 +157,21 @@ export default {
       http.post(`comments/`,comment)
       .then(data =>{
         alert("댓글등록 완료");
-        
-        //this.$router.go(0);
       })
       .catch(err =>{
-
       })
     },
     feedWrite(id){
       //id를 받아서 펼치게 될 경우를 정해준다.
       this.openWrite = id;
     },
-    addReview(feedId, reviewData){
-      
+    addReview(feedId, reviewData){      
       let feed = {
         id : feedId,
         content : reviewData
       }
       let formData = new FormData();
       formData.append('file', this.file);
-      console.log(formData);
-
-
       http.put(`feeds/`,{id:feedId, content:reviewData})
       .then(data =>{
         alert("리뷰작성 완료");
@@ -190,23 +197,16 @@ export default {
     upload(e){
       let file = e.target.files[0];
       this.file = file;
-      
       this.img = require('C:/temptemp/'+file.name);
       this.preview = URL.createObjectURL(file);
-      console.log(this.preview);
 
-
-      let reader = new FileReader();
+      let reader = new FileReader();s
 
       reader.readAsDataURL(file);
       reader.onload = e => {
         this.preview = e.target.result;
-        console.log(e.target.result);
       }
-      console.log(file);
     },
-
-
   }
 }
 </script>

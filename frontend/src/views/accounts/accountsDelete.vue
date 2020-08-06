@@ -2,7 +2,6 @@
   <div class="user" id="login">
     <div class="wrapC mt-5">
       <h1>탈퇴하기</h1>
-
       <div class="input-label">
         <input 
           v-bind:class="{complete:nickName.length!==0}"
@@ -30,7 +29,6 @@
       :class="{disabled : !isSubmit}"
       @click="accountsDelete"
       >탈퇴하기</button>
-
     </div>
   </div>
 </template>
@@ -77,6 +75,7 @@ export default {
       http.delete(`/account`, {params: {id: this.id, nickName: this.nickName, email: this.email}})
         .then(res => {
           alert('탈퇴가 정상적으로 처리 되었습니다.')
+          store.dispatch('logout');
           this.$router.push('/feed/main')
         })
         .catch(err => {

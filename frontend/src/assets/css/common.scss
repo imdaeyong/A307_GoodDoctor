@@ -29,25 +29,25 @@ $f600:600;
 $f700:700;
 $f900:900;
 @mixin wrap {
-    width: 100%;
-    float: left;
+  width: 100%;
+  float: left;
 }
 
 @mixin div {
-    width: 100%;
-    float: left;
-    height: 1px;
+  width: 100%;
+  float: left;
+  height: 1px;
 }
 
 @mixin background-img {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @mixin input-with-label {
-    @include wrap;
-    box-sizing: border-box;
-    background: #fff;
+  @include wrap;
+  box-sizing: border-box;
+  background: #fff;
 }
 
