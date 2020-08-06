@@ -13,10 +13,18 @@ import Hospital from '../views/hospital/IndexHospital.vue'
 import List from '../components/hospital/HospitalItem.vue'
 import Map from "../components/hospital/HospitalMap.vue"
 import AccountsDelete from "../views/accounts/accountsDelete.vue"
+import HospitalDetail from '../components/hospital/HospitalDetail.vue'
+import { ProgressPlugin } from 'bootstrap-vue'
 
 Vue.use(VueRouter)
 
   const routes = [
+    {
+        path : '/feed/hospitaldetail',
+        name : 'HospitalDetail',
+        component : HospitalDetail,
+        props: true
+    },
     {
         path : '/accounts/delete',
         name : 'AccountsDelete',
@@ -82,8 +90,6 @@ Vue.use(VueRouter)
             }
           ]
     },
-
-
   ]
 
   const router = new VueRouter({

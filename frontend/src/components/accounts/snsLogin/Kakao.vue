@@ -69,8 +69,7 @@
                             this.$router.go(0);
                         })
                          .catch(err => {
-                             console.log(err);
-                            console.log("데이터베이스에 회원 정보가 없음!");
+                            alert("데이터베이스에 회원 정보가 없음!");
                          })
                     },
                     fail : error => {
