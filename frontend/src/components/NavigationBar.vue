@@ -3,8 +3,8 @@
         <div class="header">
             <div class="header-list">
                 <button class="btn-home" style="outline:0;">
-                    <router-link to="/" style="text-decoration : none; color : white;">
-                        <b-icon-heart-half style="margin-right : 0.2em; margin-top : 0.2em;"></b-icon-heart-half>굿 닥터
+                    <router-link to="/" style="text-decoration: none; color : white;">
+                        <b-icon-heart-half style="margin-right: 0.2em; margin-top: 0.2em;"></b-icon-heart-half>굿 닥터
                     </router-link>     
                 </button>
                  <select v-model="target">

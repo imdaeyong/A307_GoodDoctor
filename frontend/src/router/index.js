@@ -13,6 +13,8 @@ import Hospital from '../views/hospital/IndexHospital.vue'
 import List from '../components/hospital/HospitalItem.vue'
 import Map from "../components/hospital/HospitalMap.vue"
 import AccountsDelete from "../views/accounts/accountsDelete.vue"
+import HospitalDetail from '../components/hospital/HospitalDetail.vue'
+import { ProgressPlugin } from 'bootstrap-vue'
 import SearchHospital from '../views/search/IndexSearch.vue'
 import SearchList from '../components/search/SearchItem.vue'
 import SearchMap from "../components/search/SearchMap.vue"
@@ -21,6 +23,12 @@ import SearchFeed from '../views/feed/IndexFeed.vue'
 Vue.use(VueRouter)
 
   const routes = [
+    {
+        path : '/feed/hospitaldetail',
+        name : 'HospitalDetail',
+        component : HospitalDetail,
+        props: true
+    },
     {
         path : '/accounts/delete',
         name : 'AccountsDelete',
