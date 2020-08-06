@@ -1,7 +1,6 @@
 <template>
   <div class="my-3" id="app">
     <div id="map"></div>
-    <img src = "@/assets/images/hospital/hospital_marker.png"/>
   </div>
 </template>
 
@@ -107,16 +106,14 @@ export default {
       }
       map.setCenter(new kakao.maps.LatLng(centerLng/10, centerLat/10));
 
-       // 마커 클러스터러를 생성합니다 
+      // 마커 클러스터러를 생성합니다 
       var clusterer = new kakao.maps.MarkerClusterer({
           map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
           averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-          minLevel: 2, // 지도레벨이 어느정도 이상일때 클러스터 보일지
+          minLevel: 2, // 클러스터 할 최소 지도 레벨 
+          calculator: [3, 5, 10], // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
           disableClickZoom: true,
-          calculator: [3, 5, 10], 
       });
-
-  
 
       kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
        var level = map.getLevel(); 
@@ -138,13 +135,12 @@ export default {
     },
     hospitalDetail(id){
       return function() {
-        console.log(id)
         http.get('/hospitals/'+id)
           .then(data => {
-            console.log(data);
+            //데이터 받아오기
           })
           .catch(err => {
-            console.log(err);
+            //데이터 받아오기 오류
           })   
       }
     },
