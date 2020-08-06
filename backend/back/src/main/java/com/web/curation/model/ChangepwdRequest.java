@@ -1,27 +1,32 @@
-package com.web.curation.model.user;
+package com.web.curation.model;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
+import java.time.LocalDateTime;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-
-
-@Data
 @Valid
 @ToString
-public class SignupRequest {
+@Getter 
+@Setter
+public class ChangepwdRequest {
     @ApiModelProperty(required = true)
     @NotNull
     private String email;
     @ApiModelProperty(required = true)
     @NotNull
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d$@$!%*#?&]{8,}$")
-    private String password;
+    private String oldPassword;
     @ApiModelProperty(required = true)
     @NotNull
-    private String nickname;
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d$@$!%*#?&]{8,}$")
+    private String newPassword;
+
 }
+

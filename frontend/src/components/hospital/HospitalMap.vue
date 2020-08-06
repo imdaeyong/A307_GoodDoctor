@@ -104,7 +104,7 @@ export default {
         
         markers.push(marker);
       }
-      map.setCenter(new kakao.maps.LatLng(centerLng/10, centerLat/10));
+      map.setCenter(new kakao.maps.LatLng(centerLng/this.hospitalLoc.length, centerLat/this.hospitalLoc.length));
 
       // 마커 클러스터러를 생성합니다 
       var clusterer = new kakao.maps.MarkerClusterer({
