@@ -47,7 +47,6 @@ public class Feed {
     private String content;
     @Column(insertable = false, updatable = false)
     private LocalDateTime createDate;
-    @Column(insertable = false)
     private LocalDateTime updateDate;
     private int likes;
     private Boolean isNew;

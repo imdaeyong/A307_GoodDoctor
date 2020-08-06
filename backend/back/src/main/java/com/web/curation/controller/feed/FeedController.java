@@ -2,6 +2,7 @@ package com.web.curation.controller.feed;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -89,6 +90,7 @@ public class FeedController {
 		Feed feed = feedDao.getFeedById(request.getId());
 		feed.setContent(request.getContent());
 		feed.setIsNew(false);
+		feed.setUpdateDate(LocalDateTime.now());
 		feedDao.save(feed);
 		return new ResponseEntity<>(feed, HttpStatus.OK);
 	}
@@ -108,7 +110,7 @@ public class FeedController {
 	@PutMapping("/like")
 	@ApiOperation(value = "좋아요 값 업데이트하기")
 	public Object updateLike(@Valid @RequestBody HashMap<String, String> request) throws Exception {
-		System.out.println(request);
+		//System.out.println(request);
 		int feedId = Integer.parseInt(request.get("feedId"));
 		int userId = Integer.parseInt(request.get("userId"));
 		if (request.get("isClick").equals("false")) {// 좋아요 누르는 경우 ( likes+1,history테이블에 값 추가 )
