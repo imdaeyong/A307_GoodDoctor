@@ -74,7 +74,7 @@ export default {
       this.isSubmit = isSubmit;
     },
     accountsDelete() {
-      http.delete(`/account`, {id: this.id, nickname: this.nickName, email: this.email})
+      http.delete(`/account`, {params:{id: this.id}})
         .then(res => {
           alert('탈퇴가 정상적으로 처리 되었습니다.')
           this.$router.push('/feed/main')

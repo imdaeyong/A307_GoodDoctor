@@ -180,17 +180,14 @@ public class AccountController {
 			userDao.save(user);
 		}
 		user = userDao.getUserByEmailAndAccountType(email, 2);
-		
+
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/account")
 	@ApiOperation(value = "회원 탈퇴")
-	public Object remove(@Valid @RequestBody Map<String, String> request) {
-		String email = request.get("email");
-		String nickname = request.get("nickname");
-		int id = Integer.parseInt(request.get("id"));
-		User user = userDao.getUserByEmailAndNicknameAndId(email, nickname, id);
+	public Object remove(@RequestParam("id") int id) {
+		User user = userDao.getUserById(id);
 		if (user != null) {
 			userDao.delete(user);
 			return new ResponseEntity<>(user, HttpStatus.OK);
