@@ -3,7 +3,6 @@
     <div class="wrapC mt-5">
       <h1>가입하기</h1>
       <div class="form-wrap">
-
         <div class="input-label">
           <input
             v-bind:class="{error : error.nickName, complete:nickName.length!==0}"
@@ -26,7 +25,6 @@
           <label for="email" @click="emailAuthStart" class="right">인증 하기</label>
           <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
-
         <div class="half" v-if="emailAuthinput">
           <div class="input-label">
             <input 
@@ -41,7 +39,6 @@
               </label>
           </div>
         </div>
-
 
         <div class="input-label">
           <input 
@@ -67,33 +64,20 @@
         </div>
       </div>
 
-      <!-- <label>
-        <input v-model="isTerm" type="checkbox" id="term" />
-        <span>약관을 동의합니다.</span>
-      </label>
-      <span @click="termPopup=true">약관보기</span> -->
-
       <button class="btn-full-center mt-4"
       :disabled="!isSubmit"
       :class="{disabled : !isSubmit}"
       @click="onjoin"
       >가입하기</button>
-      
     </div>
   </div>
 </template>
 
 <script>
-// const SERVER_URL="http://i3a307.p.ssafy.io:8080/"
-const SERVER_URL="http://localhost:8080/"
-
 import * as EmailValidator from "email-validator"
 import PV from "password-validator"
-import UserApi from "../../api/UserApi"
-import axios from 'axios'
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
-//이메일 인증 관련 import
 import http from '@/util/http-common'
 import store from '@/vuex/store.js'
 
@@ -202,7 +186,7 @@ export default {
       this.isSubmit = isSubmit;    
     },
     onjoin(){
-      axios.post(`${SERVER_URL}account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
+      http.post(`account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
       .then(res=>{
         alert("회원 가입되었습니다. 로그인 해주세요");
         this.$router.push("/feed/main")

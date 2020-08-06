@@ -7,12 +7,12 @@
 
 <script>
 export default {
-    name: "pagenotfound",
-    methods: {
-        goToMain() {
-            this.$router.push('/feed/main')
-        }
+  name: "pagenotfound",
+  methods: {
+    goToMain() {
+      this.$router.push('/feed/main')
     }
+  }
 }
 </script>
 

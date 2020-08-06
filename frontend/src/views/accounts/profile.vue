@@ -4,17 +4,10 @@
     <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
       <User/>
     </b-modal>
-
-    <!-- <div class="user">
-      <div class="wrapC mt-5">
-        <h1 style="text-align:center;">회원 정보</h1>
-      </div>
-    </div> -->
     <b-container fluid class="bv-example-row bv-example-row-flex-cols">
       <b-row align-v="stretch">
         <b-col class='mt-5' cols="2" style="text-align:center">
           <h3>굿닥터 회원 정보</h3>
-          
           <div v-if="categories[0].display" style="background-color: #17a2b8; border-radius: 10px;">
             <button @click="toggle('myProfile')" class="Profile abled" style="outline: 0">
               <p>내 정보</p>
@@ -25,8 +18,7 @@
               <p>내 정보</p>
             </button>
           </div>
-
-
+          
           <div v-if="categories[1].display" style="background-color: #17a2b8; border-radius: 10px;">
             <button @click="toggle('myHospital')" class="Profile abled" style="outline: 0">
               <p>관심 정보</p>
@@ -48,24 +40,19 @@
               <p>내 리뷰</p>
             </button>
           </div>
-
         </b-col>
         
         <b-col class='mt-5' cols="10" style="text-align:center;">
           <div v-if="categories[0].display">
             <myProfile/>
           </div>
-
           <div v-if="categories[1].display">
             <myHospital/>
           </div>
-
           <div v-if="categories[2].display">
             <myReview/>
           </div>
-
         </b-col>
-        
       </b-row>
     </b-container>
   </div>

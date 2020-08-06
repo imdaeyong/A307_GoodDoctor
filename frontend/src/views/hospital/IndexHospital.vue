@@ -31,8 +31,6 @@ import HospitalMap from "../../components/hospital/HospitalMap.vue"
 import PageLink from "@/components/PageLink.vue"
 import store from '../../vuex/store.js'
 import User from "../../views/accounts/Login.vue"
-import FeedModal from "../../components/feed/FeedModal.vue"
-
 
 export default {
   name: "indexHospital",

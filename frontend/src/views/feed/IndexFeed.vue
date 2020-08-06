@@ -13,18 +13,18 @@
 </template>
 
 <script>
+import "../../assets/css/main.css";
+import "../../assets/css/feed.scss";
+import "../../assets/css/feedModal.scss";
 import { mapState } from "vuex";
 import FeedItem from "../../components/feed/FeedItem.vue";
 import FeedModal from "../../components/feed/FeedModal.vue";
 import NavBar from "../../components/NavigationBar.vue";
 import User from "../accounts/Login.vue";
-import "../../assets/css/main.css";
-import "../../assets/css/feed.scss";
-import "../../assets/css/feedModal.scss";
 import store from '@/vuex/store.js'
 
 export default {
-  props: ["keyword"],
+  name: "IndexFeed",
   components: { 
     FeedItem, 
     FeedModal, 

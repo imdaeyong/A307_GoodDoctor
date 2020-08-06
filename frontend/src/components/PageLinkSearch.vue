@@ -22,7 +22,6 @@
         class="page-link"
         @click.native="movePage(startPageIndex + index - 1)"
       >{{ startPageIndex + index - 1 }}</router-link>
-      <!-- <a class="page-link" href="javascript:movePage(' + i + ')">' + i + '</a> -->
     </li>
 
     <li class="page-item" v-if="next">
@@ -39,8 +38,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import http from "@/util/http-common";
+
 export default {
   name: "PageLinkSearch",
   data() {
@@ -73,7 +72,6 @@ export default {
           this.initUI();
         })
         .catch((error) => {
-          console.log(error);
           alert("에러가 발생했습니다.");
         });
     },

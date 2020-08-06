@@ -2,120 +2,83 @@
 @import './common';
 
 .user {
-    @include wrap;
-    min-height: 100%;
-    box-sizing: border-box;
+  @include wrap;
+  min-height: 100%;
+  box-sizing: border-box;
+  h1 {
+    color:#000;
+    font-weight: $f600;
+    margin-bottom: 30px;
+  }
+
+  /*로그인*/
+  &#login {
     h1 {
-        color:#000;
-        font-weight: $f600;
-        margin-bottom: 30px;
+      margin-bottom: 30px;
+      color:#2c3e50;
     }
-
-    /*로그인*/
-    &#login {
-        h1 {
-            margin-bottom: 30px;
-            color:#2c3e50;
-        }
-        .text {
-            @include wrap;
-            margin-top: 17px;
-            height: 24px;
-            p {
-                color: #787878;
-                float: left;
-                font-size: $font-size__5;
-                margin-right: 10px;
-            }
-            .bar {
-                height: 1px;
-                background-color: $grey;
-                float: right;
-                margin-top: 9px;
-                margin-bottom: 20px;
-            }
-        }
-        .sns-login {
-            margin: 20px 0;
-            text-align: right;
-            .bar {
-                width: calc(100% - 110px);
-            }
-            .btn--naver, #kakao-login, .google-login {
-                display: inline-block;
-            }
-            #kakao-login {
-                margin: 0 10px;
-            }
-            #naverIdLogin_loginButton {
-                img {
-                    width: 55px;
-                    height: 55px;
-                    border-radius: 55px;
-                }
-            }
-        }
-        .add-option {
-            .bar {
-                width: calc(100% - 40px);
-            }
-            .wrap {
-                p {
-                    margin-top: 5px;
-                    margin-bottom: 0px;
-                }
-            }
-            p {
-                float: left;
-            }
-            a {
-                float: right;
-                color:#000;
-                font-weight: $f600;
-            }
-            .router-a:hover {
-                text-decoration: none;
-                color: $myColor;
-            }
-            
-        }
-        
+    .text {
+      @include wrap;
+      margin-top: 17px;
+      height: 24px;
+      p {
+        color: #787878;
+        float: left;
+        font-size: $font-size__5;
+        margin-right: 10px;
+      }
+      .bar {
+        height: 1px;
+        background-color: $grey;
+        float: right;
+        margin-top: 9px;
+        margin-bottom: 20px;
+      }
     }
-
-    //회원가입
-    &.join {
-        .form-wrap {
-            @include wrap;
-            margin-bottom: 15px;
-            span {
-                font-size: 1em;
-                position: absolute;
-                right:10px;
-                top:15px;
-                .fa-eye {
-                    font-size: 20px;
-                    width: auto;
-                    color:rgba(0, 0, 0, .3);
-
-                }
-                &.active {
-                    .fa-eye {
-                        color:$myColor;
-                    }
-                }
-            }
+    .sns-login {
+      margin: 20px 0;
+      text-align: right;
+      .bar {
+        width: calc(100% - 110px);
+      }
+      .btn--naver, #kakao-login, .google-login {
+        display: inline-block;
+      }
+      #kakao-login {
+        margin: 0 10px;
+      }
+      #naverIdLogin_loginButton {
+        img {
+          width: 55px;
+          height: 55px;
+          border-radius: 55px;
         }
-        .go-term {
-            float:right;
-            color:#000;
-            font-weight:$f600;
-            margin-top: 5px;
-            font-size: $font-size__5;
-        }
-        input[type=password] {
-            padding-right: 50px;
-        }
+      }
     }
+  }
+  //회원가입
+  &.join {
+    .form-wrap {
+      @include wrap;
+      margin-bottom: 15px;
+      span {
+        font-size: 1em;
+        position: absolute;
+        right:10px;
+        top:15px;
+        .fa-eye {
+          font-size: 20px;
+          width: auto;
+          color:rgba(0, 0, 0, .3);
+        }
+        &.active {
+          .fa-eye {
+            color:$myColor;
+          }
+        }
+      }
+    }
+  }
 }
 
 

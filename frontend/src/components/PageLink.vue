@@ -2,19 +2,33 @@
   <ul class="pagination justify-content-center" style="z-index: 1;">
 
     <li class="page-item" v-if="prev">
-      <router-link :to="`/list?no=${ (startPageIndex - 1) * listRowCount }&subject=${subject}&sido=${sido}&gu=${gu}`" class="page-link" aria-label="Previous" @click.native="movePage(startPageIndex - 1)">
-        <span aria-hidden="true">&laquo;</span>
+      <router-link 
+        :to="`/list?no=${ (startPageIndex - 1) * listRowCount }&subject=${subject}&sido=${sido}&gu=${gu}`" 
+        class="page-link" 
+        aria-label="Previous" 
+        @click.native="movePage(startPageIndex - 1)"
+      >
+      <span aria-hidden="true">&laquo;</span>
       </router-link>
     </li>
 
     <li v-for="index in endPageIndex-startPageIndex + 1 " :key="index" class="page-item" :class="{active:( (startPageIndex + index - 1) == currentPageIndex)}">
-      <router-link :to="`/list?no=${ (startPageIndex + index - 1) * listRowCount }&subject=${subject}&sido=${sido}&gu=${gu}`" class="page-link"  @click.native="movePage(startPageIndex + index - 1)">{{ startPageIndex + index - 1 }}</router-link>
-      <!-- <a class="page-link" href="javascript:movePage(' + i + ')">' + i + '</a> -->
+      <router-link 
+        :to="`/list?no=${ (startPageIndex + index - 1) * listRowCount }&subject=${subject}&sido=${sido}&gu=${gu}`" 
+        class="page-link"  
+        @click.native="movePage(startPageIndex + index - 1)"
+      >
+      {{ startPageIndex + index - 1 }}
+      </router-link>
     </li>
 
     <li class="page-item" v-if="next">
-      <router-link :to="`/list?no=${ (endPageIndex + 1) * listRowCount }&subject=${subject}&sido=${sido}&gu=${gu}`" class="page-link" aria-label="Next"  @click.native="movePage(endPageIndex + 1)">
-        <span aria-hidden="true">&raquo;</span>
+      <router-link 
+        :to="`/list?no=${ (endPageIndex + 1) * listRowCount }&subject=${subject}&sido=${sido}&gu=${gu}`" 
+        class="page-link" aria-label="Next"  
+        @click.native="movePage(endPageIndex + 1)"
+      >
+      <span aria-hidden="true">&raquo;</span>
       </router-link>
     </li>
 
@@ -22,8 +36,8 @@
 </template>
 
 <script>
-import axios from 'axios'
 import http from '@/util/http-common'
+
 export default {
   name: "PageLink",
   data() {
@@ -58,12 +72,10 @@ export default {
           this.initUI();
         })
         .catch((error) => {
-            console.log(error);
           alert("에러가 발생했습니다.");
         });      
     },
     initUI(){
-
       this.pageCount = Math.ceil(this.totalListItemCount/this.listRowCount);
 
       if( (this.currentPageIndex % this.pageLinkCount) == 0 ){
@@ -108,5 +120,5 @@ export default {
     this.$router.push(`list?no=${this.listRowCount}&subject=${this.$route.query.subject}&sido=${this.sido}&gu=${this.gu}`)
     this.$router.push(`map?no=${this.listRowCount}&subject=${this.$route.query.subject}&sido=${this.sido}&gu=${this.gu}`)
   }
-};
+}
 </script>
