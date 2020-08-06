@@ -2,7 +2,6 @@
   <div>
     <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
       <b-card no-body @click="hospitalDataSend(hospital.id)" class="overflow-hidden my-3 ml-4 btn-left">
-
         <b-row no-gutters>
           <b-col md="3">
             <b-card-img src="https://picsum.photos/400/400/?image=114" alt="Image" class="rounded-0"></b-card-img>
@@ -12,11 +11,9 @@
               <b-card-title class="mt-2">{{hospital.name}}</b-card-title>
               <b-card-text class="mt-2">평점| 리뷰수</b-card-text>
               <b-card-text class="mt-2">진료과목 : {{hospital.subject}}</b-card-text>
-        
             </b-card-body>
           </b-col>
         </b-row>
-        
       </b-card>
       <button @click="hospitalZoom(hospital)">지도에서 보기</button>
     </div>

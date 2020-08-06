@@ -73,7 +73,7 @@ export default {
       var multi = new kakao.maps.LatLng(37.5012743, 127.039585);
       var map = new kakao.maps.Map(document.getElementById("map"), {
         center: multi, // 지도의 중심좌표
-        level: 14, // 지도의 확대 레벨
+        level: 13, // 지도의 확대 레벨
       });
 
       var markers =[];
