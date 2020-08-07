@@ -1,5 +1,6 @@
 package com.web.curation.controller.comment;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.validation.Valid;
 
@@ -52,6 +53,7 @@ public class CommentController {
 	@ApiOperation(value = "댓글 등록하기")
 	public Object postComment(@Valid @RequestBody Comment comment) {
 		BasicResponse result = new BasicResponse();
+		comment.setCreateDate(LocalDateTime.now());
 		result.status = true;
 		if (commentDao.save(comment) != null) {
 			result.data = "success";

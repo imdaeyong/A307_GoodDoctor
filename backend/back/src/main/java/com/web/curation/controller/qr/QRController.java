@@ -60,7 +60,7 @@ public class QRController {
 		feedDao.save(feed);
 		RedirectView redirectView = new RedirectView();
 	    redirectView.setUrl("http://localhost:3000/feed/write");
-	    //redirectView.setUrl("http://i3a307.p.ssafy.io/feed/write");
+	    //redirectView.setUrl("https://i3a307.p.ssafy.io/feed/write");
 		return redirectView;
 	}
 }

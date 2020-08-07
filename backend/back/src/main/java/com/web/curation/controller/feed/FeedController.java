@@ -87,12 +87,16 @@ public class FeedController {
 	@PutMapping("/")
 	@ApiOperation(value = "피드 작성하기")
 	public Object addFeed(@Valid @RequestBody Feed request) {
-		Feed feed = feedDao.getFeedById(request.getId());
-		feed.setContent(request.getContent());
-		feed.setIsNew(false);
-		feed.setUpdateDate(LocalDateTime.now());
-		feedDao.save(feed);
-		return new ResponseEntity<>(feed, HttpStatus.OK);
+		try {
+			Feed feed = feedDao.getFeedById(request.getId());
+			feed.setContent(request.getContent());
+			feed.setIsNew(false);
+			feed.setUpdateDate(LocalDateTime.now());
+			feedDao.save(feed);
+			return new ResponseEntity<>(feed, HttpStatus.OK);			
+		} catch(Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@PostMapping("/")
