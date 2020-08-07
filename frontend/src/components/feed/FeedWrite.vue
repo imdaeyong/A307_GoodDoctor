@@ -17,9 +17,9 @@
       </div>
       <!-- 기존에 내가 작성한 Feed목록 -->
       <div v-else>
-      <div v-for="feed in feeds" v-bind:key="feed.id">
+      <div v-for="feed in feeds.data" v-bind:key="feed.id">
         <div v-if="feed.isNew">
-          <div class="feed-wrap" v-bind:data="feed.data">
+          <div class="feed-wrap">
             <div class="feed-top">
               <img src= "../../assets/images/profile_default.png" alt="">
               <div class="user-info">{{feed.user.nickname}} <span style="color : red; font-weight : bold"> NEW !!!NEW !!!</span> </div>
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div v-if="!feed.isNew">
-          <div class="feed-wrap" v-bind:data="feed.data">
+          <div class="feed-wrap">
             <div class="feed-top">
               <img src= "../../assets/images/profile_default.png" alt="">
               <div class="user-info">{{feed.user.nickname}}</div>
@@ -119,14 +119,14 @@ export default {
     }
   },
   mounted(){
+  this.userId = store.state.userInfo.data.id;
+  this.nickname = store.state.userInfo.data.nickname;
+  this.isLogin = store.state.isLogin;
   if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
-  else{
-    this.nickname = store.state.userInfo.data.nickname;
-    this.isLogin = store.state.isLogin;
-    this.userId = store.state.userInfo.data.id
+  else{  
     http.get(`feeds/write/${this.userId}`)
       .then(data => {
-        this.feeds = data.data;
+        this.feeds = data;
       })
     }
   },
@@ -134,11 +134,15 @@ export default {
     addLike(isClick, feedId){ //좋아요 버튼 클릭시 실행 함수
       if (this.click) {
         this.click = !this.click;
-        http.put(`feeds/like`,{feedId:feedId, userId:this.userId, isClick:isClick})
+        http.put(`feeds/like`,{feedId:feedId, userId:this.userId, 
+          isClick:isClick, likeType:"write"})
         .then(data => {
           this.feeds = data;
+          console.log(this.feeds.data);
           this.click = true;
         })
+      }else{
+        //alert("");
       }
     },
     openReply(feed){ //댓글 버튼 클릭시 실행 함수

@@ -74,7 +74,8 @@ public class FeedController {
 		List<Feed> feeds = feedDao.findAllByUserId(userId);
 		List<History> history = historyDao.findAllByUserId(userId);
 		for (Feed feed : feeds) {
-			history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
+			if(!feed.getIsNew())
+				history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
 		}
 		sort(feeds);
 		if (!feeds.isEmpty()) {
@@ -114,21 +115,33 @@ public class FeedController {
 	@PutMapping("/like")
 	@ApiOperation(value = "좋아요 값 업데이트하기")
 	public Object updateLike(@Valid @RequestBody HashMap<String, String> request) throws Exception {
-		//System.out.println(request);
+		System.out.println(request);
 		int feedId = Integer.parseInt(request.get("feedId"));
 		int userId = Integer.parseInt(request.get("userId"));
+		Feed feed = null;
 		if (request.get("isClick").equals("false")) {// 좋아요 누르는 경우 ( likes+1,history테이블에 값 추가 )
 			History history = new History();
 			history.setFeedId(feedId);
 			history.setUserId(userId);
 			feedDao.plusLikes(feedId);
 			historyDao.save(history);
+			feed = feedDao.getFeedById(feedId);
+			feed.setIsClick(true);
 		} else {// 좋아요 이미 눌러진 경우 ( likes -1, history테이블에서 값 제거 )
 			feedDao.minusLikes(feedId);
 			History history = historyDao.findByFeedIdAndUserId(feedId, userId);
 			historyDao.delete(history);
+			feed = feedDao.getFeedById(feedId);
+			feed.setIsClick(false);
 		}
-		return getFeeds(userId);
+		
+		if(request.get("likeType").equals("modal")) { //모달창에서 실행한 경우 feed하나만 넘겨준다.
+			return feed;
+		}
+		else if(request.get("likeType").equals("write")) {
+			return getFeedsByUserId(userId);
+		}
+		else return getFeeds(userId);
 	}
 
 	public void sort(List<Feed> list) {
