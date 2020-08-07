@@ -76,7 +76,7 @@ export default {
         userId : this.feed.user.id,
         feedId : feedId,
         content : feedData,
-        nickname : this.feed.user.nickname
+        nickname : store.state.userInfo.data.nickname,
       };
       http.post(`comments/`,comment)
       .then(data =>{
