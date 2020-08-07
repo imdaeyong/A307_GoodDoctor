@@ -165,7 +165,7 @@ export default {
       //id를 받아서 펼치게 될 경우를 정해준다.
       this.openWrite = id;
     },
-    addReview(feedId, reviewData){      
+    addReview(feedId, reviewData){
       let feed = {
         id : feedId,
         content : reviewData
@@ -175,24 +175,13 @@ export default {
       http.put(`feeds/`,{id:feedId, content:reviewData})
       .then(data =>{
         alert("리뷰작성 완료");
+        this.$router.go(0);
       })
       .catch(err =>{
-
+        console.log(err);
+        alert("다시 작성해주세요");
       })
-
       //////////////////////////////
-      
-      http.post(`feeds/`, formData,{
-        headers:{'Content-Type':'multipart/form-data'}
-      })
-      .then(data =>{
-        alert("이미지업로드 완료");
-        
-      })
-      .catch(err =>{
-
-      })
-      this.$router.go(0);
     },
     upload(e){
       let file = e.target.files[0];

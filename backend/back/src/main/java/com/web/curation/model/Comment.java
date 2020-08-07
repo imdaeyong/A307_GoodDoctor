@@ -31,7 +31,7 @@ public class Comment {
     
     private int feedId;
 	private String content;
-	@Column(insertable = false, updatable = false)
+	@Column(updatable = false)
     private LocalDateTime createDate;
 
     private String nickname;
