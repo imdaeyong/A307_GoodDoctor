@@ -68,6 +68,9 @@ export default {
     http.get(`comments/${store.state.feed.id}`)
     .then(data => {
       this.replys = data.data; //해당 댓글 정보들을 가져온다.
+    })
+    .catch(err =>{
+        alert("댓글이 아직 없습니다.");
     }) 
   },
   methods:{
@@ -93,8 +96,8 @@ export default {
     addLike(isClick, feedId){ //좋아요 버튼 클릭시 실행 함수
       if (this.click) {
         this.click = !this.click;
-        alert(feedId + " " + this.feed.user.id + " " + isClick);
-        http.put(`feeds/like`,{feedId:feedId, userId:this.feed.user.id, isClick:isClick})
+        http.put(`feeds/like`,{feedId:feedId, userId:this.feed.user.id, 
+            isClick:isClick, likeType:"modal"})
         .then(data => {
           console.log(data.data);
           this.feed = data.data;
