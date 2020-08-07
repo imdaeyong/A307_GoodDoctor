@@ -271,10 +271,10 @@ export default {
     },
     search(){
       if(this.target == 'hospital'){
-        this.$router.push(`../search/hospital?no=10&word=${this.word}`);
+        this.$router.push(`../search?no=10&word=${this.word}`);
         this.$router.go(0);
       } else if(this.target =='feed'){
-        this.$router.push(`../search/feed?word=${this.word}`);
+        this.$router.push(`../search?word=${this.word}`);
         this.$router.go(0);
       }
     }
