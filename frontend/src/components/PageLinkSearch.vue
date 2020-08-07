@@ -2,7 +2,7 @@
   <ul class="pagination justify-content-center" style="z-index: 1;">
     <li class="page-item" v-if="prev">
       <router-link
-        :to="`searchList?no=${ (startPageIndex - 1) * listRowCount }&word=${word}`"
+        :to="`searchHospital?no=${ (startPageIndex - 1) * listRowCount }&word=${word}`"
         class="page-link"
         aria-label="Previous"
         @click.native="movePage(startPageIndex - 1)"
@@ -18,7 +18,7 @@
       :class="{active:( (startPageIndex + index - 1) == currentPageIndex)}"
     >
       <router-link
-        :to="`searchList?no=${ (startPageIndex + index - 1) * listRowCount }&word=${word}`"
+        :to="`searchHospital?no=${ (startPageIndex + index - 1) * listRowCount }&word=${word}`"
         class="page-link"
         @click.native="movePage(startPageIndex + index - 1)"
       >{{ startPageIndex + index - 1 }}</router-link>
@@ -26,7 +26,7 @@
 
     <li class="page-item" v-if="next">
       <router-link
-        :to="`searchList?no=${ (endPageIndex + 1) * listRowCount }&word=${word}`"
+        :to="`searchHospital?no=${ (endPageIndex + 1) * listRowCount }&word=${word}`"
         class="page-link"
         aria-label="Next"
         @click.native="movePage(endPageIndex + 1)"
@@ -130,8 +130,8 @@ export default {
     this.initComponent();
   },
   mounted() {
-    this.$router.push(`/searchList?no=${this.listRowCount}&word=${this.word}`);
-    this.$router.push(`/searchMap?no=${this.listRowCount}&word=${this.word}`);
+    this.$router.push(`/searchHospital?no=${this.listRowCount}&word=${this.word}`);
+    this.$router.push(`/searchHospitalMap?no=${this.listRowCount}&word=${this.word}`);
   },
 };
 </script>
