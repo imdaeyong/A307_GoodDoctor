@@ -79,7 +79,7 @@
       <!-- API 정보 -->
       <div class="ml-3" style="text-align: left; margin-top: 100px;">
         <h4>위치 & 정보</h4>
-        <p>※주의사항 : 방문 전 전화를 통해 진료시간을 확인하세요.</p>
+        <p>※주의사항 : 방문 전, 전화로 확인 후 이용해주세요.</p>
       </div>
       <b-container class="bv-example-row" style="float: left;">
         <b-row>
@@ -106,7 +106,7 @@
 
           </b-col>
           <b-col cols="4" style="border: 1px solid grey">
-            <hospitalMap/>
+            <hospitalDetailMap :hospitalInfo="this.hospitalDatas.data"></hospitalDetailMap>
           </b-col>
         </b-row>
       </b-container>
@@ -125,14 +125,14 @@
 import NavBar from '../NavigationBar.vue'
 import User from '../../views/accounts/Login.vue'
 import http from '@/util/http-common'
-import HospitalMap from "../../components/hospital/HospitalMap.vue"
+import HospitalDetailMap from "../../components/hospital/HospitalDetailMap.vue"
 
 export default {
     name: "HospitalDetail",
     components: {
       NavBar,
       User,
-      HospitalMap,
+      HospitalDetailMap,
     },
     data() {
       return {
@@ -148,7 +148,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h5 {
   margin-bottom: .6em;
 }

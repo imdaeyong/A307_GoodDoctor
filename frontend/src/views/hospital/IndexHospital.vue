@@ -9,17 +9,15 @@
       <h1 class="d-flex justify-content-center mb-4">병원 리스트 페이지</h1>
       <PageLink/>
 
-      <b-container fluid class="bv-example-row bv-example-row-flex-cols" style="width:72%">
+      <b-container fluid class="bv-example-row bv-example-row-flex-cols" style="width:75%">
         <b-row align-v="stretch">
           <b-col cols="8" class="border-right">
             <HospitalItem/>
           </b-col>
           <b-col cols="4">
-            <div class="banner">
-              <div id="chase" style="top:0px;">
-                <HospitalMap/>
-              </div>
-            </div>
+            
+            <HospitalMap/>
+              
           </b-col>
         </b-row>
       </b-container>

@@ -7,6 +7,12 @@
 }
   
 /**/
+.drop-down-hospital {
+  float: left;
+  min-width: 560px;
+  width: 100%;
+}
+
 .header-list, .header-dropdown-list, .dropdown-list{
   float: left;
   margin-top: 0.3em;
@@ -24,11 +30,10 @@
 .input-search{
   border : 1px solid black;
   border-right : white;
-  border-radius: 1em 0em 0em 1em;
 	height : 1.5em;
 	width : 10em;
-  float: left;
   margin-top: 0.4em;
+  padding-left: 0.4rem;
 }
 .btn-search{
 	border : 1px solid black;
@@ -37,6 +42,17 @@
 	border-radius: 0em 1em 1em 0em;
 	height : 1.5em;
   margin-top: 0.4em;
+}
+.btn-front{
+	border : 1px solid black;
+	border-left : white;
+	background-color : white;
+  border-radius: 1em 0em 0em 1em;
+	height : 1.5em;
+  margin-top: 0.4em;
+  
+  margin-left: 2rem;
+  padding-left: 0.38rem;
 }
 /*병원별찾기*/
 
@@ -86,6 +102,7 @@
   background-color: white;
   width: 7em;
   height: 7em;
+  float: left;
 }
 .dropdown-sub-area{
   font-size: 1.1em;

@@ -19,27 +19,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class HospitalInfo {
-	
-	@Id
+   
+   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private int internist;
-	private int doctor;
-	private boolean emergencyDay;
-	private boolean emergencyNight;
-	private boolean emergencyNightPhone;
-	private String sunStart;
-	private String sunFinish;	
-	private String monStart;
-	private String monFinish;
-	private String tueStart;
-	private String tueFinish;
-	private String wedStart;
-	private String wedFinish;
-	private String thuStart;
-	private String thuFinish;
-	private String friStart;
-	private String firFinish;
-	private String satStart;
-	private String satFinish;
+   private int id;
+   private int internist;
+   private int doctor;
+   private boolean emergencyDay;
+   private boolean emergencyNight;
+   private String emergencyNightPhone;
+   private String sunStart;
+   private String sunFinish;   
+   private String monStart;
+   private String monFinish;
+   private String tueStart;
+   private String tueFinish;
+   private String wedStart;
+   private String wedFinish;
+   private String thuStart;
+   private String thuFinish;
+   private String friStart;
+   private String friFinish;
+   private String satStart;
+   private String satFinish;
 }
