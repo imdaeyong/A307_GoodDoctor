@@ -10,7 +10,7 @@
       <h1 class="d-flex justify-content-center mt-5 mb-4">
         <span style="color : #17a2b8">{{this.$route.params.id}} / 병원</span> 정보에요.
       </h1>
-
+      <p>{{this.hospitalDatas}}</p>
       <!-- 가로 무한 스크롤 -피드노출 -->
       <h3 >선택한 병원의 리뷰 목록</h3>
       <div class="row" style="border: 1px solid">
@@ -134,9 +134,9 @@
         <b-row>
           <b-col cols="8" style="border: 1px solid grey; text-align: left;">
             <hr>
-            <h3>위치: </h3>
-            <h3>전화번호: </h3>
-            <h3>병원 URL: </h3>
+            <h3>위치: {{this.hospitalDatas.data.address}}</h3>
+            <h3>전화번호: {{this.hospitalDatas.data.phone}}</h3>
+            <h3>병원 URL: {{this.hospitalDatas.data.url}}</h3>
             <h3>영업시간: </h3>
             그밖에 추가 정보가 있으면 더 좋겠죠
 
@@ -152,14 +152,6 @@
         </b-row>
       </b-container>
 
-
-
-
-
-
-
-
-
     </div>   
 
     <br>
@@ -173,12 +165,24 @@
 <script>
 import NavBar from '../NavigationBar.vue'
 import User from '../../views/accounts/Login.vue'
+import http from '@/util/http-common'
 
 export default {
     name: "HospitalDetail",
     components: {
       NavBar,
       User
+    },
+    data() {
+      return {
+        hospitalDatas: {}
+      }
+    },
+    created() {
+      http.get(`/hospitals/${this.$route.params.id}`)
+      .then(res => {
+        this.hospitalDatas = res
+      })
     },
 }
 </script>

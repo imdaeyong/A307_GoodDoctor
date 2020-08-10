@@ -11,10 +11,10 @@
 
       <b-container fluid class="bv-example-row bv-example-row-flex-cols" style="width:72%">
         <b-row align-v="stretch">
-          <b-col cols="7" class="border-right">
+          <b-col cols="8" class="border-right">
             <HospitalItem/>
           </b-col>
-          <b-col cols="5">
+          <b-col cols="4">
             <HospitalMap/>
           </b-col>
         </b-row>

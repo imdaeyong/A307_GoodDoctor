@@ -10,7 +10,10 @@
             <b-card-body class="py-2">
               <b-card-title class="mt-2">{{hospital.name}}</b-card-title>
               <b-card-text class="mt-2">평점| 리뷰수</b-card-text>
-              <b-card-text class="mt-2">진료과목 : {{hospital.subject}}</b-card-text>
+              <div class="row mt-2">
+                <b-card-text>진료과목 : {{hospital.subject}}</b-card-text>
+                <button @click="hospitalZoom(hospital)" id="front">지도에서 보기</button>
+              </div>
             </b-card-body>
           </b-col>
         </b-row>
@@ -68,3 +71,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#front {
+  z-index: 5;
+}
+</style>
