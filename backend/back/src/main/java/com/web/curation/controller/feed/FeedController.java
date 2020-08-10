@@ -1,6 +1,8 @@
 package com.web.curation.controller.feed;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -10,6 +12,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +26,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.web.curation.dao.FeedDao;
 import com.web.curation.dao.HistoryDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.Feed;
 import com.web.curation.model.History;
+import com.web.curation.model.User;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -53,10 +58,42 @@ public class FeedController {
 
 	@GetMapping("/{userId}") // feeds/
 	@ApiOperation(value = " 메인화면에서 모든 피드 가져오기")
-	public Object getFeeds(@Valid @PathVariable("userId") int userId) {
+	public Object getFeeds(@Valid @PathVariable("userId") int userId) throws IOException {
 		List<Feed> feeds = feedDao.findAllBy();
 		List<History> history = historyDao.findAllByUserId(userId);
 		for (Feed feed : feeds) {
+			User user = feed.getUser();
+			if (feed.getImageUrl() != null) {
+				File f = new File(feed.getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+					} finally {
+						fis.close();
+					}
+				}
+				feed.setImageUrl("data:image/png;base64, " + sbase64);
+			}
+			if (user.getImageUrl() != null) {
+				File f = new File(user.getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+						user.setImageUrl("data:image/png;base64, " + sbase64);
+						feed.setUser(user);
+					} finally {
+						fis.close();
+					}
+				}
+			}
 			history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
 		}
 		sort(feeds);
@@ -67,14 +104,30 @@ public class FeedController {
 		}
 	}
 
-	
 	@GetMapping("write/{userId}") // feeds/write
 	@ApiOperation(value = "피드 작성 화면에서 {userId}의 피드 가져오기")
-	public Object getFeedsByUserId(@Valid @PathVariable("userId") int userId) {
+	public Object getFeedsByUserId(@Valid @PathVariable("userId") int userId) throws IOException {
 		List<Feed> feeds = feedDao.findAllByUserId(userId);
 		List<History> history = historyDao.findAllByUserId(userId);
+
 		for (Feed feed : feeds) {
-			if(!feed.getIsNew())
+			User user = feed.getUser();
+			if (feed.getImageUrl() != null) {
+				File f = new File(feed.getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+					} finally {
+						fis.close();
+					}
+				}
+				feed.setImageUrl("data:image/png;base64, " + sbase64);
+			}
+			if (!feed.getIsNew())
 				history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
 		}
 		sort(feeds);
@@ -87,29 +140,26 @@ public class FeedController {
 
 	@PutMapping("/")
 	@ApiOperation(value = "피드 작성하기")
-	public Object addFeed(@Valid @RequestBody Feed request) {
-		try {
-			Feed feed = feedDao.getFeedById(request.getId());
-			feed.setContent(request.getContent());
-			feed.setIsNew(false);
-			feed.setUpdateDate(LocalDateTime.now());
-			feedDao.save(feed);
-			return new ResponseEntity<>(feed, HttpStatus.OK);			
-		} catch(Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
-	}
+	public Object addImage(MultipartHttpServletRequest file) throws IllegalStateException, IOException {
 
-	@PostMapping("/")
-	@ApiOperation(value = "이미지 업로드")
-	public Object addImage(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
-		System.out.println(file.getOriginalFilename() + " =================================================");
-		file.transferTo(new File("C:\\temptemp\\" + file.getOriginalFilename()));
-		// DB저장용 String
-		String img = "C:\\temptemp\\" + file.getOriginalFilename();
-		// Feed feed = feedDao.getFeedById(request.getId());
-		// feedDao.save(feed);
-		return new ResponseEntity<>(null, HttpStatus.OK);
+		ResponseEntity response = null;
+
+		MultipartFile mFile = file.getFile("file");
+
+		Feed feed = feedDao.getFeedById(Integer.parseInt(file.getParameter("feedId")));
+		feed.setContent(file.getParameter("content"));
+		feed.setIsNew(false);
+
+		feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
+//		feed.setImageUrl("/home/ubuntu/var/images"+mFile.getOriginalFilename()); //불러올 이미지 위치
+		
+		feedDao.save(feed);
+		response = new ResponseEntity<>(null, HttpStatus.OK);
+		
+//	    mFile.transferTo(new File("/home/ubuntu/var/images"+mFile.getOriginalFilename()));
+		mFile.transferTo(new File("C:\\temptemp\\" + mFile.getOriginalFilename()));
+
+		return response;
 	}
 
 	@PutMapping("/like")
@@ -134,14 +184,13 @@ public class FeedController {
 			feed = feedDao.getFeedById(feedId);
 			feed.setIsClick(false);
 		}
-		
-		if(request.get("likeType").equals("modal")) { //모달창에서 실행한 경우 feed하나만 넘겨준다.
+
+		if (request.get("likeType").equals("modal")) { // 모달창에서 실행한 경우 feed하나만 넘겨준다.
 			return feed;
-		}
-		else if(request.get("likeType").equals("write")) {
+		} else if (request.get("likeType").equals("write")) {
 			return getFeedsByUserId(userId);
-		}
-		else return getFeeds(userId);
+		} else
+			return getFeeds(userId);
 	}
 
 	public void sort(List<Feed> list) {

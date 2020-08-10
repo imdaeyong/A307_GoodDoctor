@@ -21,7 +21,8 @@
         <div v-if="feed.isNew">
           <div class="feed-wrap">
             <div class="feed-top">
-              <img src= "../../assets/images/profile_default.png" alt="">
+              <img :src="user.imageUrl" v-if="user.imageUrl != null" class="profile-image" >
+              <img src= "../../assets/images/profile_default.png" alt="" v-else>
               <div class="user-info">{{feed.user.nickname}} <span style="color : red; font-weight : bold"> NEW !!!NEW !!!</span> </div>
               <div class="user-hospital">{{feed.hospital.name}}<span>{{feed.updateDate}}</span></div>
             </div>
@@ -45,12 +46,13 @@
         <div v-if="!feed.isNew">
           <div class="feed-wrap">
             <div class="feed-top">
-              <img src= "../../assets/images/profile_default.png" alt="">
+              <img :src="user.imageUrl" v-if="user.imageUrl != null" class="profile-image" >
+              <img src= "../../assets/images/profile_default.png" alt="" v-else>
               <div class="user-info">{{feed.user.nickname}}</div>
               <div class="user-hospital">{{feed.hospital.name}}<span>{{feed.updateDate}}</span></div>
             </div>
             <div class="feed-card">
-              <img src= "../../assets/images/feed/1.png" alt="">
+              <img :src="feed.imageUrl">
               <div>
                 <a href="">#진료잘봄#호감</a><br>
                 {{feed.content}}
@@ -70,7 +72,8 @@
                 <span v-if="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span> 
               </div>
               <div class ="reply-list">
-                <img src= "../../assets/images/profile_default.png" alt="">
+                <img :src="user.imageUrl" v-if="user.imageUrl != null" class="profile-image" >
+                <img src= "../../assets/images/profile_default.png" alt="" v-else>
                 <div class="user-info">
                   <span v-if="isLogin"> {{nickname}}</span> 
                   <span v-else> 닉네임</span>
@@ -112,10 +115,9 @@ export default {
       userId : "",
       click : true,
       content : "",
-      newImgSrc: '',
       file: '',
-      img : '',
-      preview : ''
+      preview : '',
+      user : store.state.userInfo.data,
     }
   },
   mounted(){
@@ -170,36 +172,34 @@ export default {
       this.openWrite = id;
     },
     addReview(feedId, reviewData){
-      let feed = {
-        id : feedId,
-        content : reviewData
-      }
       let formData = new FormData();
       formData.append('file', this.file);
-      http.put(`feeds/`,{id:feedId, content:reviewData})
+      formData.append('feedId', feedId);
+      formData.append('imageUrl', this.preview);
+      formData.append('content', reviewData);
+      http.put(`feeds/`, formData,{
+        headers:{'Content-Type':'multipart/form-data'}
+      })
       .then(data =>{
-        alert("리뷰작성 완료");
+        alert("이미지업로드 완료");
         this.$router.go(0);
       })
       .catch(err =>{
-        console.log(err);
-        alert("다시 작성해주세요");
+
       })
-      //////////////////////////////
     },
     upload(e){
       let file = e.target.files[0];
       this.file = file;
-      this.img = require('C:/temptemp/'+file.name);
-      this.preview = URL.createObjectURL(file);
 
-      let reader = new FileReader();s
+      this.preview = URL.createObjectURL(file);
+      let reader = new FileReader();
 
       reader.readAsDataURL(file);
       reader.onload = e => {
         this.preview = e.target.result;
       }
-    },
+    }
   }
 }
 </script>

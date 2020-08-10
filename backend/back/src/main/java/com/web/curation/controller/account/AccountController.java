@@ -1,11 +1,16 @@
 package com.web.curation.controller.account;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +24,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.web.curation.dao.UserDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.ChangepwdRequest;
+import com.web.curation.model.Feed;
 import com.web.curation.model.SignupRequest;
 import com.web.curation.model.User;
 
@@ -49,42 +57,63 @@ public class AccountController {
 	@GetMapping("/account/gooddoc")
 	@ApiOperation(value = "gooddoc 로그인")
 	public Object login(@RequestParam(required = true) final String email,
-			@RequestParam(required = true) final String password) {
+			@RequestParam(required = true) final String password) throws IOException {
 
 		Optional<User> userOpt = userDao.findUserByEmailAndPassword(email, password);
 
 		if (userOpt.isPresent()) {
 			User user = new User();
 			user = userOpt.get();
+			if (userOpt.get().getImageUrl() != null) {
+				File f = new File(userOpt.get().getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+						user.setImageUrl("data:image/png;base64, " + sbase64);
+					} finally {
+						fis.close();
+					}
+				}
+			}
 			return new ResponseEntity<>(user, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
 
-	@PostMapping("/account")
-	@ApiOperation(value = "가입하기")
-	public Object signup(@Valid @RequestBody SignupRequest request) {
+   @PostMapping("/account")
+   @ApiOperation(value = "가입하기")
+   public Object addImage(MultipartHttpServletRequest file) throws IllegalStateException, IOException {
 		final BasicResponse result = new BasicResponse();
+		MultipartFile mFile = file.getFile("file");
 		result.status = true;
-		if (userDao.getUserByEmail(request.getEmail()) != null) {
+		if (userDao.getUserByEmail(file.getParameter("email")) != null) {
 			result.data = "email_fail";
 			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
-		} else if (userDao.getUserByNickname(request.getNickname()) != null) {
+		} else if (userDao.getUserByNickname(file.getParameter("nickname")) != null) {
 			result.data = "nickname_fail";
 			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 		}
 		User user = new User();
-		user.setNickname(request.getNickname());
-		user.setEmail(request.getEmail());
-		user.setPassword(request.getPassword());
+		user.setNickname(file.getParameter("nickname"));
+		user.setEmail(file.getParameter("email"));
+		user.setPassword(file.getParameter("password"));
+		user.setImageUrl("C:\\temptemp\\"+mFile.getOriginalFilename());
+//	    feed.setImageUrl("/home/ubuntu/var/images"+mFile.getOriginalFilename()); //불러올 이미지 위치
+		
 		user.setAccountType(0); // gooddoc
 		userDao.save(user);
+		
+		mFile.transferTo(new File("C:\\temptemp\\"+mFile.getOriginalFilename()));
+//      mFile.transferTo(new File("/home/ubuntu/var/images"+mFile.getOriginalFilename()));
 		result.data = "success";
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
-	}
-
+    }
 	@PutMapping("/pwd")
 	@ApiOperation(value = "비밀번호변경")
 	public Object changepwd(@Valid @RequestBody ChangepwdRequest request) {
