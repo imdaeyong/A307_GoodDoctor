@@ -23,8 +23,11 @@
   border: 1px solid rgba(194, 183, 183, 0.5);
   position : relative;
   left : 30%;
-  width : 40%;
-  margin-bottom : 2em;
+    width : 40%;
+    margin-bottom : 2em;
+    .profile-image{
+        border-radius: 100px 100px 100px 100px;
+    } 
 }
 .feed-top{
   border-bottom: 1px solid rgba(194, 183, 183, 0.5);
@@ -141,3 +144,4 @@
     }
   }
 }
+

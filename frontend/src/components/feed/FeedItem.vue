@@ -4,12 +4,13 @@
       <div v-if="!feed.isNew">
         <div class="feed-wrap" v-bind:data="feed.data">
           <div class="feed-top">
-            <img src= "../../assets/images/profile_default.png" alt="">
+            <img :src="feed.user.imageUrl" v-if="feed.user.imageUrl != null" class="profile-image" >
+            <img src= "../../assets/images/profile_default.png" alt="" v-else>
             <div class="user-info">{{feed.user.nickname}}</div>
             <div class="user-hospital">{{feed.hospital.name}}<span>{{feed.updateDate}}</span></div>
           </div>
           <div class="feed-card">
-            <img src="../../assets/images/feed/1.png" alt="">
+            <img :src="feed.imageUrl">
             <div>
               <a href="">#진료잘봄 #호감</a><br>
               {{feed.content}}
@@ -29,7 +30,8 @@
               <span v-if="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span> 
             </div>
             <div class ="reply-list">
-              <img src= "../../assets/images/profile_default.png" alt="">
+              <img :src="feed.user.imageUrl" v-if="feed.user.imageUrl != null" class="profile-image" >
+              <img src= "../../assets/images/profile_default.png" alt="" v-else>
               <div class="user-info">
                 <span v-if="isLogin"> {{nickname}}</span> 
                 <span v-else> 닉네임</span>
