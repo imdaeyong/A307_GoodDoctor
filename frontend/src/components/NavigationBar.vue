@@ -7,12 +7,15 @@
             <b-icon-heart-half style="margin-right: 0.2em; margin-top: 0.2em;"></b-icon-heart-half>굿 닥터
           </router-link>     
         </button>
-        <select v-model="target" >
+        
+
+        <select v-model="target" class="btn-front" for="navSearch">
           <option value="hospital">병원 검색</option>
           <option value="feed">피드 검색</option>
         </select>
-        <input type="text" v-model = "word" @keyup.enter="search" class="input-search ml-4">
+        <input type="text" v-model= "word" @keyup.enter="search" class="input-search" id="navSearch">
         <button @click="search" class="btn-search" style="outline:0;"><b-icon-search></b-icon-search></button>
+
       </div>
       <div class="dropdown-list">
         <div class="btn-hospital-list">
