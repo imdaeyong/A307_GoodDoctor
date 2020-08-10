@@ -68,9 +68,9 @@
       </div>
     </b-modal>
   </div>
-  <div v-else>
+  <!-- <div v-else>
     <button class="btn-full-center" @click="onQRWithOutLogin">이동하기</button>
-  </div>
+  </div> -->
   </div>
 </template>
 
@@ -119,6 +119,11 @@ export default {
     .digits()
     .has()
     .letters();
+  },
+  beforeMount(){
+    if (store.state.isLogin){
+      this.onQRWithOutLogin();
+    }
   },
   mounted(){
     if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
