@@ -1,24 +1,23 @@
 <template>
   <div>
     <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
-      <b-card no-body @click="hospitalDataSend(hospital.id)" class="overflow-hidden my-3 ml-4 btn-left">
+      <b-card no-body @click="hospitalDataSend(hospital)" class="overflow-hidden my-3 ml-4 btn-left">
         <b-row no-gutters>
           <b-col md="3">
-            <b-card-img src="https://picsum.photos/400/400/?image=114" alt="Image" class="rounded-0"></b-card-img>
+            <b-card-img src="https://picsum.photos/400/400/?image=42" alt="Image" class="rounded-0"></b-card-img>
           </b-col>
           <b-col md="9">
             <b-card-body class="py-2">
               <b-card-title class="mt-2">{{hospital.name}}</b-card-title>
               <b-card-text class="mt-2">평점| 리뷰수</b-card-text>
-              <div class="row mt-2">
+              <div class="row mt-2" style="padding-left:15px">
                 <b-card-text>진료과목 : {{hospital.subject}}</b-card-text>
-                <button @click="hospitalZoom(hospital)" id="front">지도에서 보기</button>
+                <button @click="hospitalZoom(hospital)" style="margin-left:auto; margin-right:1rem">지도에서 보기</button>
               </div>
             </b-card-body>
           </b-col>
         </b-row>
       </b-card>
-      <button @click="hospitalZoom(hospital)">지도에서 보기</button>
     </div>
   </div>
 </template>
@@ -71,9 +70,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-#front {
-  z-index: 5;
-}
-</style>

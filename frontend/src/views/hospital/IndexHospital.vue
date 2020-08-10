@@ -15,7 +15,11 @@
             <HospitalItem/>
           </b-col>
           <b-col cols="4">
-            <HospitalMap/>
+            <div class="banner">
+              <div id="chase" style="top:0px;">
+                <HospitalMap/>
+              </div>
+            </div>
           </b-col>
         </b-row>
       </b-container>
@@ -45,8 +49,5 @@ export default {
     if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
   },
 };
+
 </script>
-
-<style>
-
-</style>
