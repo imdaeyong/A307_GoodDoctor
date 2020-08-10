@@ -1,6 +1,8 @@
 <template>
   <div>
-  <div v-if="!this.$store.state.isLogin">
+    <NavBar />
+  <div v-if="!loginStatus">
+    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>
       <div class="user" id="login">
         <div class="wrapC mt-3">
           <h1>
@@ -10,7 +12,7 @@
             <input
               v-model="email"
               v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
-              @keyup.enter="onQRLogin"
+              @keyup.enter="onQRWithLogin"
               id="email"
               placeholder="이메일을 입력하세요."
               type="text"
@@ -25,7 +27,7 @@
               type="password"
               v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
               id="password"
-              @keyup.enter="onQRLogin"
+              @keyup.enter="onQRWithLogin"
               placeholder="비밀번호를 입력하세요."
             />
             <label for="password">비밀번호</label>
@@ -34,7 +36,7 @@
           
           <button
             class="btn-full-center"
-            @click="onQRLogin"        
+            @click="onQRWithLogin"        
             :disabled="!isSubmit"
             :class="{disabled : !isSubmit}"
           >로그인</button>
@@ -64,21 +66,23 @@
           </div>
         </div>
       </div>
+    </b-modal>
   </div>
   <div v-else>
-    <QRFeedWrite />
+    <button class="btn-full-center" @click="onQRWithOutLogin">이동하기</button>
   </div>
   </div>
 </template>
 
 <script>
-import '../../assets/css/style.scss'
-import '../../assets/css/user.scss'
+import "../../assets/css/main.css";
+import "../../assets/css/feed.scss";
+import "../../assets/css/feedModal.scss";
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
 import KakaoLogin from "../../components/accounts/snsLogin/Kakao.vue";
 import GoogleLogin from "../../components/accounts/snsLogin/Google.vue";
-import QRFeedWrite from "../../components/qr/QRFeedWrite.vue";
+import NavBar from "../../components/NavigationBar.vue";
 import store from '@/vuex/store.js'
 import http from '@/util/http-common'
 import router from "../../router"
@@ -88,7 +92,7 @@ export default {
   components: {
     KakaoLogin,
     GoogleLogin,
-    QRFeedWrite
+    NavBar
   },
   data: () => {
     return {
@@ -116,6 +120,9 @@ export default {
     .has()
     .letters();
   },
+  mounted(){
+    if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
+  },
   watch: {
     email: function(v) {
       this.emailCheckForm();
@@ -123,6 +130,12 @@ export default {
     password: function(v) {
       this.pwdCheckForm();
     },
+  },
+  computed: {
+    loginStatus() {
+      if (this.$store.state.isLogin) return true;
+      else return false;
+    }
   },
   methods: {
     emailCheckForm() {
@@ -144,7 +157,7 @@ export default {
         });
         this.isSubmit = isSubmit;
     },    
-    onQRLogin(){
+    onQRWithLogin(){
       this.hospitalId = this.$route.query.hospitalId;
       let { email, password, hospitalId} = this;
       let data = {
@@ -153,10 +166,19 @@ export default {
         hospitalId
       };
       store.dispatch('QRlogin', {email: this.email, password: this.password, hospitalId: this.hospitalId});
-      if(this.$store.state.isLogin) this.$bvModal.hide('bv-modal-example');
+      //if(this.$store.state.isLogin) this.$bvModal.hide('bv-modal-example');
     },
-    addQR(){
-      alert("add QR 함수");
+    onQRWithOutLogin(){
+      if (this.$store.state.isLogin){
+      this.hospitalId = this.$route.query.hospitalId;
+      http.post(`/qr/wologin?hospitalId=${this.hospitalId}&userId=${this.$store.state.userInfo.data.id}`).then(res =>{
+        this.$router.push(`../feed/write`);
+        this.$router.go(0);
+      }).catch(err => {
+        alert("잘못된 QR코드입니다! 다시 등록해주세요!");
+        this.$router.push(`../errorPage`);
+      })
+    }
     }
   },
 }
