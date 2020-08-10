@@ -65,6 +65,35 @@ export default new Vuex.Store({
         router.push("/errorPage");
       })
     },
+    QRlogin(context, {email, password, hospitalId}) {
+      console.log(email, password, hospitalId);
+      http.get(`account/gooddoc?email=${email}&password=${password}`)
+      .then(res=>{
+        console.log(res);
+        context.commit('mutateIsLogin', true)
+        context.commit('mutateUserInfo', res)
+        
+        router.go(0);
+        alert("QR 로그인 성공");
+      })
+      .catch(err=>{
+        alert("QR 아이디 또는 비밀번호 실패입니다.");
+        router.push("/errorPage");
+      })
+
+      http.post(`qr/wlogin?hospitalId=${hospitalId}&email=${email}&password=${password}`)
+      .then(res=>{
+        context.commit('mutateIsLogin', true)
+        context.commit('mutateUserInfo', res)
+        
+        router.go(0);
+        alert("QR 로그인 성공");
+      })
+      .catch(err=>{
+        alert("QR 아이디 또는 비밀번호 실패입니다.");
+        router.push("/errorPage");
+      })
+    },
     logout(context) {
       context.commit('mutateIsLogin', false)
       context.commit('mutateUserInfo', {})

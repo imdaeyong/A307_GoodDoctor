@@ -27,7 +27,7 @@ public class HospitalInfo {
 	private int doctor;
 	private boolean emergencyDay;
 	private boolean emergencyNight;
-	private boolean emergencyNightPhone;
+	private String emergencyNightPhone;
 	private String sunStart;
 	private String sunFinish;	
 	private String monStart;
@@ -39,7 +39,7 @@ public class HospitalInfo {
 	private String thuStart;
 	private String thuFinish;
 	private String friStart;
-	private String firFinish;
+	private String friFinish;
 	private String satStart;
 	private String satFinish;
 }

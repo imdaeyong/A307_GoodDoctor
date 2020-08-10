@@ -21,6 +21,6 @@ export default {
         this.$router.push(`../errorPage`);
       })
     }
-  }
+  },
 }
 </script>
