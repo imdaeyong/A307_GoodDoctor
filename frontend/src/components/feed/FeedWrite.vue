@@ -21,7 +21,8 @@
         <div v-if="feed.isNew">
           <div class="feed-wrap">
             <div class="feed-top">
-              <img src= "../../assets/images/profile_default.png" alt="">
+              <img :src="user.imageUrl" v-if="user.imageUrl != null" class="profile-image" >
+              <img src= "../../assets/images/profile_default.png" alt="" v-else>
               <div class="user-info">{{feed.user.nickname}} <span style="color : red; font-weight : bold"> NEW !!!NEW !!!</span> </div>
               <div class="user-hospital">{{feed.hospital.name}}<span>{{feed.updateDate}}</span></div>
             </div>
@@ -45,7 +46,8 @@
         <div v-if="!feed.isNew">
           <div class="feed-wrap">
             <div class="feed-top">
-              <img src= "../../assets/images/profile_default.png" alt="">
+              <img :src="user.imageUrl" v-if="user.imageUrl != null" class="profile-image" >
+              <img src= "../../assets/images/profile_default.png" alt="" v-else>
               <div class="user-info">{{feed.user.nickname}}</div>
               <div class="user-hospital">{{feed.hospital.name}}<span>{{feed.updateDate}}</span></div>
             </div>
@@ -70,7 +72,8 @@
                 <span v-if="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span> 
               </div>
               <div class ="reply-list">
-                <img src= "../../assets/images/profile_default.png" alt="">
+                <img :src="user.imageUrl" v-if="user.imageUrl != null" class="profile-image" >
+                <img src= "../../assets/images/profile_default.png" alt="" v-else>
                 <div class="user-info">
                   <span v-if="isLogin"> {{nickname}}</span> 
                   <span v-else> 닉네임</span>
@@ -113,7 +116,8 @@ export default {
       click : true,
       content : "",
       file: '',
-      preview : ''
+      preview : '',
+      user : store.state.userInfo.data,
     }
   },
   mounted(){

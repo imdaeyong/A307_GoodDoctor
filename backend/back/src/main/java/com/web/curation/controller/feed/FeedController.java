@@ -33,6 +33,7 @@ import com.web.curation.dao.HistoryDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.Feed;
 import com.web.curation.model.History;
+import com.web.curation.model.User;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -61,23 +62,38 @@ public class FeedController {
 		List<Feed> feeds = feedDao.findAllBy();
 		List<History> history = historyDao.findAllByUserId(userId);
 		for (Feed feed : feeds) {
-			if(feed.getImageUrl() != null) {
-		    	  File f = new File(feed.getImageUrl());
-		          String sbase64 = null;
-		          if ( f.isFile() ) {
-		        	    byte[] bt = new byte[ (int) f.length() ];
-		        	    FileInputStream fis = new FileInputStream( f );
-		        	    try {
-		        	          fis.read( bt );
-		        	          sbase64 = new String ( Base64.encodeBase64( bt ) );
-		        	    } catch(Exception e ) {
-		        	    } finally {
-		       	          fis.close();
-		        	    }
-		          }
-		          String image = "data:image/png;base64, " + sbase64;
-		    	  feed.setImageUrl(image);
-	    	  }
+			User user = feed.getUser();
+			if (feed.getImageUrl() != null) {
+				File f = new File(feed.getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+					} finally {
+						fis.close();
+					}
+				}
+				feed.setImageUrl("data:image/png;base64, " + sbase64);
+			}
+			if (user.getImageUrl() != null) {
+				File f = new File(user.getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+						user.setImageUrl("data:image/png;base64, " + sbase64);
+						feed.setUser(user);
+					} finally {
+						fis.close();
+					}
+				}
+			}
 			history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
 		}
 		sort(feeds);
@@ -88,31 +104,30 @@ public class FeedController {
 		}
 	}
 
-	
 	@GetMapping("write/{userId}") // feeds/write
 	@ApiOperation(value = "피드 작성 화면에서 {userId}의 피드 가져오기")
 	public Object getFeedsByUserId(@Valid @PathVariable("userId") int userId) throws IOException {
 		List<Feed> feeds = feedDao.findAllByUserId(userId);
 		List<History> history = historyDao.findAllByUserId(userId);
+
 		for (Feed feed : feeds) {
-			if(feed.getImageUrl() != null) {
-		    	  File f = new File(feed.getImageUrl());
-		          String sbase64 = null;
-		          if ( f.isFile() ) {
-		        	    byte[] bt = new byte[ (int) f.length() ];
-		        	    FileInputStream fis = new FileInputStream( f );
-		        	    try {
-		        	          fis.read( bt );
-		        	          sbase64 = new String ( Base64.encodeBase64( bt ) );
-		        	    } catch(Exception e ) {
-		        	    } finally {
-		        	          fis.close();
-		        	    }
-		          }
-		          String image = "data:image/png;base64, " + sbase64;
-		    	  feed.setImageUrl(image);
-	    	}
-			if(!feed.getIsNew())
+			User user = feed.getUser();
+			if (feed.getImageUrl() != null) {
+				File f = new File(feed.getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+					} finally {
+						fis.close();
+					}
+				}
+				feed.setImageUrl("data:image/png;base64, " + sbase64);
+			}
+			if (!feed.getIsNew())
 				history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
 		}
 		sort(feeds);
@@ -124,31 +139,28 @@ public class FeedController {
 	}
 
 	@PutMapping("/")
-	   @ApiOperation(value = "피드 작성하기")
-	   public Object addImage(MultipartHttpServletRequest file) throws IllegalStateException, IOException {
-	         
-	         ResponseEntity response = null;
-	         
-	         MultipartFile mFile = file.getFile("file");
-	         System.out.println(mFile.getOriginalFilename() + " =================================================");
-	         System.out.println(file.getParameter("feedId")+ " &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-	         System.out.println(file.getParameter("content")+ " &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-	         System.out.println(file.getParameter("imageUrl"));
-	         
-	         Feed feed = feedDao.getFeedById(Integer.parseInt(file.getParameter("feedId")));
-		     feed.setContent(file.getParameter("content"));
-		     feed.setIsNew(false);
-		     
-		     feed.setImageUrl("C:\\temptemp\\"+mFile.getOriginalFilename()); 
-//		     feed.setImageUrl("/home/ubuntu/var/images"+mFile.getOriginalFilename()); //불러올 이미지 위치
-		     feedDao.save(feed);
-	         response = new ResponseEntity<>(null, HttpStatus.OK);
-//	         mFile.transferTo(new File("/home/ubuntu/var/images"+mFile.getOriginalFilename()));
-	         mFile.transferTo(new File("C:\\temptemp\\"+mFile.getOriginalFilename()));
-	         
-	         return response;
-	   }
+	@ApiOperation(value = "피드 작성하기")
+	public Object addImage(MultipartHttpServletRequest file) throws IllegalStateException, IOException {
 
+		ResponseEntity response = null;
+
+		MultipartFile mFile = file.getFile("file");
+
+		Feed feed = feedDao.getFeedById(Integer.parseInt(file.getParameter("feedId")));
+		feed.setContent(file.getParameter("content"));
+		feed.setIsNew(false);
+
+		feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
+//		feed.setImageUrl("/home/ubuntu/var/images"+mFile.getOriginalFilename()); //불러올 이미지 위치
+		
+		feedDao.save(feed);
+		response = new ResponseEntity<>(null, HttpStatus.OK);
+		
+//	    mFile.transferTo(new File("/home/ubuntu/var/images"+mFile.getOriginalFilename()));
+		mFile.transferTo(new File("C:\\temptemp\\" + mFile.getOriginalFilename()));
+
+		return response;
+	}
 
 	@PutMapping("/like")
 	@ApiOperation(value = "좋아요 값 업데이트하기")
@@ -172,14 +184,13 @@ public class FeedController {
 			feed = feedDao.getFeedById(feedId);
 			feed.setIsClick(false);
 		}
-		
-		if(request.get("likeType").equals("modal")) { //모달창에서 실행한 경우 feed하나만 넘겨준다.
+
+		if (request.get("likeType").equals("modal")) { // 모달창에서 실행한 경우 feed하나만 넘겨준다.
 			return feed;
-		}
-		else if(request.get("likeType").equals("write")) {
+		} else if (request.get("likeType").equals("write")) {
 			return getFeedsByUserId(userId);
-		}
-		else return getFeeds(userId);
+		} else
+			return getFeeds(userId);
 	}
 
 	public void sort(List<Feed> list) {
