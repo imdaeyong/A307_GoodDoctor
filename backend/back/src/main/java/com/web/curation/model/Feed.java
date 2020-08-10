@@ -45,9 +45,8 @@ public class Feed {
     private Hospital hospital;
     
     private String content;
-    @Column(insertable = false, updatable = false)
+    @Column(updatable = false)
     private LocalDateTime createDate;
-    @Column(insertable = false)
     private LocalDateTime updateDate;
     private int likes;
     private Boolean isNew;

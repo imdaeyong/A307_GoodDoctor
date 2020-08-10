@@ -7,9 +7,8 @@
             <b-icon-heart-half style="margin-right: 0.2em; margin-top: 0.2em;"></b-icon-heart-half>굿 닥터
           </router-link>     
         </button>
-        <select v-model="target">
-          <option value="" selected disabled hidden>선택</option>
-          <option value="hospital" >병원 검색</option>
+        <select v-model="target" >
+          <option value="hospital">병원 검색</option>
           <option value="feed">피드 검색</option>
         </select>
         <input type="text" v-model = "word" @keyup.enter="search" class="input-search ml-4">
@@ -271,10 +270,10 @@ export default {
     },
     search(){
       if(this.target == 'hospital'){
-        this.$router.push(`../search/hospital?no=10&word=${this.word}`);
+        this.$router.push(`../search?no=10&word=${this.word}`);
         this.$router.go(0);
       } else if(this.target =='feed'){
-        this.$router.push(`../search/feed?word=${this.word}`);
+        this.$router.push(`../search?word=${this.word}`);
         this.$router.go(0);
       }
     }
@@ -285,7 +284,7 @@ export default {
       gugun:"",
       subject:"",
       word:"",
-      target:"",
+      target:"hospital",
       area: [
         {display : false, name : "서울"},
         {display : false, name : "경기"},

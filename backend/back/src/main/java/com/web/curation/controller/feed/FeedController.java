@@ -2,6 +2,7 @@ package com.web.curation.controller.feed;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -73,7 +74,8 @@ public class FeedController {
 		List<Feed> feeds = feedDao.findAllByUserId(userId);
 		List<History> history = historyDao.findAllByUserId(userId);
 		for (Feed feed : feeds) {
-			history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
+			if(!feed.getIsNew())
+				history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
 		}
 		sort(feeds);
 		if (!feeds.isEmpty()) {
@@ -86,11 +88,16 @@ public class FeedController {
 	@PutMapping("/")
 	@ApiOperation(value = "피드 작성하기")
 	public Object addFeed(@Valid @RequestBody Feed request) {
-		Feed feed = feedDao.getFeedById(request.getId());
-		feed.setContent(request.getContent());
-		feed.setIsNew(false);
-		feedDao.save(feed);
-		return new ResponseEntity<>(feed, HttpStatus.OK);
+		try {
+			Feed feed = feedDao.getFeedById(request.getId());
+			feed.setContent(request.getContent());
+			feed.setIsNew(false);
+			feed.setUpdateDate(LocalDateTime.now());
+			feedDao.save(feed);
+			return new ResponseEntity<>(feed, HttpStatus.OK);			
+		} catch(Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@PostMapping("/")
@@ -111,18 +118,30 @@ public class FeedController {
 		System.out.println(request);
 		int feedId = Integer.parseInt(request.get("feedId"));
 		int userId = Integer.parseInt(request.get("userId"));
+		Feed feed = null;
 		if (request.get("isClick").equals("false")) {// 좋아요 누르는 경우 ( likes+1,history테이블에 값 추가 )
 			History history = new History();
 			history.setFeedId(feedId);
 			history.setUserId(userId);
 			feedDao.plusLikes(feedId);
 			historyDao.save(history);
+			feed = feedDao.getFeedById(feedId);
+			feed.setIsClick(true);
 		} else {// 좋아요 이미 눌러진 경우 ( likes -1, history테이블에서 값 제거 )
 			feedDao.minusLikes(feedId);
 			History history = historyDao.findByFeedIdAndUserId(feedId, userId);
 			historyDao.delete(history);
+			feed = feedDao.getFeedById(feedId);
+			feed.setIsClick(false);
 		}
-		return getFeeds(userId);
+		
+		if(request.get("likeType").equals("modal")) { //모달창에서 실행한 경우 feed하나만 넘겨준다.
+			return feed;
+		}
+		else if(request.get("likeType").equals("write")) {
+			return getFeedsByUserId(userId);
+		}
+		else return getFeeds(userId);
 	}
 
 	public void sort(List<Feed> list) {

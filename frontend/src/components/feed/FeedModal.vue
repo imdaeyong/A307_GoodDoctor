@@ -25,7 +25,7 @@
               <div class="user-info">{{reply.nickname}}</div><br>
             </div><br>
             <div class="reply">{{reply.content}}</div>
-            <div class="reply-time"><span> 3일전</span></div>
+            <div class="reply-time"><span>{{time(reply.createDate)}}</span></div>
           </div>
         </div>
       </div>
@@ -68,6 +68,9 @@ export default {
     http.get(`comments/${store.state.feed.id}`)
     .then(data => {
       this.replys = data.data; //해당 댓글 정보들을 가져온다.
+    })
+    .catch(err =>{
+        alert("댓글이 아직 없습니다.");
     }) 
   },
   methods:{
@@ -76,7 +79,7 @@ export default {
         userId : this.feed.user.id,
         feedId : feedId,
         content : feedData,
-        nickname : this.feed.user.nickname
+        nickname : store.state.userInfo.data.nickname,
       };
       http.post(`comments/`,comment)
       .then(data =>{
@@ -93,8 +96,8 @@ export default {
     addLike(isClick, feedId){ //좋아요 버튼 클릭시 실행 함수
       if (this.click) {
         this.click = !this.click;
-        alert(feedId + " " + this.feed.user.id + " " + isClick);
-        http.put(`feeds/like`,{feedId:feedId, userId:this.feed.user.id, isClick:isClick})
+        http.put(`feeds/like`,{feedId:feedId, userId:this.feed.user.id, 
+            isClick:isClick, likeType:"modal"})
         .then(data => {
           console.log(data.data);
           this.feed = data.data;
@@ -102,6 +105,29 @@ export default {
         })
       }
     },
+    time(createDate){
+        var date1 = new Date(createDate);
+        var date2 = new Date();
+        var result = (date2 - date1) / 1000
+        if(result < 60) {
+            return parseInt(result)+"초전"
+        }
+        if(result < 60*60) {
+            return parseInt(result/60)+"분전" //60분 이하면 분 넘겨준다.
+        }
+        else if(result < 24*60*60) {
+            return parseInt(result/60/60)+"시간전" //24시간 이하면 시간 넘겨준다.
+        }
+        else if(result < 24*60*60*30) {
+            return parseInt(result/24/60/60)+"일전" //30일 이하면 일 넘겨준다.
+        }
+        else if(result < 24*60*60*30*12) {
+            return parseInt(result/24/30/60/60)+"개월전" //12개월 이하면 월 넘겨준다.
+        }
+        else {
+            return parseInt(result/24/30/60/60/12)+"년전"
+        }
+    }
   }  
 }
 </script>

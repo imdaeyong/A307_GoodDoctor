@@ -1,5 +1,7 @@
 package com.web.curation.controller.qr;
 
+import java.time.LocalDateTime;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,10 +55,12 @@ public class QRController {
 		feed.setUser(user);
 		feed.setHospital(hospital);
 		feed.setIsClick(false);
+		feed.setCreateDate(LocalDateTime.now());
+		feed.setUpdateDate(LocalDateTime.now());
 		feedDao.save(feed);
 		RedirectView redirectView = new RedirectView();
 	    redirectView.setUrl("http://localhost:3000/feed/write");
-	    //redirectView.setUrl("http://i3a307.p.ssafy.io/feed/write");
+	    //redirectView.setUrl("https://i3a307.p.ssafy.io/feed/write");
 		return redirectView;
 	}
 }
