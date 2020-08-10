@@ -83,7 +83,7 @@ export default {
       if (this.click) {
         this.click = !this.click;
         http.put(`feeds/like`,{feedId:feedId, userId:this.userId, 
-          isClick:isClick, modal:"main"})
+          isClick:isClick, likeType:"main"})
         .then(data => {
           this.feeds = data;
           this.click = true;

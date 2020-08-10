@@ -51,4 +51,6 @@ public class Feed {
     private int likes;
     private Boolean isNew;
     private Boolean isClick;
+    
+    private String imageUrl;
 }
