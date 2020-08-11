@@ -5,10 +5,14 @@ import java.time.LocalDateTime;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -46,21 +50,68 @@ public class QRController {
 	@GetMapping("/{hospitalId}")
 	@ApiOperation(value = "모든 피드 가져오기")
 	public RedirectView redirectQr(@Valid @PathVariable("hospitalId") int hospitalId){
+		RedirectView redirectView = new RedirectView();
+	    redirectView.setUrl("http://localhost:3000/qr");
+	    //redirectView.setUrl("https://i3a307.p.ssafy.io/qr");
+	    redirectView.addStaticAttribute("hospitalId", hospitalId);
+		return redirectView;
+	}
+	
+	@PostMapping("/wlogin")
+	@ApiOperation(value = "모든 피드 가져오기")
+	public Object addQrFeedWithLogin(@RequestParam(required = true) final int hospitalId, @RequestParam(required = true) final String email,
+			@RequestParam(required = true) final String password){
+		final BasicResponse result = new BasicResponse();
+		User user = userDao.getUserByEmailAndPassword(email, password);
+		if (user == null) {
+			result.data = "login_fail";
+			return new ResponseEntity<>(result,HttpStatus.NOT_FOUND);
+		}
+		System.out.println("wlogin");
+		System.out.println("hospitalId");
+		System.out.println("email");
+		System.out.println("password");
 		Feed feed = new Feed();
 		feed.setContent("");
 		feed.setIsNew(true);
 		Hospital hospital = hospitalDao.findById(hospitalId);
-		User user = userDao.getUserById(1);
-		//test 계정 ( 임시 )
+//		test 계정 ( 임시 )
 		feed.setUser(user);
 		feed.setHospital(hospital);
 		feed.setIsClick(false);
 		feed.setCreateDate(LocalDateTime.now());
 		feed.setUpdateDate(LocalDateTime.now());
-		feedDao.save(feed);
-		RedirectView redirectView = new RedirectView();
-	    redirectView.setUrl("http://localhost:3000/feed/write");
-	    //redirectView.setUrl("https://i3a307.p.ssafy.io/feed/write");
-		return redirectView;
+		try {
+			feedDao.save(feed);
+			return new ResponseEntity<>(user,HttpStatus.OK);			
+		} catch (Exception e) {
+			result.data = "qr_insert_fail";
+			return new ResponseEntity<>(result,HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@PostMapping("/wologin")
+	@ApiOperation(value = "모든 피드 가져오기")
+	public Object addQrFeedWithoutLogin(@RequestParam(required = true) final int hospitalId, @RequestParam(required = true) final int userId){
+		System.out.println("wologin");
+		System.out.println(hospitalId);
+		System.out.println(userId);
+		Feed feed = new Feed();
+		feed.setContent("");
+		feed.setIsNew(true);
+		Hospital hospital = hospitalDao.findById(hospitalId);
+		User user = userDao.getUserById(userId);
+//		test 계정 ( 임시 )
+		feed.setUser(user);
+		feed.setHospital(hospital);
+		feed.setIsClick(false);
+		feed.setCreateDate(LocalDateTime.now());
+		feed.setUpdateDate(LocalDateTime.now());
+		try {
+			feedDao.save(feed);
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>("fail", HttpStatus.NOT_FOUND);
+		}
 	}
 }

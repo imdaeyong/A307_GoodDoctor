@@ -242,7 +242,6 @@ export default {
     logout(){
       store.dispatch('logout');
       this.$bvModal.show('bv-modal-example');
-      this.$router.go(0);
     },
     selectSubject(subject) {
       this.subject = subject;
