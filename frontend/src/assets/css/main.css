@@ -34,7 +34,9 @@
 	width : 10em;
   margin-top: 0.4em;
   padding-left: 0.4rem;
+  float: left;
 }
+
 .btn-search{
 	border : 1px solid black;
 	border-left : white;
@@ -50,7 +52,7 @@
   border-radius: 1em 0em 0em 1em;
 	height : 1.5em;
   margin-top: 0.4em;
-  
+  float: left;
   margin-left: 2rem;
   padding-left: 0.38rem;
 }
@@ -87,9 +89,8 @@
 	background-color : white;
   padding : 0.8em;
   margin-left: -9em;
-	display: none;
+	/* display: none; */
 	position: absolute;
-	z-index: 1;
 }
 .btn-hospital-list:hover .dropdown-content {display: block;}
 .btn-area-list:hover .dropdown-content {display: block;}

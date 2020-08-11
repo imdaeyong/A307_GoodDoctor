@@ -3,7 +3,6 @@
     <div id="map"></div>
   </div>
 </template>
-
 <script>
 import http from '@/util/http-common'
 
@@ -11,6 +10,7 @@ export default {
   props:{
     hospitalInfo:[],
   },
+
   name: 'HospitalDetailMap',
   data: () => {
     return {
