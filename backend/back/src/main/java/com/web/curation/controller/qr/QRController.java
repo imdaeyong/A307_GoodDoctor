@@ -112,7 +112,7 @@ public class QRController {
 		feed.setUpdateDate(LocalDateTime.now());
 		try {
 			//feedDao.save(feed);
-			return new ResponseEntity<>("success", HttpStatus.OK);
+			return new ResponseEntity<>(user, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>("fail", HttpStatus.NOT_FOUND);
 		}

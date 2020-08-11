@@ -119,16 +119,26 @@ export default {
     }
   },
   mounted(){
-  this.userId = store.state.userInfo.data.id;
-  this.nickname = store.state.userInfo.data.nickname;
-  this.isLogin = store.state.isLogin;
-  if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
-  else{  
-    http.get(`feeds/write/${this.userId}`)
-      .then(data => {
-        this.feeds = data;
-      })
-    }
+    this.userId = store.state.userInfo.data.id;
+    this.nickname = store.state.userInfo.data.nickname;
+    this.isLogin = store.state.isLogin;
+    // store.subscribe((mutation,state) => {
+    //   if (state.isLogin == false)
+    //     this.$bvModal.show('bv-modal-example');
+    //   else {
+    //     http.get(`feeds/write/${this.userId}`)
+    //     .then(data => {
+    //       this.feeds = data;
+    //     })  
+    //   }
+    // })
+    if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
+    else{  
+      http.get(`feeds/write/${this.userId}`)
+        .then(data => {
+          this.feeds = data;
+        })
+      }
   },
   methods:{
     addLike(isClick, feedId){ //좋아요 버튼 클릭시 실행 함수

@@ -72,11 +72,23 @@ export default new Vuex.Store({
         context.commit('mutateUserInfo', res)
         alert("로그인 성공!");
         router.push(`../feed/write`);
-        router.go(0);
       })
       .catch(err=>{
         console.log(err);
-        alert("아이디 또는 비밀번호 실패입니다.");
+        alert("QRLOGIN");
+        router.push("../errorPage");
+      })
+    },
+    QRwologin(context, {hospitalId,userId}) {
+      http.post(`qr/wologin?hospitalId=${hospitalId}&userId=${userId}`)
+      .then(res=>{
+        context.commit('mutateIsLogin', true)
+        context.commit('mutateUserInfo', res)
+        router.push(`../feed/write`);
+      })
+      .catch(err=>{
+        console.log(err);
+        alert("QRwoLOGIN");
         router.push("../errorPage");
       })
     },

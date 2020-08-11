@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar />
-  <div v-if="!loginStatus">
+  <div v-if="!this.$store.state.isLogin">
     <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>
       <div class="user" id="login">
         <div class="wrapC mt-3">
@@ -136,12 +136,6 @@ export default {
       this.pwdCheckForm();
     },
   },
-  computed: {
-    loginStatus() {
-      if (this.$store.state.isLogin) return true;
-      else return false;
-    }
-  },
   methods: {
     emailCheckForm() {
       if (this.email.length >= 0 && !EmailValidator.validate(this.email))
@@ -163,6 +157,7 @@ export default {
         this.isSubmit = isSubmit;
     },    
     onQRWithLogin(){
+      alert("qr with login");
       this.hospitalId = this.$route.query.hospitalId;
       let { email, password, hospitalId} = this;
       let data = {
@@ -174,16 +169,9 @@ export default {
       //if(this.$store.state.isLogin) this.$bvModal.hide('bv-modal-example');
     },
     onQRWithOutLogin(){
-      if (this.$store.state.isLogin){
+      alert("qr 없이 login");
       this.hospitalId = this.$route.query.hospitalId;
-      http.post(`/qr/wologin?hospitalId=${this.hospitalId}&userId=${this.$store.state.userInfo.data.id}`).then(res =>{
-        this.$router.push(`../feed/write`);
-        this.$router.go(0);
-      }).catch(err => {
-        alert("잘못된 QR코드입니다! 다시 등록해주세요!");
-        this.$router.push(`../errorPage`);
-      })
-    }
+      store.dispatch('QRwologin', {hospitalId: this.hospitalId, userId: this.$store.state.userInfo.data.id});
     }
   },
 }
