@@ -124,7 +124,7 @@
                   <div><a @click="selectGu('기장군')" href="#">기장군</a></div>
                   <div><a @click="selectGu('광안리')" href="#">광안리</a></div>
                   <div><a @click="selectGu('영도구')" href="#">영도구</a></div>
-                  <div><a @click="selectGu('송도')" href="#">송도</a></div>
+                  <div><a @click="selectGu('서구')" href="#">서구</a></div>
                   <div><a @click="selectGu('강서구')" href="#">강서구</a></div><br>
                   <div><a @click="selectGu('중구')" href="#">중구</a></div>
                 </div>
@@ -132,11 +132,17 @@
               <div class ="dropdown-sub-gu ml-2" v-if="area[3].display">
                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>경남</div>
                 <div class ="gu-list">
-                  <div><a @click="selectGu('김해시')" href="#">김해시</a></div><div><a @click="selectGu('양산시')" href="#">양산시</a></div>
-                  <div><a @click="selectGu('진주시')" href="#">진주시</a></div><div><a @click="selectGu('성산구')" href="#">성산구</a></div>
-                  <div><a @click="selectGu('의창구')" href="#">의창구</a></div><div><a @click="selectGu('합포구')" href="#">합포구</a></div>
-                  <div><a @click="selectGu('회원구')" href="#">회원구</a></div><div><a @click="selectGu('거제시')" href="#">거제시</a></div>
-                  <div><a @click="selectGu('통영시')" href="#">통영시</a></div><div><a @click="selectGu('진해구')" href="#">진해구</a></div>
+                  <div><a @click="selectGu('김해시')" href="#">김해시</a></div>
+                  <div><a @click="selectGu('양산시')" href="#">양산시</a></div>
+                  <div><a @click="selectGu('진주시')" href="#">진주시</a></div>
+                  <div><a @click="selectGu('성산구')" href="#">성산구</a></div>
+                  <div><a @click="selectGu('의창구')" href="#">의창구</a></div><br
+                  ><div><a @click="selectGu('합포구')" href="#">합포구</a></div>
+                  <div><a @click="selectGu('회원구')" href="#">회원구</a></div>
+                  <div><a @click="selectGu('거제시')" href="#">거제시</a></div>
+                  <div><a @click="selectGu('통영시')" href="#">통영시</a></div>
+                  <div><a @click="selectGu('진해구')" href="#">진해구</a></div></div><br>
+                  
                 </div>
               </div>
               <div class ="dropdown-sub-gu ml-2" v-if="area[4].display">
@@ -158,28 +164,37 @@
               <div class ="dropdown-sub-gu ml-2" v-if="area[5].display">
                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>대구</div>
                 <div class ="gu-list">
-                  <div><a @click="selectGu('달서구')" href="#">달서구</a></div>
                   <div><a @click="selectGu('수성구')" href="#">수성구</a></div>
-                  <div><a @click="selectGu('중구')" href="#">중구</a></div><div><a @click="selectGu('남구')" href="#">남구</a></div><br>
-                  <div><a @click="selectGu('서구')" href="#">서구</a></div><div><a @click="selectGu('동구')" href="#">동구</a></div>
-                  <div><a @click="selectGu('북구')" href="#">북구</a></div><div><a @click="selectGu('달성군')" href="#">달성군</a></div>
+                  <div><a @click="selectGu('동구')" href="#">동구</a></div>
+                  <div><a @click="selectGu('달서구')" href="#">달서구</a></div>
+                  <div><a @click="selectGu('북구')" href="#">북구</a></div>
+                  <div><a @click="selectGu('달성군')" href="#">달성군</a></div>
+                  <div><a @click="selectGu('중구')" href="#">중구</a></div>
+                  <div><a @click="selectGu('서구')" href="#">서구</a></div>
+                  <div><a @click="selectGu('남구')" href="#">남구</a></div><br>
                 </div>
               </div>
               <div class ="dropdown-sub-gu ml-2" v-if="area[6].display">
                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>경북</div>
                 <div class ="gu-list">
-                  <div><a @click="selectGu('구미시')" href="#">구미시</a></div><div><a @click="selectGu('경산시')" href="#">경산시</a></div>
-                  <div><a @click="selectGu('포항남구')" href="#">포항남구</a></div><div><a @click="selectGu('경주시')" href="#">경주시</a></div>
+                  <div><a @click="selectGu('구미시')" href="#">구미시</a></div>
+                  <div><a @click="selectGu('경산시')" href="#">경산시</a></div>
+                  <div><a @click="selectGu('포항남구')" href="#">포항남구</a></div>
+                  <div><a @click="selectGu('경주시')" href="#">경주시</a></div>
                   <div><a @click="selectGu('포항북구')" href="#">포항북구</a></div><br>
-                  <div><a @click="selectGu('영주시')" href="#">영주시</a></div><div><a @click="selectGu('안동시')" href="#">안동시</a></div>
+                  <div><a @click="selectGu('영주시')" href="#">영주시</a></div>
+                  <div><a @click="selectGu('안동시')" href="#">안동시</a></div>
                   <div><a @click="selectGu('김천시')" href="#">김천시</a></div>
                 </div>
               </div>
               <div class ="dropdown-sub-gu ml-2" v-if="area[7].display">
                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>대전</div>
                 <div class ="gu-list">
-                  <div><a @click="selectGu('대덕구')" href="#">대덕구</a></div><div><a @click="selectGu('동구')" href="#">동구</a></div><div><a @click="selectGu('서구')" href="#">서구</a></div><br>
-                  <div><a @click="selectGu('유성구')" href="#">유성구</a></div><div><a @click="selectGu('중구')" href="#">중구</a></div>
+                  <div><a @click="selectGu('대덕구')" href="#">대덕구</a></div>
+                  <div><a @click="selectGu('동구')" href="#">동구</a></div>
+                  <div><a @click="selectGu('서구')" href="#">서구</a></div><br>
+                  <div><a @click="selectGu('유성구')" href="#">유성구</a></div>
+                  <div><a @click="selectGu('중구')" href="#">중구</a></div>
                 </div>
               </div>
               <div class ="dropdown-sub-gu ml-2" v-if="area[8].display">

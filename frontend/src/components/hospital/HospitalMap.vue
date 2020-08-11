@@ -126,7 +126,7 @@ export default {
       clusterer.addMarkers(markers);
       
       if(clusterer._clusters.length==1){
-        map.setLevel(10);
+        map.setLevel(8);
       }
       this.map=map;
     },
