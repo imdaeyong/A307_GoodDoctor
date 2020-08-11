@@ -21,6 +21,7 @@ export default new Vuex.Store({
     authCode: "",
     feed: {},
     hospitalZoom:{},
+    // accessToken:"",
   },
   mutations: {
     addUserInfo(state, userInfo) {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     },
     mutateUserInfo(state, userInfo){
       state.userInfo = userInfo
+    },
+    mutateAccessToken(state, accessToken){
+      state.accessToken = accessToken
     },
     mutateFeedInfo(state, feed){
       state.feed = feed
@@ -48,6 +52,9 @@ export default new Vuex.Store({
     },
     hospitalZoom(state){
       return state.hospitalZoom;
+    },
+    accessToken(state){
+      return state.accessToken;
     }
   },
   actions:{
@@ -55,8 +62,10 @@ export default new Vuex.Store({
       http.get(`account/gooddoc?email=${email}&password=${password}`)
       .then(res=>{
         context.commit('mutateIsLogin', true)
-        context.commit('mutateUserInfo', res)
-        
+        // context.commit('mutateUserInfo', res)
+        context.commit('mutateUserInfo', res.object)
+        context.commit('mutateAccessToken', res.data)
+        console.log(res);
         router.go(0);
         alert("로그인 성공");
       })

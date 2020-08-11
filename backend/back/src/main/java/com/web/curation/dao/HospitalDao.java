@@ -15,7 +15,8 @@ public interface HospitalDao extends JpaRepository<Hospital, String> {
 
 	int countBySidoAndGu(String sido, String gu);
 
-	@Query(value = "select * from hospital where subject = ?1 limit ?2 offset ?3", nativeQuery = true)
+	
+	@Query(value = "select * from hospital where subject = ?1 order by CASE WHEN sido IN ('서울') THEN 0 ELSE 1 END, sido,gu limit ?2 offset ?3", nativeQuery = true)
 	List<Hospital> selectHospitalSubjectLimitOffset(String subject, int limit, int offset);
 
 	@Query(value = "select * from hospital where sido = ?1 and gu = ?2 limit ?3 offset ?4", nativeQuery = true)
