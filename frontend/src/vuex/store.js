@@ -65,7 +65,7 @@ export default new Vuex.Store({
         router.push("/errorPage");
       })
     },
-    QRlogin(context, {email, password, hospitalId}) {
+    QRWithlogin(context, {email, password, hospitalId}) {
       http.post(`qr/wlogin?hospitalId=${hospitalId}&email=${email}&password=${password}`)
       .then(res=>{
         context.commit('mutateIsLogin', true)
@@ -74,12 +74,11 @@ export default new Vuex.Store({
         router.push(`../feed/write`);
       })
       .catch(err=>{
-        console.log(err);
-        alert("QRLOGIN");
+        alert("로그인에 실패하였습니다!");
         router.push("../errorPage");
       })
     },
-    QRwologin(context, {hospitalId,userId}) {
+    QRWithOutlogin(context, {hospitalId,userId}) {
       http.post(`qr/wologin?hospitalId=${hospitalId}&userId=${userId}`)
       .then(res=>{
         context.commit('mutateIsLogin', true)
@@ -87,8 +86,7 @@ export default new Vuex.Store({
         router.push(`../feed/write`);
       })
       .catch(err=>{
-        console.log(err);
-        alert("QRwoLOGIN");
+        alert("에러가 발생하였습니다!");
         router.push("../errorPage");
       })
     },
