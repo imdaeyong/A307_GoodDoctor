@@ -9,7 +9,6 @@
       <h1 class="d-flex justify-content-center mt-5 mb-4">
         <span style="color: #17a2b8">{{this.$route.params.id.name}}</span> 정보에요.
       </h1>
-      <p>{{this.hospitalDatas}}</p>
       
       <!-- 가로 무한 스크롤 -피드노출 -->
       <h3 >선택한 병원의 리뷰 목록</h3>
@@ -80,14 +79,15 @@
       <!-- API 정보 -->
       <div class="ml-3" style="text-align: left; margin-top: 100px;">
         <h4>위치 & 정보</h4>
-        <p>※주의사항 : 방문 전 전화를 통해 진료시간을 확인하세요.</p>
+        <p>※주의사항 : 방문 전, 전화로 확인 후 이용해주세요.</p>
       </div>
       <b-container class="bv-example-row" style="float: left;">
         <b-row>
           <b-col cols="8" style="border: 1px solid grey; text-align: left;">
-            <h5>🏣 위치: {{this.$route.params.id.address}}</h5>
+            <h5 class="mt-3">🏣 위치: {{this.$route.params.id.address}}</h5>
             <h5>📞 전화번호: {{this.$route.params.id.phone}}</h5>
             <h5>💻 병원 URL: {{this.$route.params.id.url}}</h5>
+            <h5>🌞 주간응급실: {{hospitalDatas.data.emergencyDay}} / 🌛 야간응급실: {{hospitalDatas.data.emergencyNight}}</h5>
             <hr>
             <h5>🥼 의사 정보</h5>
             <p>전공의: {{hospitalDatas.data.doctor}}명</p>
@@ -101,7 +101,7 @@
             <p>목요일: {{hospitalDatas.data.thuStart}} ~ {{hospitalDatas.data.thuFinish}} </p>
             <p>금요일: {{hospitalDatas.data.friStart}} ~ {{hospitalDatas.data.friFinish}} </p>
             <p>토요일: {{hospitalDatas.data.satStart}} ~ {{hospitalDatas.data.monFinish}} </p>
-            <h5>주간응급실: {{hospitalDatas.data.emergencyDay}} / 야간응급실: {{hospitalDatas.data.emergencyNight}}</h5>
+            
             
 
           </b-col>
@@ -148,9 +148,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h5 {
-  margin-top: 1rem;
+  margin-bottom: .6em;
 }
 p {
   margin-bottom: 6px;

@@ -146,7 +146,8 @@ export default {
 
 <style scoped>
 #map {
-  width: 500px;
+  width: 100%;
   height:600px;
+  position: sticky;
 }
 </style>
