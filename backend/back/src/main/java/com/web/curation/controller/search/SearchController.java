@@ -159,8 +159,6 @@ public class SearchController {
 			feed.setIsClick(false);
 		}
 
-		Set<Feed> feeds = null;
-
 		if (request.get("likeType").equals("modal")) { // 모달창에서 실행한 경우 feed하나만 넘겨준다.
 			return feed;
 		} else {
