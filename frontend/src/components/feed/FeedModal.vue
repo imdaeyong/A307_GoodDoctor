@@ -82,7 +82,7 @@ export default {
         nickname : store.state.userInfo.data.nickname,
       };
       http.post(`comments/`,comment)
-      .then(data =>{
+      .then(data => {
         alert("댓글등록 완료");
         http.get(`comments/${store.state.feed.id}`).then(data => {
           this.replys = data.data; //해당 댓글 정보들을 가져온다.
@@ -97,7 +97,7 @@ export default {
       if (this.click) {
         this.click = !this.click;
         http.put(`feeds/like`,{feedId:feedId, userId:this.feed.user.id, 
-            isClick:isClick, likeType:"modal"})
+            isClick:isClick, likeType:"modal", size : 0})
         .then(data => {
           console.log(data.data);
           this.feed = data.data;

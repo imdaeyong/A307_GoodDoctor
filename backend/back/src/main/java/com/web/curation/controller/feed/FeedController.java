@@ -56,11 +56,18 @@ public class FeedController {
 	@Autowired
 	HistoryDao historyDao;
 
-	@GetMapping("/{userId}") // feeds/
-	@ApiOperation(value = " 메인화면에서 모든 피드 가져오기")
-	public Object getFeeds(@Valid @PathVariable("userId") int userId) throws IOException {
-		List<Feed> feeds = feedDao.findAllBy();
+	@GetMapping("/")
+	@ApiOperation(value = "메인 피드 infinite Loading")
+	public Object getFeedsLimit(@RequestParam("userId") int userId, @RequestParam("limit") int limit, String list_code) throws IOException {
+		List<Feed> feeds = null;
+		if(list_code == null) {	// 메인 부르는 경우
+			feeds = feedDao.selectMainFeedLimit(limit);			
+		} else { // 좋아요를 눌렀을 경우
+			feeds = feedDao.findAllByCurrentMainFeedSize(limit);
+		}
+
 		List<History> history = historyDao.findAllByUserId(userId);
+
 		for (Feed feed : feeds) {
 			User user = feed.getUser();
 			if (feed.getImageUrl() != null) {
@@ -96,18 +103,71 @@ public class FeedController {
 			}
 			history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
 		}
-		sort(feeds);
-		if (!feeds.isEmpty()) {
-			return new ResponseEntity<>(feeds, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
+
+		return new ResponseEntity<>(feeds, HttpStatus.OK);
+
 	}
 
-	@GetMapping("write/{userId}") // feeds/write
-	@ApiOperation(value = "피드 작성 화면에서 {userId}의 피드 가져오기")
-	public Object getFeedsByUserId(@Valid @PathVariable("userId") int userId) throws IOException {
-		List<Feed> feeds = feedDao.findAllByUserId(userId);
+//	@GetMapping("/{userId}") // feeds/
+//	@ApiOperation(value = " 메인화면에서 모든 피드 가져오기")
+//	public Object getFeeds(@Valid @PathVariable("userId") int userId) throws IOException {
+//		List<Feed> feeds = feedDao.findAllBy();
+//		List<History> history = historyDao.findAllByUserId(userId);
+//		for (Feed feed : feeds) {
+//			User user = feed.getUser();
+//			if (feed.getImageUrl() != null) {
+//				File f = new File(feed.getImageUrl());
+//				String sbase64 = null;
+//				if (f.isFile()) {
+//					byte[] bt = new byte[(int) f.length()];
+//					FileInputStream fis = new FileInputStream(f);
+//					try {
+//						fis.read(bt);
+//						sbase64 = new String(Base64.encodeBase64(bt));
+//					} finally {
+//						fis.close();
+//					}
+//				}
+//				feed.setImageUrl("data:image/png;base64, " + sbase64);
+//			}
+//			if (user.getImageUrl() != null) {
+//				File f = new File(user.getImageUrl());
+//				String sbase64 = null;
+//				if (f.isFile()) {
+//					byte[] bt = new byte[(int) f.length()];
+//					FileInputStream fis = new FileInputStream(f);
+//					try {
+//						fis.read(bt);
+//						sbase64 = new String(Base64.encodeBase64(bt));
+//						user.setImageUrl("data:image/png;base64, " + sbase64);
+//						feed.setUser(user);
+//					} finally {
+//						fis.close();
+//					}
+//				}
+//			}
+//			history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
+//		}
+//		sort(feeds);
+//		if (!feeds.isEmpty()) {
+//			return new ResponseEntity<>(feeds, HttpStatus.OK);
+//		} else {
+//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//		}
+//	}
+
+	@GetMapping("/write")
+	@ApiOperation(value = "피드 작성 화면에서 userId의 피드를 가져와서 infinite Loading")
+	public Object getFeedsWriteLimit(@RequestParam("userId") int userId, @RequestParam("limit") int limit, String list_code) throws IOException {
+
+		List<Feed> feeds = null;
+		if(list_code == null) {
+			feeds = feedDao.selectWriteFeedByUserIdLimit(userId, limit);			
+		} else {
+			feeds = feedDao.findAllByUserIdCurrentWriteFeedSize(userId, limit);
+		}
+		
+
 		List<History> history = historyDao.findAllByUserId(userId);
 
 		for (Feed feed : feeds) {
@@ -130,13 +190,44 @@ public class FeedController {
 			if (!feed.getIsNew())
 				history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
 		}
-		sort(feeds);
-		if (!feeds.isEmpty()) {
-			return new ResponseEntity<>(feeds, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
+
+		return new ResponseEntity<>(feeds, HttpStatus.OK);
+
 	}
+
+//	@GetMapping("write/{userId}") // feeds/write
+//	@ApiOperation(value = "피드 작성 화면에서 {userId}의 피드 가져오기")
+//	public Object getFeedsByUserId(@Valid @PathVariable("userId") int userId) throws IOException {
+//		List<Feed> feeds = feedDao.findAllByUserId(userId);
+//		List<History> history = historyDao.findAllByUserId(userId);
+//
+//		for (Feed feed : feeds) {
+//			User user = feed.getUser();
+//			if (feed.getImageUrl() != null) {
+//				File f = new File(feed.getImageUrl());
+//				String sbase64 = null;
+//				if (f.isFile()) {
+//					byte[] bt = new byte[(int) f.length()];
+//					FileInputStream fis = new FileInputStream(f);
+//					try {
+//						fis.read(bt);
+//						sbase64 = new String(Base64.encodeBase64(bt));
+//					} finally {
+//						fis.close();
+//					}
+//				}
+//				feed.setImageUrl("data:image/png;base64, " + sbase64);
+//			}
+//			if (!feed.getIsNew())
+//				history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
+//		}
+//		sort(feeds);
+//		if (!feeds.isEmpty()) {
+//			return new ResponseEntity<>(feeds, HttpStatus.OK);
+//		} else {
+//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//		}
+//	}
 
 	@PutMapping("/")
 	@ApiOperation(value = "피드 작성하기")
@@ -152,10 +243,10 @@ public class FeedController {
 
 		feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
 //		feed.setImageUrl("/home/ubuntu/var/images"+mFile.getOriginalFilename()); //불러올 이미지 위치
-		
+
 		feedDao.save(feed);
 		response = new ResponseEntity<>(null, HttpStatus.OK);
-		
+
 //	    mFile.transferTo(new File("/home/ubuntu/var/images"+mFile.getOriginalFilename()));
 		mFile.transferTo(new File("C:\\temptemp\\" + mFile.getOriginalFilename()));
 
@@ -165,9 +256,10 @@ public class FeedController {
 	@PutMapping("/like")
 	@ApiOperation(value = "좋아요 값 업데이트하기")
 	public Object updateLike(@Valid @RequestBody HashMap<String, String> request) throws Exception {
-		System.out.println(request);
 		int feedId = Integer.parseInt(request.get("feedId"));
 		int userId = Integer.parseInt(request.get("userId"));
+		int size = Integer.parseInt(request.get("size"));
+
 		Feed feed = null;
 		if (request.get("isClick").equals("false")) {// 좋아요 누르는 경우 ( likes+1,history테이블에 값 추가 )
 			History history = new History();
@@ -185,12 +277,15 @@ public class FeedController {
 			feed.setIsClick(false);
 		}
 
+		List<Feed> feeds = null;
+
 		if (request.get("likeType").equals("modal")) { // 모달창에서 실행한 경우 feed하나만 넘겨준다.
 			return feed;
 		} else if (request.get("likeType").equals("write")) {
-			return getFeedsByUserId(userId);
-		} else
-			return getFeeds(userId);
+			return getFeedsWriteLimit(userId, size, "like");
+		} else {
+			return getFeedsLimit(userId, size, "like");
+		}
 	}
 
 	public void sort(List<Feed> list) {
