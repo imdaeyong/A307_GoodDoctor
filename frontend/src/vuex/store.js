@@ -22,7 +22,7 @@ export default new Vuex.Store({
     feed: {},
     hospitalZoom:{},
     hospitalHover:{},
-    hospitalId:""
+    hospital:{}
   },
   mutations: {
     addUserInfo(state, userInfo) {
@@ -37,8 +37,8 @@ export default new Vuex.Store({
     mutateFeedInfo(state, feed){
       state.feed = feed
     },
-    mutateHospitalId(state, hospitalId){
-      state.hospitalId = hospitalId;
+    mutateHospital(state, hospital){
+      state.hospital = hospital;
     },
     addHospitalZoom(state,hospitalZoom){
       state.hospitalZoom=hospitalZoom
@@ -60,8 +60,8 @@ export default new Vuex.Store({
     hospitalHover(state){
       return state.hospitalHover;
     },
-    hospitalId(state){
-      return state.hospitalId;
+    hospital(state){
+      return state.hospital;
     }
   },
   actions:{

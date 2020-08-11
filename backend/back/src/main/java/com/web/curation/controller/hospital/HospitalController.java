@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.dao.HospitalDao;
+import com.web.curation.dao.HospitalInfoDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.Hospital;
+import com.web.curation.model.HospitalInfo;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -36,6 +38,9 @@ public class HospitalController {
 
 	@Autowired
 	HospitalDao hospitalDao;
+	
+	@Autowired
+	HospitalInfoDao hospitalinfoDao;
 
 	@GetMapping("/pagelink/count")
 	@ApiOperation(value = "병원의 전체 수를 반환한다.")
@@ -65,12 +70,13 @@ public class HospitalController {
 	@GetMapping(value ="/{id}")
 	@ApiOperation(value = "병원 상세정보 보기")
 	public Object hospitalDetail(@PathVariable int id) {
-		Hospital hospital = hospitalDao.findById(id);
-		if (hospital!=null) {
-			return new ResponseEntity<>(hospital, HttpStatus.OK);
+		HospitalInfo hospitalInfo = hospitalinfoDao.findById(id);
+		if (hospitalInfo!=null) {
+			return new ResponseEntity<>(hospitalInfo, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
+
 	}
 
 }

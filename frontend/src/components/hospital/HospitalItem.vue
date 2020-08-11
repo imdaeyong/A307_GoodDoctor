@@ -2,12 +2,12 @@
   <div>
     <h2>'{{hospitals.data[0].subject}}'에 대한 검색 결과입니다.</h2>
     <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
-      <b-card no-body @click="hospitalDataSend(hospital.id)" 
+      <b-card no-body @click="hospitalDataSend(hospital)" 
         @mouseover="doMouseOver(hospital)" class="overflow-hidden my-3 btn-left"
         style="height: 10rem; padding : 1em;">
         <b-row >
           <b-col md="3">
-            <img src="/img/default-doctor.4533cf24.png" alt="Image" class="hospital-doctor">
+            <img src="../../assets/images/hospital/default-doctor.png" alt="Image" class="hospital-doctor">
           </b-col>
           <b-col md="8">
             <div class="hospital-info">
@@ -47,8 +47,8 @@ export default {
     doMouseOver(hospital) {
       this.$store.commit('addHospitalHover',hospital)
     },
-    hospitalDataSend(id) {
-      this.$store.commit('mutateHospitalId',id)
+    hospitalDataSend(hospital) {
+      this.$store.commit('mutateHospital',hospital)
       this.$router.push({name: "HospitalDetail"})
     },
     hospitalZoom(hospital){

@@ -7,7 +7,7 @@
 
     <div class="HospitalDetail mx-auto">
       <h1 class="d-flex justify-content-center mt-5 mb-4">
-        <span style="color: #17a2b8">{{hospitalDatas.name}}</span> 정보에요.
+        <span style="color: #17a2b8">{{hospital.name}}</span> 정보에요.
       </h1>
       
       <!-- 가로 무한 스크롤 -피드노출 -->
@@ -84,23 +84,24 @@
       <b-container class="bv-example-row" style="float: left;">
         <b-row>
           <b-col cols="8" style="border: 1px solid grey; text-align: left;">
-            <h5 class="mt-3">🏣 위치: {{hospitalDatas.address}}</h5>
-            <h5>📞 전화번호: {{hospitalDatas.phone}}</h5>
-            <h5>💻 병원 URL: {{hospitalDatas.url}}</h5>
-            <h5>🌞 주간응급실: {{hospitalDatas.data.emergencyDay}} / 🌛 야간응급실: {{hospitalDatas.data.emergencyNight}}</h5>
+            <h5 class="mt-3">🏣 위치: {{hospital.address}}</h5>
+            <h5>📞 전화번호: {{hospital.phone}}</h5>
+            <h5>💻 병원 URL: <span v-if="hospital.url == 0">없음</span><span v-else>{{hospital.url}}</span></h5>
+            <h5>🌞 주간응급실: <span v-if="hospitalDatas.emergencyDay">운영중</span><span v-else>운영 X</span> 
+                / 🌛 야간응급실: <span v-if="hospitalDatas.emergencyDay">운영중</span><span v-else>운영 X</span></h5>
             <hr>
             <h5>🥼 의사 정보</h5>
-            <p>전공의: {{hospitalDatas.data.doctor}}명</p>
-            <p>인턴: {{hospitalDatas.data.internist}}명</p>            
+            <p>전공의: {{hospitalDatas.doctor}}명</p>
+            <p>인턴: {{hospitalDatas.internist}}명</p>            
             <hr>
             <h5>📝 영업시간</h5>
-            <p>일요일: {{hospitalDatas.data.sunStart}} ~ {{hospitalDatas.data.sunFinish}} </p>
-            <p>월요일: {{hospitalDatas.data.monStart}} ~ {{hospitalDatas.data.monFinish}} </p>
-            <p>화요일: {{hospitalDatas.data.tueStart}} ~ {{hospitalDatas.data.tueFinish}} </p>
-            <p>수요일: {{hospitalDatas.data.wedStart}} ~ {{hospitalDatas.data.wedFinish}} </p>
-            <p>목요일: {{hospitalDatas.data.thuStart}} ~ {{hospitalDatas.data.thuFinish}} </p>
-            <p>금요일: {{hospitalDatas.data.friStart}} ~ {{hospitalDatas.data.friFinish}} </p>
-            <p>토요일: {{hospitalDatas.data.satStart}} ~ {{hospitalDatas.data.monFinish}} </p>
+            <p>일요일: {{hospitalDatas.sunStart}} ~ {{hospitalDatas.sunFinish}} </p>
+            <p>월요일: {{hospitalDatas.monStart}} ~ {{hospitalDatas.monFinish}} </p>
+            <p>화요일: {{hospitalDatas.tueStart}} ~ {{hospitalDatas.tueFinish}} </p>
+            <p>수요일: {{hospitalDatas.wedStart}} ~ {{hospitalDatas.wedFinish}} </p>
+            <p>목요일: {{hospitalDatas.thuStart}} ~ {{hospitalDatas.thuFinish}} </p>
+            <p>금요일: {{hospitalDatas.friStart}} ~ {{hospitalDatas.friFinish}} </p>
+            <p>토요일: {{hospitalDatas.satStart}} ~ {{hospitalDatas.monFinish}} </p>
             
             
 
@@ -137,15 +138,17 @@ export default {
     data() {
       return {
         hospitalDatas: {},
-        id:this.$store.getters.hospitalId,
+        hospital:this.$store.getters.hospital,
       }
     },
     mounted() {
-      http.get(`/hospitals/${this.id}`)
+      console.log(this.hospital);
+      console.log("하이");
+      http.get(`/hospitals/${this.hospital.id}`)
       .then(res => {
-        alert(this.id);
         console.log(res.data);
         this.hospitalDatas = res.data
+
       })
     },
 }
