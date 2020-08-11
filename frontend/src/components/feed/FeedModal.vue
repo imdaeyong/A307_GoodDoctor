@@ -59,12 +59,11 @@ export default {
     return {
     replys : [],
     data : "",
-    feed : {},
+    feed : store.state.feed,
     click : true,
     }
   },
   mounted(){
-    this.feed = store.state.feed
     http.get(`comments/${store.state.feed.id}`)
     .then(data => {
       this.replys = data.data; //해당 댓글 정보들을 가져온다.
@@ -97,9 +96,8 @@ export default {
       if (this.click) {
         this.click = !this.click;
         http.put(`feeds/like`,{feedId:feedId, userId:this.feed.user.id, 
-            isClick:isClick, likeType:"modal", size : 0})
+            isClick:isClick, type:"modal", size : 0, word:""})
         .then(data => {
-          console.log(data.data);
           this.feed = data.data;
           this.click = true;
         })

@@ -66,12 +66,13 @@ export default {
 
     initComponent(){
       http
-        .get(`hospitals/pagelink/count?subject=${this.subject}&sido=${this.sido}&gu=${this.gu}`)
+        .get(`hospitals/count?subject=${this.subject}&sido=${this.sido}&gu=${this.gu}&word=`)
         .then(({data}) => {
           this.totalListItemCount = data;
           this.initUI();
         })
         .catch((error) => {
+          console.log(error);
           alert("에러가 발생했습니다.");
         });      
     },

@@ -33,10 +33,10 @@
               <label for="password">비밀번호</label>
               <div class="error-text" v-if="error.password">{{error.password}}</div>
             </div>
-            
+
             <button
               class="btn-full-center"
-              @click="onQRWithLogin"        
+              @click="onQRWithLogin"
               :disabled="!isSubmit"
               :class="{disabled : !isSubmit}"
             >로그인</button>
@@ -80,16 +80,16 @@ import * as EmailValidator from "email-validator";
 import KakaoLogin from "../../components/accounts/snsLogin/Kakao.vue";
 import GoogleLogin from "../../components/accounts/snsLogin/Google.vue";
 import NavBar from "../../components/NavigationBar.vue";
-import store from '@/vuex/store.js'
-import http from '@/util/http-common'
-import router from "../../router"
+import store from "@/vuex/store.js";
+import http from "@/util/http-common";
+import router from "../../router";
 
 export default {
   name: "QRLogin",
   components: {
     KakaoLogin,
     GoogleLogin,
-    NavBar
+    NavBar,
   },
   data: () => {
     return {
@@ -100,37 +100,37 @@ export default {
       passwordSchema: new PV(),
       error: {
         email: false,
-        passowrd: false
+        passowrd: false,
       },
       isSubmit: false,
-      component: this
+      component: this,
     };
   },
   created() {
     this.component = this;
     this.passwordSchema
-    .is()
-    .min(8)
-    .is()
-    .max(100)
-    .has()
-    .digits()
-    .has()
-    .letters();
+      .is()
+      .min(8)
+      .is()
+      .max(100)
+      .has()
+      .digits()
+      .has()
+      .letters();
   },
-  beforeMount(){
-    if (store.state.isLogin){
+  beforeMount() {
+    if (store.state.isLogin) {
       this.onQRWithOutLogin();
     }
   },
-  mounted(){
-    if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
+  mounted() {
+    if (!store.state.isLogin) this.$bvModal.show("bv-modal-example");
   },
   watch: {
-    email: function(v) {
+    email: function (v) {
       this.emailCheckForm();
     },
-    password: function(v) {
+    password: function (v) {
       this.pwdCheckForm();
     },
   },
@@ -149,31 +149,39 @@ export default {
       else this.error.password = false;
 
       let isSubmit = true;
-        Object.values(this.error).map(v => {
-          if (v) isSubmit = false;
-        });
-        this.isSubmit = isSubmit;
-    },    
-    onQRWithLogin(){
+      Object.values(this.error).map((v) => {
+        if (v) isSubmit = false;
+      });
+      this.isSubmit = isSubmit;
+    },
+    onQRWithLogin() {
       this.hospitalId = this.$route.query.hospitalId;
-      let { email, password, hospitalId,loginStatus} = this;
-      loginStatus = 1;
+      let { email, password, hospitalId, userId } = this;
+      this.userId = -1;
       let data = {
         email,
         password,
         hospitalId,
-        loginStatus
+        userId,
       };
-      store.dispatch('QRWithlogin', {email: this.email, password: this.password, hospitalId: this.hospitalId, loginStatus: loginStatus});
+      store.dispatch("QRWithlogin", {
+        email: this.email,
+        password: this.password,
+        hospitalId: this.hospitalId,
+        userId: userId,
+      });
       //if(this.$store.state.isLogin) this.$bvModal.hide('bv-modal-example');
     },
-    onQRWithOutLogin(){
+    onQRWithOutLogin() {
       this.hospitalId = this.$route.query.hospitalId;
       let user = this.$store.state.userInfo.data;
-      console.log(user);
-      this.loginStatus = 0;
-      store.dispatch('QRWithOutlogin', {email: user.email, password: user.password, hospitalId: this.hospitalId,loginStatus: this.loginStatus});
-    }
+      store.dispatch("QRWithOutlogin", {
+        email: "",
+        password: "",
+        hospitalId: this.hospitalId,
+        userId: this.$store.state.userInfo.data.id,
+      });
+    },
   },
-}
+};
 </script>

@@ -1,4 +1,4 @@
-package com.web.curation.controller.feed;
+package com.web.curation.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -57,52 +58,17 @@ public class FeedController {
 	HistoryDao historyDao;
 
 	@GetMapping("/")
-	@ApiOperation(value = "메인 피드 infinite Loading")
-	public Object getFeedsLimit(@RequestParam("userId") int userId, @RequestParam("limit") int limit, String list_code) throws IOException {
+	@ApiOperation(value = "메인+검색 피드 infinite Loading")
+	public Object getFeedsLimit(@RequestParam("userId") int userId, @RequestParam("limit") int limit,
+			@RequestParam("word") String word) throws IOException {
 		List<Feed> feeds = null;
-		if(list_code == null) {	// 메인 부르는 경우
-			feeds = feedDao.selectMainFeedLimit(limit);	
-		} else { // 좋아요를 눌렀을 경우
-			feeds = feedDao.findAllByCurrentMainFeedSize(limit);
+		if (word.equals("")) { // 전체 검색 -> 검색 단어가 없을 때
+			feeds = feedDao.selectMainFeedLimit(limit);
+		} else { // 검색 단어가 있을 때
+			feeds = feedDao.selectSearchFeedByWordLimit(word, limit);
 		}
 
-		List<History> history = historyDao.findAllByUserId(userId);
-
-		for (Feed feed : feeds) {
-			User user = feed.getUser();
-			if (feed.getImageUrl() != null) {
-				File f = new File(feed.getImageUrl());
-				String sbase64 = null;
-				if (f.isFile()) {
-					byte[] bt = new byte[(int) f.length()];
-					FileInputStream fis = new FileInputStream(f);
-					try {
-						fis.read(bt);
-						sbase64 = new String(Base64.encodeBase64(bt));
-					} finally {
-						fis.close();
-					}
-				}
-				feed.setImageUrl("data:image/png;base64, " + sbase64);
-			}
-			if (user.getImageUrl() != null) {
-				File f = new File(user.getImageUrl());
-				String sbase64 = null;
-				if (f.isFile()) {
-					byte[] bt = new byte[(int) f.length()];
-					FileInputStream fis = new FileInputStream(f);
-					try {
-						fis.read(bt);
-						sbase64 = new String(Base64.encodeBase64(bt));
-						user.setImageUrl("data:image/png;base64, " + sbase64);
-						feed.setUser(user);
-					} finally {
-						fis.close();
-					}
-				}
-			}
-			history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
-		}
+		imageUpdate(userId, feeds, "main");
 
 		return new ResponseEntity<>(feeds, HttpStatus.OK);
 
@@ -110,38 +76,12 @@ public class FeedController {
 
 	@GetMapping("/write")
 	@ApiOperation(value = "피드 작성 화면에서 userId의 피드를 가져와서 infinite Loading")
-	public Object getFeedsWriteLimit(@RequestParam("userId") int userId, @RequestParam("limit") int limit, String list_code) throws IOException {
+	public Object getFeedsWriteLimit(@RequestParam("userId") int userId, @RequestParam("limit") int limit,
+			String list_code) throws IOException {
 
-		List<Feed> feeds = null;
-		if(list_code == null) {//NavBar에서 리뷰쓰기 클릭 시
-			feeds = feedDao.selectWriteFeedByUserIdLimit(userId, limit);			
-		} else {//좋아요 누르면 "like"로 구분해서 현재 infiniteloading 된거 만큼 가져옴
-			feeds = feedDao.findAllByUserIdCurrentWriteFeedSize(userId, limit);
-		}
-		
+		List<Feed> feeds = feedDao.selectWriteFeedByUserIdLimit(userId, limit);
 
-		List<History> history = historyDao.findAllByUserId(userId);
-
-		for (Feed feed : feeds) {
-			if (feed.getImageUrl() != null) {
-				File f = new File(feed.getImageUrl());
-				String sbase64 = null;
-				if (f.isFile()) {
-					byte[] bt = new byte[(int) f.length()];
-					FileInputStream fis = new FileInputStream(f);
-					try {
-						fis.read(bt);
-						sbase64 = new String(Base64.encodeBase64(bt));
-					} finally {
-						fis.close();
-					}
-				}
-				feed.setImageUrl("data:image/png;base64, " + sbase64);
-			}
-			System.out.println(feed);
-			if (!feed.getIsNew())
-				history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
-		}
+		imageUpdate(userId, feeds, "write");
 
 		return new ResponseEntity<>(feeds, HttpStatus.OK);
 
@@ -150,24 +90,26 @@ public class FeedController {
 	@PutMapping("/")
 	@ApiOperation(value = "피드 작성하기")
 	public Object addImage(MultipartHttpServletRequest file) throws IllegalStateException, IOException {
+
 		MultipartFile mFile = file.getFile("file");
+
 		Feed feed = feedDao.getFeedById(Integer.parseInt(file.getParameter("feedId")));
+
 		try {
 			if (mFile == null) {
 				feed.setImageUrl("");
 			} else {
-				feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());			
+				feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
 				mFile.transferTo(new File("C:\\temptemp\\" + mFile.getOriginalFilename()));
-//		feed.setImageUrl("/home/ubuntu/var/images"+mFile.getOriginalFilename()); //불러올 이미지 위치
-//	    mFile.transferTo(new File("/home/ubuntu/var/images"+mFile.getOriginalFilename()));
 			}
 			feed.setContent(file.getParameter("content"));
 			feed.setIsNew(false);
-			feedDao.save(feed);			
+			feedDao.save(feed);
 			return new ResponseEntity<>(null, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
+
 	}
 
 	@PutMapping("/like")
@@ -194,12 +136,66 @@ public class FeedController {
 			feed.setIsClick(false);
 		}
 
-		if (request.get("likeType").equals("modal")) { // 모달창에서 실행한 경우 feed하나만 넘겨준다.
+		List<Feed> feeds = null;
+		if (request.get("type").equals("modal")) { // 모달창에서 실행한 경우 feed하나만 넘겨준다.
 			return feed;
-		} else if (request.get("likeType").equals("write")) {
-			return getFeedsWriteLimit(userId, size, "like");
-		} else {//메인에서 likeType 넘겨줬을 때
-			return getFeedsLimit(userId, size, "like");
+		} else if (request.get("type").equals("write")) {
+			feeds = feedDao.findAllByUserIdCurrentWriteFeedSize(userId, size);
+			imageUpdate(userId, feeds, "write");
+		} else if (request.get("type").equals("search")) {
+			String word = request.get("word");
+			feeds = feedDao.findAllByWordCurrentSearchFeedSize(word, size);
+			imageUpdate(userId, feeds, "main");
+		} else {
+			feeds = feedDao.findAllByCurrentMainFeedSize(size);
+			imageUpdate(userId, feeds, "main");
+		}
+
+		return new ResponseEntity<>(feeds, HttpStatus.OK);
+	}
+
+	public void imageUpdate(int userId, List<Feed> feeds, String type) throws IOException {
+
+		List<History> history = historyDao.findAllByUserId(userId);
+		for (Feed feed : feeds) {
+			User user = feed.getUser();
+			if (feed.getImageUrl() != null) {
+				File f = new File(feed.getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+					} finally {
+						fis.close();
+					}
+				}
+				feed.setImageUrl("data:image/png;base64, " + sbase64);
+			}
+			if (type.equals("main")) {
+				if (user.getImageUrl() != null) {
+					File f = new File(user.getImageUrl());
+					String sbase64 = null;
+					if (f.isFile()) {
+						byte[] bt = new byte[(int) f.length()];
+						FileInputStream fis = new FileInputStream(f);
+						try {
+							fis.read(bt);
+							sbase64 = new String(Base64.encodeBase64(bt));
+							user.setImageUrl("data:image/png;base64, " + sbase64);
+							feed.setUser(user);
+						} finally {
+							fis.close();
+						}
+					}
+				}
+				history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
+			} else if (type.equals("write")) {
+				if (!feed.getIsNew())
+					history.stream().filter(x -> x.getFeedId() == feed.getId()).forEach(x -> feed.setIsClick(true));
+			}
 		}
 	}
 }

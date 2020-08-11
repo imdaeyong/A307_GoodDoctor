@@ -1,7 +1,8 @@
-package com.web.curation.controller.hospital;
+package com.web.curation.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.dao.HospitalDao;
-import com.web.curation.dao.HospitalInfoDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.Hospital;
-import com.web.curation.model.HospitalInfo;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -38,30 +37,32 @@ public class HospitalController {
 
 	@Autowired
 	HospitalDao hospitalDao;
-	@Autowired
-	HospitalInfoDao hospitalinfoDao;
 
-	@GetMapping("/pagelink/count")
+	@GetMapping("/count")
 	@ApiOperation(value = "병원의 전체 수를 반환한다.")
 	public Object selectHospitalTotalCount(@RequestParam("subject") String subject,
-			@RequestParam("sido") String sido, @RequestParam("gu") String gu) {
+			@RequestParam("sido") String sido, @RequestParam("gu") String gu, @RequestParam("word") String word) {
 		int total = 0;
-		if (subject.equals("undefined")) { // 시도, 구 지역별 찾기
-			total = hospitalDao.countBySidoAndGu(sido, gu);
-		} else { // subject 별 찾기
+		if (!subject.equals("")) { // subject 별 찾기
 			total = hospitalDao.countBySubject(subject);
+		} else if(!sido.equals("") & !gu.equals("")) { // 시도, 구별 찾기
+			total = hospitalDao.countBySidoAndGu(sido, gu);
+		} else { // 검색한 단어 별 찾기
+			total = hospitalDao.countByWord(word);
 		}
 		return new ResponseEntity<>(total, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/pagelink")
+	@GetMapping(value = "")
 	@ApiOperation(value = "병원 페이징: offset, 컨텐츠 수 : limit에 해당하는 병원의 정보를 반환한다.")
-	public Object selectHospitalLimitOffset(int limit, int offset, String subject, String sido, String gu) {
+	public Object selectHospitalLimitOffset(int limit, int offset, String subject, String sido, String gu, String word) {
 		List<Hospital> list = new ArrayList<Hospital>();
-		if (subject == null || subject.equals("undefined")) {
-			list = hospitalDao.selectHospitalSidoAndGuLimitOffset(sido, gu, limit, offset);
-		} else {
+		if (!subject.equals("")) { // subject
 			list = hospitalDao.selectHospitalSubjectLimitOffset(subject, limit, offset);
+		} else if(!sido.equals("") & !gu.equals("")) { // 시도, 구별 찾기
+			list = hospitalDao.selectHospitalSidoAndGuLimitOffset(sido, gu, limit, offset);			
+		} else { // 검색한 단어 별 찾기
+			list = hospitalDao.selectHospitalByWord(word, limit, offset);
 		}
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -69,9 +70,9 @@ public class HospitalController {
 	@GetMapping(value ="/{id}")
 	@ApiOperation(value = "병원 상세정보 보기")
 	public Object hospitalDetail(@PathVariable int id) {
-		HospitalInfo hospitalInfo = hospitalinfoDao.findById(id);
-		if (hospitalInfo!=null) {
-			return new ResponseEntity<>(hospitalInfo, HttpStatus.OK);
+		Hospital hospital = hospitalDao.findById(id);
+		if (hospital!=null) {
+			return new ResponseEntity<>(hospital, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
