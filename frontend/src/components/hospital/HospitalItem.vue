@@ -48,7 +48,8 @@ export default {
       this.$store.commit('addHospitalHover',hospital)
     },
     hospitalDataSend(id) {
-      this.$router.push({name: "HospitalDetail", params: {"id": id}})
+      this.$store.commit('mutateHospitalId',id)
+      this.$router.push({name: "HospitalDetail"})
     },
     hospitalZoom(hospital){
       this.$store.commit('addHospitalZoom',hospital)
