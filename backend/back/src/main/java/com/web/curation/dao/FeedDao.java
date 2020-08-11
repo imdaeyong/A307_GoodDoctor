@@ -30,7 +30,25 @@ public interface FeedDao extends JpaRepository<Feed, String> {
 	@Query(value = "update feed set likes = likes - 1 where id = :feedId", nativeQuery = true)
 	void minusLikes(@Param("feedId") int feedId);
 
-	@Query(value = "select * from feed, hospital where feed.hospital_id = hospital.id and (hospital.name like %?1% or feed.content like %?1%)", nativeQuery = true)
-	Set<Feed> findAllByWord(String word);
+	// 메인 피드
+	@Query(value = "select * from feed order by is_new desc,update_date desc limit ?1", nativeQuery = true)
+	List<Feed> findAllByCurrentMainFeedSize(int size);
+
+	@Query(value = "select * from feed order by is_new desc,update_date desc limit ?1, 5", nativeQuery = true)
+	List<Feed> selectMainFeedLimit(int limit);
+
+	// 리뷰 쓰기
+	@Query(value = "select * from feed where user_id = ?1 order by is_new desc,update_date desc limit ?2", nativeQuery = true)
+	List<Feed> findAllByUserIdCurrentWriteFeedSize(int userId, int size);
+
+	@Query(value = "select * from feed where user_id = ?1 order by is_new desc,update_date desc limit ?2, 5", nativeQuery = true)
+	List<Feed> selectWriteFeedByUserIdLimit(int userId, int limit);
+
+	// 피드 검색
+	@Query(value = "select * from feed, hospital where feed.hospital_id = hospital.id and (hospital.name like %?1% or feed.content like %?1%) order by is_new desc,update_date desc limit ?2", nativeQuery = true)
+	Set<Feed> findAllByWordCurrentSearchFeedSize(String word, int size);
+
+	@Query(value = "select * from feed, hospital where feed.hospital_id = hospital.id and (hospital.name like %?1% or feed.content like %?1%) order by is_new desc,update_date desc limit ?2, 5", nativeQuery = true)
+	Set<Feed> selectSearchFeedByWordLimit(String word, int limit);
 
 }
