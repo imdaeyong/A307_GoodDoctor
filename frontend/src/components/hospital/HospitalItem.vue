@@ -1,27 +1,30 @@
 <template>
   <div>
+    <h2>'{{hospitals.data[0].subject}}'에 대한 검색 결과입니다.</h2>
     <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
-      <b-card no-body @click="hospitalDataSend(hospital.id)" class="overflow-hidden my-3 ml-4 btn-left">
-        <b-row no-gutters>
+      <b-card no-body @click="hospitalDataSend(hospital.id)" 
+        @mouseover="doMouseOver(hospital)" class="overflow-hidden my-3 btn-left"
+        style="height: 10rem; padding : 1em;">
+        <b-row >
           <b-col md="3">
-            <b-card-img src="https://picsum.photos/400/400/?image=114" alt="Image" class="rounded-0"></b-card-img>
+            <img src="/img/default-doctor.4533cf24.png" alt="Image" class="hospital-doctor">
           </b-col>
-          <b-col md="9">
-            <b-card-body class="py-2">
-              <b-card-title class="mt-2">{{hospital.name}}</b-card-title>
-              <b-card-text class="mt-2">평점| 리뷰수</b-card-text>
-              <b-card-text class="mt-2">진료과목 : {{hospital.subject}}</b-card-text>
-            </b-card-body>
+          <b-col md="8">
+            <div class="hospital-info">
+              <div class="mt-1"><span>{{hospital.name}}</span></div>
+              <div class="mt-2">평점| 리뷰수</div>
+              <div class="mt-2">진료과목 : {{hospital.subject}}</div>
+            </div >
           </b-col>
         </b-row>
       </b-card>
-      <button @click="hospitalZoom(hospital)">지도에서 보기</button>
     </div>
   </div>
 </template>
 
 <script>
 import http from '@/util/http-common'
+import '../../assets/css/hospital.scss'
 
 export default {
   name : 'HospitalItem',
@@ -41,11 +44,14 @@ export default {
     }
   },
   methods: {
+    doMouseOver(hospital) {
+      this.$store.commit('addHospitalHover',hospital)
+    },
     hospitalDataSend(id) {
       this.$router.push({name: "HospitalDetail", params: {"id": id}})
     },
-    hospitalZoom(id){
-      this.$store.commit('addHospitalZoom',id)
+    hospitalZoom(hospital){
+      this.$store.commit('addHospitalZoom',hospital)
     },
     initComponent() {
       http

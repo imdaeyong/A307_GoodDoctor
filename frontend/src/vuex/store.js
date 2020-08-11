@@ -21,6 +21,7 @@ export default new Vuex.Store({
     authCode: "",
     feed: {},
     hospitalZoom:{},
+    hospitalHover:{},
   },
   mutations: {
     addUserInfo(state, userInfo) {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     addHospitalZoom(state,hospitalZoom){
       state.hospitalZoom=hospitalZoom
     },
+    addHospitalHover(state,hospitalHover){
+      state.hospitalHover=hospitalHover
+    },
   },
   getters: {
     authCode(state) {
@@ -48,6 +52,9 @@ export default new Vuex.Store({
     },
     hospitalZoom(state){
       return state.hospitalZoom;
+    },
+    hospitalHover(state){
+      return state.hospitalHover;
     }
   },
   actions:{
