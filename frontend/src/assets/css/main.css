@@ -9,8 +9,8 @@
 /**/
 .drop-down-hospital {
   float: left;
-  min-width: 560px;
   width: 100%;
+  min-width: 560px;
 }
 
 .header-list, .header-dropdown-list, .dropdown-list{

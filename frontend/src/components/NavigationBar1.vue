@@ -150,8 +150,7 @@
                   <div><a @click="selectGu('강화군')" href="#">강화군</a></div>
                   <div><a @click="selectGu('옹진군')" href="#">옹진군</a></div>
                 </div>
-              </div>
-                    
+              </div>                    
               <div class ="dropdown-sub-gu" v-if="area[5].display">
                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>대구</div>
                 <div class ="gu-list">
@@ -162,7 +161,6 @@
                   <div><a @click="selectGu('북구')" href="#">북구</a></div><div><a @click="selectGu('달성군')" href="#">달성군</a></div>
                 </div>
               </div>
-
               <div class ="dropdown-sub-gu" v-if="area[6].display">
                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>경북</div>
                 <div class ="gu-list">
@@ -173,7 +171,6 @@
                   <div><a @click="selectGu('김천시')" href="#">김천시</a></div>
                 </div>
               </div>
-
               <div class ="dropdown-sub-gu" v-if="area[7].display">
                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>대전</div>
                 <div class ="gu-list">
@@ -181,7 +178,6 @@
                   <div><a @click="selectGu('유성구')" href="#">유성구</a></div><div><a @click="selectGu('중구')" href="#">중구</a></div>
                 </div>
               </div>
-
               <div class ="dropdown-sub-gu" v-if="area[8].display">
                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>전북</div>
                 <div class ="gu-list">
@@ -197,7 +193,6 @@
                   <div><a @click="selectGu('부안군')" href="#">부안군</a></div><br>
                 </div>                        
               </div>
-
               <div class ="dropdown-sub-gu" v-if="area[9].display">
                 <div class ="area"><b-icon-geo-alt></b-icon-geo-alt>충남</div>
                 <div class ="gu-list">
