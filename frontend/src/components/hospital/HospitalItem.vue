@@ -22,26 +22,27 @@
   </div>
 </template>
 
+
 <script>
-import http from '@/util/http-common'
+import http from "@/util/http-common";
 import '../../assets/css/hospital.scss'
 
 export default {
-  name : 'HospitalItem',
+  name: "HospitalItem",
   data: () => {
     return {
-      hospitals: [], 
-      pageLimit: 10, 
-      seletDatsId: ""
-    }
+      hospitals: [],
+      pageLimit: 10,
+      seletDatsId: "",
+    };
   },
   created() {
     this.initComponent();
   },
   watch: {
-    '$route.query': function () {
+    "$route.query": function () {
       this.initComponent();
-    }
+    },
   },
   methods: {
     doMouseOver(hospital) {
@@ -54,25 +55,26 @@ export default {
     hospitalZoom(hospital){
       this.$store.commit('addHospitalZoom',hospital)
     },
+
     initComponent() {
       http
-      .get('hospitals/', {
-        params: {
-          limit: this.pageLimit,
-          offset: `${this.$route.query.no - this.pageLimit}`,
-          subject : this.$route.query.subject,
-          sido : this.$route.query.sido,
-          gu : this.$route.query.gu,
-          word : "",
-        }
-      })
-      .then((data) => {
-          this.hospitals = data
-      })
-      .catch((error) => {
-          alert('에러가 발생했습니다.');
-      });
-    }
-  }
-}
+        .get("hospitals/", {
+          params: {
+            limit: this.pageLimit,
+            offset: `${this.$route.query.no - this.pageLimit}`,
+            subject: this.$route.query.subject,
+            sido: this.$route.query.sido,
+            gu: this.$route.query.gu,
+            word: "",
+          },
+        })
+        .then((data) => {
+          this.hospitals = data;
+        })
+        .catch((error) => {
+          alert("에러가 발생했습니다.");
+        });
+    },
+  },
+};
 </script>

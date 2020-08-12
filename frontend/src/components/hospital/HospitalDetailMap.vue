@@ -34,7 +34,7 @@ export default {
     initMap() {
       //마커 이미지!
       var imageSrc =
-        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        require("../../assets/images/hospital/custom-marker.png");
       var imageSize = new kakao.maps.Size(24, 35);
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
       var hospital = new kakao.maps.LatLng(this.hospitalInfo.lng, this.hospitalInfo.lat);
@@ -42,7 +42,12 @@ export default {
         center: hospital, // 지도의 중심좌표
         level: 2, // 지도의 확대 레벨
       });
-      var iwContent = '<div class ="label"><span class="center">'+this.hospitalInfo.name+'</span></div>';
+      var iwContent = '<div style="text-align:center; margin-right : -145px;">'+
+                        '<span style="color: #17a2b8; font-size:1.1em; font-weight:;">'
+                        +this.hospitalInfo.name+'</span><br>'
+                        +'<span style="font-size:0.9em; margin-top : -3em">'+this.hospitalInfo.gu+'</span>'+
+                        '<br></div>',
+        iwRemoveable = false;
 
      // 커스텀 오버레이를 생성합니다
       var customOverlay = new kakao.maps.CustomOverlay({

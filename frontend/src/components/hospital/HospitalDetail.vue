@@ -76,7 +76,6 @@
       </div>
 
 
-
       <!-- API 정보 -->
       <div class="ml-3" style="text-align: left; margin-top: 100px;">
         <h4>위치 & 정보</h4>
@@ -155,5 +154,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+h5 {
+  margin-bottom: .6em;
+}
+p {
+  margin-bottom: 6px;
+}
 </style>
