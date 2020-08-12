@@ -155,11 +155,5 @@ export default {
 }
 </script>
 
-<style scoped>
-h5 {
-  margin-bottom: .6em;
-}
-p {
-  margin-bottom: 6px;
-}
+<style>
 </style>

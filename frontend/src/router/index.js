@@ -17,6 +17,7 @@ import HospitalDetail from '../components/hospital/HospitalDetail.vue'
 import IndexSearch from '../views/search/IndexSearch.vue'
 import SearchHospital from '../components/search/SearchHospital.vue'
 import SearchHospitalMap from "../components/search/SearchHospitalMap.vue"
+import QRLogin from "../components/qr/QRLogin.vue"
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,11 @@ const routes = [
     path : '/',
     name : 'FeedMain',
     component : FeedMain
+  },
+  {
+    path : '/qr',
+    name : 'QRLogin',
+    component : QRLogin
   },
   {
     path : '/feed/main',

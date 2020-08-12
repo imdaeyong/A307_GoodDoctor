@@ -179,7 +179,8 @@ export default {
             userId: this.userId,
             isClick: isClick,
             size: this.feeds.length,
-            likeType: "write",
+            type: "write",
+            word:"",
           })
           .then((data) => {
             this.feeds = data.data;
@@ -249,6 +250,7 @@ export default {
           params: {
             userId: this.userId,
             limit: this.limit,
+            word:"",
           },
         })
         .then((response) => {

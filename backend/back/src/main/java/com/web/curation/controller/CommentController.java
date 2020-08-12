@@ -1,4 +1,4 @@
-package com.web.curation.controller.comment;
+package com.web.curation.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;

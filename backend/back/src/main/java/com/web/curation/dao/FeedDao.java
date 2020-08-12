@@ -2,7 +2,6 @@
 package com.web.curation.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -45,10 +44,10 @@ public interface FeedDao extends JpaRepository<Feed, String> {
 	List<Feed> selectWriteFeedByUserIdLimit(int userId, int limit);
 
 	// 피드 검색
-	@Query(value = "select * from feed, hospital where feed.hospital_id = hospital.id and (hospital.name like %?1% or feed.content like %?1%) order by is_new desc,update_date desc limit ?2", nativeQuery = true)
-	Set<Feed> findAllByWordCurrentSearchFeedSize(String word, int size);
+	@Query(value = "select distinct * from feed, hospital where feed.hospital_id = hospital.id and (hospital.name like %?1% or feed.content like %?1%) order by is_new desc,update_date desc limit ?2", nativeQuery = true)
+	List<Feed> findAllByWordCurrentSearchFeedSize(String word, int size);
 
-	@Query(value = "select * from feed, hospital where feed.hospital_id = hospital.id and (hospital.name like %?1% or feed.content like %?1%) order by is_new desc,update_date desc limit ?2, 5", nativeQuery = true)
-	Set<Feed> selectSearchFeedByWordLimit(String word, int limit);
+	@Query(value = "select distinct * from feed, hospital where feed.hospital_id = hospital.id and (hospital.name like %?1% or feed.content like %?1%) order by is_new desc,update_date desc limit ?2, 5", nativeQuery = true)
+	List<Feed> selectSearchFeedByWordLimit(String word, int limit);
 
 }
