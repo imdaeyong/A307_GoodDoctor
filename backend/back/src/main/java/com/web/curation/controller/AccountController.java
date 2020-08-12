@@ -225,4 +225,45 @@ public class AccountController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@PutMapping("/profile")
+	@ApiOperation(value = "프로필사진 변경")
+	public Object changeImage(MultipartHttpServletRequest file) throws IllegalStateException, IOException {
+
+		MultipartFile mFile = file.getFile("file");
+
+		User user = userDao.getUserById((Integer.parseInt(file.getParameter("id"))));
+		try {
+			if (mFile == null) {
+				user.setImageUrl("");
+			} else {
+				File f = new File("C:\\temptemp\\" + mFile.getOriginalFilename());
+				user.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
+				userDao.save(user);
+				mFile.transferTo(f);
+//		      	feed.setImageUrl("/home/ubuntu/var/images"+mFile.getOriginalFilename()); //불러올 이미지 위치
+//		       	mFile.transferTo(new File("/home/ubuntu/var/images"+mFile.getOriginalFilename()));
+				//File f = new File(user.getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+						user.setImageUrl("data:image/png;base64, " + sbase64);
+					} catch (Exception e) {
+						return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+					} finally {
+						fis.close();
+					}
+				}
+			}
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+
+	}
+	
 }

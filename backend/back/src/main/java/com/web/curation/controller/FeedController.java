@@ -101,6 +101,8 @@ public class FeedController {
 			} else {
 				feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
 				mFile.transferTo(new File("C:\\temptemp\\" + mFile.getOriginalFilename()));
+//		      	feed.setImageUrl("/home/ubuntu/var/images"+mFile.getOriginalFilename()); //불러올 이미지 위치
+//		       	mFile.transferTo(new File("/home/ubuntu/var/images"+mFile.getOriginalFilename()));
 			}
 			feed.setContent(file.getParameter("content"));
 			feed.setIsNew(false);
