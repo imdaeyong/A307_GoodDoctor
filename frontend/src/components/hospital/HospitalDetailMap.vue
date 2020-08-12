@@ -42,7 +42,7 @@ export default {
         center: hospital, // 지도의 중심좌표
         level: 2, // 지도의 확대 레벨
       });
-      var iwContent = '<div style="text-align:center; margin-right : -145px;">'+
+      var iwContent = '<div style="text-align:center; background-color: white;margin-bottom : -145px;">'+
                         '<span style="color: #17a2b8; font-size:1.1em; font-weight:;">'
                         +this.hospitalInfo.name+'</span><br>'
                         +'<span style="font-size:0.9em; margin-top : -3em">'+this.hospitalInfo.gu+'</span>'+
