@@ -12,66 +12,20 @@
       
       <!-- 가로 무한 스크롤 -피드노출 -->
       <h3 >선택한 병원의 리뷰 목록</h3>
-      <div class="row mt-3">
-        <div class="box row" style="width: 255px">
-          <div>
-            <b-card
-              title="Card Title"
-              img-src="https://picsum.photos/600/300/?image=25"
-              img-alt="Image"
-              img-top
-              tag="article"
-              style="max-width: 20rem;"
-              class="mb-2"
-            >
-              <b-card-text>
-                Some quick example text to build on the card title and make up the bulk of the card's content.
-              </b-card-text>
-
-              <b-button href="#" variant="primary">Go somewhere</b-button>
-            </b-card>
-          </div>
+      <div class="horizontal-wrap">
+        <div class="card" style="background-color: white">
         </div>
 
-        <div class=" row ml-4" style="width: 255px">
-          <div>
-            <b-card
-              title="Card Title"
-              img-src="https://picsum.photos/600/300/?image=25"
-              img-alt="Image"
-              img-top
-              tag="article"
-              style="max-width: 20rem;"
-              class="mb-2"
-            >
-              <b-card-text>
-                Some quick example text to build on the card title and make up the bulk of the card's content.
-              </b-card-text>
-
-              <b-button href="#" variant="primary">Go somewhere</b-button>
-            </b-card>
-          </div>
+        <div class="card" style="background-color: green">
         </div>
 
-        <div class=" row ml-4" style="width: 255px">
-          <div>
-            <b-card
-              title="Card Title"
-              img-src="https://picsum.photos/600/300/?image=25"
-              img-alt="Image"
-              img-top
-              tag="article"
-              style="max-width: 20rem;"
-              class="mb-2"
-            >
-              <b-card-text>
-                Some quick example text to build on the card title and make up the bulk of the card's content.
-              </b-card-text>
-
-              <b-button href="#" variant="primary">Go somewhere</b-button>
-            </b-card>
-          </div>
+        <div class="card" style="background-color: blue">
         </div>
+
+        <div class="card" style="background-color: yellow">
+        </div>
+
+        
 
       </div>
 
@@ -114,11 +68,6 @@
 
     </div>   
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
   </div>
 </template>
 

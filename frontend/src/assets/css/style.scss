@@ -89,7 +89,24 @@ button {
     color: white;
   }
 }
-    
+
+.horizontal-wrap{
+  height: 400px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  .card {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.03);
+    float: left;
+    width: 290px;
+    height: 390px;
+    margin-right: 2em;
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}
+
 .myProfile {
   background-color: $disabledMyColor;
   border-radius: 10px;
