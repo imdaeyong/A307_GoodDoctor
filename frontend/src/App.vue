@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div id="app" style="padding-top : 80px;">
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
   name: "app",
-}
+};
 </script>
 
 <style>

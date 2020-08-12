@@ -5,15 +5,14 @@
       <User/>
     </b-modal>
 
-
     <div class="HospitalDetail mx-auto">
       <h1 class="d-flex justify-content-center mt-5 mb-4">
-        <span style="color : #17a2b8">{{this.$route.params.id}} / 병원</span> 정보에요.
+        <span style="color: #17a2b8">{{hospital.name}}</span> 정보에요.
       </h1>
-
+      
       <!-- 가로 무한 스크롤 -피드노출 -->
       <h3 >선택한 병원의 리뷰 목록</h3>
-      <div class="row" style="border: 1px solid">
+      <div class="row mt-3">
         <div class="box row" style="width: 255px">
           <div>
             <b-card
@@ -74,91 +73,44 @@
           </div>
         </div>
 
-        <div class=" row ml-4" style="width: 255px">
-          <div>
-            <b-card
-              title="Card Title"
-              img-src="https://picsum.photos/600/300/?image=25"
-              img-alt="Image"
-              img-top
-              tag="article"
-              style="max-width: 20rem;"
-              class="mb-2"
-            >
-              <b-card-text>
-                Some quick example text to build on the card title and make up the bulk of the card's content.
-              </b-card-text>
-
-              <b-button href="#" variant="primary">Go somewhere</b-button>
-            </b-card>
-          </div>
-        </div>
-
-        <div class="row ml-4" style="width: 255px">
-          <div>
-            <b-card
-              title="Card Title"
-              img-src="https://picsum.photos/600/300/?image=25"
-              img-alt="Image"
-              img-top
-              tag="article"
-              style="max-width: 20rem;"
-              class="mb-2"
-            >
-              <b-card-text>
-                Some quick example text to build on the card title and make up the bulk of the card's content.
-              </b-card-text>
-
-              <b-button href="#" variant="primary">Go somewhere</b-button>
-            </b-card>
-          </div>
-        </div>
-
-        <h4>..........<hr>여기에는 가로 <hr>무한 스크롤을<hr> 구현해서<hr> 옆으로 넘기면서<hr>
-          리뷰를 <hr>쭉쭉 보여줘요
-        </h4>
       </div>
-      <!-- 가로 무한 스크롤 -피드노출 종료-->
 
-
-      <br>
-      <br>
-      <br>
-      <br>
 
       <!-- API 정보 -->
-      <div>
-        <h2>위치 & 정보</h2>
+      <div class="ml-3" style="text-align: left; margin-top: 100px;">
+        <h4>위치 & 정보</h4>
+        <p>※주의사항 : 방문 전, 전화로 확인 후 이용해주세요.</p>
       </div>
-      <b-container class="bv-example-row">
+      <b-container class="bv-example-row" style="float: left;">
         <b-row>
           <b-col cols="8" style="border: 1px solid grey; text-align: left;">
+            <h5 class="mt-3">🏣 위치: {{hospital.address}}</h5>
+            <h5>📞 전화번호: {{hospital.phone}}</h5>
+            <h5>💻 병원 URL: <span v-if="hospital.url == 0">없음</span><span v-else>{{hospital.url}}</span></h5>
+            <h5>🌞 주간응급실: <span v-if="hospitalDatas.emergencyDay">운영중</span><span v-else>운영 X</span> 
+                / 🌛 야간응급실: <span v-if="hospitalDatas.emergencyDay">운영중</span><span v-else>운영 X</span></h5>
             <hr>
-            <h3>위치: </h3>
-            <h3>전화번호: </h3>
-            <h3>병원 URL: </h3>
-            <h3>영업시간: </h3>
-            그밖에 추가 정보가 있으면 더 좋겠죠
+            <h5>🥼 의사 정보</h5>
+            <p>전공의: {{hospitalDatas.doctor}}명</p>
+            <p>인턴: {{hospitalDatas.internist}}명</p>            
+            <hr>
+            <h5>📝 영업시간</h5>
+            <p>일요일: {{hospitalDatas.sunStart}} ~ {{hospitalDatas.sunFinish}} </p>
+            <p>월요일: {{hospitalDatas.monStart}} ~ {{hospitalDatas.monFinish}} </p>
+            <p>화요일: {{hospitalDatas.tueStart}} ~ {{hospitalDatas.tueFinish}} </p>
+            <p>수요일: {{hospitalDatas.wedStart}} ~ {{hospitalDatas.wedFinish}} </p>
+            <p>목요일: {{hospitalDatas.thuStart}} ~ {{hospitalDatas.thuFinish}} </p>
+            <p>금요일: {{hospitalDatas.friStart}} ~ {{hospitalDatas.friFinish}} </p>
+            <p>토요일: {{hospitalDatas.satStart}} ~ {{hospitalDatas.monFinish}} </p>
+            
+            
 
           </b-col>
           <b-col cols="4" style="border: 1px solid grey">
-            여<hr>어<hr>어<hr>어<hr>어<hr>긴<hr>
-            지도가<hr>
-            나올<hr>s
-            거에요
-
-
+            <hospitalDetailMap :hospitalInfo="hospital"></hospitalDetailMap>
           </b-col>
         </b-row>
       </b-container>
-
-
-
-
-
-
-
-
 
     </div>   
 
@@ -173,15 +125,40 @@
 <script>
 import NavBar from '../NavigationBar.vue'
 import User from '../../views/accounts/Login.vue'
+import http from '@/util/http-common'
+import HospitalDetailMap from "../../components/hospital/HospitalDetailMap.vue"
 
 export default {
     name: "HospitalDetail",
     components: {
       NavBar,
-      User
+      User,
+      HospitalDetailMap,
+    },
+    data() {
+      return {
+        hospitalDatas: {},
+        hospital:this.$store.getters.hospital,
+      }
+    },
+    mounted() {
+      console.log(this.hospital);
+      console.log("하이");
+      http.get(`/hospitals/${this.hospital.id}`)
+      .then(res => {
+        console.log(res.data);
+        this.hospitalDatas = res.data
+
+      })
     },
 }
 </script>
 
-<style>
+<style scoped>
+h5 {
+  margin-bottom: .6em;
+}
+p {
+  margin-bottom: 6px;
+}
 </style>
