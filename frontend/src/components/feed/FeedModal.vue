@@ -102,7 +102,7 @@ export default {
     addLike(isClick, feedId){ //좋아요 버튼 클릭시 실행 함수
       if (this.click) {
         this.click = !this.click;
-        http.put(`feeds/like`,{feedId:feedId, userId:this.feed.user.id, 
+        http.put(`feeds/like`,{feedId:feedId, userId:store.state.userInfo.data.id, 
             isClick:isClick, type:"modal", size : 0, word:""})
         .then(data => {
           this.feed = data.data;
