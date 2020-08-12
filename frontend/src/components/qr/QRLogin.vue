@@ -96,7 +96,6 @@ export default {
       email: "",
       password: "",
       hospitalId: 0,
-      userId: -1,
       passwordSchema: new PV(),
       error: {
         email: false,
@@ -156,25 +155,24 @@ export default {
     },
     onQRWithLogin() {
       this.hospitalId = this.$route.query.hospitalId;
-      let { email, password, hospitalId, userId } = this;
-      this.userId = -1;
+      let { email, password, hospitalId} = this;
       let data = {
         email,
         password,
-        hospitalId,
-        userId,
+        hospitalId
       };
       store.dispatch("QRWithlogin", {
         email: this.email,
         password: this.password,
         hospitalId: this.hospitalId,
-        userId: userId,
+        userId: -1
       });
       //if(this.$store.state.isLogin) this.$bvModal.hide('bv-modal-example');
     },
     onQRWithOutLogin() {
       this.hospitalId = this.$route.query.hospitalId;
       let user = this.$store.state.userInfo.data;
+      console.log(user);
       store.dispatch("QRWithOutlogin", {
         email: "",
         password: "",

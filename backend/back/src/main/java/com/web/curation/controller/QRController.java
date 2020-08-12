@@ -30,69 +30,76 @@ import io.swagger.annotations.ApiResponses;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @ApiResponses(value = { @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
-      @ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
-      @ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
-      @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
+		@ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
+		@ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
+		@ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 @EnableSwagger2
 //@CrossOrigin(origins = { "https://i3a307.p.ssafy.io" }) //이쪽에 있는 내용만 받아온다는것.
 @CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/qr")
 public class QRController {
-   
-   @Autowired
-   FeedDao feedDao;
-   @Autowired
-   HospitalDao hospitalDao;
-   @Autowired
-   UserDao userDao;
-   
-   @GetMapping("/{hospitalId}")
-   @ApiOperation(value = "QR코드 입력 시 페이지 리다이렉트 -> 로그인여부 확인")
-   public RedirectView redirectQr(@Valid @PathVariable("hospitalId") int hospitalId){
-      RedirectView redirectView = new RedirectView();
-       redirectView.setUrl("http://localhost:3000/qr");
-       //redirectView.setUrl("https://i3a307.p.ssafy.io/qr");
-       redirectView.addStaticAttribute("hospitalId", hospitalId);
-      return redirectView;
-   }
-   
-   @PostMapping("")
-   @ApiOperation(value = "로그인 필요할 경우, 로그인 동작해주고 피드 추가")
-   public Object addQrFeed(@RequestParam(required = true) final int hospitalId, @RequestParam(required = true) final String email,
-         @RequestParam(required = true) final String password, @RequestParam(required = true) final int userId){
-      final BasicResponse result = new BasicResponse();
-      Feed feed = new Feed();
-      feed.setContent("");
-      feed.setIsNew(true);
-      Hospital hospital = hospitalDao.findById(hospitalId);
-      feed.setHospital(hospital);
-      feed.setIsClick(false);
-      feed.setCreateDate(LocalDateTime.now());
-      feed.setUpdateDate(LocalDateTime.now());
-      if (userId == -1) {
-         try {
-            User user = userDao.getUserByEmailAndPassword(email, password);
-            feed.setUser(user);
-            if (user == null) {
-               result.data = "login_fail";
-               return new ResponseEntity<>(result,HttpStatus.NOT_FOUND);
-            }
-            feedDao.save(feed);
-            return new ResponseEntity<>(user,HttpStatus.OK);         
-         } catch (Exception e) {
-            result.data = "qr_insert_fail";
-            return new ResponseEntity<>(result,HttpStatus.NOT_FOUND);
-         }
-      } else {
-         try {
-            User user = userDao.getUserById(userId);
-            feed.setUser(user);
-            feedDao.save(feed);
-            return new ResponseEntity<>(user, HttpStatus.OK);
-         } catch (Exception e) {
-            return new ResponseEntity<>("fail", HttpStatus.NOT_FOUND);
-         }
-      }
-   }
+
+	@Autowired
+	FeedDao feedDao;
+	@Autowired
+	HospitalDao hospitalDao;
+	@Autowired
+	UserDao userDao;
+
+	@GetMapping("/{hospitalId}")
+	@ApiOperation(value = "QR코드 입력 시 페이지 리다이렉트 -> 로그인여부 확인")
+	public RedirectView redirectQr(@Valid @PathVariable("hospitalId") int hospitalId) {
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl("http://localhost:3000/qr");
+		// redirectView.setUrl("https://i3a307.p.ssafy.io/qr");
+		redirectView.addStaticAttribute("hospitalId", hospitalId);
+		return redirectView;
+	}
+
+	@PostMapping("")
+	@ApiOperation(value = "로그인 필요할 경우, 로그인 동작해주고 피드 추가")
+	public Object addQrFeed(@RequestParam(required = true) final int hospitalId,
+			@RequestParam(required = true) final String email, @RequestParam(required = true) final String password,
+			@RequestParam(required = true) final int userId) {
+		System.out.println(hospitalId);
+		System.out.println(email);
+		System.out.println(password);
+		System.out.println(userId);
+		final BasicResponse result = new BasicResponse();
+		Feed feed = new Feed();
+		feed.setContent("");
+		feed.setIsNew(true);
+		Hospital hospital = hospitalDao.findById(hospitalId);
+		feed.setHospital(hospital);
+		feed.setIsClick(false);
+		feed.setCreateDate(LocalDateTime.now());
+		feed.setUpdateDate(LocalDateTime.now());
+		if (userId == -1) {
+			try {
+				User user = userDao.getUserByEmailAndPassword(email, password);
+				feed.setUser(user);
+				if (user == null) {
+					result.data = "login_fail";
+					return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+				}
+				feedDao.save(feed);
+				return new ResponseEntity<>(user, HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				result.data = "qr_insert_fail";
+				return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+			}
+		} else {
+			try {
+				User user = userDao.getUserById(userId);
+				feed.setUser(user);
+				feedDao.save(feed);
+				return new ResponseEntity<>(user, HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<>("fail", HttpStatus.NOT_FOUND);
+			}
+		}
+	}
 }
