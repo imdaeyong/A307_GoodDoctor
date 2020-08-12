@@ -40,7 +40,13 @@
         <span v-if="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span> 
       </div>
       <div class ="reply-list">
-        <img src= "../../assets/images/profile_default.png" alt="">
+        
+        <img
+          :src="user.imageUrl"
+          v-if="user.imageUrl != null"
+          class="profile-image"
+        />
+        <img src= "../../assets/images/profile_default.png" v-else alt="">
         <input type="text" class="reply-content" placeholder="댓글달기..." v-model="data">
         <button class="reply-submit" @click="addReply(feed.id, data)">게시</button> 
       </div>
@@ -61,6 +67,7 @@ export default {
     data : "",
     feed : store.state.feed,
     click : true,
+    user: store.state.userInfo.data
     }
   },
   mounted(){
@@ -95,7 +102,7 @@ export default {
     addLike(isClick, feedId){ //좋아요 버튼 클릭시 실행 함수
       if (this.click) {
         this.click = !this.click;
-        http.put(`feeds/like`,{feedId:feedId, userId:this.feed.user.id, 
+        http.put(`feeds/like`,{feedId:feedId, userId:store.state.userInfo.data.id, 
             isClick:isClick, type:"modal", size : 0, word:""})
         .then(data => {
           this.feed = data.data;
