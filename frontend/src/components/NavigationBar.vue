@@ -30,11 +30,14 @@
         <!-- </nav-form> -->
 
         <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item href="/feed/write" right style="margin-right: .3em;">리뷰쓰기</b-nav-item>
+        <b-navbar-nav class="ml-auto ">
+          <b-nav-item href="/feed/write" right class="pr-3" style="margin-right: .3em;"><div class="navbar-color">리뷰쓰기</div></b-nav-item>
 
           <!-- 병원으로 찾기 -->
-          <b-nav-item-dropdown text="병원찾기" right>
+          <b-nav-item-dropdown right class="pr-3">
+            <template v-slot:button-content>
+              <div class="navbar-color">병원 찾기</div>
+            </template>
             <div class="drop-down-hospital">
               <button @click="selectSubject('치과')" class="dropdown-sub-hospital">
                 <img src="../assets/images/hospital/hospital1.png" alt />
@@ -108,7 +111,11 @@
           </b-nav-item-dropdown>
 
           <!-- 지역으로 찾기 -->
-          <b-nav-item-dropdown text="지역별찾기" right>
+          <b-nav-item-dropdown right class="pr-3">
+            <template v-slot:button-content>
+              <div class="navbar-color">지역별 찾기</div>
+            </template>
+
             <div class="ml-2" style="width: 360px">
               <div>
                 <button class="dropdown-sub-area" v-on:click="selectCity('서울')" value="서울">
@@ -577,21 +584,17 @@
           </b-nav-item-dropdown>
 
           <!-- 회원관련 기능 -->
-          <b-nav-item-dropdown
-            v-if="this.$store.state.isLogin"
-            :text="this.$store.state.userInfo.data.nickname"
-            right
-          >
+          <b-nav-item-dropdown v-if="this.$store.state.isLogin" right>
+            <template v-slot:button-content>
+              <div class="navbar-color">{{nickName}}</div>
+            </template>
             <div style="text-align: center">
-              <b-dropdown-item
-                href="/accounts/profile"
-                style="text-decoration : none; color : black;"
+              <b-dropdown-item href="/accounts/profile" style="text-decoration : none;"
               >회원정보</b-dropdown-item>
               <b-dropdown-item v-on:click="logout()">로그아웃</b-dropdown-item>
             </div>
           </b-nav-item-dropdown>
 
-          <b-nav-item-dropdown v-else text="닉네임" right></b-nav-item-dropdown>
 
           <!-- 네브바 오른쪽 여백 -->
           <div style="margin-right: 5em;"></div>
@@ -608,6 +611,11 @@ import http from "@/util/http-common";
 
 export default {
   name: "NavigationBar",
+  computed: {
+    nickName () {
+      return this.$store.state.userInfo.data.nickname
+    }
+  },
   methods: {
     logout() {
       store.dispatch("logout");

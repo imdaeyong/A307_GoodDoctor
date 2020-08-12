@@ -7,6 +7,15 @@
 }
  
 /**/
+.navbar-color {
+  color: rgb(241, 241, 241);
+  float: left;
+}
+.navbar-color:hover {
+  color: white;
+}
+
+
 .drop-down-hospital {
  float: left;
  width: 100%;
