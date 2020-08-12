@@ -52,7 +52,7 @@ public class QRController {
 	public RedirectView redirectQr(@Valid @PathVariable("hospitalId") int hospitalId) {
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl("http://localhost:3000/qr");
-		// redirectView.setUrl("https://i3a307.p.ssafy.io/qr");
+//		redirectView.setUrl("https://i3a307.p.ssafy.io/qr");
 		redirectView.addStaticAttribute("hospitalId", hospitalId);
 		return redirectView;
 	}
@@ -62,10 +62,6 @@ public class QRController {
 	public Object addQrFeed(@RequestParam(required = true) final int hospitalId,
 			@RequestParam(required = true) final String email, @RequestParam(required = true) final String password,
 			@RequestParam(required = true) final int userId) {
-		System.out.println(hospitalId);
-		System.out.println(email);
-		System.out.println(password);
-		System.out.println(userId);
 		final BasicResponse result = new BasicResponse();
 		Feed feed = new Feed();
 		feed.setContent("");
