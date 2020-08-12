@@ -96,7 +96,7 @@ export default {
       email: "",
       password: "",
       hospitalId: 0,
-      loginStatus: -1,
+      userId: -1,
       passwordSchema: new PV(),
       error: {
         email: false,
@@ -179,7 +179,7 @@ export default {
         email: "",
         password: "",
         hospitalId: this.hospitalId,
-        userId: this.$store.state.userInfo.data.id,
+        userId: user.id,
       });
     },
   },
