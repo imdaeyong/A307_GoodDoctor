@@ -1,20 +1,20 @@
 <template>
   <div>
+    <h2>'{{hospitals.data[0].subject}}'에 대한 검색 결과입니다.</h2>
     <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
-      <b-card no-body @click="hospitalDataSend(hospital)" class="overflow-hidden my-3 ml-4 btn-left">
-        <b-row no-gutters>
+      <b-card no-body @click="hospitalDataSend(hospital)" 
+        @mouseover="doMouseOver(hospital)" class="overflow-hidden my-3 btn-left"
+        style="height: 10rem; padding : 1em;">
+        <b-row >
           <b-col md="3">
-            <b-card-img src="https://picsum.photos/400/400/?image=42" alt="Image" class="rounded-0"></b-card-img>
+            <img src="../../assets/images/hospital/default-doctor.png" alt="Image" class="hospital-doctor">
           </b-col>
-          <b-col md="9">
-            <b-card-body class="py-2">
-              <b-card-title class="mt-2">{{hospital.name}}</b-card-title>
-              <b-card-text class="mt-2">평점| 리뷰수</b-card-text>
-              <div class="row mt-2" style="padding-left:15px">
-                <b-card-text>진료과목 : {{hospital.subject}}</b-card-text>
-                <button @click="hospitalZoom(hospital)" style="margin-left:auto; margin-right:1rem">지도에서 보기</button>
-              </div>
-            </b-card-body>
+          <b-col md="8">
+            <div class="hospital-info">
+              <div class="mt-1"><span>{{hospital.name}}</span></div>
+              <div class="mt-2">평점| 리뷰수</div>
+              <div class="mt-2">진료과목 : {{hospital.subject}}</div>
+            </div >
           </b-col>
         </b-row>
       </b-card>
@@ -24,6 +24,7 @@
 
 <script>
 import http from '@/util/http-common'
+import '../../assets/css/hospital.scss'
 
 export default {
   name : 'HospitalItem',
@@ -43,11 +44,15 @@ export default {
     }
   },
   methods: {
-    hospitalDataSend(id) {
-      this.$router.push({name: "HospitalDetail", params: {"id": id}})
+    doMouseOver(hospital) {
+      this.$store.commit('addHospitalHover',hospital)
     },
-    hospitalZoom(id){
-      this.$store.commit('addHospitalZoom',id)
+    hospitalDataSend(hospital) {
+      this.$store.commit('mutateHospital',hospital)
+      this.$router.push({name: "HospitalDetail"})
+    },
+    hospitalZoom(hospital){
+      this.$store.commit('addHospitalZoom',hospital)
     },
     initComponent() {
       http

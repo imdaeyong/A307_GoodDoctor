@@ -7,9 +7,8 @@
 
     <div class="HospitalDetail mx-auto">
       <h1 class="d-flex justify-content-center mt-5 mb-4">
-        <span style="color: #17a2b8">{{this.$route.params.id.name}}</span> 정보에요.
+        <span style="color: #17a2b8">{{hospital.name}}</span> 정보에요.
       </h1>
-      <p>{{this.hospitalDatas}}</p>
       
       <!-- 가로 무한 스크롤 -피드노출 -->
       <h3 >선택한 병원의 리뷰 목록</h3>
@@ -77,36 +76,39 @@
       </div>
 
 
+
       <!-- API 정보 -->
       <div class="ml-3" style="text-align: left; margin-top: 100px;">
         <h4>위치 & 정보</h4>
-        <p>※주의사항 : 방문 전 전화를 통해 진료시간을 확인하세요.</p>
+        <p>※주의사항 : 방문 전, 전화로 확인 후 이용해주세요.</p>
       </div>
       <b-container class="bv-example-row" style="float: left;">
         <b-row>
           <b-col cols="8" style="border: 1px solid grey; text-align: left;">
-            <h5>🏣 위치: {{this.$route.params.id.address}}</h5>
-            <h5>📞 전화번호: {{this.$route.params.id.phone}}</h5>
-            <h5>💻 병원 URL: {{this.$route.params.id.url}}</h5>
+            <h5 class="mt-3">🏣 위치: {{hospital.address}}</h5>
+            <h5>📞 전화번호: {{hospital.phone}}</h5>
+            <h5>💻 병원 URL: <span v-if="hospital.url == 0">없음</span><span v-else>{{hospital.url}}</span></h5>
+            <h5>🌞 주간응급실: <span v-if="hospitalDatas.emergencyDay">운영중</span><span v-else>운영 X</span> 
+                / 🌛 야간응급실: <span v-if="hospitalDatas.emergencyDay">운영중</span><span v-else>운영 X</span></h5>
             <hr>
             <h5>🥼 의사 정보</h5>
-            <p>전공의: {{hospitalDatas.data.doctor}}명</p>
-            <p>인턴: {{hospitalDatas.data.internist}}명</p>            
+            <p>전공의: {{hospitalDatas.doctor}}명</p>
+            <p>인턴: {{hospitalDatas.internist}}명</p>            
             <hr>
             <h5>📝 영업시간</h5>
-            <p>일요일: {{hospitalDatas.data.sunStart}} ~ {{hospitalDatas.data.sunFinish}} </p>
-            <p>월요일: {{hospitalDatas.data.monStart}} ~ {{hospitalDatas.data.monFinish}} </p>
-            <p>화요일: {{hospitalDatas.data.tueStart}} ~ {{hospitalDatas.data.tueFinish}} </p>
-            <p>수요일: {{hospitalDatas.data.wedStart}} ~ {{hospitalDatas.data.wedFinish}} </p>
-            <p>목요일: {{hospitalDatas.data.thuStart}} ~ {{hospitalDatas.data.thuFinish}} </p>
-            <p>금요일: {{hospitalDatas.data.friStart}} ~ {{hospitalDatas.data.friFinish}} </p>
-            <p>토요일: {{hospitalDatas.data.satStart}} ~ {{hospitalDatas.data.monFinish}} </p>
-            <h5>주간응급실: {{hospitalDatas.data.emergencyDay}} / 야간응급실: {{hospitalDatas.data.emergencyNight}}</h5>
+            <p>일요일: {{hospitalDatas.sunStart}} ~ {{hospitalDatas.sunFinish}} </p>
+            <p>월요일: {{hospitalDatas.monStart}} ~ {{hospitalDatas.monFinish}} </p>
+            <p>화요일: {{hospitalDatas.tueStart}} ~ {{hospitalDatas.tueFinish}} </p>
+            <p>수요일: {{hospitalDatas.wedStart}} ~ {{hospitalDatas.wedFinish}} </p>
+            <p>목요일: {{hospitalDatas.thuStart}} ~ {{hospitalDatas.thuFinish}} </p>
+            <p>금요일: {{hospitalDatas.friStart}} ~ {{hospitalDatas.friFinish}} </p>
+            <p>토요일: {{hospitalDatas.satStart}} ~ {{hospitalDatas.monFinish}} </p>
+            
             
 
           </b-col>
           <b-col cols="4" style="border: 1px solid grey">
-            <hospitalDetailMap :hospitalInfo="this.hospitalDatas.data"></hospitalDetailMap>
+            <hospitalDetailMap :hospitalInfo="hospital"></hospitalDetailMap>
           </b-col>
         </b-row>
       </b-container>
@@ -136,21 +138,26 @@ export default {
     },
     data() {
       return {
-        hospitalDatas: {}
+        hospitalDatas: {},
+        hospital:this.$store.getters.hospital,
       }
     },
     mounted() {
-      http.get(`/hospitals/1`)
+      console.log(this.hospital);
+      console.log("하이");
+      http.get(`/hospitals/${this.hospital.id}`)
       .then(res => {
-        this.hospitalDatas = res
+        console.log(res.data);
+        this.hospitalDatas = res.data
+
       })
     },
 }
 </script>
 
-<style>
+<style scoped>
 h5 {
-  margin-top: 1rem;
+  margin-bottom: .6em;
 }
 p {
   margin-bottom: 6px;
