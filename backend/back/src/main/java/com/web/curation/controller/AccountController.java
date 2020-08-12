@@ -1,4 +1,4 @@
-package com.web.curation.controller.account;
+package com.web.curation.controller;
 
 import java.io.File;
 import java.io.FileInputStream;

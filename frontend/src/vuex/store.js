@@ -65,8 +65,8 @@ export default new Vuex.Store({
         router.push("/errorPage");
       })
     },
-    QRWithlogin(context, {email, password, hospitalId}) {
-      http.post(`qr/wlogin?hospitalId=${hospitalId}&email=${email}&password=${password}`)
+    QRWithlogin(context, {email, password, hospitalId, userId}) {
+      http.post(`qr?hospitalId=${hospitalId}&email=${email}&password=${password}&userId=${userId}`)
       .then(res=>{
         context.commit('mutateIsLogin', true)
         context.commit('mutateUserInfo', res)
@@ -78,8 +78,8 @@ export default new Vuex.Store({
         router.push("../errorPage");
       })
     },
-    QRWithOutlogin(context, {hospitalId,userId}) {
-      http.post(`qr/wologin?hospitalId=${hospitalId}&userId=${userId}`)
+    QRWithOutlogin(context, {email, password, hospitalId, userId}) {
+      http.post(`qr?hospitalId=${hospitalId}&email=${email}&password=${password}&userId=${userId}`)
       .then(res=>{
         context.commit('mutateIsLogin', true)
         context.commit('mutateUserInfo', res)

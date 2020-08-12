@@ -104,7 +104,8 @@ export default {
             feedId: feedId,
             userId: this.userId,
             isClick: isClick,
-            likeType: "main",
+            type: "main",
+            word: "",
             size: this.feeds.length,
           })
           .then((data) => {
@@ -145,6 +146,7 @@ export default {
           params: {
             userId: this.userId,
             limit: this.limit,
+            word:"",
           },
         })
         .then((response) => {

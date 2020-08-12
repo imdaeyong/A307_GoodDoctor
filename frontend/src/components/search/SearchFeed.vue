@@ -103,13 +103,13 @@ export default {
       if (this.click) {
         this.click = !this.click;
         http
-          .put(`search/like`, {
+          .put(`feeds/like`, {
             feedId: feedId,
             userId: this.userId,
             isClick: isClick,
             word: this.$route.query.word,
             size: this.feeds.length,
-            likeType: "search",
+            type: "search",
           })
           .then((data) => {
             this.feeds = data.data;
@@ -145,7 +145,7 @@ export default {
     },
     infiniteHandler($state) {
       http
-        .get(`search/feed`, {
+        .get(`feeds/`, {
           params: {
             userId: this.userId,
             limit: this.limit,

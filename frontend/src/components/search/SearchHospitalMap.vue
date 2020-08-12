@@ -46,11 +46,14 @@ export default {
   methods: {
     initComponent() {
       http
-        .get("/search/pagelink", {
+        .get("/hospitals", {
           params: {
             limit: this.pageLimit,
             offset: `${this.$route.query.no - this.pageLimit}`,
             word: this.$route.query.word,
+            subject : "",
+            sido : "",
+            gu : "",
           },
         })
         .then((response) => {

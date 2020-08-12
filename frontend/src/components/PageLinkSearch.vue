@@ -66,7 +66,7 @@ export default {
 
     initComponent() {
       http
-        .get(`search/pagelink/count?word=${this.word}`)
+        .get(`hospitals/count?subject=&sido=&gu=&word=${this.word}`)
         .then(({ data }) => {
           this.totalListItemCount = data;
           this.initUI();

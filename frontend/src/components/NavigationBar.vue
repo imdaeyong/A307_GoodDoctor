@@ -254,7 +254,7 @@ export default {
       else 
         this.gugun=gu
 
-      this.$router.push(`../hospital?no=10&sido=${this.sido}&gu=${this.gugun}`);      
+      this.$router.push(`../hospital?no=10&subject=&sido=${this.sido}&gu=${this.gugun}`);     
       this.$router.go(0);
     },
     selectCity(city){
@@ -268,8 +268,8 @@ export default {
       city = !city;
     },
     search(){
-      if(this.target == 'hospital'){
-        this.$router.push(`../search?no=10&word=${this.word}`);
+     if(this.target == 'hospital'){
+        this.$router.push(`../search?no=10&subject=&sido=&gu=&word=${this.word}`);
         this.$router.go(0);
       } else if(this.target =='feed'){
         this.$router.push(`../search?word=${this.word}`);
