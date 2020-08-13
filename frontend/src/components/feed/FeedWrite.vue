@@ -73,7 +73,7 @@
                 </div>
               </div>
               <div class="feed-card">
-                <img :src="feed.imageUrl" />
+                <img :src="feed.imageUrl" v-if="user.imageUrl != null"/>
                 <div>
                   <a href>#진료잘봄#호감</a>
                   <br />
@@ -240,7 +240,7 @@ export default {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((data) => {
-          alert("이미지업로드 완료");
+          alert("리뷰등록 완료");
           this.$router.go(0);
         })
         .catch((err) => {});

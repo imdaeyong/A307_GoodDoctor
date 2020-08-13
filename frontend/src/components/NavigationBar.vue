@@ -587,9 +587,12 @@
           <b-nav-item-dropdown v-if="this.$store.state.isLogin" right>
             <template v-slot:button-content>
               <div class="navbar-color">
-                <div style="float : left;"><img :src="user.imageUrl"
+                <div style="float : left;">
+                <img :src="user.imageUrl" v-if="user.imageUrl != null"
                 style="border-radius: 100px 100px 100px 100px; width : 2em; 
-                height : 2em; margin-top : -5px; margin-right : 10px;"/> 
+                height : 2em; margin-top : -5px; margin-right : 10px;"/>
+                <img src="../assets/images/profile_default.png" v-else
+                style="width : 2em; height : 2em; margin-top : -5px; margin-right : 10px;"/>  
                 </div>
                 {{nickName}}
               </div>

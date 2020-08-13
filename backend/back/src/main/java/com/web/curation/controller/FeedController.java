@@ -104,12 +104,12 @@ public class FeedController {
 		Feed feed = feedDao.getFeedById(Integer.parseInt(file.getParameter("feedId")));
 		try {
 			if (mFile == null) {
-				feed.setImageUrl("");
+				feed.setImageUrl(null);
 			} else {
 //				feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
 //				mFile.transferTo(new File("C:\\temptemp\\" + mFile.getOriginalFilename()));
-				feed.setImageUrl("/home/ubuntu/var/images/" + mFile.getOriginalFilename()); // 불러올 이미지 위치
-				mFile.transferTo(new File("/home/ubuntu/var/images/" + mFile.getOriginalFilename()));
+				feed.setImageUrl("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")); // 불러올 이미지 위치
+				mFile.transferTo(new File("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")));
 			}
 			feed.setContent(file.getParameter("content"));
 			feed.setStar(Double.parseDouble(file.getParameter("star")));

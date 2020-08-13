@@ -13,7 +13,7 @@
             </div>
           </div>
           <div class="feed-card">
-            <img :src="feed.imageUrl" />
+            <img :src="feed.imageUrl"  v-if="feed.imageUrl != null"/>
             <div>
               <a href>#진료잘봄 #호감</a>
               <br />

@@ -2,12 +2,12 @@
   <div class="user" id="login">
     <div class="wrapC mt-5">
       <h1>가입하기</h1>
-      <div class="profile-image">
+      <!-- <div class="profile-image">
         <div>
           <img :src="preview">
         </div>
         <input type="file" v-on:change="upload" class="review-img-upload"/>
-      </div>
+      </div> -->
       <div class="form-wrap">
         <div class="input-label">
           <input
@@ -195,7 +195,7 @@ export default {
     },
     onjoin(){
       let formData = new FormData();
-      formData.append('file', this.file);
+      // formData.append('file', this.file);
       formData.append('imageUrl', this.preview);
       formData.append('email', this.email);
       formData.append('nickname', this.nickName);
@@ -211,15 +211,6 @@ export default {
         if(err.response.data.data == "nickname_fail") alert("이미 존재하는 닉네임입니다.");
         else if(err.response.data.data == "email_fail") alert("이미 존재하는 이메일입니다.");
       })
-      // http.post(`account`,{nickname: `${this.nickName}`, email : `${this.email}` , password :`${this.password}`})
-      // .then(res=>{
-      //   alert("회원 가입되었습니다. 로그인 해주세요");
-      //   this.$router.push("/feed/main")
-      // })
-      // .catch(err=>{
-      //   if(err.response.data.data == "nickname_fail") alert("이미 존재하는 닉네임입니다.");
-      //   else if(err.response.data.data == "email_fail") alert("이미 존재하는 이메일입니다.");
-      // })
     },
     upload(e){
       let file = e.target.files[0];
