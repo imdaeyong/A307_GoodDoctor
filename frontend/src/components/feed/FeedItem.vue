@@ -34,7 +34,7 @@
                   <b-icon-chat-square @click="openReply(feed)"></b-icon-chat-square>
                 </button>
               </div>
-              <star-rating :inline="true" text-class="rating-text" style="float : right; height : 30px; font-size:0.8em;" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :star-size="20" :show-rating="true" :read-only="true" :increment="1" :rating="feed.star">
+              <star-rating :inline="true" text-class="rating-text" style="float : right; height : 30px; font-size:0.8em;" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :star-size="20" :show-rating="true" :read-only="true" :increment="0.5" :rating="feed.star">
               </star-rating>
               <div class="share">
                 <button>

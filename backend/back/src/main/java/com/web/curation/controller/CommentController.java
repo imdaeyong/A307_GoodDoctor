@@ -1,9 +1,13 @@
 package com.web.curation.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,9 +44,13 @@ public class CommentController {
 
 	@GetMapping("/{feedId}")
 	@ApiOperation(value = "모든 댓글 가져오기")
-	public Object getComments(@Valid @PathVariable("feedId") int feedId) {
+	public Object getComments(@Valid @PathVariable("feedId") int feedId) throws IOException {
 		List<Comment> comments = commentDao.findAllByFeedId(feedId);
+		for(Comment temp : comments) {
+//			System.out.println(temp.getUser());
+		}
 		if (!comments.isEmpty()) {
+			imageUpdate(comments);
 			return new ResponseEntity<>(comments, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -51,16 +59,39 @@ public class CommentController {
 
 	@PostMapping("/")
 	@ApiOperation(value = "댓글 등록하기")
-	public Object postComment(@Valid @RequestBody Comment comment) {
+	public Object postComment(@Valid @RequestBody Comment comment) throws IOException {
 		BasicResponse result = new BasicResponse();
 		comment.setCreateDate(LocalDateTime.now());
-		result.status = true;
+		String image = comment.getImageUrl();
 		if (commentDao.save(comment) != null) {
-			result.data = "success";
-			return new ResponseEntity<>(result, HttpStatus.OK);
+			List<Comment> comments = commentDao.findAllByFeedId(comment.getFeedId());
+			imageUpdate(comments);
+			comments.get(comments.size()-1).setImageUrl(image);
+			return new ResponseEntity<>(comments, HttpStatus.OK);
 		} else {
-			result.data = "fail";
-			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
+	 
+	public void imageUpdate(List<Comment> comments) throws IOException {
+
+		for (Comment comment : comments) {
+			if (comment.getImageUrl() != null) {
+				File f = new File(comment.getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+					} finally {
+						fis.close();
+					}
+				}
+				comment.setImageUrl("data:image/png;base64, " + sbase64);
+			}
+		}
+	}
+
 }

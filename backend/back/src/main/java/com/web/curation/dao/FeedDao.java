@@ -49,5 +49,8 @@ public interface FeedDao extends JpaRepository<Feed, String> {
 
 	@Query(value = "select distinct * from feed, hospital where feed.hospital_id = hospital.id and (hospital.name like %?1% or feed.content like %?1%) order by is_new desc,update_date desc limit ?2, 5", nativeQuery = true)
 	List<Feed> selectSearchFeedByWordLimit(String word, int limit);
+	
+	//병원 디테일 페이지에서 피드 정보 불러오기
+	List<Feed> findAllByHospitalId(int id);
 
 }
