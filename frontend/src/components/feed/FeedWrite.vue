@@ -48,7 +48,7 @@
                     class="review-img-upload"
                   />
                   <img :src="preview" />
-                  <star-rating :inline="true" text-class="rating-text" style="float : right; height : 30px; margin-right : 1em" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :increment="0.5" :star-size="20" @rating-selected="setRating">
+                  <star-rating :inline="true" text-class="rating-text" style="float : right; height : 30px; margin-right : 1em" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :increment="0.5" :star-size="20" @rating-selected="setRating" >
                   </star-rating>
                   <textarea name id cols="60%" rows="3" v-model="feed.review"></textarea>
                   <br />
@@ -177,7 +177,9 @@ export default {
   },
   methods: {
     setRating(rating){
+      console.log(rating);
       this.rating = rating;
+      console.log(this.rating);
     },
     addLike(isClick, feedId) {
       //좋아요 버튼 클릭시 실행 함수
@@ -232,7 +234,7 @@ export default {
       formData.append("feedId", feedId);
       formData.append("imageUrl", this.preview);
       formData.append("content", reviewData);
-      formData.append("star",this.rating);
+      formData.append("star", this.rating);
       http
         .put(`feeds/`, formData, {
           headers: { "Content-Type": "multipart/form-data" },

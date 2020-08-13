@@ -1,9 +1,12 @@
 package com.web.curation.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.time.LocalDateTime;
 
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,11 +77,27 @@ public class QRController {
 		if (userId == -1) {
 			try {
 				User user = userDao.getUserByEmailAndPassword(email, password);
-				feed.setUser(user);
 				if (user == null) {
 					result.data = "login_fail";
 					return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 				}
+				if (user.getImageUrl() != null) {
+					File f = new File(user.getImageUrl());
+					String sbase64 = null;
+					if (f.isFile()) {
+						byte[] bt = new byte[(int) f.length()];
+						FileInputStream fis = new FileInputStream(f);
+						try {
+							fis.read(bt);
+							sbase64 = new String(Base64.encodeBase64(bt));
+							System.out.println(sbase64);
+							user.setImageUrl("data:image/png;base64, " + sbase64);
+						} finally {
+							fis.close();
+						}
+					}
+				}
+				feed.setUser(user);
 				feedDao.save(feed);
 				return new ResponseEntity<>(user, HttpStatus.OK);
 			} catch (Exception e) {
@@ -89,6 +108,22 @@ public class QRController {
 		} else {
 			try {
 				User user = userDao.getUserById(userId);
+				if (user.getImageUrl() != null) {
+					File f = new File(user.getImageUrl());
+					String sbase64 = null;
+					if (f.isFile()) {
+						byte[] bt = new byte[(int) f.length()];
+						FileInputStream fis = new FileInputStream(f);
+						try {
+							fis.read(bt);
+							sbase64 = new String(Base64.encodeBase64(bt));
+							System.out.println(sbase64);
+							user.setImageUrl("data:image/png;base64, " + sbase64);
+						} finally {
+							fis.close();
+						}
+					}
+				}
 				feed.setUser(user);
 				feedDao.save(feed);
 				return new ResponseEntity<>(user, HttpStatus.OK);

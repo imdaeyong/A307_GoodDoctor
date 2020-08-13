@@ -60,11 +60,7 @@ public class FeedController {
 	@GetMapping(value = "/hospital")
 	   @ApiOperation(value = "병원아이디로 관련피드들 가져오기")
 	   public Object searchFeedsByHospitalId(@RequestParam("userId") int userId, @RequestParam("id") int id) throws Exception {
-	      System.out.println("일단 들어오는 온다.");
 	      List<Feed> feeds = feedDao.findAllByHospitalId(id);
-	      for(Feed f : feeds) {
-	         System.out.println(f.getContent());
-	      }
 	      imageUpdate(userId, feeds, "main");
 	      return new ResponseEntity<>(feeds, HttpStatus.OK);
 	   }	
@@ -112,12 +108,13 @@ public class FeedController {
 			} else {
 //				feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
 //				mFile.transferTo(new File("C:\\temptemp\\" + mFile.getOriginalFilename()));
-				feed.setImageUrl("/home/ubuntu/var/images" + mFile.getOriginalFilename()); // 불러올 이미지 위치
-				mFile.transferTo(new File("/home/ubuntu/var/images" + mFile.getOriginalFilename()));
+				feed.setImageUrl("/home/ubuntu/var/images/" + mFile.getOriginalFilename()); // 불러올 이미지 위치
+				mFile.transferTo(new File("/home/ubuntu/var/images/" + mFile.getOriginalFilename()));
 			}
 			feed.setContent(file.getParameter("content"));
 			feed.setStar(Double.parseDouble(file.getParameter("star")));
 			feed.setIsNew(false);
+			System.out.println(feed.toString());
 			feedDao.save(feed);
 			return new ResponseEntity<>(null, HttpStatus.OK);
 		} catch (Exception e) {

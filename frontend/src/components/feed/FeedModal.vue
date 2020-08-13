@@ -29,7 +29,7 @@
         <div v-for="reply in replys" v-bind:key="reply.id">
           <div class="feed-reply">
             <div>
-              <img :src="reply.imageUrl" v-if="feed.user.imageUrl != null"
+              <img :src="reply.imageUrl" v-if="reply.imageUrl != null"
                 class="profile-image"/>
               <img src= "../../assets/images/profile_default.png" alt=""  v-else>
               <!-- <h1>{{feed}}</h1> -->
