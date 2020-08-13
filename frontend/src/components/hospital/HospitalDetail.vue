@@ -123,7 +123,8 @@ export default {
         hospitalDatas: [],
         hospital:this.$store.getters.hospital,
         hospitalFeeds: [],
-        slides: 7
+        slides: 7,
+        user: store.state.userInfo.data
       } 
     },
     mounted() {
@@ -132,7 +133,12 @@ export default {
         this.hospitalDatas = res.data
       })
       ,
-      http.get(`/feeds/hospital/${this.hospital.id}`)
+      http.get(`/feeds/hospital`, {
+        params: {
+          userId: this.user.id,
+          id: this.hospital.id
+        }
+      })
       .then(res => {
         this.hospitalFeeds = res.data
         this.slides = this.hospitalFeeds.length

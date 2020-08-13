@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-top : -50px;">
     <h2>'{{hospitals.data[0].subject}}'에 대한 검색 결과입니다.</h2>
     <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
       <b-card no-body @click="hospitalDataSend(hospital)" 
