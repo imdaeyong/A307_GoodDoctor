@@ -73,8 +73,8 @@
                 / 🌛 야간응급실: <span v-if="hospitalDatas.emergencyDay">운영중</span><span v-else>운영 X</span></h5>
             <hr>
             <h5>🥼 의사 정보</h5>
-            <p>전공의: {{hospitalDatas.doctor}}명</p>
-            <p>인턴: {{hospitalDatas.internist}}명</p>            
+            <p>전공의: {{hospitalDatas.internist}}명</p>
+            <p>인턴: {{hospitalDatas.doctor}}명</p>            
             <hr>
             <h5>📝 영업시간</h5>
             <p>일요일: {{hospitalDatas.sunStart}} ~ {{hospitalDatas.sunFinish}} </p>
