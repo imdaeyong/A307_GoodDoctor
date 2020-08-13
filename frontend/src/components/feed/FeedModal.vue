@@ -10,6 +10,8 @@
       </div>
       <div class="feed-card-modal">
         <img :src="feed.imageUrl" v-if="feed.imageUrl != null" class="feed-card-image"/>
+        <star-rating :inline="true" style="float : right; font-size:1em" text-class="rating-text-modal" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :star-size="20" :show-rating="true" :read-only="true" :increment="0.5" :rating="feed.star">
+        </star-rating>
 
         <br>
         <div class="feed-content">
@@ -69,6 +71,7 @@
 <script>
 import store from '@/vuex/store.js'
 import http from '@/util/http-common'
+import StarRating from 'vue-star-rating'
 
 export default {
   name: "FeedModal",
@@ -79,9 +82,14 @@ export default {
     feed : store.state.feed,
     click : true,
     user: store.state.userInfo.data,
-    plusContent : true
+    plusContent : true,
+    rating : 0
     }
   },
+  components: {
+    StarRating
+  },
+
   mounted(){
     http.get(`comments/${store.state.feed.id}`)
     .then(data => {
