@@ -9,7 +9,7 @@
       <h1 class="d-flex justify-content-center mt-5 mb-4">
         <span style="color: #17a2b8">{{hospital.name}}</span> 정보에요.
       </h1>
-      
+      {{hospitalFeeds}}
       <!-- 가로 무한 스크롤 -피드노출 -->
       <h3 >선택한 병원의 리뷰 목록</h3>
       <div class="row mt-3">
@@ -139,6 +139,7 @@ export default {
       return {
         hospitalDatas: {},
         hospital:this.$store.getters.hospital,
+        hospitalFeeds:{},
       }
     },
     mounted() {
@@ -148,7 +149,10 @@ export default {
       .then(res => {
         console.log(res.data);
         this.hospitalDatas = res.data
-
+      }),
+       http.get(`/feeds/hospital/${this.hospital.id}`)
+      .then(res => {
+        console.log(res.data);
       })
     },
 }

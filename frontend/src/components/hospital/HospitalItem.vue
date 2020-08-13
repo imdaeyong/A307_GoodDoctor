@@ -5,20 +5,23 @@
       <b-card no-body @click="hospitalDataSend(hospital)"
         @mouseover="doMouseOver(hospital)" class="overflow-hidden my-3 btn-left"
         style="height: 10rem; padding : 1em;">
-        <b-row >
-          <b-col md="3">
-            <img src="../../assets/images/hospital/default-doctor.png" alt="Image" class="hospital-doctor">
-          </b-col>
-          <b-col md="8">
-            <div class="hospital-info">
-              <div class="mt-1"><span>{{hospital.name}}</span></div>
-              <div class="mt-2">평점| 리뷰수</div>
-              <div class="mt-2">진료과목 : {{hospital.subject}}</div>
-            </div >
-          </b-col>
-        </b-row>
+
+        <div>
+          <b-row style="float: left">            
+            <b-col md="3">
+              <img src="../../assets/images/hospital/default-doctor.png" alt="Image" class="hospital-doctor">
+            </b-col>
+            <b-col md="8" style="padding-left: 3em">
+              <div class="hospital-info">
+                <div class="mt-1"><span>{{hospital.name}}</span></div>
+                <div class="mt-2">평점| 리뷰수</div>
+                <div class="mt-2">진료과목 : {{hospital.subject}}</div>
+              </div>
+            </b-col>            
+          </b-row>
+          <button style="padding-left: 5em" @click.stop="addFavorites(hospital)" z-index=5 width=40px;><img src="../../assets/images/hospital/favorite.png" alt="favorites_Button"></button>
+        </div>
       </b-card>
-            <button @click="addFavorites(hospital)"><img src="../../assets/images/hospital/favorite.png" alt="favorites_Button"></button>
     </div>
   </div>
 </template>
@@ -46,7 +49,8 @@ export default {
     },
   },
   methods: {
-    addFavorites(hospital){
+    addFavorites(hospital,event){
+      // event.stopPropagation()
       var userId = this.$store.getters.userInfo.data.id
       var favorites= []
       if(localStorage.getItem(userId)){

@@ -117,7 +117,7 @@ export default {
             content : iwContent
         });
         infowindows.push(infowindow)
-
+        
         kakao.maps.event.addListener(marker, 'mouseover', this.iwOpen(map,marker,infowindow,infowindows));
         kakao.maps.event.addListener(marker, 'mouseout', this.iwClose(infowindow));
         kakao.maps.event.addListener(marker, 'click', this.markerClick(marker,map));
@@ -157,7 +157,7 @@ export default {
     iwOpen(map,marker,infowindow,infowindows){
       return function() {
         this.infowindows = infowindows;
-        for(var i=0; i<length; i++){
+        for(var i=0; i<this.infowindows.length; i++){
           this.infowindows[i].close();
         }
         infowindow.open(map, marker);

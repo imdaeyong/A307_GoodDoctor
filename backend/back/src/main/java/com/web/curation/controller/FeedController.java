@@ -198,4 +198,17 @@ public class FeedController {
 			}
 		}
 	}
+	@GetMapping("/hospital/{id}")
+	@ApiOperation(value = "병원아이디로 관련피드들 가져오기")
+	public Object searchFeedsByHospitalId(@PathVariable int id) throws Exception {
+			
+		List<Feed> feeds = feedDao.findAllByHospitalId(id);
+		for(Feed f : feeds) {
+			System.out.println(f.getContent());
+		}
+		
+		return new ResponseEntity<>(feeds, HttpStatus.OK);
+		
+	}
+	
 }

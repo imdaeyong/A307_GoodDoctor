@@ -71,7 +71,7 @@ public class HospitalController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	@GetMapping(value ="/{id}")
+	@GetMapping(value ="/hospital/{id}")
 	@ApiOperation(value = "병원 상세정보 보기")
 	public Object hospitalDetail(@PathVariable int id) {
 		HospitalInfo hospitalInfo = hospitalinfoDao.findById(id);
