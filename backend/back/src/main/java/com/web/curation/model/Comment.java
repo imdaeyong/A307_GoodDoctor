@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,13 +28,17 @@ public class Comment {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-    private int userId;
+	private int userId;
     
     private int feedId;
 	private String content;
+	
 	@Column(updatable = false)
     private LocalDateTime createDate;
-
+	
     private String nickname;
+    
+    @Column(insertable = false)
+    private String imageUrl;
     
 }

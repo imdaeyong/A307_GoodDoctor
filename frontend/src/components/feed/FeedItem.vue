@@ -6,6 +6,7 @@
           <div class="feed-top">
             <img :src="feed.user.imageUrl" v-if="feed.user.imageUrl != null" class="profile-image" />
             <img src="../../assets/images/profile_default.png" alt v-else />
+            
             <div class="user-info">{{feed.user.nickname}}</div>
             <div class="user-hospital">
               {{feed.hospital.name}}
@@ -119,6 +120,7 @@ export default {
     openReply(feed) {
       //댓글 버튼 클릭시 실행 함수
       store.dispatch("openReply", feed);
+      
       this.$bvModal.show("bv-modal-feed");
     },
     addShare() {
