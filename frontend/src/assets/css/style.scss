@@ -63,6 +63,16 @@ button {
   border-right: 10px solid black;
 }
 
+.slide {
+  height: 340px; 
+  width : 500px; 
+  margin-left : -75px;
+  box-shadow: 5px 5px 8px rgb(148, 148, 148);
+    &:hover {
+      box-shadow: none;
+    }
+}
+
 .Profile {
   &.abled {
     border-radius: 10px;
@@ -90,22 +100,23 @@ button {
   }
 }
 
-.horizontal-wrap{
-  height: 400px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-  .card {
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.03);
-    float: left;
-    width: 290px;
-    height: 390px;
-    margin-right: 2em;
-    &:hover {
-      box-shadow: none;
-    }
-  }
+.carousel-3d-container figure {
+  margin: 0;
 }
+
+.carousel-3d-container figcaption {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  bottom: 0;
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+  font-size: 12px;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
 
 .myProfile {
   background-color: $disabledMyColor;

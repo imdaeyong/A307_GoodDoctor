@@ -586,8 +586,15 @@
           <!-- 회원관련 기능 -->
           <b-nav-item-dropdown v-if="this.$store.state.isLogin" right>
             <template v-slot:button-content>
-              <div class="navbar-color">{{nickName}}</div>
+              <div class="navbar-color">
+                <div style="float : left;"><img :src="user.imageUrl"
+                style="border-radius: 100px 100px 100px 100px; width : 2em; 
+                height : 2em; margin-top : -5px; margin-right : 10px;"/> 
+                </div>
+                {{nickName}}
+              </div>
             </template>
+             
             <div style="text-align: center">
               <b-dropdown-item href="/accounts/profile" style="text-decoration : none;"
               >회원정보</b-dropdown-item>
@@ -611,6 +618,28 @@ import http from "@/util/http-common";
 
 export default {
   name: "NavigationBar",
+  data: () => {
+    return {
+      sido: "",
+      gugun: "",
+      subject: "",
+      word: "",
+      target: "hospital",
+      user: store.state.userInfo.data,
+      area: [
+        { display: false, name: "서울" },
+        { display: false, name: "경기" },
+        { display: false, name: "부산" },
+        { display: false, name: "경남" },
+        { display: false, name: "인천" },
+        { display: false, name: "대구" },
+        { display: false, name: "경북" },
+        { display: false, name: "대전" },
+        { display: false, name: "전북" },
+        { display: false, name: "충남" },
+      ],
+    };
+  },
   computed: {
     nickName () {
       return this.$store.state.userInfo.data.nickname
@@ -656,26 +685,6 @@ export default {
       }
     },
   },
-  data: () => {
-    return {
-      sido: "",
-      gugun: "",
-      subject: "",
-      word: "",
-      target: "hospital",
-      area: [
-        { display: false, name: "서울" },
-        { display: false, name: "경기" },
-        { display: false, name: "부산" },
-        { display: false, name: "경남" },
-        { display: false, name: "인천" },
-        { display: false, name: "대구" },
-        { display: false, name: "경북" },
-        { display: false, name: "대전" },
-        { display: false, name: "전북" },
-        { display: false, name: "충남" },
-      ],
-    };
-  },
+  
 };
 </script>

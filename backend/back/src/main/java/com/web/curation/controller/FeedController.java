@@ -56,7 +56,19 @@ public class FeedController {
 	FeedDao feedDao;
 	@Autowired
 	HistoryDao historyDao;
+	
+	@GetMapping(value = "/hospital/{id}")
+	   @ApiOperation(value = "병원아이디로 관련피드들 가져오기")
+	   public Object searchFeedsByHospitalId(@PathVariable int id) throws Exception {
+	      System.out.println("일단 들어오는 온다.");
+	      List<Feed> feeds = feedDao.findAllByHospitalId(id);
+	      for(Feed f : feeds) {
+	         System.out.println(f.getContent());
+	      }	      
+	      return new ResponseEntity<>(feeds, HttpStatus.OK);
+	   }	
 
+	
 	@GetMapping("/")
 	@ApiOperation(value = "메인+검색 피드 infinite Loading")
 	public Object getFeedsLimit(@RequestParam("userId") int userId, @RequestParam("limit") int limit,
@@ -139,6 +151,38 @@ public class FeedController {
 
 		List<Feed> feeds = null;
 		if (request.get("type").equals("modal")) { // 모달창에서 실행한 경우 feed하나만 넘겨준다.
+			User user = feed.getUser();
+			if (feed.getImageUrl() != null) {
+				File f = new File(feed.getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+					} finally {
+						fis.close();
+					}
+				}
+				feed.setImageUrl("data:image/png;base64, " + sbase64);
+			}
+			if (user.getImageUrl() != null) {
+				File f = new File(user.getImageUrl());
+				String sbase64 = null;
+				if (f.isFile()) {
+					byte[] bt = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					try {
+						fis.read(bt);
+						sbase64 = new String(Base64.encodeBase64(bt));
+						user.setImageUrl("data:image/png;base64, " + sbase64);
+						feed.setUser(user);
+					} finally {
+						fis.close();
+					}
+				}
+			}
 			return feed;
 		} else if (request.get("type").equals("write")) {
 			feeds = feedDao.findAllByUserIdCurrentWriteFeedSize(userId, size);

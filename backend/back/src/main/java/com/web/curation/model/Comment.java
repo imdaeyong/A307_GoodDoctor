@@ -36,4 +36,7 @@ public class Comment {
 
     private String nickname;
     
+    @Column(insertable = false)
+    private String imageUrl;
+
 }
