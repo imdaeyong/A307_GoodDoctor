@@ -2,7 +2,7 @@
   <div>
     <h2>'{{hospitals.data[0].subject}}'에 대한 검색 결과입니다.</h2>
     <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
-      <b-card no-body @click="hospitalDataSend(hospital)" 
+      <b-card no-body @click="hospitalDataSend(hospital)"
         @mouseover="doMouseOver(hospital)" class="overflow-hidden my-3 btn-left"
         style="height: 10rem; padding : 1em;">
         <b-row >
@@ -18,6 +18,7 @@
           </b-col>
         </b-row>
       </b-card>
+            <button @click="addFavorites(hospital)"><img src="../../assets/images/hospital/favorite.png" alt="favorites_Button"></button>
     </div>
   </div>
 </template>
@@ -45,6 +46,31 @@ export default {
     },
   },
   methods: {
+    addFavorites(hospital){
+      var userId = this.$store.getters.userInfo.data.id
+      var favorites= []
+      if(localStorage.getItem(userId)){
+        favorites = JSON.parse(localStorage[userId]);
+
+        var isExist = false;
+        for(var i=0; i<favorites.length;i++){
+          if(favorites[i].id==hospital.id){
+            favorites.splice(favorites.indexOf(favorites[i]),1);
+            alert(hospital.name+"이 즐겨찾기에서 제거되었습니다.")
+            isExist=true;
+            break;
+          }
+        }
+        if(!isExist){
+          alert(hospital.name+"이 즐겨찾기에 추가되었습니다")
+          favorites.push(hospital)
+        }
+      }else{
+        favorites.push(hospital)
+        console.log("사용자의 즐겨찾기리스트 생성")
+      }
+      localStorage.setItem(userId,JSON.stringify(favorites));
+    },
     doMouseOver(hospital) {
       this.$store.commit('addHospitalHover',hospital)
     },

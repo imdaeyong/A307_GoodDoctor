@@ -18,10 +18,16 @@ import IndexSearch from '../views/search/IndexSearch.vue'
 import SearchHospital from '../components/search/SearchHospital.vue'
 import SearchHospitalMap from "../components/search/SearchHospitalMap.vue"
 import QRLogin from "../components/qr/QRLogin.vue"
+import Favorites from "../components/accounts/profile/myHospital.vue"
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path : '/accounts/favorites',
+    name : 'Favorites',
+    component : Favorites
+  },
   {
     path : '/feed/hospitaldetail',
     name : 'HospitalDetail',

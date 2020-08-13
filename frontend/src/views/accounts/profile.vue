@@ -20,13 +20,13 @@
           </div>
           
           <div v-if="categories[1].display" style="background-color: #17a2b8; border-radius: 10px;">
-            <button @click="toggle('myHospital')" class="Profile abled" style="outline: 0">
-              <p>관심 정보</p>
+            <button @click="allFavorites()" class="Profile abled" style="outline: 0">
+              <p>즐겨찾는 병원</p>
             </button>
           </div>
           <div v-else>
-            <button @click="toggle('myHospital')" class="Profile disabled" style="outline: 0">
-              <p>관심 정보</p>
+            <button @click="allFavorites()" class="Profile disabled" style="outline: 0">
+              <p>즐겨찾는 병원</p>
             </button>
           </div>
 
@@ -82,6 +82,9 @@ export default {
     if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
   },
   methods: {
+    allFavorites() {  
+      this.$router.push({name: "Favorites"})
+    },
     toggle(text) {
       for(var i = 0; i < this.categories.length; i++) {
         if(text == this.categories[i].name) {
