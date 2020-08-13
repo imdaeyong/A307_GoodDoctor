@@ -51,7 +51,7 @@
               />
               <img src="../../assets/images/profile_default.png" alt v-else />
               <div class="user-info">
-                <span v-if="isLogin">{{nickname}}</span>
+                <span v-if="isLogin">{{feed.user.nickname}}</span>
                 <span v-else>닉네임</span>
               </div>
               <input type="text" class="reply-content" placeholder="댓글달기..." v-model="feed.data" />

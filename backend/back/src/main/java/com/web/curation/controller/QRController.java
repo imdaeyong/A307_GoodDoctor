@@ -77,10 +77,12 @@ public class QRController {
 		if (userId == -1) {
 			try {
 				User user = userDao.getUserByEmailAndPassword(email, password);
+				feed.setUser(user);
 				if (user == null) {
 					result.data = "login_fail";
 					return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 				}
+				feedDao.save(feed);
 				if (user.getImageUrl() != null) {
 					File f = new File(user.getImageUrl());
 					String sbase64 = null;
@@ -90,15 +92,12 @@ public class QRController {
 						try {
 							fis.read(bt);
 							sbase64 = new String(Base64.encodeBase64(bt));
-							System.out.println(sbase64);
 							user.setImageUrl("data:image/png;base64, " + sbase64);
 						} finally {
 							fis.close();
 						}
 					}
 				}
-				feed.setUser(user);
-				feedDao.save(feed);
 				return new ResponseEntity<>(user, HttpStatus.OK);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -108,6 +107,8 @@ public class QRController {
 		} else {
 			try {
 				User user = userDao.getUserById(userId);
+				feed.setUser(user);
+				feedDao.save(feed);
 				if (user.getImageUrl() != null) {
 					File f = new File(user.getImageUrl());
 					String sbase64 = null;
@@ -117,15 +118,12 @@ public class QRController {
 						try {
 							fis.read(bt);
 							sbase64 = new String(Base64.encodeBase64(bt));
-							System.out.println(sbase64);
 							user.setImageUrl("data:image/png;base64, " + sbase64);
 						} finally {
 							fis.close();
 						}
 					}
 				}
-				feed.setUser(user);
-				feedDao.save(feed);
 				return new ResponseEntity<>(user, HttpStatus.OK);
 			} catch (Exception e) {
 				e.printStackTrace();

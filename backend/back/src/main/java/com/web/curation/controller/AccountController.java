@@ -237,9 +237,10 @@ public class AccountController {
 		try {
 			if (mFile == null) {
 				user.setImageUrl(null);
+				userDao.save(user);
 			} else {
-//				user.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
-				user.setImageUrl("/home/ubuntu/var/userImage/"+file.getParameter("id")); //불러올 이미지 위치
+//				user.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename()+".png");
+				user.setImageUrl("/home/ubuntu/var/userImage/"+file.getParameter("id")+".png"); //불러올 이미지 위치
 				File f = new File(user.getImageUrl());
 		       	mFile.transferTo(f);
 				userDao.save(user);
