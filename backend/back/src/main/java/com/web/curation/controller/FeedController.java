@@ -92,9 +92,7 @@ public class FeedController {
 	public Object addImage(MultipartHttpServletRequest file) throws IllegalStateException, IOException {
 
 		MultipartFile mFile = file.getFile("file");
-
 		Feed feed = feedDao.getFeedById(Integer.parseInt(file.getParameter("feedId")));
-
 		try {
 			if (mFile == null) {
 				feed.setImageUrl("");
@@ -105,6 +103,7 @@ public class FeedController {
 //				mFile.transferTo(new File("/home/ubuntu/var/images" + mFile.getOriginalFilename()));
 			}
 			feed.setContent(file.getParameter("content"));
+			feed.setStar(Double.parseDouble(file.getParameter("star")));
 			feed.setIsNew(false);
 			feedDao.save(feed);
 			return new ResponseEntity<>(null, HttpStatus.OK);

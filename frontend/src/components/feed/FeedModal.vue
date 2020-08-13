@@ -8,6 +8,8 @@
       </div>
       <div class="feed-card-modal">
         <img src= "../../assets/images/feed/1.png" alt=""><br>
+        <star-rating :inline="true" style="float : right; font-size:1em" :star-size="20" :show-rating="true" :read-only="true" :increment="0.5" :rating="feed.star">
+        </star-rating>
         <div>
           <a href="">#진료잘봄#호감</a><br>
           {{feed.content}}
@@ -58,6 +60,7 @@
 <script>
 import store from '@/vuex/store.js'
 import http from '@/util/http-common'
+import StarRating from 'vue-star-rating'
 
 export default {
   name: "FeedModal",
@@ -67,8 +70,12 @@ export default {
     data : "",
     feed : store.state.feed,
     click : true,
-    user: store.state.userInfo.data
+    user: store.state.userInfo.data,
+    rating : 0
     }
+  },
+  components: {
+    StarRating
   },
   mounted(){
     http.get(`comments/${store.state.feed.id}`)

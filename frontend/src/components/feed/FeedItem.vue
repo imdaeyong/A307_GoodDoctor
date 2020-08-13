@@ -34,6 +34,8 @@
                   <b-icon-chat-square @click="openReply(feed)"></b-icon-chat-square>
                 </button>
               </div>
+              <star-rating :inline="true" style="float : right; height : 30px; font-size:1em" :star-size="20" :show-rating="true" :read-only="true" :increment="0.5" :rating="feed.star">
+              </star-rating>
               <div class="share">
                 <button>
                   <b-icon-reply @click="addShare()"></b-icon-reply>
@@ -75,6 +77,7 @@ import defaultProfile from "../../assets/images/profile_default.png";
 import store from "@/vuex/store.js";
 import http from "@/util/http-common";
 import InfiniteLoading from "vue-infinite-loading";
+import StarRating from 'vue-star-rating'
 
 export default {
   data: () => {
@@ -86,10 +89,12 @@ export default {
       content: "",
       click: true,
       limit: 0,
+      rating : 0
     };
   },
   components: {
     InfiniteLoading,
+    StarRating
   },
   mounted() {
     this.userId = store.state.userInfo.data.id;
