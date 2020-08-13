@@ -56,7 +56,18 @@ public class FeedController {
 	FeedDao feedDao;
 	@Autowired
 	HistoryDao historyDao;
-
+	
+	@GetMapping(value = "/hospital/{id}")
+	   @ApiOperation(value = "병원아이디로 관련피드들 가져오기")
+	   public Object searchFeedsByHospitalId(@PathVariable int id) throws Exception {
+	      System.out.println("일단 들어오는 온다.");
+	      List<Feed> feeds = feedDao.findAllByHospitalId(id);
+	      for(Feed f : feeds) {
+	         System.out.println(f.getContent());
+	      }	      
+	      return new ResponseEntity<>(feeds, HttpStatus.OK);
+	   }	
+	
 	@GetMapping("/")
 	@ApiOperation(value = "메인+검색 피드 infinite Loading")
 	public Object getFeedsLimit(@RequestParam("userId") int userId, @RequestParam("limit") int limit,

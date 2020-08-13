@@ -7,7 +7,7 @@
     </b-modal>
     
     <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
-      <FeedModal />
+      <FeedModal/>
     </b-modal>
   </div>
 </template>

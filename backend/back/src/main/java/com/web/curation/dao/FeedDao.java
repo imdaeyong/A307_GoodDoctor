@@ -19,6 +19,8 @@ public interface FeedDao extends JpaRepository<Feed, String> {
 
 	List<Feed> findAllByUserId(int userId);
 
+	//병원 디테일 페이지에서 피드 정보 불러오기
+	List<Feed> findAllByHospitalId(int id);
 	@Transactional
 	@Modifying
 	@Query(value = "update feed set likes = likes + 1 where id = :feedId", nativeQuery = true)

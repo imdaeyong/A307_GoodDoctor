@@ -4,35 +4,63 @@
     <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
       <User/>
     </b-modal>
+    
+    <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
+      <FeedModal />
+    </b-modal>
 
     <div class="HospitalDetail mx-auto">
       <h1 class="d-flex justify-content-center mt-5 mb-4">
         <span style="color: #17a2b8">{{hospital.name}}</span> 정보에요.
       </h1>
+      <!-- <p>{{hospitalFeeds[0]}}</p> -->
+    </div>
       
-      <!-- 가로 무한 스크롤 -피드노출 -->
-      <h3 >선택한 병원의 리뷰 목록</h3>
-      <div class="horizontal-wrap">
-        <div class="card" style="background-color: white">
-        </div>
-
-        <div class="card" style="background-color: green">
-        </div>
-
-        <div class="card" style="background-color: blue">
-        </div>
-
-        <div class="card" style="background-color: yellow">
-        </div>
-
-        
-
+      <!-- 3D carousel -->
+      <div v-if="hospitalFeeds.length==0">
+        <h3 class="mt-5" style="text-align: center;">🤣아직 작성된 리뷰가 없어요ㅜㅜ</h3>
       </div>
 
+      <div v-else> 
+        <h3 class="mt-5" style="text-align: center;">선택한 병원의 리뷰는 <span style="color: #17a2b8">{{hospitalFeeds.length}}개</span>가 있네요.</h3>
+        <div id="example" style="height: 22em; width: 100%;">
+          <carousel-3d
+            :controls-visible="true" 
+            :controls-prev-html="'&#10092;'" 
+            :controls-next-html="'&#10093;'"                     
+            :controls-width="60" 
+            :controls-height="0" 
+            :clickable="true" style="height: 25em; width: 100%;">
+            <slide 
+              v-for="(slide, i) in slides" 
+              :index="i" 
+              :key="slide" 
+              class="slide" 
+              style="height: 340px; width : 500px; margin-left: -75px; background-color: white"
+              type="button"
+              >
+              <figure style="background-color: ivory" @click="openReply(hospitalFeeds[i])">
+                <div style="padding-top: 1em; margin-left: 1em;">
+                  <div class='row'> 
+                    <h5 style="margin-left: 1em">작성자: {{hospitalFeeds[i].user.nickname}}</h5>
+                    <p style="font-size: .7em; margin-left: auto; margin-right: 2em">작성시간: {{hospitalFeeds[i].user.createDate}}</p>  
+                  </div>
+                  <hr>
+                  <p>내용: {{hospitalFeeds[i].content}}</p>
 
+                </div>
+              </figure>
+            </slide>
+          </carousel-3d>
+        </div>
+      </div>
+
+      
+
+    <div div class="HospitalDetail mx-auto">
       <!-- API 정보 -->
-      <div class="ml-3" style="text-align: left; margin-top: 100px;">
-        <h4>위치 & 정보</h4>
+      <div class="ml-3" style="text-align: center; margin-top: 100px;">
+        <h3>위치 & 정보</h3>
         <p>※주의사항 : 방문 전, 전화로 확인 후 이용해주세요.</p>
       </div>
       <b-container class="bv-example-row" style="float: left;">
@@ -75,7 +103,10 @@
 import NavBar from '../NavigationBar.vue'
 import User from '../../views/accounts/Login.vue'
 import http from '@/util/http-common'
+import store from "@/vuex/store.js"
 import HospitalDetailMap from "../../components/hospital/HospitalDetailMap.vue"
+import { Carousel3d, Slide } from 'vue-carousel-3d'
+import FeedModal from "../feed/FeedModal.vue"
 
 export default {
     name: "HospitalDetail",
@@ -83,23 +114,38 @@ export default {
       NavBar,
       User,
       HospitalDetailMap,
+      Carousel3d,
+      Slide,
+      FeedModal,
     },
     data() {
       return {
-        hospitalDatas: {},
+        hospitalDatas: [],
         hospital:this.$store.getters.hospital,
-      }
+        hospitalFeeds: [],
+        slides: 7
+      } 
     },
     mounted() {
-      console.log(this.hospital);
-      console.log("하이");
       http.get(`/hospitals/${this.hospital.id}`)
       .then(res => {
-        console.log(res.data);
         this.hospitalDatas = res.data
-
+      })
+      ,
+      http.get(`/feeds/hospital/${this.hospital.id}`)
+      .then(res => {
+        this.hospitalFeeds = res.data
+        this.slides = this.hospitalFeeds.length
       })
     },
+    methods: {
+      openReply(feed) {
+        //댓글 버튼 클릭시 실행 함수
+        store.dispatch("openReply", feed);
+        this.$bvModal.show("bv-modal-feed");
+      },
+    }
+    
 }
 </script>
 

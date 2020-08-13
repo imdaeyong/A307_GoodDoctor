@@ -103,7 +103,7 @@ public class AccountController {
 		user.setEmail(file.getParameter("email"));
 		user.setPassword(file.getParameter("password"));
 		user.setImageUrl("C:\\temptemp\\"+mFile.getOriginalFilename());
-//	    feed.setImageUrl("/home/ubuntu/var/images"+mFile.getOriginalFilename()); //불러올 이미지 위치
+//	    user.setImageUrl("/home/ubuntu/var/images"+mFile.getOriginalFilename()); //불러올 이미지 위치
 		
 		user.setAccountType(0); // gooddoc
 		userDao.save(user);

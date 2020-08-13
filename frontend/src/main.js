@@ -11,6 +11,7 @@ import GAuth from 'vue-google-oauth2'
 //session 등록
 import VueSession from 'vue-session'
 
+
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 Vue.use(GAuth, {clientId: '368553140660-aod20dbfaf14omsnvvpbcr8mugkao6uf.apps.googleusercontent.com',
