@@ -1,9 +1,21 @@
 package com.web.curation.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +31,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.web.curation.dao.FeedDao;
 import com.web.curation.dao.HospitalDao;
 import com.web.curation.dao.UserDao;
+import com.web.curation.jwt.AES256Cipher;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.Feed;
 import com.web.curation.model.Hospital;
@@ -39,7 +52,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @RestController
 @RequestMapping("/qr")
 public class QRController {
-
+	
 	@Autowired
 	FeedDao feedDao;
 	@Autowired
@@ -47,13 +60,17 @@ public class QRController {
 	@Autowired
 	UserDao userDao;
 
-	@GetMapping("/{hospitalId}")
+	@GetMapping("")
 	@ApiOperation(value = "QR코드 입력 시 페이지 리다이렉트 -> 로그인여부 확인")
-	public RedirectView redirectQr(@Valid @PathVariable("hospitalId") int hospitalId) {
+	public RedirectView redirectQr(@Valid @RequestParam("hospitalId") String hospitalId) throws Exception {
+		AES256Cipher a256 = AES256Cipher.getInstance();
+		
+//		String str = a256.AES_Encode(hospitalId);
+//		a256.AES_Decode(str);
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl("http://localhost:3000/qr");
 //		redirectView.setUrl("https://i3a307.p.ssafy.io/qr");
-		redirectView.addStaticAttribute("hospitalId", hospitalId);
+		redirectView.addStaticAttribute("hospitalId", a256.AES_Decode(hospitalId));
 		return redirectView;
 	}
 
