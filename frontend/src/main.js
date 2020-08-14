@@ -18,7 +18,7 @@ Vue.use(GAuth, {clientId: '368553140660-aod20dbfaf14omsnvvpbcr8mugkao6uf.apps.go
 
 window.Kakao.init("a0edf003b12f290d0a04dd23ec8b921b");
 Vue.config.productionTip = false
-
+Vue.prototype.$EventBus = new Vue();
 
 var sessionOptions = {
     persist: true

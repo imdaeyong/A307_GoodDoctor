@@ -54,8 +54,8 @@ public class QRController {
 	@ApiOperation(value = "QR코드 입력 시 페이지 리다이렉트 -> 로그인여부 확인")
 	public RedirectView redirectQr(@Valid @PathVariable("hospitalId") int hospitalId) {
 		RedirectView redirectView = new RedirectView();
-//		redirectView.setUrl("http://localhost:3000/qr");
-		redirectView.setUrl("https://i3a307.p.ssafy.io/qr");
+		redirectView.setUrl("http://localhost:3000/qr");
+//		redirectView.setUrl("https://i3a307.p.ssafy.io/qr");
 		redirectView.addStaticAttribute("hospitalId", hospitalId);
 		return redirectView;
 	}
