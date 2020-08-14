@@ -59,6 +59,12 @@
 
 .feed-card{
   border-bottom: 1px solid rgba(194, 183, 183, 0.2);
+  .feed-content{
+    height : 100%;
+    div{
+      padding : 0em;
+    }
+  }
   div{
     padding-left : 1em;
     padding-right : 1em;

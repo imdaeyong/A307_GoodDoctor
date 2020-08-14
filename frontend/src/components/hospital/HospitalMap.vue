@@ -158,7 +158,7 @@ export default {
     iwOpen(map,marker,infowindow,infowindows){
       return function() {
         this.infowindows = infowindows;
-        for(var i=0; i<length; i++){
+        for(var i=0; i<this.infowindows.length; i++){
           this.infowindows[i].close();
         }
         infowindow.open(map, marker);

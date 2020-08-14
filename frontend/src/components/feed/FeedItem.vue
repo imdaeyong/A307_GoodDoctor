@@ -14,11 +14,16 @@
           </div>
           <div class="feed-card">
             <img :src="feed.imageUrl"  v-if="feed.imageUrl != null"/>
-            <div>
+            <div class="feed-content">
               <a href>#진료잘봄 #호감</a>
               <br />
-              {{feed.content}}
-              <span>더보기...</span>
+              <div style="padding : 0px;" v-if="plusContent">
+                <div class="text-truncate" style="width: 60%; padding : 0px;">
+                  {{feed.content}}
+                </div>
+                <button><span v-if="feed.content.length > 30" @click="plusContent = false">더보기</span></button>
+              </div>
+              <div v-if="!plusContent">{{feed.content}}</div>
             </div>
           </div>
           <div class="feed-foot">
@@ -84,11 +89,12 @@ export default {
     return {
       feeds: [],
       nickname: "",
-      isLogin: false,
+      isLogin: store.state.isLogin,
       userId: "",
       content: "",
       click: true,
       limit: 0,
+      plusContent : true,
       rating : 0
     };
   },

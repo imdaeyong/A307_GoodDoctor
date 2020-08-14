@@ -18,7 +18,7 @@
             <div class="text-truncate" style="width: 60%; padding : 0px;">
               {{feed.content}}
             </div>
-            <span v-if="feed.content.length > 30" @click="plusContent = false">더보기</span>
+            <button><span v-if="feed.content.length > 30" @click="plusContent = false">더보기</span></button>
           </div>
           <div v-if="!plusContent">{{feed.content}}</div>
         </div>
