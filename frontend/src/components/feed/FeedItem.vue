@@ -36,7 +36,7 @@
               </div>
               <div class="reply">
                 <button>
-                  <b-icon-chat-square @click="openReply(feed)"></b-icon-chat-square>
+                  <b-icon-chat-square @click="openReply(feed, index)"></b-icon-chat-square>
                 </button>
               </div>
               <star-rating :inline="true" text-class="rating-text" style="float : right; height : 30px; font-size:0.8em;" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :star-size="20" :show-rating="true" :read-only="true" :increment="0.5" :rating="feed.star">
@@ -46,7 +46,7 @@
                   <b-icon-reply @click="addShare()"></b-icon-reply>
                 </button>
               </div>
-              <span v-if="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span>
+              <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span>
             </div>
             <div class="reply-list">
               <img
@@ -95,7 +95,8 @@ export default {
       click: true,
       limit: 0,
       plusContent : true,
-      rating : 0
+      rating : 0,
+      index : 0,
     };
   },
   components: {
@@ -104,6 +105,15 @@ export default {
   },
   mounted() {
     this.userId = store.state.userInfo.data.id;
+  },
+  created() {
+      this.$EventBus.$on('updateLike', (data) => {
+        this.feeds[data].isClick = !this.feeds[data].isClick;
+        this.index = data;
+      })
+      this.$EventBus.$on('updateLikes', (data) => {
+        this.feeds[this.index].likes = data;
+      })
   },
   methods: {
     addLike(isClick, feedId) {
@@ -127,9 +137,10 @@ export default {
         //alert("");
       }
     },
-    openReply(feed) {
+    openReply(feed, index) {
       //댓글 버튼 클릭시 실행 함수
       store.dispatch("openReply", feed);
+      store.dispatch("openReplyIndex", index);
       this.$bvModal.show("bv-modal-feed");
     },
     addShare() {

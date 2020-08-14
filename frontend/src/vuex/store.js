@@ -22,7 +22,8 @@ export default new Vuex.Store({
     feed: {},
     hospitalHover: {},
     hospitalZoom: {},
-    hospital: {}
+    hospital: {},
+    index:"",
   },
   mutations: {
     addUserInfo(state, userInfo) {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     mutateFeedInfo(state, feed) {
       state.feed = feed
+    },
+    mutateFeedIndex(state, index){
+      state.index = index
     },
     mutateHospital(state, hospital) {
       state.hospital = hospital;
@@ -126,7 +130,10 @@ export default new Vuex.Store({
     },
     openReply(context, feed) {
       context.commit('mutateFeedInfo', feed)
-    }
+    },
+    openReplyIndex(context, index) {
+      context.commit('mutateFeedIndex', index);
+    },
   },
   plugins: [
     createPersistedState()

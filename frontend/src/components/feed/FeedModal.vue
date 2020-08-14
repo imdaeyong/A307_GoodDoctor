@@ -115,7 +115,7 @@ export default {
 
       })  
     },
-    addLike(isClick, feedId){ //좋아요 버튼 클릭시 실행 함수
+   addLike(isClick, feedId){ //좋아요 버튼 클릭시 실행 함수
       if (this.click) {
         this.click = !this.click;
         http.put(`feeds/like`,{feedId:feedId, userId:store.state.userInfo.data.id, 
@@ -123,6 +123,8 @@ export default {
         .then(data => {
           this.feed = data.data;
           this.click = true;
+          this.$EventBus.$emit('updateLike', store.state.index);
+          this.$EventBus.$emit('updateLikes', this.feed.likes);
         })
       }
     },
