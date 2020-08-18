@@ -73,13 +73,13 @@
             </div>
             <div class="reply-list">
               <img
-                :src="feed.user.imageUrl"
-                v-if="feed.user.imageUrl != null"
+                :src="user.imageUrl"
+                v-if="user.imageUrl != null"
                 class="profile-image"
               />
               <img src="../../assets/images/profile_default.png" alt v-else />
               <div class="user-info">
-                <span v-if="isLogin">{{feed.user.nickname}}</span>
+                <span v-if="isLogin">{{user.nickname}}</span>
                 <span v-else>닉네임</span>
               </div>
               <input @keypress.enter="addReply(feed.id, feed.data, index)" type="text" class="reply-content" placeholder="댓글달기..." v-model="feed.data" />
@@ -120,7 +120,8 @@ export default {
       plusContent : true,
       rating : 0,
       index : 0,
-      coronaInfo : {}
+      coronaInfo : {},
+      user : store.state.userInfo.data
     };
   },
   components: {

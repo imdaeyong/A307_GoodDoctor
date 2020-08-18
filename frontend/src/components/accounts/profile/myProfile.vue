@@ -27,7 +27,9 @@
         <h3> 😎 닉네임: <span  style="color : #17a2b8">{{user.nickname}}</span></h3>
         <h3 class="mt-5"> 📧 이메일: <span style="color : #17a2b8">{{changeEmail(user.email)}}</span></h3>
         <div class="row mt-5">
-          <a href="/accounts/changepassword"><button class="myProfile"><h3>비밀번호 변경</h3></button></a>
+         <h3 v-if="user.accountType != 0" style="margin-top : 18px; color : red">SNS 회원 비밀번호 변경불가</h3>
+          <a href="/accounts/changepassword" v-else><button class="myProfile">
+            <h3>비밀번호 변경</h3></button></a>
           <a href="/accounts/delete"><button class="myProfile left"><h3>탈퇴하기</h3></button></a>
         </div>
         </b-col>
