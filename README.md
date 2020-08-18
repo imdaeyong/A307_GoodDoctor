@@ -236,3 +236,6 @@ findUserAndPassword(), searchFeedsByHospitalId() ...
 
 ```
 
+## 📆 개발일정
+
+![image](/uploads/2ae24a0619fa0835cb0770581358301c/image.png)
