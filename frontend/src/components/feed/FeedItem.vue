@@ -1,5 +1,28 @@
 <template>
   <div class="feed-item">
+    <div class="feed-wrap" v-if="coronaInfo != {}">
+      <div class="corona-title"><span>코로나 바이러스</span>(COVID-19) 국내현황</div>
+      <table class="corona-table">
+        <tr>
+          <th>{{coronaInfo[0]}}</th>
+          <th>{{coronaInfo[3]}}</th>
+          <th>{{coronaInfo[6]}}</th>
+          <th>{{coronaInfo[9]}}</th>
+        </tr>
+        <tr>
+          <td>{{coronaInfo[1]}}</td>
+          <td>{{coronaInfo[4]}}</td>
+          <td>{{coronaInfo[7]}}</td>
+          <td>{{coronaInfo[10]}}</td>
+        </tr>
+        <tr>
+          <td>{{coronaInfo[2]}} <b-icon-caret-up-fill v-if="coronaInfo[2] != '-'"></b-icon-caret-up-fill></td>
+          <td>{{coronaInfo[5]}} <b-icon-caret-up-fill v-if="coronaInfo[5] != '-'"></b-icon-caret-up-fill></td>
+          <td>{{coronaInfo[8]}} <b-icon-caret-up-fill v-if="coronaInfo[8] != '-'"></b-icon-caret-up-fill></td>
+          <td>{{coronaInfo[11]}} <b-icon-caret-up-fill v-if="coronaInfo[11] != '-'"></b-icon-caret-up-fill></td>
+        </tr>
+      </table>
+    </div>
     <div v-for="(feed, index) in feeds" v-bind:key="feed.id" v-bind:index="index">
       <div v-if="!feed.isNew">
         <div class="feed-wrap" v-bind:data="feed.data">
@@ -9,7 +32,7 @@
             <div class="user-info">{{feed.user.nickname}}</div>
             <div class="user-hospital">
               {{feed.hospital.name}}
-              <span>{{feed.updateDate}}</span>
+              <span>{{formatDate(feed.updateDate) }}</span>
             </div>
           </div>
           <div class="feed-card">
@@ -28,7 +51,7 @@
           </div>
           <div class="feed-foot">
             <div class="feed-btn-list">
-              <div class="like" @click="addLike(feed.isClick, feed.id)">
+              <div class="like" @click="addLike(feed.isClick, feed.id, index)">
                 <button id="heart" style="outline : 0;">
                   <b-icon-heart v-show="!feed.isClick"></b-icon-heart>
                   <b-icon-heart-fill class="f-heart" v-show="feed.isClick" style="color : red;"></b-icon-heart-fill>
@@ -97,6 +120,7 @@ export default {
       plusContent : true,
       rating : 0,
       index : 0,
+      coronaInfo : {}
     };
   },
   components: {
@@ -105,6 +129,12 @@ export default {
   },
   mounted() {
     this.userId = store.state.userInfo.data.id;
+    http
+      .get(`feeds/crawling`)
+          .then((data) => {
+            this.coronaInfo = data.data.split(" ");
+            console.log(this.coronaInfo);
+          });
   },
   created() {
       this.$EventBus.$on('updateLike', (data) => {
@@ -116,7 +146,7 @@ export default {
       })
   },
   methods: {
-    addLike(isClick, feedId) {
+    addLike(isClick, feedId, index) {
       //좋아요 버튼 클릭시 실행 함수
       if (this.click) {
         this.click = !this.click;
@@ -130,7 +160,8 @@ export default {
             size: this.feeds.length,
           })
           .then((data) => {
-            this.feeds = data.data;
+            this.feeds[index].isClick = !this.feeds[index].isClick;
+            this.feeds[index].likes = data.data.likes;
             this.click = true;
           });
       } else {
@@ -184,6 +215,13 @@ export default {
         })
         .catch((error) => {});
     },
+    formatDate(date) { 
+      var d = new Date(date), 
+      month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear(); 
+      if (month.length < 2) month = '0' + month; 
+      if (day.length < 2) day = '0' + day; 
+      return [year, month, day].join('-');
+    }
   },
 };
 </script>

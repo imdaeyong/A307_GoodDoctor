@@ -1,42 +1,49 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info" fixed="top">
+    <b-navbar toggleable="lg" type="dark" variant="info" fixed="top" 
+    style="box-shadow : 0px 2px 7px 1px grey;">
       <!-- 네브바 왼쪽 여백 -->
       <div style="margin-left: 5em;"></div>
 
       <router-link to="/" style="text-decoration: none; color: white; font-size: 22px">
-        <b-icon-heart-half style="margin-right: 0.4em; margin-top: 0.2em;"></b-icon-heart-half>굿 닥터
+        <img src="../assets/images/logo/logo-5 (1).png" alt width="50px" height="40px;" style="margin-right : 0.2em;">
+        <!-- <b-icon-heart-half font-scale="1.5" style="margin-right: 0.4em; margin-top: 0.2em;"></b-icon-heart-half> -->
+        <img src="../assets/images/logo/logo-font-3.png" alt width="100px" height="30px;">
+        <!-- 굿 닥터 -->
       </router-link>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <!-- <nav-form> -->
-        <select v-model="target" class="btn-front" for="navSearch">
-          <option value="hospital">병원 검색</option>
-          <option value="feed">피드 검색</option>
-        </select>
-        <input
-          class="input-search"
-          type="text"
-          v-model="word"
-          @keyup.enter="search"
-          placeholder
-          id="navSearch"
-        />
-        <button @click="search" class="btn-search" style="outline:0;">
-          <b-icon-search></b-icon-search>
-        </button>
+        <div class="search-bar">
+          <select v-model="target" class="btn-front" for="navSearch">
+            <option value="hospital">병원 검색</option>
+            <option value="feed">피드 검색</option>
+          </select>
+          <input
+            class="input-search"
+            type="text"
+            v-model="word"
+            @keyup.enter="search"
+            placeholder
+            id="navSearch"
+          />
+          <button @click="search" class="btn-search" style="outline:0;">
+            <b-icon-search scale="1"></b-icon-search>
+          </button>
+        </div>
         <!-- </nav-form> -->
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto ">
-          <b-nav-item href="/feed/write" right class="pr-3" style="margin-right: .3em;"><div class="navbar-color">리뷰쓰기</div></b-nav-item>
+          <b-nav-item href="/feed/write" right class="pr-3" style="margin-right: .3em;">
+            <div class="navbar-color" style=" font-size : 1.1em;">리뷰쓰기</div></b-nav-item>
 
           <!-- 병원으로 찾기 -->
           <b-nav-item-dropdown right class="pr-3">
             <template v-slot:button-content>
-              <div class="navbar-color">병원 찾기</div>
+              <div class="navbar-color" style=" font-size : 1.1em;">병원 찾기</div>
             </template>
             <div class="drop-down-hospital">
               <button @click="selectSubject('치과')" class="dropdown-sub-hospital">
@@ -113,7 +120,7 @@
           <!-- 지역으로 찾기 -->
           <b-nav-item-dropdown right class="pr-3">
             <template v-slot:button-content>
-              <div class="navbar-color">지역별 찾기</div>
+              <div class="navbar-color" style=" font-size : 1.1em;">지역별 찾기</div>
             </template>
 
             <div class="ml-2" style="width: 360px">
@@ -586,7 +593,7 @@
           <!-- 회원관련 기능 -->
           <b-nav-item-dropdown v-if="this.$store.state.isLogin" right>
             <template v-slot:button-content>
-              <div class="navbar-color">
+              <div class="navbar-color" style=" font-size : 1.1em;">
                 <div style="float : left;">
                 <img :src="user.imageUrl" v-if="user.imageUrl != null"
                 style="border-radius: 100px 100px 100px 100px; width : 2em; 

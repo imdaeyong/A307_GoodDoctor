@@ -9,9 +9,9 @@
     <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
       <FeedModal />
     </b-modal>
-    <div>
+    <div style="margin-top : -40px;">
       <div v-if="feeds.length == 0">
-        <div class="feed-wrap">
+        <div class="feed-wrap" >
           <div style="text-align:center">
             <h3>
               <b-icon-emoji-frown animation="throb"></b-icon-emoji-frown>QR코드를 안찍어서
@@ -22,31 +22,39 @@
       </div>
       <!-- 기존에 내가 작성한 Feed목록 -->
       <div v-else>
-        <div v-for="feed in feeds" v-bind:key="feed.id">
+        <div v-for="(feed, index) in feeds" v-bind:key="feed.id">
           <div v-if="feed.isNew">
+            <img src="../../assets/images/new_logo.png" alt width="90px" height="40px;"
+                style="position : relative; left : 28%; top : 15px; z-index : 1">
             <div class="feed-wrap">
-              <div class="feed-top">
+              <div class="feed-top">               
                 <img :src="user.imageUrl" v-if="user.imageUrl != null" class="profile-image" />
                 <img src="../../assets/images/profile_default.png" alt v-else />
                 <div class="user-info">
                   {{feed.user.nickname}}
-                  <span style="color : red; font-weight : bold">NEW !!!NEW !!!</span>
+                  <span style="color : red; font-weight : bold"></span>
                 </div>
                 <div class="user-hospital">
                   {{feed.hospital.name}}
-                  <span>{{feed.updateDate}}</span>
+                  <span>{{formatDate(feed.updateDate)}}</span>
                 </div>
               </div>
 
               <div class="review-write-form">
                 <div v-if="openWrite == feed.id" class="review-write">
-                  <input
-                    type="file"
-                    id="file"
-                    ref="file"
-                    v-on:change="upload"
-                    class="review-img-upload"
-                  />
+                  <div class ="box-file-input">
+                    <label>
+                      <input
+                        type="file"
+                        id="file"
+                        ref="file"
+                        v-on:change="upload"
+                        class="review-img-upload file-input"
+                        accept="image/*"
+                      />
+                    </label>
+                    <span class="filename">파일을 선택해주세요.</span>
+                  </div>
                   <img :src="preview" />
                   <star-rating :inline="true" text-class="rating-text" style="float : right; height : 30px; margin-right : 1em" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :increment="0.5" :star-size="20" @rating-selected="setRating" >
                   </star-rating>
@@ -69,7 +77,7 @@
                 <div class="user-info">{{feed.user.nickname}}</div>
                 <div class="user-hospital">
                   {{feed.hospital.name}}
-                  <span>{{feed.updateDate}}</span>
+                  <span>{{formatDate(feed.updateDate)}}</span>
                 </div>
               </div>
               <div class="feed-card">
@@ -83,7 +91,7 @@
               </div>
               <div class="feed-foot">
                 <div class="feed-btn-list">
-                  <div class="like" @click="addLike(feed.isClick, feed.id)">
+                  <div class="like" @click="addLike(feed.isClick, feed.id, index)">
                     <button id="heart" style="outline : 0;">
                       <b-icon-heart v-show="!feed.isClick"></b-icon-heart>
                       <b-icon-heart-fill class="f-heart" v-show="feed.isClick" style="color : red;"></b-icon-heart-fill>
@@ -91,7 +99,7 @@
                   </div>
                   <div class="reply">
                     <button>
-                      <b-icon-chat-square v-on:click="openReply(feed)"></b-icon-chat-square>
+                      <b-icon-chat-square v-on:click="openReply(feed, index)"></b-icon-chat-square>
                     </button>
                   </div>
                   <star-rating :inline="true" style="float : right; height : 30px; font-size:1em" text-class="rating-text-write" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :star-size="20" :show-rating="true" :read-only="true" :increment="0.5" :rating="feed.star">
@@ -101,7 +109,7 @@
                       <b-icon-reply v-on:click="addShare()"></b-icon-reply>
                     </button>
                   </div>
-                  <span v-if="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span>
+                  <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span>
                 </div>
                 <div class="reply-list">
                   <img :src="user.imageUrl" v-if="user.imageUrl != null" class="profile-image" />
@@ -135,7 +143,7 @@
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 <script>
 import NavBar from "../../components/NavigationBar.vue";
 import User from "../../views/accounts/Login.vue";
@@ -166,8 +174,18 @@ export default {
       preview: "",
       user: store.state.userInfo.data,
       limit: 0,
-      rating : 0
+      rating : 0,
+      index : 0,
     };
+  },
+  created() {
+      this.$EventBus.$on('updateLike', (data) => {
+        this.feeds[data].isClick = !this.feeds[data].isClick;
+        this.index = data;
+      })
+      this.$EventBus.$on('updateLikes', (data) => {
+        this.feeds[this.index].likes = data;
+      })
   },
   mounted() {
     this.userId = store.state.userInfo.data.id;
@@ -181,7 +199,7 @@ export default {
       this.rating = rating;
       console.log(this.rating);
     },
-    addLike(isClick, feedId) {
+    addLike(isClick, feedId, index) {
       //좋아요 버튼 클릭시 실행 함수
       if (this.click) {
         this.click = !this.click;
@@ -195,16 +213,18 @@ export default {
             word:"",
           })
           .then((data) => {
-            this.feeds = data.data;
+            this.feeds[index].isClick = !this.feeds[index].isClick;
+            this.feeds[index].likes = data.data.likes;
             this.click = true;
           });
       } else {
         //alert("");
       }
     },
-    openReply(feed) {
+    openReply(feed, index) {
       //댓글 버튼 클릭시 실행 함수
       store.dispatch("openReply", feed);
+      store.dispatch("openReplyIndex", index);
       this.$bvModal.show("bv-modal-feed");
     },
     addShare() {
@@ -279,6 +299,13 @@ export default {
         })
         .catch((error) => {});
     },
+    formatDate(date) { 
+      var d = new Date(date), 
+      month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear(); 
+      if (month.length < 2) month = '0' + month; 
+      if (day.length < 2) day = '0' + day; 
+      return [year, month, day].join('-');
+    }
   },
 };
 </script>

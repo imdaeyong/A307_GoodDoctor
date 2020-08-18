@@ -12,21 +12,18 @@
     <div v-if="!this.$route.query.no">
       <search-feed />
     </div>
-    <div v-else>
-      <div class="mt-5">
-        <h1 class="d-flex justify-content-center mb-4">병원 검색 페이지</h1>
-        <page-link-search />
-        <b-container fluid class="bv-example-row bv-example-row-flex-cols" style="width:72%">
-          <b-row align-v="stretch">
-            <b-col cols="7" class="border-right">
-              <SearchHospital />
-            </b-col>
-            <b-col cols="5">
-              <SearchHospitalMap />
-            </b-col>
-          </b-row>
-        </b-container>
-      </div>
+    <div v-else class="mt-5">
+      <b-container fluid class="bv-example-row bv-example-row-flex-cols" style="width:72%">
+        <b-row align-v="stretch">
+          <b-col cols="6" class="border-right">
+            <SearchHospital />
+          </b-col>
+          <b-col cols="5">
+            <SearchHospitalMap />
+          </b-col>
+        </b-row>
+      </b-container>
+      <page-link-search />
     </div>
   </div>
 </template>
@@ -50,6 +47,11 @@ export default {
     User,
     SearchFeed,
     FeedModal,
+  },
+  methods: {
+    onChangePWD() {
+      this.$router.push("accounts/changePassword");
+    },
   },
   mounted() {
     if (!store.state.isLogin) this.$bvModal.show("bv-modal-example");

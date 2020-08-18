@@ -1,22 +1,26 @@
 <template>
-  <div style="margin-top : -50px;">
+  <div>
     <h2>'{{hospitals.data[0].subject}}'에 대한 검색 결과입니다.</h2>
     <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
-      <b-card no-body @click="hospitalDataSend(hospital)" 
+      <b-card no-body @click="hospitalDataSend(hospital)"
         @mouseover="doMouseOver(hospital)" class="overflow-hidden my-3 btn-left"
         style="height: 10rem; padding : 1em;">
-        <b-row >
-          <b-col md="3">
-            <img src="../../assets/images/hospital/default-doctor.png" alt="Image" class="hospital-doctor">
-          </b-col>
-          <b-col md="8">
-            <div class="hospital-info">
-              <div class="mt-1"><span>{{hospital.name}}</span></div>
-              <div class="mt-2">평점| 리뷰수</div>
-              <div class="mt-2">진료과목 : {{hospital.subject}}</div>
-            </div >
-          </b-col>
-        </b-row>
+
+        <div>
+          <b-row style="float: left">            
+            <b-col md="3">
+              <img src="../../assets/images/hospital/default-doctor.png" alt="Image" class="hospital-doctor">
+            </b-col>
+            <b-col md="8" style="padding-left: 3em">
+              <div class="hospital-info">
+                <div class="mt-1"><span>{{hospital.name}}</span></div>
+                <div class="mt-2">평점| 리뷰수</div>
+                <div class="mt-2">진료과목 : {{hospital.subject}}</div>
+              </div>
+            </b-col>            
+          </b-row>
+          <button style="padding-left: 5em" @click.stop="addFavorites(hospital)" z-index=5 width=40px;><img src="../../assets/images/hospital/favorite.png" alt="favorites_Button"></button>
+        </div>
       </b-card>
     </div>
   </div>
@@ -34,6 +38,7 @@ export default {
       hospitals: [],
       pageLimit: 10,
       seletDatsId: "",
+      
     };
   },
   created() {
@@ -45,6 +50,32 @@ export default {
     },
   },
   methods: {
+    addFavorites(hospital,event){
+      // event.stopPropagation()
+      var userId = this.$store.getters.userInfo.data.id
+      var favorites= []
+      if(localStorage.getItem(userId)){
+        favorites = JSON.parse(localStorage[userId]);
+
+        var isExist = false;
+        for(var i=0; i<favorites.length;i++){
+          if(favorites[i].id==hospital.id){
+            favorites.splice(favorites.indexOf(favorites[i]),1);
+            alert(hospital.name+"이 즐겨찾기에서 제거되었습니다.")
+            isExist=true;
+            break;
+          }
+        }
+        if(!isExist){
+          alert(hospital.name+"이 즐겨찾기에 추가되었습니다")
+          favorites.push(hospital)
+        }
+      }else{
+        favorites.push(hospital)
+        console.log("사용자의 즐겨찾기리스트 생성")
+      }
+      localStorage.setItem(userId,JSON.stringify(favorites));
+    },
     doMouseOver(hospital) {
       this.$store.commit('addHospitalHover',hospital)
     },
@@ -66,6 +97,8 @@ export default {
             sido: this.$route.query.sido,
             gu: this.$route.query.gu,
             word: "",
+            // lat:0,
+            // lon:0,
           },
         })
         .then((data) => {

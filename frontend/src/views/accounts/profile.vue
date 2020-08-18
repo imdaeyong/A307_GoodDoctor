@@ -14,19 +14,19 @@
             </button>
           </div>
           <div v-else>
-            <button @click="toggle('myProfile')" class="Profile disabled" style="outline: 0">
+            <button @click="toggle('myProfile')" class="Profile disable d" style="outline: 0">
               <p>내 정보</p>
             </button>
           </div>
           
           <div v-if="categories[1].display" style="background-color: #17a2b8; border-radius: 10px;">
             <button @click="toggle('myHospital')" class="Profile abled" style="outline: 0">
-              <p>관심 정보</p>
+              <p>즐겨찾는 병원</p>
             </button>
           </div>
           <div v-else>
             <button @click="toggle('myHospital')" class="Profile disabled" style="outline: 0">
-              <p>관심 정보</p>
+              <p>즐겨찾는 병원</p>
             </button>
           </div>
 
@@ -95,9 +95,9 @@ export default {
   data() {
     return {
       categories: [
-      {display: true, name: 'myProfile'},
-      {display: false, name: 'myHospital'},
-      {display: false, name: 'myReview'}
+        {display: true, name: 'myProfile'},
+        {display: false, name: 'myHospital'},
+        {display: false, name: 'myReview'}
       ]
     }
   }
