@@ -7,11 +7,11 @@
 ### 굿닥터
 
 ## 👨‍👩‍👦‍👦  팀원소개
-### 👦 김지효(팀장/Frontend) : Front 디자인, 피드 담당
-### 🧑 문용호(CTO/Backend) : AWS 배포, QR 코드 기능 담당
-### 🧔 김종관(Frontend) : Front 디자인, 병원 정보 담당
-### 🧑 김대용(Backend) : SNS 로그인, 카카오 맵 담당
-### 🧒 방승환(Backend) : SNS 로그인, 페이징 담당
+### 👦 김지효(팀장/Frontend) : Front 디자인, 피드
+### 🧑 문용호(CTO/Backend) : AWS 배포, QR 코드 기능
+### 🧔 김종관(Frontend) : Front 디자인, 병원 정보
+### 🧑 김대용(Backend) : SNS 로그인, 카카오 맵
+### 🧒 방승환(Backend) : SNS 로그인, 페이징
 
 
 
@@ -72,10 +72,10 @@ skeleton-back 패키지 우클릭 -> run as -> Spring Boot App
 
 ## 📜 기획
 
-### 와이어프레임
+### 와이어프레임 
 [이동하기](https://lab.ssafy.com/s03-webmobile2-sub2/s03p12a307/blob/develop/doc/_%EC%84%9C%EC%9A%B8A307_%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84.pdf)
 
-### ERD (추후 수정 요망)
+### ERD (추후 수정 요망) 
 [이동하기](https://lab.ssafy.com/s03-webmobile2-sub2/s03p12a307/blob/develop/doc/_%EC%84%9C%EC%9A%B8_A307_Database_ERD.png)
 
 ---
@@ -207,9 +207,9 @@ skeleton-back 패키지 우클릭 -> run as -> Spring Boot App
 
 ## Contributing
 
-### [Google 로그인 API](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-Google-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
-### [Kakao 로그인 API](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-Kakao-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
-### [QR코드 API](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-QR%EC%BD%94%EB%93%9C-API)
+### Google 로그인 API [이동하기](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-Google-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
+### Kakao 로그인 API [이동하기](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-Kakao-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
+### QR코드 API [이동하기](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-QR%EC%BD%94%EB%93%9C-API)
 
 ## ⭐  Develop Rules
 ### branch
@@ -223,7 +223,7 @@ merge 하기 전에 서로 코드 리뷰하기
 merge 후 브랜치 지우기
 ```
 
-### [commit](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-GIT-%EC%BB%A4%EB%B0%8B%EB%A9%94%EC%84%B8%EC%A7%80-%EB%B6%84%EB%A5%98)
+### [commit 메시지](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-GIT-%EC%BB%A4%EB%B0%8B%EB%A9%94%EC%84%B8%EC%A7%80-%EB%B6%84%EB%A5%98)
 ```
 Emoji / 커밋내용(영문,70자 미만) / JIRA ISSUE No.
 ```
