@@ -61,6 +61,7 @@ public class HospitalController {
 	@ApiOperation(value = "병원 페이징: offset, 컨텐츠 수 : limit에 해당하는 병원의 정보를 반환한다.")
 	public Object selectHospitalLimitOffset(int limit, int offset, String subject, String sido, String gu, String word) {
 		List<Hospital> list = new ArrayList<Hospital>();
+//		System.out.println(lat +" "+lon);
 		if (!subject.equals("")) { // subject
 			list = hospitalDao.selectHospitalSubjectLimitOffset(subject, limit, offset);
 		} else if(!sido.equals("") & !gu.equals("")) { // 시도, 구별 찾기

@@ -1,8 +1,12 @@
 <template>
   <div class="my-3" id="app" style="position: fixed;">
     <div id="map"></div>
+    <input type="hidden" id="lat" v-model="lat">
+    <input type="hidden" id="lon" v-model="lon">
   </div>
 </template>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJ3iLRNnx8MpswGdoR69UQOtGSQltPDZQ"></script>
+
 <script>
 import http from '@/util/http-common'
 
@@ -15,6 +19,8 @@ export default {
       pageLimit: 10,
       markers:[],
       infowindows:[],
+      lat:0,
+      lon:0,
     };
   },
 
@@ -26,17 +32,19 @@ export default {
     
   },
   mounted() {
-    if (window.kakao && window.kakao.maps) {
-      this.initMap();
-    } else {
-      const script = document.createElement("script");
-      /* global kakao */
-      script.onload = () => kakao.maps.load(this.initMap);
-      script.src =
-        "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=8cbe81440a2dc401533" +
-        "a67159970a3ac";
-      document.head.appendChild(script);
-    }
+      
+      if (window.kakao && window.kakao.maps) {
+        this.initMap();
+      } else {
+        const script = document.createElement("script");
+        /* global kakao */
+        script.onload = () => kakao.maps.load(this.initMap);
+        script.src =
+          "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=8cbe81440a2dc401533" +
+          "a67159970a3ac";
+        document.head.appendChild(script);
+      }
+
     this.$store.subscribe((mutation, state) => {
       if(mutation.type=="addHospitalZoom"){
         var zoomer = this.$store.getters.hospitalZoom;
@@ -61,6 +69,14 @@ export default {
   },
   methods: {
     initComponent() {
+      navigator.geolocation.getCurrentPosition(function(position) {
+      var c_lat = position.coords.latitude, // 위도
+          c_lon = position.coords.longitude; // 경도    
+          lat.value=c_lat;
+          lon.value=c_lon;
+        });
+        console.log(lat.value)
+      
       http
         .get("hospitals/", {
           params: {
@@ -70,6 +86,8 @@ export default {
             sido: this.$route.query.sido,
             gu: this.$route.query.gu,
             word : "",
+            // lon:this.lon,
+            // lat:this.lat,
           },
         })
         .then((response) => {
@@ -84,11 +102,35 @@ export default {
         require("../../assets/images/hospital/custom-marker.png");
       var imageSize = new kakao.maps.Size(25, 37);
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-      var multi = new kakao.maps.LatLng(37.5012743, 127.039585);
+      var my_loc = new kakao.maps.LatLng(lat.value,lon.value);
       var map = new kakao.maps.Map(document.getElementById("map"), {
-        center: multi, // 지도의 중심좌표
+        center: my_loc, // 지도의 중심좌표
         level: 13, // 지도의 확대 레벨
       });
+
+      var my_loc = new kakao.maps.LatLng(lat.value,lon.value);
+      console.log(my_loc)
+
+      var my_loc_marker = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+
+      var my_loc_markerImage = new kakao.maps.MarkerImage(my_loc_marker, imageSize);
+
+      //현재위치 마커   
+      var my_marker = new kakao.maps.Marker({  
+          map: map, 
+          position: my_loc,
+          image:my_loc_markerImage
+      }); 
+
+      // 커스텀 오버레이를 생성합니다
+      var customOverlay = new kakao.maps.CustomOverlay({
+          position: my_loc,
+          content: '<div class ="label"><span class="center" style="letter-spacing: 1px; font-family: NanumGothic,\'Malgun Gothic\',dotum,\'돋움\',sans-serif; color: #333; ">현재위치</div>'   
+      });
+
+      // 커스텀 오버레이를 지도에 표시합니다
+      customOverlay.setMap(map);
+    
 
       var markers =[];
       var infowindows = [];
