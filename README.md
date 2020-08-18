@@ -31,7 +31,7 @@ QR코드를 받은 회원이 자신의 계정을 통해서만 리뷰를 작성�
 ## 💻 사용언어, 기술스택
 
 ![Generic badge](https://img.shields.io/badge/platform-Web-brightgreen.svg) ![Generic badge](https://img.shields.io/badge/library-vue-blue.svg) ![Generic badge](https://img.shields.io/badge/framework-spring-green.svg)
-![Generic badge](https://img.shields.io/badge/database-MySQL-yellow.svg) ![Generic badge](https://img.shields.io/badge/server-AWS-9cf.svg) ![Generic badge](https://img.shields.io/badge/language-Java, JavaScript -important.svg)
+![Generic badge](https://img.shields.io/badge/database-MySQL-yellow.svg) ![Generic badge](https://img.shields.io/badge/server-AWS-9cf.svg) ![Generic badge](https://img.shields.io/badge/language-Java,JavaScript-important.svg)
 
 
 
