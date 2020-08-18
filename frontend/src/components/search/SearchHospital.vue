@@ -26,7 +26,7 @@
                 <div class="mt-1">
                   <span>{{hospital.name}}</span>
                 </div>
-                <div class="mt-2">평점| 리뷰수</div>
+                <div class="mt-2">평점 {{hospital.avgStar}}| 리뷰수 {{hospital.reviewCnt}}</div>
                 <div class="mt-2">진료과목 : {{hospital.subject}}</div>
               </div>
             </b-col>

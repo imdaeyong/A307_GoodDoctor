@@ -8,7 +8,7 @@
       <router-link to="/" style="text-decoration: none; color: white; font-size: 22px">
         <img src="../assets/images/logo/logo-5 (1).png" alt width="50px" height="40px;" style="margin-right : 0.2em;">
         <!-- <b-icon-heart-half font-scale="1.5" style="margin-right: 0.4em; margin-top: 0.2em;"></b-icon-heart-half> -->
-        <img src="../assets/images/logo/logo-font-3.png" alt width="100px" height="30px;">
+        <img src="../assets/images/logo/logo-font-3.png" alt width="110px" height="30px;">
         <!-- 굿 닥터 -->
       </router-link>
 

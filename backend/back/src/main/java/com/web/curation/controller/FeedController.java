@@ -118,7 +118,6 @@ public class FeedController {
 			feed.setContent(file.getParameter("content"));
 			feed.setStar(Double.parseDouble(file.getParameter("star")));
 			feed.setIsNew(false);
-			System.out.println(feed.toString());
 			feedDao.save(feed);
 			return new ResponseEntity<>(null, HttpStatus.OK);
 		} catch (Exception e) {
@@ -179,6 +178,7 @@ public class FeedController {
 		List<History> history = historyDao.findAllByUserId(userId);
 		for (Feed feed : feeds) {
 			User user = feed.getUser();
+			System.out.println(user + " ----------------------------");
 			if (feed.getImageUrl() != null) {
 				File f = new File(feed.getImageUrl());
 				String sbase64 = null;
