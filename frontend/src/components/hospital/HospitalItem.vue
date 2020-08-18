@@ -38,7 +38,6 @@ export default {
       hospitals: [],
       pageLimit: 10,
       seletDatsId: "",
-      
     };
   },
   created() {
@@ -97,8 +96,9 @@ export default {
             sido: this.$route.query.sido,
             gu: this.$route.query.gu,
             word: "",
-            // lat:0,
-            // lon:0,
+            lon:37.5012743,
+            lat:127.039585,
+  
           },
         })
         .then((data) => {

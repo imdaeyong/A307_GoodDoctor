@@ -59,10 +59,13 @@ public class HospitalController {
 
 	@GetMapping(value = "")
 	@ApiOperation(value = "병원 페이징: offset, 컨텐츠 수 : limit에 해당하는 병원의 정보를 반환한다.")
-	public Object selectHospitalLimitOffset(int limit, int offset, String subject, String sido, String gu, String word) {
+	public Object selectHospitalLimitOffset(int limit, int offset, String subject, String sido, String gu, String word,String lon, String lat) {
+		System.out.println(Double.parseDouble(lat)+" "+Double.parseDouble(lon));
+		double cur_lon= Double.parseDouble(lon);
+		double cur_lat= Double.parseDouble(lat);
 		List<Hospital> list = new ArrayList<Hospital>();
 		if (!subject.equals("")) { // subject
-			list = hospitalDao.selectHospitalSubjectLimitOffset(subject, limit, offset);
+			list = hospitalDao.selectHospitalSubjectLimitOffset(subject, cur_lon, cur_lat, limit, offset);
 		} else if(!sido.equals("") & !gu.equals("")) { // 시도, 구별 찾기
 			list = hospitalDao.selectHospitalSidoAndGuLimitOffset(sido, gu, limit, offset);			
 		} else { // 검색한 단어 별 찾기
