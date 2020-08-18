@@ -1,7 +1,3 @@
-﻿# Sub PJT 02 ( 07/20 ~ 07/31 ) - 굿닥터
-
-
-
 ## 🎈 프로젝트 이름
 
 ### 굿닥터
@@ -56,8 +52,6 @@ STS
 git clone https://lab.ssafy.com/s03-webmobile2-sub2/s03p12a307.git
 ```
 
-### 🏕 개발 환경
-
 ### Frontend
 ```
 npm i
@@ -84,7 +78,7 @@ skeleton-back 패키지 우클릭 -> run as -> Spring Boot App
 ## 📕 서비스 설명
 
 
-## 폴더 구조 - Frontend
+### 폴더 구조 - Frontend
 ```
 📦src
  ┣ 📂api
@@ -161,7 +155,7 @@ skeleton-back 패키지 우클릭 -> run as -> Spring Boot App
  ┗ 📜main.js
  ```
 
-## 폴더 구조 - Backend
+### 폴더 구조 - Backend
 ```
 📦src
  ┣ 📂main
@@ -202,14 +196,19 @@ skeleton-back 패키지 우클릭 -> run as -> Spring Boot App
  ┃ ┃ ┃ ┃ ┃ ┗ 📜WebCurationApplicationTests.java
 ```
 
-### 페이지 기능 소개
+## 페이지 기능 소개
+### 1. 코로나 바이러스(COVID-19) 국내현황
+### 2. 병원에서 제공하는 QR코드로 리뷰 등록 (별점, 댓글, 좋아요, 이미지 등록)
+### 3. 진료 과목별 병원찾기 (치과, 피부과, 안과 ...)
+### 4. 지역별 찾기 (서울, 경기, 부산 ...)
+### 5. 검색기능 (병원별, 피드별 검색)
+### 6. 회원 정보 (SNS로그인, 비밀번호 변경, 프로필 이미지, 즐겨찾는 병원)
 
+## 🔌 Contributing
 
-## Contributing
-
-### Google 로그인 API [이동하기](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-Google-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
-### Kakao 로그인 API [이동하기](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-Kakao-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
-### QR코드 API [이동하기](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-QR%EC%BD%94%EB%93%9C-API)
+### [Google 로그인 API](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-Google-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
+### [Kakao 로그인 API](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-Kakao-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
+### [QR코드 API](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-QR%EC%BD%94%EB%93%9C-API)
 
 ## ⭐  Develop Rules
 ### branch
