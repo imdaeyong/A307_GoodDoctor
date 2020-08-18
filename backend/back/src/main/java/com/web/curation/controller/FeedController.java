@@ -14,6 +14,10 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -147,56 +151,29 @@ public class FeedController {
 			feed.setIsClick(false);
 		}
 
-		List<Feed> feeds = null;
-		if (request.get("type").equals("modal")) { // 모달창에서 실행한 경우 feed하나만 넘겨준다.
-			User user = feed.getUser();
-			if (feed.getImageUrl() != null) {
-				File f = new File(feed.getImageUrl());
-				String sbase64 = null;
-				if (f.isFile()) {
-					byte[] bt = new byte[(int) f.length()];
-					FileInputStream fis = new FileInputStream(f);
-					try {
-						fis.read(bt);
-						sbase64 = new String(Base64.encodeBase64(bt));
-					} finally {
-						fis.close();
-					}
-				}
-				feed.setImageUrl("data:image/png;base64, " + sbase64);
-			}
-			if (user.getImageUrl() != null) {
-				File f = new File(user.getImageUrl());
-				String sbase64 = null;
-				if (f.isFile()) {
-					byte[] bt = new byte[(int) f.length()];
-					FileInputStream fis = new FileInputStream(f);
-					try {
-						fis.read(bt);
-						sbase64 = new String(Base64.encodeBase64(bt));
-						user.setImageUrl("data:image/png;base64, " + sbase64);
-						feed.setUser(user);
-					} finally {
-						fis.close();
-					}
-				}
-			}
-			return feed;
-		} else if (request.get("type").equals("write")) {
-			feeds = feedDao.findAllByUserIdCurrentWriteFeedSize(userId, size);
-			imageUpdate(userId, feeds, "write");
-		} else if (request.get("type").equals("search")) {
-			String word = request.get("word");
-			feeds = feedDao.findAllByWordCurrentSearchFeedSize(word, size);
-			imageUpdate(userId, feeds, "main");
-		} else {
-			feeds = feedDao.findAllByCurrentMainFeedSize(size);
-			imageUpdate(userId, feeds, "main");
-		}
+		
+		return feed;
+		
 
-		return new ResponseEntity<>(feeds, HttpStatus.OK);
 	}
-
+	@GetMapping("/crawling")
+	@ApiOperation(value = "피드 작성 화면에서 userId의 피드를 가져와서 infinite Loading")
+	public String crawling() throws IOException {
+		String url = "https://search.naver.com/search.naver?sm=top_sug.pre&fbm=1&acr=1&acq=%EC%BD%94%EB%A1%9C%EB%82%98+%ED%98%86&qdt=0&ie=utf8&query=%EC%BD%94%EB%A1%9C%EB%82%98+%ED%98%84%ED%99%A9";
+		
+		Document doc = Jsoup.connect(url).get();
+		
+		Elements element1 = doc.select("div.status_info");
+		int cnt = 0;
+		String result ="";
+		for(Element el : element1.select("li")) {
+			if(cnt == 4) break;
+			result += el.text() + " ";
+			cnt++;
+		}
+		return result;
+	}
+	
 	public void imageUpdate(int userId, List<Feed> feeds, String type) throws IOException {
 
 		List<History> history = historyDao.findAllByUserId(userId);
@@ -241,4 +218,9 @@ public class FeedController {
 			}
 		}
 	}
+	
+	
+	
+	
+	
 }

@@ -48,7 +48,7 @@
           </button>
         </div>
         <div class ="share"><button><b-icon-reply @click="addShare()"></b-icon-reply></button></div>
-        <span v-if="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span> 
+        <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span> 
       </div>
       <div class ="reply-list">
         
@@ -121,7 +121,7 @@ export default {
         http.put(`feeds/like`,{feedId:feedId, userId:store.state.userInfo.data.id, 
             isClick:isClick, type:"modal", size : 0, word:""})
         .then(data => {
-          this.feed = data.data;
+          this.feed.likes = data.data.likes;
           this.click = true;
           this.$EventBus.$emit('updateLike', store.state.index);
           this.$EventBus.$emit('updateLikes', this.feed.likes);

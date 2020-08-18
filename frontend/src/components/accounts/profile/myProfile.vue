@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mt-4">소중한 내 정보 지켜줄게요</h1>
+    <h1 class="mt-4">소중한 내 <span style="color: #17a2b8;">정보</span> 지켜줄게요</h1>
     <b-row class="mt-4">
       <div class="ml-5 mr-3">
         <img :src="preview" v-if="preview != null" class="profile-image" 
@@ -8,13 +8,25 @@
         <img  src= "../../../assets/images/profile_default.png" alt="" v-else style="width: 14rem">
         <br><br>
         <div class="user-info-modal mt-3">
-          <input type="file" id="file" ref="file" v-on:change="upload" class="review-img-upload" accept="image/png, image/jpg, image/gif, image/jpeg"/>
+          <div class ="box-file-input" style="margin-left : 270px;">
+            <label>
+              <input
+                type="file"
+                id="file"
+                ref="file"
+                v-on:change="upload"
+                class="review-img-upload file-input"
+                accept="image/*"
+              />
+            </label>
+            <span class="filename">파일을 선택해주세요.</span>
+          </div>
         </div>
         <div class="user-info-modal mt-3"><button @click="changeProfile()" style="color : #17a2b8; font-size : 1.2em; font-weight : bold;">프로필 변경</button></div>
       </div>
       <b-col class="right mt-3">
-        <h3> - 닉네임: <span  style="color : #17a2b8">{{user.nickname}}</span></h3>
-        <h3 class="mt-5"> - 아이디(이메일): <span style="color : #17a2b8">{{user.email}}</span></h3>
+        <h3> 😎 닉네임: <span  style="color : #17a2b8">{{user.nickname}}</span></h3>
+        <h3 class="mt-5"> 📧 이메일: <span style="color : #17a2b8">{{changeEmail(user.email)}}</span></h3>
         <div class="row mt-5">
           <a href="/accounts/changepassword"><button class="myProfile"><h3>비밀번호 변경</h3></button></a>
           <a href="/accounts/delete"><button class="myProfile left"><h3>탈퇴하기</h3></button></a>
@@ -73,6 +85,16 @@ export default {
         reader.onload = e => {
           this.preview = e.target.result;
         }
+      },
+      changeEmail(email){
+        var arr = email.split("");
+        for(var i = 0; i < arr.length; i++){
+          if(arr[i] == '@') break;
+          if(i % 2 == 0)
+            arr[i] = '*';
+        }
+        email = arr.toString();
+        return email.replace(/,/gi,"");
       }
     }
 }

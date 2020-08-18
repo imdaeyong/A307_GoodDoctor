@@ -22,6 +22,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.web.curation.dao.FeedDao;
 import com.web.curation.dao.HospitalDao;
 import com.web.curation.dao.UserDao;
+import com.web.curation.jwt.AES256Cipher;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.Feed;
 import com.web.curation.model.Hospital;
@@ -50,13 +51,15 @@ public class QRController {
 	@Autowired
 	UserDao userDao;
 
-	@GetMapping("/{hospitalId}")
+	@GetMapping("")
 	@ApiOperation(value = "QR코드 입력 시 페이지 리다이렉트 -> 로그인여부 확인")
-	public RedirectView redirectQr(@Valid @PathVariable("hospitalId") int hospitalId) {
+	public RedirectView redirectQr(@Valid @RequestParam("hospitalId") String hospitalId) throws Exception {
+		AES256Cipher a256 = AES256Cipher.getInstance();
+
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl("http://localhost:3000/qr");
 //		redirectView.setUrl("https://i3a307.p.ssafy.io/qr");
-		redirectView.addStaticAttribute("hospitalId", hospitalId);
+		redirectView.addStaticAttribute("hospitalId", a256.AES_Decode(hospitalId));
 		return redirectView;
 	}
 
