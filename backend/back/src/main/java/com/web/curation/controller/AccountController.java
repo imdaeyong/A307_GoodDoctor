@@ -54,7 +54,7 @@ public class AccountController {
 	@Autowired
 	public JavaMailSender javaMailSender;
 
-	@GetMapping("/account/gooddoc")
+	@PostMapping("/account/gooddoc")
 	@ApiOperation(value = "gooddoc 로그인")
 	public Object login(@RequestParam(required = true) final String email,
 			@RequestParam(required = true) final String password) throws IOException {

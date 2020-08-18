@@ -72,7 +72,7 @@ export default new Vuex.Store({
 
   actions: {
     login(context, { email, password }) {
-      http.get(`account/gooddoc?email=${email}&password=${password}`)
+      http.post(`account/gooddoc?email=${email}&password=${password}`)
         .then(res => {
           context.commit('mutateIsLogin', true)
           context.commit('mutateUserInfo', res)
