@@ -196,7 +196,7 @@ skeleton-back 패키지 우클릭 -> run as -> Spring Boot App
  ┃ ┃ ┃ ┃ ┃ ┗ 📜WebCurationApplicationTests.java
 ```
 
-## 페이지 기능 소개
+## 📱 페이지 기능 소개
 ### 1. 코로나 바이러스(COVID-19) 국내현황
 ### 2. 병원에서 제공하는 QR코드로 리뷰 등록 (별점, 댓글, 좋아요, 이미지 등록)
 ### 3. 진료 과목별 병원찾기 (치과, 피부과, 안과 ...)
