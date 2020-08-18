@@ -57,7 +57,11 @@
     }
     .add-option {
       .bar {
-          width: calc(100% - 40px);
+        width: calc(100% - 40px);
+      }
+
+      .barr {
+        width: calc(100% - 60px);
       }
       .wrap {
           p {
@@ -103,5 +107,4 @@
     }
   }
 }
-
 

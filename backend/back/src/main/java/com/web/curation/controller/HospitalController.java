@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.dao.HospitalDao;
 import com.web.curation.dao.HospitalInfoDao;
+import com.web.curation.dao.HospitalRequestDao;
 import com.web.curation.model.BasicResponse;
 import com.web.curation.model.Hospital;
 import com.web.curation.model.HospitalInfo;
+import com.web.curation.model.HospitalRequest;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -38,6 +40,8 @@ public class HospitalController {
 
 	@Autowired
 	HospitalDao hospitalDao;
+	@Autowired
+	HospitalRequestDao hospitalRequestDao;
 	@Autowired
 	HospitalInfoDao hospitalinfoDao;
 
@@ -60,13 +64,13 @@ public class HospitalController {
 	@GetMapping(value = "")
 	@ApiOperation(value = "병원 페이징: offset, 컨텐츠 수 : limit에 해당하는 병원의 정보를 반환한다.")
 	public Object selectHospitalLimitOffset(int limit, int offset, String subject, String sido, String gu, String word) {
-		List<Hospital> list = new ArrayList<Hospital>();
+		List<HospitalRequest> list = new ArrayList<HospitalRequest>();
 		if (!subject.equals("")) { // subject
-			list = hospitalDao.selectHospitalSubjectLimitOffset(subject, limit, offset);
+			list = hospitalRequestDao.selectHospitalSubjectLimitOffset(subject, limit, offset);
 		} else if(!sido.equals("") & !gu.equals("")) { // 시도, 구별 찾기
-			list = hospitalDao.selectHospitalSidoAndGuLimitOffset(sido, gu, limit, offset);			
+			list = hospitalRequestDao.selectHospitalSidoAndGuLimitOffset(sido, gu, limit, offset);			
 		} else { // 검색한 단어 별 찾기
-			list = hospitalDao.selectHospitalByWord(word, limit, offset);
+			list = hospitalRequestDao.selectHospitalByWord(word, limit, offset);
 		}
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}

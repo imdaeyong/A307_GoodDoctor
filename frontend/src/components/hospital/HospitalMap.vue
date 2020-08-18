@@ -21,17 +21,16 @@ export default {
   watch: {
     "$route.query": function () {
       this.initComponent();
-      this.initMap();
     },
     
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
-      this.initMap();
+      this.initComponent();
     } else {
       const script = document.createElement("script");
       /* global kakao */
-      script.onload = () => kakao.maps.load(this.initMap);
+      script.onload = () => kakao.maps.load(this.initComponent());
       script.src =
         "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=8cbe81440a2dc401533" +
         "a67159970a3ac";
@@ -182,6 +181,6 @@ export default {
 <style scoped>
 #map {
   width: 500px;
-  height:540px;
+  height: 510px;
 }
 </style>

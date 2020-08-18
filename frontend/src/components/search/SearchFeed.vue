@@ -1,6 +1,6 @@
 <template>
   <div class="feed-item">
-    <h2 align="center">'{{this.$route.query.word}}' 에 대한 검색 결과입니다.</h2>
+    <h2 align="center">'{{this.$route.query.word}}' 에 대한 피드 검색 결과입니다.</h2>
     <div v-for="(feed, index) in feeds" v-bind:key="feed.id" v-bind:index="index">
       <div v-if="!feed.isNew">
         <div class="feed-wrap" v-bind:data="feed.data">

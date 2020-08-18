@@ -1,7 +1,7 @@
 <template>
   <div class="feed-item">
-    <div class="feed-wrap" v-if="coronaInfo != {}">
-      <div class="corona-title"><span>코로나 바이러스</span>(COVID-19) 국내현황</div>
+    <div class="feed-wrap" v-if="coronaInfo.length != undefined">
+      <div class="corona-title"><span>코로나 바이러스 </span>(COVID-19) 국내현황</div>
       <table class="corona-table">
         <tr>
           <th>{{coronaInfo[0]}}</th>
@@ -82,7 +82,7 @@
                 <span v-if="isLogin">{{feed.user.nickname}}</span>
                 <span v-else>닉네임</span>
               </div>
-              <input type="text" class="reply-content" placeholder="댓글달기..." v-model="feed.data" />
+              <input @keypress.enter="addReply(feed.id, feed.data, index)" type="text" class="reply-content" placeholder="댓글달기..." v-model="feed.data" />
               <button class="reply-submit" @click="addReply(feed.id, feed.data)">게시</button>
             </div>
           </div>
@@ -178,7 +178,7 @@ export default {
       //공유버튼 클릭시 실행 함수
       alert("하이");
     },
-    addReply(feedId, feedData) {
+    addReply(feedId, feedData, index) {
       let comment = {
         userId: this.userId,
         feedId: feedId,
@@ -192,6 +192,8 @@ export default {
           //this.$router.go(0);
         })
         .catch((err) => {});
+      
+      this.feeds[index].data = "";
     },
     infiniteHandler($state) {
       http

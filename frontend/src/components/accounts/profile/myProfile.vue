@@ -8,7 +8,7 @@
         <img  src= "../../../assets/images/profile_default.png" alt="" v-else style="width: 14rem">
         <br><br>
         <div class="user-info-modal mt-3">
-          <div class ="box-file-input" style="margin-left : 270px;">
+          <div class ="box-file-input" style="margin-left : 290px;">
             <label>
               <input
                 type="file"
@@ -19,7 +19,6 @@
                 accept="image/*"
               />
             </label>
-            <span class="filename">파일을 선택해주세요.</span>
           </div>
         </div>
         <div class="user-info-modal mt-3"><button @click="changeProfile()" style="color : #17a2b8; font-size : 1.2em; font-weight : bold;">프로필 변경</button></div>

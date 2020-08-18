@@ -1,9 +1,16 @@
 .hospital-doctor{
-    width : 6.5em;
-    height: 6.5em;
+    width : 6.8em;
+    height: 7.9em;
     border: 1px solid rgba(194, 183, 183, 0.5);
 }
 .hospital-info{
+    .mt-2{
+        span{
+            color :  rgba(194, 183, 183, 0.9);
+            font-size : 1em;
+            font-weight: 600;
+        }
+    }
     span{
         font-size: 1.3em;
         font-weight: bold;
