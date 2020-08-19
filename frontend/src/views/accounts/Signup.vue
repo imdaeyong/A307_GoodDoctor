@@ -28,7 +28,7 @@
             placeholder="이메일을 입력하세요." 
             type="text"/>
           <label for="email">이메일</label>
-          <label for="email" @click="emailAuthStart" class="right">인증 하기</label>
+          <label for="email" @click="emailAuthStart" class="right">인증</label>
           <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
         <div class="half" v-if="emailAuthinput">

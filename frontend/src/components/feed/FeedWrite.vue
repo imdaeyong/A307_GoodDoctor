@@ -53,7 +53,7 @@
                         accept="image/*"
                       />
                     </label>
-                    <span class="filename">파일을 선택해주세요.</span>
+                    
                   </div>
                   <img :src="preview" />
                   <star-rating :inline="true" text-class="rating-text" style="float : right; height : 30px; margin-right : 1em" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :increment="0.5" :star-size="20" @rating-selected="setRating" >
@@ -81,7 +81,7 @@
                 </div>
               </div>
               <div class="feed-card">
-                <img :src="feed.imageUrl" v-if="user.imageUrl != null"/>
+                <img :src="feed.imageUrl" v-if="feed.imageUrl != null"/>
                 <div>
                   <a href>#진료잘봄#호감</a>
                   <br />
@@ -195,9 +195,7 @@ export default {
   },
   methods: {
     setRating(rating){
-      console.log(rating);
       this.rating = rating;
-      console.log(this.rating);
     },
     addLike(isClick, feedId, index) {
       //좋아요 버튼 클릭시 실행 함수

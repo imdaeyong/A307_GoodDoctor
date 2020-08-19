@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <FeedItem />
-    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
+    <b-modal id="bv-modal-example" size="xl" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
       <User/>
     </b-modal>
     
@@ -41,4 +41,3 @@ export default {
   }
 };
 </script>
-

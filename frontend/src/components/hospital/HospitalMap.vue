@@ -21,17 +21,16 @@ export default {
   watch: {
     "$route.query": function () {
       this.initComponent();
-      this.initMap();
     },
     
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
-      this.initMap();
+      this.initComponent();
     } else {
       const script = document.createElement("script");
       /* global kakao */
-      script.onload = () => kakao.maps.load(this.initMap);
+      script.onload = () => kakao.maps.load(this.initComponent());
       script.src =
         "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=8cbe81440a2dc401533" +
         "a67159970a3ac";
@@ -107,9 +106,9 @@ export default {
           clickable:true //마커 클릭시 지도 동작x
         });
         console.log(info);
-        var iwContent = '<div style="text-align:center; margin-right : -145px;">'+
-                        '<span style="color: #17a2b8; font-size:1.1em; font-weight:;">'
-                        +info.name+'</span><br>'
+        var iwContent = '<div style="text-align:center; width: 150px; overflow:auto; margin-right : -145px; ">'+
+                        '<div style="color: #17a2b8; font-size:1.1em;">'
+                        +info.name+'</div>'
                         +'<span style="font-size:0.9em; margin-top : -3em">'+info.gu+'</span>'+
                         '<br></div>',
         iwRemoveable = false;
@@ -182,6 +181,6 @@ export default {
 <style scoped>
 #map {
   width: 500px;
-  height:540px;
+  height: 510px;
 }
 </style>

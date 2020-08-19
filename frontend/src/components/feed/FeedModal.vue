@@ -58,7 +58,7 @@
           class="profile-image"
         />
         <img src= "../../assets/images/profile_default.png" v-else alt="">
-        <input type="text" class="reply-content" placeholder="댓글달기..." v-model="data">
+        <input @keypress.enter="addReply(feed.id, data)" type="text" class="reply-content" placeholder="댓글달기..." v-model="data">
         <button class="reply-submit" @click="addReply(feed.id, data)">게시</button> 
       </div>
     </div>

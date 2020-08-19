@@ -14,7 +14,7 @@
             </button>
           </div>
           <div v-else>
-            <button @click="toggle('myProfile')" class="Profile disable d" style="outline: 0">
+            <button @click="toggle('myProfile')" class="Profile disabled" style="outline: 0">
               <p>내 정보</p>
             </button>
           </div>
@@ -50,7 +50,7 @@
             <myHospital/>
           </div>
           <div v-if="categories[2].display">
-            <myReview/>
+            <myReview style="text-align:left;"/>
           </div>
         </b-col>
       </b-row>

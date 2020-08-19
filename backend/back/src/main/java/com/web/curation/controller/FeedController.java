@@ -118,7 +118,6 @@ public class FeedController {
 			feed.setContent(file.getParameter("content"));
 			feed.setStar(Double.parseDouble(file.getParameter("star")));
 			feed.setIsNew(false);
-			System.out.println(feed.toString());
 			feedDao.save(feed);
 			return new ResponseEntity<>(null, HttpStatus.OK);
 		} catch (Exception e) {
