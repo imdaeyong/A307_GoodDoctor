@@ -38,7 +38,7 @@
 
 
 <script>
-import http from "@/util/http-common";
+import http from "@/util/http-common"
 import StarRating from 'vue-star-rating'
 import '../../assets/css/hospital.scss'
 

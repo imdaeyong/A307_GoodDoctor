@@ -1,9 +1,6 @@
 <template>
   <div>
     <NavBar/>
-    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
-      <User/>
-    </b-modal>
     
     <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
       <FeedModal />
@@ -23,40 +20,54 @@
 
       <div v-else> 
         <h3 class="mt-5" style="text-align: center;">선택한 병원의 리뷰는 <span style="color: #17a2b8">{{hospitalFeeds.length}}개</span>가 있네요.</h3>
-        <div id="example" style="height: 22em; width: 100%;">
+        <div id="example" style="height: 24em; width: 100%;">
           <carousel-3d
             :controls-visible="true" 
             :controls-prev-html="'&#10092;'" 
             :controls-next-html="'&#10093;'"                     
             :controls-width="60" 
             :controls-height="0" 
-            :clickable="true" style="height: 25em; width: 100%;">
+            :clickable="true" style="height: 30em; width: 90%;">
             <slide 
               v-for="(slide, i) in slides" 
               :index="i" 
               :key="slide" 
               class="slide" 
-              style="height: 340px; width : 500px; margin-left: -75px; background-color: white"
+              style="height: 470px; width : 380px; margin-left: -10px; background-color: white"
               type="button"
               >
-              <figure style="background-color: ivory" @click="openReply(hospitalFeeds[i])">
+              <div @click="openReply(hospitalFeeds[i])">
+              <figure style="" >
                 <div style="padding-top: 1em; margin-left: 1em;">
                   <div class='row'> 
-                    <h5 style="margin-left: 1em">작성자: {{hospitalFeeds[i].user.nickname}}</h5>
-                    <p style="font-size: .7em; margin-left: auto; margin-right: 2em">작성시간: {{hospitalFeeds[i].user.createDate}}</p>  
+                    <div style="margin-left: 1em">
+                      <img :src="hospitalFeeds[i].user.imageUrl" v-if="hospitalFeeds[i].user.imageUrl != null" class="profile-image" />
+                      <img src="../../assets/images/profile_default.png" alt v-else />
+                      {{hospitalFeeds[i].user.nickname}}</div>
+                    <p style="font-size: .7em; margin-left: auto; margin-right: 2em">{{formatDate(hospitalFeeds[i].updateDate)}}</p>  
                   </div>
                   <hr>
-                  <p>내용: {{hospitalFeeds[i].content}}</p>
+                  <div style="padding-right : 16px;" v-if="hospitalFeeds[i].imageUrl != null">
+                    <img :src="hospitalFeeds[i].imageUrl"   height="250px;"/>
+                    <hr>
+                  </div>
+                  
+                  <div style="padding : 0px;" v-if="plusContent">
+                    <div class="text-truncate" style="width: 60%; padding : 0px;">
+                      {{hospitalFeeds[i].content}}
+                    </div>
+                  </div>
 
                 </div>
               </figure>
+              </div>
             </slide>
           </carousel-3d>
         </div>
       </div>
     <div div class="HospitalDetail mx-auto">
       <!-- API 정보 -->
-      <div class="ml-3" style="text-align: center; margin-top: 100px;">
+      <div class="ml-3" style="text-align: center; margin-top: 200px;">
         <h3>위치 & 정보</h3>
         <p>※주의사항 : 방문 전, 전화로 확인 후 이용해주세요. </p>
         <button style="padding-left: 5em; float : right; margin-top : -3em;" @click.stop="addFavorites(hospital)" z-index=5 width=40px;>
@@ -98,18 +109,17 @@
 
 <script>
 import NavBar from '../NavigationBar.vue'
-import User from '../../views/accounts/Login.vue'
 import http from '@/util/http-common'
 import store from "@/vuex/store.js"
 import HospitalDetailMap from "../../components/hospital/HospitalDetailMap.vue"
 import { Carousel3d, Slide } from 'vue-carousel-3d'
 import FeedModal from "../feed/FeedModal.vue"
+import '../../assets/css/hospital.scss'
 
 export default {
     name: "HospitalDetail",
     components: {
       NavBar,
-      User,
       HospitalDetailMap,
       Carousel3d,
       Slide,
@@ -121,7 +131,8 @@ export default {
         hospital:this.$store.getters.hospital,
         hospitalFeeds: [],
         slides: 7,
-        user: store.state.userInfo.data
+        user: store.state.userInfo.data,
+        plusContent : true,
       } 
     },
     mounted() {
@@ -173,6 +184,14 @@ export default {
       }
       localStorage.setItem(userId,JSON.stringify(favorites));
     },
+    formatDate(date) { 
+      
+        var d = new Date(date), 
+        month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear(); 
+        if (month.length < 2) month = '0' + month; 
+        if (day.length < 2) day = '0' + day; 
+        return [year, month, day].join('-');
+      }
     }
     
 }

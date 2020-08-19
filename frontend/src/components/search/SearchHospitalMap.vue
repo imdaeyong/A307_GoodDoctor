@@ -1,6 +1,6 @@
 <template>
   <div class="my-3" id="app" style="position: fixed;">
-    <div id="map"></div>
+    <div v-if="!this.hospitalLoc.length == 0" id="map"></div>
   </div>
 </template>
 
@@ -50,7 +50,6 @@ export default {
         for (var i = 0; i < this.markers.length; i++) {
           var marker = this.markers[i];
           if (hover_hos.name == marker.getTitle()) {
-            console.log(marker.getTitle());
             this.infowindows[i].open(this.map, marker);
           } else {
             this.infowindows[i].close();
@@ -104,7 +103,6 @@ export default {
           image: markerImage,
           clickable: true, //마커 클릭시 지도 동작x
         });
-        console.log(info);
         var iwContent =
             '<div style="text-align:center; margin-right : -145px;">' +
             '<span style="color: #17a2b8; font-size:1.1em; font-weight:;">' +

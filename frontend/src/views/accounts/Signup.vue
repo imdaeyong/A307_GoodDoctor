@@ -1,6 +1,6 @@
 <template>
   <div class="user" id="login">
-    <div class="wrapC mt-5">
+    <div class="wrapCC mt-5">
       <h1>가입하기</h1>
       <!-- <div class="profile-image">
         <div>
@@ -31,8 +31,8 @@
           <label for="email" @click="emailAuthStart" class="right">인증</label>
           <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
-        <div class="half" v-if="emailAuthinput">
-          <div class="input-label">
+        <div class="three-quarter" v-if="emailAuthinput">
+          <div class="auth-input-label">
             <input 
               type="text"
               id ="inputAuth"
@@ -41,7 +41,7 @@
               v-bind:class="{complete:inputAuth.length==6}"
             />
             <label for="inputAuth">인증번호</label>
-            <label for="inputAuth" @click="emailAuthCheck" class="authRight"><button><span style="font-weight: bold">확인</span></button>
+            <label for="inputAuth" @click="emailAuthCheck" class="authRight"><button><span style="font-weight: bold;">확인</span></button>
               </label>
           </div>
         </div>
