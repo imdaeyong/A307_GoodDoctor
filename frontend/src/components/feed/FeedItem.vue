@@ -66,7 +66,6 @@
               </star-rating>
               <div class="share">
                 <button>
-                  <b-icon-reply @click="addShare()"></b-icon-reply>
                 </button>
               </div>
               <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span>
@@ -174,10 +173,6 @@ export default {
       store.dispatch("openReply", feed);
       store.dispatch("openReplyIndex", index);
       this.$bvModal.show("bv-modal-feed");
-    },
-    addShare() {
-      //공유버튼 클릭시 실행 함수
-      alert("하이");
     },
     addReply(feedId, feedData, index) {
       let comment = {

@@ -53,4 +53,5 @@ public class Feed {
     private Boolean isClick;
     private String imageUrl;
     private Double star;
+    private int modify;
 }

@@ -110,10 +110,10 @@ public class FeedController {
 			if (mFile == null) {
 				feed.setImageUrl(null);
 			} else {
-				feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
-				mFile.transferTo(new File("C:\\temptemp\\" + mFile.getOriginalFilename()));
-//				feed.setImageUrl("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")+".png"); // 불러올 이미지 위치
-//				mFile.transferTo(new File("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")+".png"));
+//				feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
+//				mFile.transferTo(new File("C:\\temptemp\\" + mFile.getOriginalFilename()));
+				feed.setImageUrl("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")+".png"); // 불러올 이미지 위치
+				mFile.transferTo(new File("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")+".png"));
 			}
 			feed.setContent(file.getParameter("content"));
 			feed.setStar(Double.parseDouble(file.getParameter("star")));
@@ -125,6 +125,23 @@ public class FeedController {
 		}
 
 	}
+	
+	@PutMapping("/{id}")
+	@ApiOperation(value = "피드 한번에 한하여 수정권한주기")
+	public Object modifyOnce(@PathVariable int id) throws IllegalStateException, IOException {
+		
+		Feed feed = feedDao.getFeedById(id);
+		try {
+			feed.setIsNew(true);
+			feed.setModify(0);
+			feedDao.save(feed);
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+
+	}
+	
 
 	@PutMapping("/like")
 	@ApiOperation(value = "좋아요 값 업데이트하기")
@@ -178,7 +195,6 @@ public class FeedController {
 		List<History> history = historyDao.findAllByUserId(userId);
 		for (Feed feed : feeds) {
 			User user = feed.getUser();
-			System.out.println(user + " ----------------------------");
 			if (feed.getImageUrl() != null) {
 				File f = new File(feed.getImageUrl());
 				String sbase64 = null;

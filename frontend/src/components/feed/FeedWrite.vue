@@ -56,16 +56,16 @@
                     
                   </div>
                   <img :src="preview" />
-                  <star-rating :inline="true" text-class="rating-text" style="float : right; height : 30px; margin-right : 1em" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :increment="0.5" :star-size="20" @rating-selected="setRating" >
+                  <star-rating :inline="true" text-class="rating-text" style="float : right; height : 30px; margin-right : 1em" :rating="feed.star" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :increment="0.5" :star-size="20" @rating-selected="setRating" >
                   </star-rating>
-                  <textarea name id cols="60%" rows="3" v-model="feed.review"></textarea>
+                  <textarea id="content" cols="60%" rows="3" v-model="feed.review"></textarea>
                   <br />
                   <button v-on:click="addReview(feed.id, feed.review)">작성</button>
                 </div>
               </div>
             </div>
             <div class="review-write-btn">
-              <button v-if="openWrite != feed.id" v-on:click="feedWrite(feed.id)">작성하기</button>
+              <button v-if="openWrite != feed.id" v-on:click="feedWrite(feed)">작성하기</button>
               <button v-if="openWrite == feed.id" v-on:click="feedWrite('')">작성닫기</button>
             </div>
           </div>
@@ -102,11 +102,12 @@
                       <b-icon-chat-square v-on:click="openReply(feed, index)"></b-icon-chat-square>
                     </button>
                   </div>
-                  <star-rating :inline="true" style="float : right; height : 30px; font-size:1em" text-class="rating-text-write" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :star-size="20" :show-rating="true" :read-only="true" :increment="0.5" :rating="feed.star">
+                  <star-rating :inline="true" style="float : right; height : 30px; font-size:1em" text-class="rating-text-write" border-color="#d8d8d8" :rounded-corners="true" :rating="feed.star" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :star-size="20" :show-rating="true" :read-only="true" :increment="0.5">
                   </star-rating>
                   <div class="share">
                     <button>
-                      <b-icon-reply v-on:click="addShare()"></b-icon-reply>
+                      <!-- feed의 횟수가 1회일때 & userId == feed.user.id 일때 아이콘 보여줌 -->
+                    <b-icon-pencil-square v-if="userId == feed.user.id && feed.modify == 1" @click="modifyContent(feed)"></b-icon-pencil-square>
                     </button>
                   </div>
                   <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span>
@@ -225,9 +226,14 @@ export default {
       store.dispatch("openReplyIndex", index);
       this.$bvModal.show("bv-modal-feed");
     },
-    addShare() {
-      //공유버튼 클릭시 실행 함수
-      alert("하이");
+    modifyContent(feed){
+      http.put(`feeds/`+feed.id)
+      .then((data) => {
+          this.$router.go("../feed/write");
+      })
+      .catch(err => {
+          alert("오류가 발생하였습니다.");
+      })
     },
     addReply(feedId, feedData) {
       let comment = {
@@ -242,9 +248,9 @@ export default {
         })
         .catch((err) => {});
     },
-    feedWrite(id) {
+    feedWrite(feed) {
       //id를 받아서 펼치게 될 경우를 정해준다.
-      this.openWrite = id;
+      this.openWrite = feed.id;
     },
     addReview(feedId, reviewData) {
       let formData = new FormData();
