@@ -49,7 +49,7 @@
         </div>
         <div class ="share">
           <button>
-            <b-icon-pencil-square v-if="userId == feed.user.id && feed.modify == 1" @click="modifyContent(feed)"></b-icon-pencil-square>
+            <b-icon-pencil-square v-if="user.id == feed.user.id && feed.modify == 1" @click="modifyContent(feed)"></b-icon-pencil-square>
             <b-icon-pencil-square v-else style="color : rgba(194, 183, 183, 0.9); " @click="modifyContent(feed)"></b-icon-pencil-square>
           </button>
         </div>

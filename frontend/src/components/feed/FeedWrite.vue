@@ -214,6 +214,7 @@ export default {
       user: store.state.userInfo.data,
       limit: 0,
       rating : 0,
+      plusContent : true,
       index : 0,
     };
   },
