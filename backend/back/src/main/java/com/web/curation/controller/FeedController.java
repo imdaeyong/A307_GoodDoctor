@@ -115,8 +115,13 @@ public class FeedController {
 				feed.setImageUrl("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")+".png"); // 불러올 이미지 위치
 				mFile.transferTo(new File("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")+".png"));
 			}
-			feed.setContent(file.getParameter("content"));
+			if (file.getParameter("content").equals("undefined")) {
+				feed.setContent("");
+			} else {
+				feed.setContent(file.getParameter("content"));				
+			}
 			feed.setStar(Double.parseDouble(file.getParameter("star")));
+			feed.setUpdateDate(LocalDateTime.now());
 			feed.setIsNew(false);
 			feedDao.save(feed);
 			return new ResponseEntity<>(null, HttpStatus.OK);
