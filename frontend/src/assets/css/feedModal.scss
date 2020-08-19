@@ -58,7 +58,7 @@
   }
   img{
     height : 31.5em;
-    width: 44em;
+    width: 100%;
   }
   //span은 임시
   span{
@@ -152,4 +152,32 @@
   color: #999;
   background: #fff;
   width : 2em;
+}
+
+@media ( max-width: 1244px ) {
+  .feed-foot-modal{
+    height : 100%;
+    float : none;
+    width: 100%;
+    border-left: 1px solid rgba(194, 183, 183, 0.5);
+  }
+  .feed-reply-modal{
+    width: 100%;
+    float : none;
+  }
+  .feed-reply-content{
+    overflow:auto;
+    height: 20%;
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+  }
+  .reply-list{
+    height : 50px;
+  }
+  .profile-image{
+    width: 2em;
+    height: 2em;
+    float: left;
+  }
+  
 }

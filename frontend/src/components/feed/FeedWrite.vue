@@ -35,14 +35,13 @@
               <div v-for="(feed, index) in feeds" v-bind:key="feed.id">
                 <div v-if="feed.isNew">
                   <img src="../../assets/images/new_logo.png" alt="" width="90px" height="40px;"
-                      style="position : relative; left : 28%; top : 15px; z-index : 1">
+                      style="position : relative; top : 15px; z-index : 1">
                   <div class="feed-wrap">
                     <div class="feed-top">               
                       <img :src="user.imageUrl" v-if="user.imageUrl != null" class="profile-image" />
                       <img src="../../assets/images/profile_default.png" alt v-else />
                       <div class="user-info">
                         {{feed.user.nickname}}
-                        <span style="color : red; font-weight : bold"></span>
                       </div>
                       <div class="user-hospital">
                         {{feed.hospital.name}}
@@ -69,7 +68,7 @@
                         <star-rating 
                           :inline="true" 
                           text-class="rating-text" 
-                          style="float : right; height : 30px; margin-right : 1em" 
+                          style="float : right; height : 40px; margin-right : 0.5em" 
                           border-color="#d8d8d8" 
                           :rounded-corners="true" 
                           :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" 
@@ -78,9 +77,8 @@
                           @rating-selected="setRating" 
                         >
                         </star-rating>
-                        <textarea name id cols="60%" rows="3" v-model="feed.review"></textarea>
-                        <br />
-                        <button v-on:click="addReview(feed.id, feed.review)">작성</button>
+                        <textarea name id cols="60%" style="width:100%" rows="3" v-model="feed.review"></textarea>
+                        <button v-on:click="addReview(feed.id, feed.review)" class="feed-btn-full-center">작성</button>
                       </div>
                     </div>
                   </div>
@@ -103,7 +101,6 @@
                     <div class="feed-card">
                       <img :src="feed.imageUrl" v-if="feed.imageUrl != null"/>
                       <div class="feed-content">
-                        <a href>#진료잘봄 #호감</a>
                         <br />
                         <div style="padding : 0px;" v-if="plusContent">
                           <div class="text-truncate" style="width: 60%; padding : 0px;">

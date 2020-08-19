@@ -42,7 +42,6 @@
                 <div class="feed-card">
                   <img :src="feed.imageUrl"  v-if="feed.imageUrl != null"/>
                   <div class="feed-content">
-                    <a href>#진료잘봄 #호감</a>
                     <br />
                     <div style="padding : 0px;" v-if="plusContent">
                       <div class="text-truncate" style="width: 60%; padding : 0px;">
@@ -152,7 +151,6 @@ export default {
       .get(`feeds/crawling`)
           .then((data) => {
             this.coronaInfo = data.data.split(" ");
-            console.log(this.coronaInfo);
           });
   },
   created() {

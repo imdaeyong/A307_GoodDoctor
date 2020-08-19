@@ -70,9 +70,14 @@
       <div class="ml-3" style="text-align: center; margin-top: 200px;">
         <h3>위치 & 정보</h3>
         <p>※주의사항 : 방문 전, 전화로 확인 후 이용해주세요. </p>
-        <button style="padding-left: 5em; float : right; margin-top : -3em;" @click.stop="addFavorites(hospital)" z-index=5 width=40px;>
+        <button v-if="isFavorite" style="outline: none; padding-left: 5em; float : right; margin-top : -3em;" @click.stop="addFavorites(hospital)" z-index=5 width=40px;>
+          <span style="color : #17a2b8; font-size : 1.1em; font-weight : 700;">즐겨찾기 제거 </span>
+          <img src="../../assets/images/hospital/fav.png" width= 31em; alt="favorites_Button">
+        </button>
+
+        <button v-else style="outline: none;  padding-left: 5em; float : right; margin-top : -3em;" @click.stop="addFavorites(hospital)" z-index=5 width=40px;>
           <span style="color : #17a2b8; font-size : 1.1em; font-weight : 700;">즐겨찾기 추가 </span>
-          <img src="../../assets/images/hospital/favorite.png" width="30px;" alt="favorites_Button">
+          <img src="../../assets/images/hospital/unfav.png" width= 31em; alt="favorites_Button">
         </button>
       </div>
       <b-container class="bv-example-row" style="float: left;">
@@ -133,9 +138,10 @@ export default {
         slides: 7,
         user: store.state.userInfo.data,
         plusContent : true,
+        isFavorite:false,
       } 
     },
-    mounted() {
+ mounted() {
       http.get(`/hospitals/${this.hospital.id}`)
       .then(res => {
         this.hospitalDatas = res.data
@@ -151,6 +157,18 @@ export default {
         this.hospitalFeeds = res.data
         this.slides = this.hospitalFeeds.length
       })
+
+      var userId = this.$store.getters.userInfo.data.id
+      var favorites= []
+      if(localStorage.getItem(userId)){
+        favorites = JSON.parse(localStorage[userId]);
+        for(var i=0; i<favorites.length;i++){
+          if(favorites[i].id==this.hospital.id){
+            this.isFavorite=true;
+            break;
+          }
+        }
+      }
     },
     methods: {
       openReply(feed) {
@@ -162,37 +180,30 @@ export default {
       // event.stopPropagation()
       var userId = this.$store.getters.userInfo.data.id
       var favorites= []
-      if(localStorage.getItem(userId)){
+      var isExist=false;
+      
+      if(localStorage.getItem(userId)){//즐겨찾기가 있을때
         favorites = JSON.parse(localStorage[userId]);
-
-        var isExist = false;
         for(var i=0; i<favorites.length;i++){
           if(favorites[i].id==hospital.id){
             favorites.splice(favorites.indexOf(favorites[i]),1);
-            alert(hospital.name+"이 즐겨찾기에서 제거되었습니다.")
+            this.isFavorite=false;
             isExist=true;
             break;
           }
         }
-        if(!isExist){
-          alert(hospital.name+"이 즐겨찾기에 추가되었습니다")
-          favorites.push(hospital)
-        }
-      }else{
+      }
+      if(!isExist){
         favorites.push(hospital)
-        console.log("사용자의 즐겨찾기리스트 생성")
+        this.isFavorite=true;
       }
-      localStorage.setItem(userId,JSON.stringify(favorites));
+      if(favorites.length==0){
+        localStorage.removeItem(userId);
+      }else{
+        localStorage.setItem(userId,JSON.stringify(favorites));
+      }
     },
-    formatDate(date) { 
-      
-        var d = new Date(date), 
-        month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear(); 
-        if (month.length < 2) month = '0' + month; 
-        if (day.length < 2) day = '0' + day; 
-        return [year, month, day].join('-');
-      }
-    }
+  }
     
 }
 </script>

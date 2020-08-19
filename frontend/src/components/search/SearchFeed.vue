@@ -1,81 +1,88 @@
 <template>
   <div class="feed-item">
     <h2 align="center">'{{this.$route.query.word}}' 에 대한 피드 검색 결과입니다.</h2>
+    
     <div v-for="(feed, index) in feeds" v-bind:key="feed.id" v-bind:index="index">
       <div v-if="!feed.isNew">
-        <div class="feed-wrap" v-bind:data="feed.data">
-          <div class="feed-top">
-            <img :src="feed.user.imageUrl" v-if="feed.user.imageUrl != null" class="profile-image" />
-            <img src="../../assets/images/profile_default.png" alt v-else />
-            <div class="user-info">{{feed.user.nickname}}</div>
-            <div class="user-hospital">
-              {{feed.hospital.name}}
-              <span>{{feed.updateDate}}</span>
-            </div>
-          </div>
-          <div class="feed-card">
-            <img :src="feed.imageUrl" v-if="feed.imageUrl != null" />
-            <div class="feed-content">
-              <a href>#진료잘봄 #호감</a>
-              <br />
-              <div style="padding : 0px;" v-if="plusContent">
-                <div class="text-truncate" style="width: 60%; padding : 0px;">{{feed.content}}</div>
-                <button>
-                  <span v-if="feed.content.length > 30" @click="plusContent = false">더보기</span>
-                </button>
+        <b-container fluid class="bv-example-row mt-5">
+          <b-row align-h="center">
+            <b-col xl="5">
+
+
+              <div class="feed-wrap" v-bind:data="feed.data">
+                <div class="feed-top">
+                  <img :src="feed.user.imageUrl" v-if="feed.user.imageUrl != null" class="profile-image" />
+                  <img src="../../assets/images/profile_default.png" alt v-else />
+                  <div class="user-info">{{feed.user.nickname}}</div>
+                  <div class="user-hospital">
+                    {{feed.hospital.name}}
+                    <span>{{feed.updateDate}}</span>
+                  </div>
+                </div>
+                <div class="feed-card">
+                  <img :src="feed.imageUrl" v-if="feed.imageUrl != null" />
+                  <div class="feed-content">
+                    <br />
+                    <div style="padding : 0px;" v-if="plusContent">
+                      <div class="text-truncate" style="width: 60%; padding : 0px;">{{feed.content}}</div>
+                      <button>
+                        <span v-if="feed.content.length > 30" @click="plusContent = false">더보기</span>
+                      </button>
+                    </div>
+                    <div v-if="!plusContent">{{feed.content}}</div>
+                  </div>
+                </div>
+                <div class="feed-foot">
+                  <div class="feed-btn-list">
+                    <div class="like" @click="addLike(feed.isClick, feed.id, index)">
+                      <button id="heart" style="outline : 0;">
+                        <b-icon-heart v-show="!feed.isClick"></b-icon-heart>
+                        <b-icon-heart-fill class="f-heart" v-show="feed.isClick" style="color : red;"></b-icon-heart-fill>
+                      </button>
+                    </div>
+                    <div class="reply">
+                      <button>
+                        <b-icon-chat-square @click="openReply(feed, index)"></b-icon-chat-square>
+                      </button>
+                    </div>
+                    <star-rating
+                      :inline="true"
+                      text-class="rating-text"
+                      style="float : right; height : 30px; font-size:0.8em;"
+                      border-color="#d8d8d8"
+                      :rounded-corners="true"
+                      :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"
+                      :star-size="20"
+                      :show-rating="true"
+                      :read-only="true"
+                      :increment="0.5"
+                      :rating="feed.star"
+                    ></star-rating>
+                    <div class="share">
+                      <button>
+                        <b-icon-reply @click="addShare()"></b-icon-reply>
+                      </button>
+                    </div>
+                    <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span>
+                  </div>
+                  <div class="reply-list">
+                    <img
+                      :src="feed.user.imageUrl"
+                      v-if="feed.user.imageUrl != null"
+                      class="profile-image"
+                    />
+                    <img src="../../assets/images/profile_default.png" alt v-else />
+                    
+                    <input type="text" class="reply-content" placeholder="댓글달기..." v-model="feed.data" />
+                    <button class="reply-submit" @click="addReply(feed.id, feed.data)">게시</button>
+                  </div>
+                </div>
               </div>
-              <div v-if="!plusContent">{{feed.content}}</div>
-            </div>
-          </div>
-          <div class="feed-foot">
-            <div class="feed-btn-list">
-              <div class="like" @click="addLike(feed.isClick, feed.id, index)">
-                <button id="heart" style="outline : 0;">
-                  <b-icon-heart v-show="!feed.isClick"></b-icon-heart>
-                  <b-icon-heart-fill class="f-heart" v-show="feed.isClick" style="color : red;"></b-icon-heart-fill>
-                </button>
-              </div>
-              <div class="reply">
-                <button>
-                  <b-icon-chat-square @click="openReply(feed, index)"></b-icon-chat-square>
-                </button>
-              </div>
-              <star-rating
-                :inline="true"
-                text-class="rating-text"
-                style="float : right; height : 30px; font-size:0.8em;"
-                border-color="#d8d8d8"
-                :rounded-corners="true"
-                :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"
-                :star-size="20"
-                :show-rating="true"
-                :read-only="true"
-                :increment="0.5"
-                :rating="feed.star"
-              ></star-rating>
-              <div class="share">
-                <button>
-                  <b-icon-reply @click="addShare()"></b-icon-reply>
-                </button>
-              </div>
-              <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span>
-            </div>
-            <div class="reply-list">
-              <img
-                :src="feed.user.imageUrl"
-                v-if="feed.user.imageUrl != null"
-                class="profile-image"
-              />
-              <img src="../../assets/images/profile_default.png" alt v-else />
-              <div class="user-info">
-                <span v-if="isLogin">{{feed.user.nickname}}</span>
-                <span v-else>닉네임</span>
-              </div>
-              <input type="text" class="reply-content" placeholder="댓글달기..." v-model="feed.data" />
-              <button class="reply-submit" @click="addReply(feed.id, feed.data)">게시</button>
-            </div>
-          </div>
-        </div>
+            </b-col>
+          </b-row>
+        </b-container>
+
+
       </div>
     </div>
     <infinite-loading @infinite="infiniteHandler" spinner="bubbles">

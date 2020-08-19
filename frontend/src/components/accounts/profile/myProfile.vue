@@ -66,7 +66,6 @@ export default {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((data) => {
-          console.log(data.data);
           this.$store.commit('mutateUserInfo',data);
           alert("프로필 사진 변경완료");
           this.$router.go(0);

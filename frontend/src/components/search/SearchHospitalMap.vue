@@ -103,17 +103,11 @@ export default {
           image: markerImage,
           clickable: true, //마커 클릭시 지도 동작x
         });
-        var iwContent =
-            '<div style="text-align:center; margin-right : -145px;">' +
-            '<span style="color: #17a2b8; font-size:1.1em; font-weight:;">' +
-            info.name +
-            "</span><br>" +
-            '<span style="font-size:0.9em; margin-top : -3em">' +
-            info.gu +
-            "</span>" +
-            "<br></div>",
-          iwRemoveable = false;
-
+        var iwContent = '<div style="text-align:center; width: 150px; overflow:auto; margin-right : -145px; ">'+
+                        '<div style="color: #17a2b8; font-size:1.1em;">'
+                        +info.name+'</div>'
+                        +'<span style="font-size:0.9em; margin-top : -3em">'+info.gu+'</span>'+
+                        '<br></div>', iwRemoveable = false;
         var infowindow = new kakao.maps.InfoWindow({
           content: iwContent,
         });
@@ -201,6 +195,6 @@ export default {
 <style scoped>
 #map {
   width: 500px;
-  height: 540px;
+  height: 510px;
 }
 </style>

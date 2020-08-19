@@ -172,7 +172,6 @@ export default {
     onQRWithOutLogin() {
       this.hospitalId = this.$route.query.hospitalId;
       let user = this.$store.state.userInfo.data;
-      console.log(user);
       store.dispatch("QRWithOutlogin", {
         email: "",
         password: "",
