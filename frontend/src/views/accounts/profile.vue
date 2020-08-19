@@ -1,9 +1,7 @@
 <template>
   <div>
     <NavBar/>
-    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
-      <User/>
-    </b-modal>
+
     <b-container fluid class="bv-example-row bv-example-row-flex-cols">
       <b-row align-v="stretch">
         <b-col class='mt-5' cols="2" style="text-align:center">
@@ -66,7 +64,6 @@ import myProfile from "../../components/accounts/profile/myProfile.vue"
 import myHospital from "../../components/accounts/profile/myHospital.vue"
 import myReview from "../../components/accounts/profile/myReview.vue"
 import store from '@/vuex/store.js'
-import User from "../../../src/views/accounts/Login.vue";
 import FeedModal from "../../../src/components/feed/FeedModal.vue";
 
 export default {
@@ -76,7 +73,6 @@ export default {
     myProfile,
     myHospital,
     myReview,
-    User
   },
   mounted(){
     if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');

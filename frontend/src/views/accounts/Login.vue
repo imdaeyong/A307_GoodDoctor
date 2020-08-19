@@ -95,7 +95,7 @@
           </h5>
           <hr>
           <h5>
-            무엇보다 🤸 ♂️ <span style="color : #17a2b8">심플한</span>디자인으로 사용이 쉽죠.
+            무엇보다 🤸‍♂️ <span style="color : #17a2b8">심플한</span>디자인으로 사용이 쉽죠.
           </h5>
           <hr>
 

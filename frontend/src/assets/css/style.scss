@@ -51,6 +51,12 @@ button {
   width: 50%;
 }   
 
+.three-quarter {
+  margin-left: 30%;
+  text-align: right;
+  width: 50%;
+}
+
 .red {
   color: red;
 }
@@ -232,6 +238,74 @@ button {
         width: 100%;
     }
 }
+
+.auth-input-label {
+  @include wrap;
+  width: 140%;
+  position: relative;
+  margin-bottom: 10px;
+  input[type="text"],
+  input[type="password"] { 
+    @include wrap;
+    // input-label박스 사이즈
+    height: 45px;
+    line-height: 1;
+    padding: 2px 60px 0 105px;
+    box-sizing: border-box;
+    // 평상시 박스 border
+    border: 1px solid rgb(150, 150, 150);
+    border-radius: 3px;
+    // 마우스 오버 된 경우
+    &:hover, &:focus {
+      border:1px solid rgb(0, 0, 0)
+    }
+    &.error {
+      border-radius: 3;
+      border: 1px solid $red;
+    }
+    &.complete {
+      border-radius: 3;
+      border: 1px solid $myColor;
+    }
+    &.disabled {
+      background: #eee;
+      color:#333;
+      font-weight: $f600;
+      &:hover, &:focus {
+        border:1px solid #000;
+      }
+    }
+  }
+  label {
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    color: #000;
+    font-weight: $f700;
+    font-size: 15px;
+    &.right {
+      margin-left: 84%;
+      border: none;
+      font-size: 15px;
+      font-weight: 400;
+      background-color: transparent;
+      outline: none;
+      cursor: pointer;
+    }
+    &.authRight {
+      margin-left: 77%;
+      font-weight: 400;
+    }
+  }
+
+  .error-text {
+    @include wrap;
+    color: $red;
+    margin-top: 3px;
+    margin-left: 9px;
+  }
+}
+
 .input-label {
   @include wrap;
   width: 100%;

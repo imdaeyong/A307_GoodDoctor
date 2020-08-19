@@ -1,5 +1,11 @@
 <template>
   <div>
+    <!-- 로그인 강제창 -->
+    <b-modal id="bv-modal-example" size="xl" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
+      <User/>
+    </b-modal>
+
+
     <b-navbar toggleable="lg" type="dark" variant="info" fixed="top" 
     style="box-shadow : 0px 2px 7px 1px grey;">
       <!-- 네브바 왼쪽 여백 -->
@@ -625,9 +631,13 @@
 <script>
 import store from "@/vuex/store.js";
 import http from "@/util/http-common";
+import User from "../views/accounts/Login.vue";
 
 export default {
   name: "NavigationBar",
+  components: {
+    User
+  },
   data: () => {
     return {
       sido: "",

@@ -1,9 +1,7 @@
 <template>
   <div>
     <NavBar/>
-    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
-      <User/>
-    </b-modal>
+
     
     <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
       <FeedModal />
@@ -98,7 +96,6 @@
 
 <script>
 import NavBar from '../NavigationBar.vue'
-import User from '../../views/accounts/Login.vue'
 import http from '@/util/http-common'
 import store from "@/vuex/store.js"
 import HospitalDetailMap from "../../components/hospital/HospitalDetailMap.vue"
@@ -109,7 +106,6 @@ export default {
     name: "HospitalDetail",
     components: {
       NavBar,
-      User,
       HospitalDetailMap,
       Carousel3d,
       Slide,

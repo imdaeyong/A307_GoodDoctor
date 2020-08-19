@@ -1,9 +1,6 @@
 <template>
   <div>
     <NavBar />
-    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>
-      <User />
-    </b-modal>
 
     <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
       <FeedModal />
@@ -35,7 +32,6 @@ import SearchFeed from "../../components/search/SearchFeed.vue";
 import SearchHospitalMap from "../../components/search/SearchHospitalMap.vue";
 import PageLinkSearch from "../../components/PageLinkSearch.vue";
 import store from "../../vuex/store.js";
-import User from "../../views/accounts/Login.vue";
 import FeedModal from "../../components/feed/FeedModal.vue";
 
 export default {
@@ -44,7 +40,6 @@ export default {
     SearchHospital,
     SearchHospitalMap,
     PageLinkSearch,
-    User,
     SearchFeed,
     FeedModal,
   },

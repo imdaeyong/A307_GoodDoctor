@@ -2,10 +2,6 @@
   <div>
     <NavBar />
 
-    <b-modal id="bv-modal-example" hide-footer hide-header no-close-on-backdrop no-close-on-esc>
-      <User />
-    </b-modal>
-
     <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
       <FeedModal />
     </b-modal>
@@ -82,11 +78,16 @@
               </div>
               <div class="feed-card">
                 <img :src="feed.imageUrl" v-if="feed.imageUrl != null"/>
-                <div>
-                  <a href>#진료잘봄#호감</a>
+                <div class="feed-content">
+                  <a href>#진료잘봄 #호감</a>
                   <br />
-                  {{feed.content}}
-                  <span>더보기...</span>
+                  <div style="padding : 0px;" v-if="plusContent">
+                    <div class="text-truncate" style="width: 60%; padding : 0px;">
+                      {{feed.content}}
+                    </div>
+                    <button><span v-if="feed.content.length > 30" @click="plusContent = false">더보기</span></button>
+                  </div>
+                  <div v-if="!plusContent">{{feed.content}}</div>
                 </div>
               </div>
               <div class="feed-foot">
@@ -146,7 +147,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 <script>
 import NavBar from "../../components/NavigationBar.vue";
-import User from "../../views/accounts/Login.vue";
 import store from "@/vuex/store.js";
 import http from "@/util/http-common";
 import FeedModal from "../feed/FeedModal.vue";
@@ -158,7 +158,6 @@ export default {
   components: {
     FeedModal,
     NavBar,
-    User,
     InfiniteLoading,
     StarRating
   },
