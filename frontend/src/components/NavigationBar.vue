@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- 로그인 강제창 -->
-    <!-- <b-modal id="bv-modal-example" size="xl" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
+    <b-modal id="bv-modal-example" size="xl" hide-footer hide-header no-close-on-backdrop no-close-on-esc>   
       <User/>
-    </b-modal> -->
+    </b-modal>
 
     <b-navbar toggleable="lg" type="dark" variant="info" fixed="top" 
     style="box-shadow : 0px 2px 7px 1px grey;">
@@ -630,12 +630,12 @@
 <script>
 import store from "@/vuex/store.js";
 import http from "@/util/http-common";
-// import User from "../views/accounts/Login.vue";
+import User from "../views/accounts/Login.vue";
 
 export default {
   name: "NavigationBar",
   components: {
-    // User
+    User
   },
   data: () => {
     return {

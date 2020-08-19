@@ -3,7 +3,7 @@
     <NavBar />
     <h1 class="mt-4">지금 관심있는 병원 정보</h1>
 
-    <div class="myreview-feed">
+    <div class="myhospital-feed">
       <div v-for="hospital in favorites" v-bind:key="hospital.id">
       <b-card no-body @click="hospitalDataSend(hospital)"
         class="overflow-hidden my-3 btn-left"
@@ -50,11 +50,11 @@ export default {
     return {
       favorites: [],
     };
-  },
+  },  
   created() {
     var userId = this.$store.getters.userInfo.data.id;
     this.favorites = JSON.parse(localStorage.getItem(userId));
-    console.log(this.favorites[0]);
+    this.favorites = this.favorites.reverse()
   },
   methods:{
     hospitalDataSend(hospital) {

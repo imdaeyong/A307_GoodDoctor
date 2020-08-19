@@ -85,7 +85,7 @@
                     </div>
                   </div>
                   <div class="review-write-btn">
-                    <button v-if="openWrite != feed.id" v-on:click="feedWrite(feed.id)">작성하기</button>
+                    <button v-if="openWrite != feed.id" v-on:click="feedWrite(feed)">작성하기</button>
                     <button v-if="openWrite == feed.id" v-on:click="feedWrite('')">작성닫기</button>
                   </div>
                 </div>
@@ -141,9 +141,10 @@
                           :rating="feed.star"
                         >
                         </star-rating>
-                        <div class="share">
+                        <div class ="share">
                           <button>
-                            <b-icon-reply v-on:click="addShare()"></b-icon-reply>
+                            <b-icon-pencil-square v-if="userId == feed.user.id && feed.modify == 1" @click="modifyContent(feed)"></b-icon-pencil-square>
+                            <b-icon-pencil-square v-else style="color : rgba(194, 183, 183, 0.9); " @click="modifyContent(feed)"></b-icon-pencil-square>
                           </button>
                         </div>
                         <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span>
@@ -263,9 +264,18 @@ export default {
       store.dispatch("openReplyIndex", index);
       this.$bvModal.show("bv-modal-feed");
     },
-    addShare() {
-      //공유버튼 클릭시 실행 함수
-      alert("하이");
+    modifyContent(feed){
+      if (feed.modify == 0){
+        alert("이미 수정한 피드입니다!");
+      }else {
+        http.put(`feeds/`+feed.id)
+        .then((data) => {
+          this.$router.go("../feed/write");
+        })
+        .catch(err => {
+          alert("오류가 발생하였습니다.");
+        })
+      }
     },
     addReply(feedId, feedData) {
       let comment = {
@@ -280,9 +290,9 @@ export default {
         })
         .catch((err) => {});
     },
-    feedWrite(id) {
+    feedWrite(feed) {
       //id를 받아서 펼치게 될 경우를 정해준다.
-      this.openWrite = id;
+      this.openWrite = feed.id;
     },
     addReview(feedId, reviewData) {
       let formData = new FormData();

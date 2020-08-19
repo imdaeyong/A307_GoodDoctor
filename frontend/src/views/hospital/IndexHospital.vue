@@ -3,7 +3,6 @@
     <NavBar/>
 
     <div class="mt-5">
-
       <b-container fluid class="bv-example-row bv-example-row-flex-cols" style="width:72%">
         <b-row align-v="stretch">
           <b-col cols="6" class="border-right">
@@ -14,7 +13,9 @@
           </b-col>
         </b-row>
       </b-container>
+
       <PageLink/>
+      
     </div>
   </div>
 </template>

@@ -8,7 +8,7 @@
         <img  src= "../../../assets/images/profile_default.png" alt="" v-else style="width: 14rem">
         <br><br>
         <div class="user-info-modal mt-3">
-          <div class ="box-file-input" style="margin-left : 290px;">
+          <div class ="box-file-input" style="margin-left: 290px;">
             <label>
               <input
                 type="file"

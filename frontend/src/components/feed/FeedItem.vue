@@ -66,11 +66,22 @@
                         <b-icon-chat-square @click="openReply(feed, index)"></b-icon-chat-square>
                       </button>
                     </div>
-                    <star-rating :inline="true" text-class="rating-text" style="float : right; height : 30px; font-size:0.8em;" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :star-size="20" :show-rating="true" :read-only="true" :increment="0.5" :rating="feed.star">
+                    <star-rating 
+                      :inline="true" 
+                      text-class="rating-text" 
+                      style="float : right; height : 30px; font-size:0.8em; margin-right: -10px;" 
+                      border-color="#d8d8d8" 
+                      :rounded-corners="true" 
+                      :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" 
+                      :star-size="20" 
+                      :show-rating="true" 
+                      :read-only="true" 
+                      :increment="0.5" 
+                      :rating="feed.star"
+                    >
                     </star-rating>
                     <div class="share">
                       <button>
-                        <b-icon-reply @click="addShare()"></b-icon-reply>
                       </button>
                     </div>
                     <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span>
@@ -82,10 +93,7 @@
                       class="profile-image"
                     />
                     <img src="../../assets/images/profile_default.png" alt v-else />
-                    <div class="user-info">
-                      <span v-if="isLogin">{{user.nickname}}</span>
-                      <span v-else>닉네임</span>
-                    </div>
+
                     <input @keypress.enter="addReply(feed.id, feed.data, index)" type="text" class="reply-content" placeholder="댓글달기..." v-model="feed.data" />
                     <button class="reply-submit" @click="addReply(feed.id, feed.data)">게시</button>
                   </div>
@@ -184,10 +192,6 @@ export default {
       store.dispatch("openReply", feed);
       store.dispatch("openReplyIndex", index);
       this.$bvModal.show("bv-modal-feed");
-    },
-    addShare() {
-      //공유버튼 클릭시 실행 함수
-      alert("하이");
     },
     addReply(feedId, feedData, index) {
       let comment = {
