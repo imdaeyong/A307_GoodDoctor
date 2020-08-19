@@ -1,32 +1,45 @@
 <template>
   <div class="feed-modal">
-    <div class="feed-reply-modal">
-      <div class="feed-top-modal">
-        <img :src="feed.user.imageUrl" v-if="feed.user.imageUrl != null"
-                class="profile-image"/>
-        <img src= "../../assets/images/profile_default.png" alt=""  v-else>
-        <div class="user-info-modal">{{feed.user.nickname}}</div>
-        <div class="user-hospital-modal">{{feed.hospital.name}} <span>{{feed.updateDate}}</span></div>
-      </div>
-      <div class="feed-card-modal">
-        <img :src="feed.imageUrl" v-if="feed.imageUrl != null" class="feed-card-image"/><br>
-        <star-rating :inline="true" style="float : right; font-size:1em" text-class="rating-text-modal" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :star-size="20" :show-rating="true" :read-only="true" :increment="0.5" :rating="feed.star">
-        </star-rating>
-        <div class="feed-content">
-          <a href="">#진료잘봄#호감</a><br>
-          <div style="padding : 0px;" v-if="plusContent">
-            <div class="text-truncate" style="width: 60%; padding : 0px;">
-              {{feed.content}}
+
+    <b-container fluid class="bv-example-row">
+      <b-row align-h="center">
+        <b-col xl="5">
+          <div class="feed-reply-modal">
+            <div class="feed-top-modal">
+              <img 
+                :src="feed.user.imageUrl" 
+                v-if="feed.user.imageUrl != null"
+                class="profile-image"
+                />
+              <img src= "../../assets/images/profile_default.png" alt=""  v-else>
+              <div class="user-info-modal">{{feed.user.nickname}}</div>
+              <div class="user-hospital-modal">{{feed.hospital.name}} <span>{{feed.updateDate}}</span></div>
             </div>
-            <button><span v-if="feed.content.length > 30" @click="plusContent = false">더보기</span></button>
+            <div class="feed-card-modal">
+              <img :src="feed.imageUrl" v-if="feed.imageUrl != null" class="feed-card-image"/><br>
+              <star-rating :inline="true" style="float : right; font-size:1em" text-class="rating-text-modal" border-color="#d8d8d8" :rounded-corners="true" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :star-size="20" :show-rating="true" :read-only="true" :increment="0.5" :rating="feed.star">
+              </star-rating>
+              <div class="feed-content">
+                <a href="">#진료잘봄#호감</a><br>
+                <div style="padding : 0px;" v-if="plusContent">
+                  <div class="text-truncate" style="width: 60%; padding : 0px;">
+                    {{feed.content}}
+                  </div>
+                  <button><span v-if="feed.content.length > 30" @click="plusContent = false">더보기</span></button>
+                </div>
+                <div v-if="!plusContent">{{feed.content}}</div>
+              </div>
+            </div>
           </div>
-          <div v-if="!plusContent">{{feed.content}}</div>
-        </div>
-      </div>
-    </div>
+        </b-col>
+      </b-row>
+    </b-container>
+
+
+    <!-- 댓글창 -->
     <div class="feed-foot-modal">
       <div class="feed-reply-content">
-        <div v-for="reply in replys" v-bind:key="reply.id">
+                <div v-for="reply in replys" v-bind:key="reply.id">
           <div class="feed-reply">
             <div>
               <img :src="reply.imageUrl" v-if="reply.imageUrl != null"

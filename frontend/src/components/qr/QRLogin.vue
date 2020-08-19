@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import "../../assets/css/main.css";
+import "../../assets/css/main.scss";
 import "../../assets/css/feed.scss";
 import "../../assets/css/feedModal.scss";
 import PV from "password-validator";

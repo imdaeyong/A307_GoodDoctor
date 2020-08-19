@@ -1,6 +1,6 @@
 <template>
   <div class="user" id="login">
-    <div class="wrapC mt-5">
+    <div class="wrapCC mt-5">
       <h1>가입하기</h1>
       <!-- <div class="profile-image">
         <div>

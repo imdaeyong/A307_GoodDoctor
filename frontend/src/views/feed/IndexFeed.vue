@@ -1,6 +1,7 @@
 <template>
   <div>
     <NavBar />
+
     <FeedItem />
     
     <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
@@ -10,7 +11,7 @@
 </template>
 
 <script>
-import "../../assets/css/main.css";
+import "../../assets/css/main.scss";
 import "../../assets/css/feed.scss";
 import "../../assets/css/feedModal.scss";
 import { mapState } from "vuex";

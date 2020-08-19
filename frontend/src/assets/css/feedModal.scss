@@ -6,8 +6,9 @@
 .feed-reply-modal{
   border: 1px solid rgba(194, 183, 183, 0.5);
   float: left;
-  width : 65%;
-  height: 100%;
+  //모바일 반응을 위해 꺼둠
+  // width : 65%;
+  // height: 100%;
 }
 .profile-image{
   border-radius: 100px 100px 100px 100px;

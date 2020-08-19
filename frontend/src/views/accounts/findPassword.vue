@@ -1,13 +1,13 @@
 <template>
   <div class="user" id="join">
-    <div class="wrapC mt-5">
+    <div class="wrapCC mt-5">
       <h1>비밀번호를 찾아요</h1>
       <div class="input-label">
         <input 
           v-model="email" 
           v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
           id="email" 
-          placeholder="가입시 사용한 이메일을 입력하세요." 
+          placeholder="가입시 사용한 이메일을 입력." 
           type="text"/>
         <label for="email">이메일</label>
         <div class="error-text" v-if="error.email">{{error.email}}</div>
