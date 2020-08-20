@@ -44,9 +44,10 @@ export default {
       } else if (mutation.type == "addHospitalHover") {
         var hover_hos = this.$store.getters.hospitalHover;
         var overlay = new kakao.maps.LatLng(hover_hos.lng, hover_hos.lat);
-        // this.map.setLevel(3); //마커 눌렀을때
-        this.map.setCenter(overlay);
-
+        if(this.map!=null){
+          // this.map.setLevel(3);
+          this.map.setCenter(overlay);
+        }
         for (var i = 0; i < this.markers.length; i++) {
           var marker = this.markers[i];
           if (hover_hos.name == marker.getTitle()) {
@@ -73,7 +74,7 @@ export default {
         })
         .then((response) => {
           this.hospitalLoc = response.data;
-          this.initMap();
+         setTimeout(() => { this.initMap() }, 300)
         })
         .catch((error) => {});
     },
@@ -162,7 +163,7 @@ export default {
       clusterer.addMarkers(markers);
 
       if (clusterer._clusters.length == 1) {
-        map.setLevel(7); //처음 지도 거리
+        map.setLevel(8); //처음 지도 거리
       }
       this.infowindows = infowindows;
       this.markers = markers;
@@ -184,8 +185,8 @@ export default {
     },
     markerClick(marker, map) {
       return function () {
-        map.setCenter(marker.getPosition());
         map.setLevel(3);
+        map.setCenter(marker.getPosition());
       };
     },
   },

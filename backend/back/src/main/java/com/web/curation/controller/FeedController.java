@@ -110,10 +110,10 @@ public class FeedController {
 			if (mFile == null) {
 				feed.setImageUrl(null);
 			} else {
-//				feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
-//				mFile.transferTo(new File("C:\\temptemp\\" + mFile.getOriginalFilename()));
-				feed.setImageUrl("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")+".png"); // 불러올 이미지 위치
-				mFile.transferTo(new File("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")+".png"));
+				feed.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename());
+				mFile.transferTo(new File("C:\\temptemp\\" + mFile.getOriginalFilename()));
+//				feed.setImageUrl("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")+".png"); // 불러올 이미지 위치
+//				mFile.transferTo(new File("/home/ubuntu/var/feedImage/" + file.getParameter("feedId")+".png"));
 			}
 			if (file.getParameter("content").equals("undefined")) {
 				feed.setContent("");

@@ -1,34 +1,29 @@
 <template>
   <div>
     <NavBar />
-
-    <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
-      <FeedModal />
-    </b-modal>
-
-    <div style="margin-top : -40px;">
-
-            
-    <div v-if="feeds.length == 0">
-      <b-container fluid class="bv-example-row">
-        <b-row align-h="center">
-          <b-col xl="5">
-            <div class="feed-wrap" >
-              <div style="text-align:center">
-                <h3>
-                  <b-icon-emoji-frown animation="throb"></b-icon-emoji-frown>QR코드를 안찍어서
-                  <br />작성할 수 있는 피드가 없어요
-                </h3>
-              </div>
-            </div>
-          </b-col>
-        </b-row>
-      </b-container>
-    </div>
-
-
+      <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
+        <FeedModal />
+      </b-modal>
+      <div style="text-align:center" v-if="!this.loaded"><img src = "../../assets/images/bonoloading.gif"/> </div>
+      
+      <div v-if="this.loaded &&this.loading&& feeds.length == 0" >
+          <b-container fluid class="bv-example-row">
+            <b-row align-h="center">
+              <b-col xl="5">
+                <div class="feed-wrap" >
+                  <div style="text-align:center">
+                    <h3>
+                      <b-icon-emoji-frown animation="throb"></b-icon-emoji-frown>QR코드를 안찍어서
+                      <br />작성할 수 있는 피드가 없어요
+                    </h3>
+                  </div>
+                </div>
+              </b-col>
+            </b-row>
+          </b-container>
+        </div>
       <!-- 기존에 내가 작성한 Feed목록 -->
-      <div v-else>
+      <div v-if="feeds.length!=0">
         <b-container fluid class="bv-example-row">
           <b-row align-h="center">
             <b-col xl="5">
@@ -169,14 +164,21 @@
           </b-row>
         </b-container>
       </div>
+      <div v-if="this.loaded"> 
+      
       <infinite-loading @infinite="infiniteHandler" spinner="bubbles">
+        <div
+          slot="no-results"
+          style="color: rgb(102, 102, 102); font-size: 20px; padding: 10px 0px;"
+        >작성한 피드가 없습니다 :)</div>
+        
         <div
           slot="no-more"
           style="color: rgb(102, 102, 102); font-size: 20px; padding: 10px 0px;"
         >목록의 끝입니다 :)</div>
       </infinite-loading>
+      </div>
       <!-- spinner : default, spiral, circles, bubbles, waveDots -->
-    </div>
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -213,24 +215,36 @@ export default {
       rating : 0,
       plusContent : true,
       index : 0,
+      loaded:false,
+      loading:false,
     };
   },
   created() {
+     
       this.$EventBus.$on('updateLike', (data) => {
-        this.feeds[data].isClick = !this.feeds[data].isClick;
-        this.index = data;
-      })
+      this.feeds[data].isClick = !this.feeds[data].isClick;
+      this.index = data;
+    })
       this.$EventBus.$on('updateLikes', (data) => {
-        this.feeds[this.index].likes = data;
-      })
+      this.feeds[this.index].likes = data;
+    })
   },
   mounted() {
+    this.loading=false,
+    this.loaded=false;
     this.userId = store.state.userInfo.data.id;
     this.nickname = store.state.userInfo.data.nickname;
     this.isLogin = store.state.isLogin;
     if (!store.state.isLogin) this.$bvModal.show("bv-modal-example");
+    
+    setTimeout(() => {
+      this.timeLoading();
+    }, 700);
   },
   methods: {
+    timeLoading(){
+      this.loaded=true;
+    },
     setRating(rating){
       this.rating = rating;
     },
@@ -336,10 +350,11 @@ export default {
               this.feeds = this.feeds.concat(response.data);
               this.limit += 5;
               $state.loaded();
+              this.loading=true;
             } else {
               $state.complete();
             }
-          }, 800);
+          },500);
         })
         .catch((error) => {});
     },

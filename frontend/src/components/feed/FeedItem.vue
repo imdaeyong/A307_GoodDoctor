@@ -3,8 +3,8 @@
     <b-container fluid class="bv-example-row">
       <b-row align-h="center">
         <b-col xl="5">
-    
-          <div class="feed-wrap" v-if="coronaInfo.length != undefined">
+          <div style="text-align:center" v-if="!this.loaded"><img src = "../../assets/images/bonoloading.gif"/> </div>
+          <div class="feed-wrap" v-show="this.loaded">
             <div class="corona-title"><span>코로나 바이러스 </span>(COVID-19) 국내현황</div>
             <table class="corona-table">
               <tr>
@@ -100,12 +100,14 @@
               </div>
             </div>
           </div>
-          <infinite-loading @infinite="infiniteHandler" spinner="bubbles">
-            <div
-              slot="no-more"
-              style="color: rgb(102, 102, 102); font-size: 20px; padding: 10px 0px;"
-            >목록의 끝입니다 :)</div>
-          </infinite-loading>
+          <div v-if="this.loaded"> 
+            <infinite-loading @infinite="infiniteHandler" spinner="bubbles">
+              <div
+                slot="no-more"
+                style="color: rgb(102, 102, 102); font-size: 20px; padding: 10px 0px;"
+              >목록의 끝입니다 :)</div>
+            </infinite-loading>
+          </div>
           <!-- spinner : default, spiral, circles, bubbles, waveDots -->
 
         </b-col>
@@ -138,31 +140,39 @@ export default {
       rating : 0,
       index : 0,
       coronaInfo : {},
-      user : store.state.userInfo.data
+      user : store.state.userInfo.data,
+      loaded: false,
     };
   },
   components: {
     InfiniteLoading,
     StarRating
   },
+  created() {
+    this.loaded=false;
+    this.$EventBus.$on('updateLike', (data) => {
+      this.feeds[data].isClick = !this.feeds[data].isClick;
+      this.index = data;
+    })
+    this.$EventBus.$on('updateLikes', (data) => {
+      this.feeds[this.index].likes = data;
+    })
+  },
   mounted() {
     this.userId = store.state.userInfo.data.id;
     http
       .get(`feeds/crawling`)
-          .then((data) => {
-            this.coronaInfo = data.data.split(" ");
-          });
-  },
-  created() {
-      this.$EventBus.$on('updateLike', (data) => {
-        this.feeds[data].isClick = !this.feeds[data].isClick;
-        this.index = data;
-      })
-      this.$EventBus.$on('updateLikes', (data) => {
-        this.feeds[this.index].likes = data;
-      })
+      .then((data) => {
+        this.coronaInfo = data.data.split(" ");
+      });
+      setTimeout(() => {
+      this.timeLoading();
+    }, 500);
   },
   methods: {
+    timeLoading(){
+      this.loaded=true;
+    },
     addLike(isClick, feedId, index) {
       //좋아요 버튼 클릭시 실행 함수
       if (this.click) {
@@ -226,7 +236,7 @@ export default {
             } else {
               $state.complete();
             }
-          }, 800);
+          }, 500);
         })
         .catch((error) => {});
     },

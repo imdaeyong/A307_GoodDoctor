@@ -7,8 +7,6 @@
         <b-container fluid class="bv-example-row mt-5">
           <b-row align-h="center">
             <b-col xl="5">
-
-
               <div class="feed-wrap" v-bind:data="feed.data">
                 <div class="feed-top">
                   <img :src="feed.user.imageUrl" v-if="feed.user.imageUrl != null" class="profile-image" />
@@ -81,8 +79,6 @@
             </b-col>
           </b-row>
         </b-container>
-
-
       </div>
     </div>
     <infinite-loading @infinite="infiniteHandler" spinner="bubbles">
@@ -200,7 +196,7 @@ export default {
             } else {
               $state.complete();
             }
-          }, 800);
+          }, 600);
         })
         .catch((error) => {});
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="my-3" id="app" style="position: fixed;">
-    <div id="map"></div>
+    <div id="map" style="width: 500px; height: 510px;"/>
   </div>
 </template>
 <script>
@@ -44,9 +44,10 @@ export default {
       }else if(mutation.type=="addHospitalHover"){
         var hover_hos = this.$store.getters.hospitalHover;
         var overlay = new kakao.maps.LatLng(hover_hos.lng,hover_hos.lat)
-        // this.map.setLevel(3); //마커 눌렀을때
-        this.map.setCenter(overlay)
-
+        if(this.map!=null) {
+          // this.map.setLevel(3); //리스트에 마우스 올렸을때 확대
+          this.map.setCenter(overlay)
+        }
         for(var i=0; i<this.markers.length; i++){
           var marker = this.markers[i]
             if(hover_hos.name==marker.getTitle()) {
@@ -73,7 +74,8 @@ export default {
         })
         .then((response) => {
           this.hospitalLoc = response.data;
-          this.initMap();
+          
+         setTimeout(() => { this.initMap() }, 300)
         })
         .catch((error) => {});
     },
@@ -168,17 +170,11 @@ export default {
     },
     markerClick(marker,map){
       return function() {
-         map.setCenter(marker.getPosition())
-         map.setLevel(3);
+        map.setLevel(3);
+        map.setCenter(marker.getPosition())
       }
     }
   }
 };
 </script>
 
-<style scoped>
-#map {
-  width: 500px;
-  height: 510px;
-}
-</style>
