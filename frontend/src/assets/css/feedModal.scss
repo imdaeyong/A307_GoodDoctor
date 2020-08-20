@@ -58,34 +58,20 @@
   }
   img{
     height : 31.5em;
-    width: 44em;
+    width: 100%;
   }
   //span은 임시
   span{
     color: rgb(194, 183, 183);
   }
 }
-@media all and ( max-width: 1244px ) {
-  .feed-foot-modal{
-    height : 100px;
-    background-color: red;
-    width: 500px;
-    float : none;
-  }
-  .feed-reply-modal{
-    background-color: blue;
-    width: 100%;
-    float : none;
-  }
-  
-}
+
 .feed-foot-modal{
   height: 40em;
   border-right: 1px solid rgba(194, 183, 183, 0.5);
   border-bottom: 1px solid rgba(194, 183, 183, 0.5);
   border-top: 1px solid rgba(194, 183, 183, 0.5);
   width : 35%;
-  position: relative;
   float : left;
   .feed-btn-list, .reply-list{padding-left: 1em;}
   .feed-btn-list div{
@@ -100,6 +86,34 @@
     border-bottom: 1px solid rgba(194, 183, 183, 0.5);
     height: 82.5%;
     overflow:auto;
+    
+    .feed-reply{
+      margin-bottom: 1em;
+      img{
+        margin-top: 0.5em;
+        margin-right: 0.5em;
+        margin-left: 0.5em;
+        width: 2em;
+        height: 2em;
+        float: left;
+      }
+      .user-info{
+        margin-top: 0.8em;
+        float: left;
+        font-weight: 700;
+        color: #17a2b8;
+      }
+      .reply{
+        margin-left: 1em;
+      }
+      .reply-time{
+        margin-left: 1em;
+        span{
+          font-size: 0.8em;
+          color: rgba(194, 183, 183, 0.8);
+        }
+      }
+    }
   }
   .reply-list{
       img{
@@ -127,8 +141,8 @@
         font-weight: bold;
       }
   }
+  
 }
-
 
 .rating-text-modal{//모달쪽
   font-weight: bold;
@@ -138,4 +152,32 @@
   color: #999;
   background: #fff;
   width : 2em;
+}
+
+@media ( max-width: 1244px ) {
+  .feed-foot-modal{
+    height : 100%;
+    float : none;
+    width: 100%;
+    border-left: 1px solid rgba(194, 183, 183, 0.5);
+  }
+  .feed-reply-modal{
+    width: 100%;
+    float : none;
+  }
+  .feed-reply-content{
+    overflow:auto;
+    height: 20%;
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+  }
+  .reply-list{
+    height : 50px;
+  }
+  .profile-image{
+    width: 2em;
+    height: 2em;
+    float: left;
+  }
+  
 }

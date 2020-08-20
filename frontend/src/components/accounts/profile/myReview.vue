@@ -139,9 +139,7 @@ export default {
   },
   methods: {
     setRating(rating){
-      console.log(rating);
       this.rating = rating;
-      console.log(this.rating);
     },
     addLike(isClick, feedId, index) {
       //좋아요 버튼 클릭시 실행 함수

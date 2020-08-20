@@ -19,11 +19,13 @@
 .feed-item{
   position: relative;
 }
+
 [class^='feed-wrap']{
   border: 1px solid rgba(194, 183, 183, 0.5);
   position : relative;
-  left : 30%;
-  width : 40%;
+  // 반응형 적용을 위해 꺼둔상태
+  // left : 30%;
+  // width : 40%;
   margin-bottom : 2em;
   .profile-image{
       border-radius: 100px 100px 100px 100px;
@@ -32,6 +34,16 @@
 
 [class^='myreview-feed']{
   border: 1px solid rgba(194, 183, 183, 0.5);
+  position : relative;
+  margin: auto;
+  width : 60%;
+  margin-bottom : 2em;
+  .profile-image{
+      border-radius: 100px 100px 100px 100px;
+  }
+}
+
+[class^='myhospital-feed']{
   position : relative;
   margin: auto;
   width : 60%;
@@ -104,6 +116,7 @@
     .like, .reply{float: left;}
   }
   .reply-list{
+    
     img{
       margin-top: 0.5em;
       margin-right: 0.5em;
@@ -116,15 +129,18 @@
       float: left;
     }
     .reply-content{
-      width : 70%;
+      width : calc(100% - 120px);
       margin-top: 0.7em;
       margin-left: 1em;
-      margin-right: 1em;
+      margin-right: 0.5em;
       padding-left: 1em;
       border-radius: 1em 1em 1em 1em;
       border: 1px solid rgba(194, 183, 183, 0.7);
     }
     .reply-submit{
+      float: right;
+      margin-right: 1em; 
+      margin-top: .8em;
       color: #17a2b8;
       font-weight: bold;
     }
@@ -138,7 +154,7 @@
   border: 1px solid rgba(194, 183, 183, 0.7);
   padding: 0.2em;
   border-radius: 0em 0em 1em 1em;
-  left : 30%;
+  // left : 30%;
   width: 4em;
   button{
     color: #17a2b8;
@@ -151,6 +167,7 @@
     padding-top: 1em;
     text-align: center;
     textarea{
+      padding: 3px 10px;
       border: 1px solid rgba(194, 183, 183, 0.7);
     }
     img{
@@ -167,6 +184,7 @@
   font-weight: bold;
   font-size: 1.1em;
   padding-left: 10px;
+  margin-right: 0.5em;
   padding-top: 2px;
   color: #999;
   background: #fff;
@@ -184,12 +202,12 @@
 }
 
 .box-file-input label{
-  margin-left : -290px;
   display:inline-block;
+  margin-left : -72%;
   background:#17a2b8;
   color:#fff;
   padding:0px 15px;
-  line-height:35px;
+  line-height:30px;
   border-radius: 10px 10px 10px 10px;
   cursor:pointer;
 } 

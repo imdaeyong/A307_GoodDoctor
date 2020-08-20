@@ -50,7 +50,6 @@ export default {
         for(var i=0; i<this.markers.length; i++){
           var marker = this.markers[i]
             if(hover_hos.name==marker.getTitle()) {
-              console.log(marker.getTitle())
               this.infowindows[i].open(this.map, marker);
             }else{
               this.infowindows[i].close();
@@ -105,7 +104,6 @@ export default {
           image:markerImage,
           clickable:true //마커 클릭시 지도 동작x
         });
-        console.log(info);
         var iwContent = '<div style="text-align:center; width: 150px; overflow:auto; margin-right : -145px; ">'+
                         '<div style="color: #17a2b8; font-size:1.1em;">'
                         +info.name+'</div>'

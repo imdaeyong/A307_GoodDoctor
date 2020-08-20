@@ -8,7 +8,7 @@
         <img  src= "../../../assets/images/profile_default.png" alt="" v-else style="width: 14rem">
         <br><br>
         <div class="user-info-modal mt-3">
-          <div class ="box-file-input" style="margin-left : 290px;">
+          <div class ="box-file-input" style="margin-left: 290px;">
             <label>
               <input
                 type="file"
@@ -66,7 +66,6 @@ export default {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((data) => {
-          console.log(data.data);
           this.$store.commit('mutateUserInfo',data);
           alert("프로필 사진 변경완료");
           this.$router.go(0);

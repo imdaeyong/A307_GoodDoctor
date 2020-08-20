@@ -102,14 +102,9 @@ public class AccountController {
 		user.setNickname(file.getParameter("nickname"));
 		user.setEmail(file.getParameter("email"));
 		user.setPassword(file.getParameter("password"));
-//		user.setImageUrl("C:\\temptemp\\"+mFile.getOriginalFilename());
-//		user.setImageUrl("/home/ubuntu/var/userImage/" + mFile.getOriginalFilename()); // 불러올 이미지 위치
 		user.setImageUrl(null);
 		user.setAccountType(0); // gooddoc
 		userDao.save(user);
-
-//		mFile.transferTo(new File("C:\\temptemp\\"+mFile.getOriginalFilename()));
-//		mFile.transferTo(new File("/home/ubuntu/var/images/" + mFile.getOriginalFilename()));
 		result.data = "success";
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
@@ -239,8 +234,8 @@ public class AccountController {
 				user.setImageUrl(null);
 				userDao.save(user);
 			} else {
-				user.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename()+".png");
-//				user.setImageUrl("/home/ubuntu/var/userImage/"+file.getParameter("id")+".png"); //불러올 이미지 위치
+//				user.setImageUrl("C:\\temptemp\\" + mFile.getOriginalFilename()+".png");
+				user.setImageUrl("/home/ubuntu/var/userImage/"+file.getParameter("id")+".png"); //불러올 이미지 위치
 				File f = new File(user.getImageUrl());
 		       	mFile.transferTo(f);
 				userDao.save(user);

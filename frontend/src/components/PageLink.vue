@@ -72,7 +72,6 @@ export default {
           this.initUI();
         })
         .catch((error) => {
-          console.log(error);
           alert("에러가 발생했습니다.");
         });      
     },

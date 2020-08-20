@@ -38,7 +38,7 @@
 
 
 <script>
-import http from "@/util/http-common";
+import http from "@/util/http-common"
 import StarRating from 'vue-star-rating'
 import '../../assets/css/hospital.scss'
 
@@ -84,6 +84,8 @@ export default {
             sido: this.$route.query.sido,
             gu: this.$route.query.gu,
             word: "",
+            // lat:0,
+            // lon:0,
           },
         })
         .then((data) => {

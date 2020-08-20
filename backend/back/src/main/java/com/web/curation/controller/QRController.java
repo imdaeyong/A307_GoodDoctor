@@ -57,8 +57,8 @@ public class QRController {
 		AES256Cipher a256 = AES256Cipher.getInstance();
 
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:3000/qr");
-//		redirectView.setUrl("https://i3a307.p.ssafy.io/qr");
+//		redirectView.setUrl("http://localhost:3000/qr");
+		redirectView.setUrl("https://i3a307.p.ssafy.io/qr");
 		redirectView.addStaticAttribute("hospitalId", a256.AES_Decode(hospitalId));
 		return redirectView;
 	}
@@ -77,6 +77,7 @@ public class QRController {
 		feed.setIsClick(false);
 		feed.setCreateDate(LocalDateTime.now());
 		feed.setUpdateDate(LocalDateTime.now());
+		feed.setModify(1);
 		if (userId == -1) {
 			try {
 				User user = userDao.getUserByEmailAndPassword(email, password);

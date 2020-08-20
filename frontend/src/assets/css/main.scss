@@ -17,11 +17,10 @@
 
 
 .drop-down-hospital {
- float: left;
- width: 100%;
- min-width: 560px;
+  float: left;
+  width: 100%;
+  width : 560px;
 }
-
 .header-list, .header-dropdown-list, .dropdown-list{
  float: left;
  margin-top: 0.3em;
@@ -37,9 +36,10 @@
  margin-top: 0.1em;
 }
 .search-bar{
+  max-width: 300px;
   border : 1.5px solid white;
   margin-top: 0.2em;
-  margin-left: 2em;
+  
   border-radius: 1em 1em 1em 1em;
 }
 .input-search{
@@ -168,13 +168,4 @@
 .member-dropdown-btn{
  border : 1px solid #ECE8E8;
  background-color: white;
-}
-
-.corona-table{
-  width: 100%;
-  border: 1px solid #333333;
-}
-.corona-table td{
-  text-align: center;
-  border-right: 1px solid rgba(194, 183, 183, 0.5);
 }

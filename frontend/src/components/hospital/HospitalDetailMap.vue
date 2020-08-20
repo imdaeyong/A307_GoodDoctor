@@ -8,7 +8,7 @@ import http from '@/util/http-common'
 
 export default {
   props:{
-    hospitalInfo:[],
+    hospitalInfo:[Object],
   },
 
   name: 'HospitalDetailMap',
