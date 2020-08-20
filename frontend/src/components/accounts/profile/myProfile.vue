@@ -5,7 +5,7 @@
       <div class="ml-5 mr-3">
         <img :src="preview" v-if="preview != null" class="profile-image" 
         style="width: 14rem; height: 16rem; border-radius: 100px 100px 100px 100px;">
-        <img  src= "../../../assets/images/profile_default.png" alt="" v-else style="width: 14rem">
+        <img  src= "../../../assets/images/profile_default.png" alt="" v-else style="float : left; width: 14rem; height: 16rem; border-radius: 100px 100px 100px 100px;">
         <br><br>
         <div class="user-info-modal mt-3">
           <div class ="box-file-input" style="margin-left: 290px;">

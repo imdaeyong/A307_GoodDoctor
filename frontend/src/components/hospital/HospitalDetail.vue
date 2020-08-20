@@ -41,9 +41,10 @@
                 <div style="padding-top: 1em; margin-left: 1em;">
                   <div class='row'> 
                     <div style="margin-left: 1em">
-                      <img :src="hospitalFeeds[i].user.imageUrl" v-if="hospitalFeeds[i].user.imageUrl != null" class="profile-image" />
-                      <img src="../../assets/images/profile_default.png" alt v-else />
-                      {{hospitalFeeds[i].user.nickname}}</div>
+                      <img :src="hospitalFeeds[i].user.imageUrl" v-if="hospitalFeeds[i].user.imageUrl != null" class="profile-image" style="width : 1.5em;"/>
+                      <img src="../../assets/images/profile_default.png" style="width : 1.5em; height: 1.5em; float: left; margin-right:1em" alt v-else />
+                      {{hospitalFeeds[i].user.nickname}}
+                    </div>
                     <p style="font-size: .7em; margin-left: auto; margin-right: 2em">{{formatDate(hospitalFeeds[i].updateDate)}}</p>  
                   </div>
                   <hr>
