@@ -53,7 +53,7 @@ public class CommentController {
 			imageUpdate(comments);
 			return new ResponseEntity<>(comments, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.OK);
 		}
 	}
 

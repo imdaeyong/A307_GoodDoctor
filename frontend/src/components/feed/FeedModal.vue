@@ -6,7 +6,7 @@
                 class="profile-image"/>
         <img src= "../../assets/images/profile_default.png" alt=""  v-else>
         <div class="user-info-modal">{{feed.user.nickname}}</div>
-        <div class="user-hospital-modal">{{feed.hospital.name}} <span>{{feed.updateDate}}</span></div>
+        <div class="user-hospital-modal">{{feed.hospital.name}} <span>{{formatDate(feed.updateDate)}}</span></div>
       </div>
       <div class="feed-card-modal">
         <img :src="feed.imageUrl" v-if="feed.imageUrl != null" class="feed-card-image"/><br>
@@ -49,8 +49,9 @@
         </div>
         <div class ="share">
           <button>
-            <b-icon-pencil-square v-if="user.id == feed.user.id && feed.modify == 1" @click="modifyContent(feed)"></b-icon-pencil-square>
-            <b-icon-pencil-square v-else style="color : rgba(194, 183, 183, 0.9); " @click="modifyContent(feed)"></b-icon-pencil-square>
+              <b-icon-pencil-square v-if="user.id == feed.user.id && feed.modify == 1" @click="modifyContent(feed)"></b-icon-pencil-square>
+              <b-icon-pencil-square v-else-if="user.id == feed.user.id && feed.modify == 0" style="color : rgba(194, 183, 183, 0.9); " @click="modifyContent(feed)"></b-icon-pencil-square>
+              <p v-else-if="user.id != feed.user.id" />
           </button>
         </div>
         <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span> 
@@ -168,6 +169,13 @@ export default {
         else {
             return parseInt(result/24/30/60/60/12)+"년전"
         }
+    },
+    formatDate(date) { 
+      var d = new Date(date), 
+      month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear(); 
+      if (month.length < 2) month = '0' + month; 
+      if (day.length < 2) day = '0' + day; 
+      return [year, month, day].join('-');
     }
   }  
 }

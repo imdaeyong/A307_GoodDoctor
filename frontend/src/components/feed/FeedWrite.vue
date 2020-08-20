@@ -215,19 +215,17 @@ export default {
       index : 0,
     };
   },
-  created() {
-      this.$EventBus.$on('updateLike', (data) => {
+  mounted() {
+    this.userId = store.state.userInfo.data.id;
+    this.nickname = store.state.userInfo.data.nickname;
+    this.isLogin = store.state.isLogin;
+    this.$EventBus.$on('updateLike', (data) => {
         this.feeds[data].isClick = !this.feeds[data].isClick;
         this.index = data;
       })
       this.$EventBus.$on('updateLikes', (data) => {
         this.feeds[this.index].likes = data;
-      })
-  },
-  mounted() {
-    this.userId = store.state.userInfo.data.id;
-    this.nickname = store.state.userInfo.data.nickname;
-    this.isLogin = store.state.isLogin;
+    })
     if (!store.state.isLogin) this.$bvModal.show("bv-modal-example");
   },
   methods: {

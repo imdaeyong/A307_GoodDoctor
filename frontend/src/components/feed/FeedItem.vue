@@ -36,7 +36,7 @@
                   <div class="user-info">{{feed.user.nickname}}</div>
                   <div class="user-hospital">
                     {{feed.hospital.name}}
-                    <span>{{formatDate(feed.updateDate) }}</span>
+                    <span>{{formatDate(feed.updateDate)}}</span>
                   </div>
                 </div>
                 <div class="feed-card">
@@ -152,15 +152,13 @@ export default {
           .then((data) => {
             this.coronaInfo = data.data.split(" ");
           });
-  },
-  created() {
-      this.$EventBus.$on('updateLike', (data) => {
+    this.$EventBus.$on('updateLike', (data) => {
         this.feeds[data].isClick = !this.feeds[data].isClick;
         this.index = data;
       })
       this.$EventBus.$on('updateLikes', (data) => {
         this.feeds[this.index].likes = data;
-      })
+    })
   },
   methods: {
     addLike(isClick, feedId, index) {

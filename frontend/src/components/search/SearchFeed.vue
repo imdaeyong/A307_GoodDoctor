@@ -16,7 +16,7 @@
                   <div class="user-info">{{feed.user.nickname}}</div>
                   <div class="user-hospital">
                     {{feed.hospital.name}}
-                    <span>{{feed.updateDate}}</span>
+                    <span>{{formatDate(feed.updateDate)}}</span>
                   </div>
                 </div>
                 <div class="feed-card">
@@ -124,15 +124,13 @@ export default {
   },
   mounted() {
     this.userId = store.state.userInfo.data.id;
-  },
-  created() {
-      this.$EventBus.$on('updateLike', (data) => {
+    this.$EventBus.$on('updateLike', (data) => {
         this.feeds[data].isClick = !this.feeds[data].isClick;
         this.index = data;
       })
       this.$EventBus.$on('updateLikes', (data) => {
         this.feeds[this.index].likes = data;
-      })
+    })
   },
   methods: {
     addLike(isClick, feedId, index) {
@@ -204,6 +202,13 @@ export default {
         })
         .catch((error) => {});
     },
+    formatDate(date) { 
+      var d = new Date(date), 
+      month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear(); 
+      if (month.length < 2) month = '0' + month; 
+      if (day.length < 2) day = '0' + day; 
+      return [year, month, day].join('-');
+    }
   },
 };
 </script>
