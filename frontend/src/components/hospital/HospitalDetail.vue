@@ -68,7 +68,7 @@
       </div>
     <div div class="HospitalDetail mx-auto">
       <!-- API 정보 -->
-      <div class="ml-3" style="text-align: center; margin-top: 200px;">
+      <div class="ml-3" style="text-align: center; margin-top: 150px;">
         <h3>위치 & 정보</h3>
         <p>※주의사항 : 방문 전, 전화로 확인 후 이용해주세요. </p>
         <button v-if="isFavorite" style="outline: none; padding-left: 5em; float : right; margin-top : -3em;" @click.stop="addFavorites(hospital)" z-index=5 width=40px;>
@@ -82,7 +82,7 @@
         </button>
       </div>
       <b-container class="bv-example-row" style="float: left;">
-        <b-row>
+        <b-row style="margin-bottom: 3em;">
           <b-col cols="8" style="border: 1px solid grey; text-align: left;">
             <h5 class="mt-3">🏣 위치: {{hospital.address}}</h5>
             <h5>📞 전화번호: {{hospital.phone}}</h5>

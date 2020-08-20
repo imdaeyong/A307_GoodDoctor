@@ -8,7 +8,7 @@
         <img  src= "../../../assets/images/profile_default.png" alt="" v-else style="float : left; width: 14rem; height: 16rem; border-radius: 100px 100px 100px 100px;">
         <br><br>
         <div class="user-info-modal mt-3">
-          <div class ="box-file-input" style="margin-left: 290px;">
+          <div class ="box-file-input" style="margin-left: 6em; margin-top: 15em;">
             <label>
               <input
                 type="file"
@@ -21,7 +21,7 @@
             </label>
           </div>
         </div>
-        <div class="user-info-modal mt-3"><button @click="changeProfile()" style="color : #17a2b8; font-size : 1.2em; font-weight : bold;">프로필 변경</button></div>
+        <div class="user-info-modal mt-3" style="margin-left: 0.2em;"><button @click="changeProfile()" style="color : #17a2b8; font-size : 1.2em; font-weight : bold;">프로필 변경</button></div>
       </div>
       <b-col class="right mt-3">
         <h3> 😎 닉네임: <span  style="color : #17a2b8">{{user.nickname}}</span></h3>

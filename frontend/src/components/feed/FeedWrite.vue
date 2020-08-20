@@ -149,10 +149,6 @@
                       <div class="reply-list">
                         <img :src="user.imageUrl" v-if="user.imageUrl != null" class="profile-image" />
                         <img src="../../assets/images/profile_default.png" alt v-else />
-                        <div class="user-info">
-                          <span v-if="isLogin">{{nickname}}</span>
-                          <span v-else>닉네임</span>
-                        </div>
                         <input
                           type="text"
                           class="reply-content"
