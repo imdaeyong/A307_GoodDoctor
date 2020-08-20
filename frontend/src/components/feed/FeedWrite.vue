@@ -1,15 +1,12 @@
 <template>
   <div>
     <NavBar />
-
     <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
       <FeedModal />
     </b-modal>
-
+    <div style="text-align:center" v-if="!this.loaded"><img src = "../../assets/images/bonoloading.gif"/> </div>
     <div style="margin-top : -40px;">
-
-            
-    <div v-if="feeds.length == 0">
+    <div v-if="this.loaded &&this.loading&& feeds.length == 0">
       <b-container fluid class="bv-example-row">
         <b-row align-h="center">
           <b-col xl="5">
@@ -25,8 +22,6 @@
         </b-row>
       </b-container>
     </div>
-
-
       <!-- 기존에 내가 작성한 Feed목록 -->
       <div v-else>
         <b-container fluid class="bv-example-row">
@@ -154,8 +149,9 @@
                           class="reply-content"
                           placeholder="댓글달기..."
                           v-model="feed.data"
+                          @keypress.enter="addReply(feed.id, feed.data, index)"
                         />
-                        <button class="reply-submit" v-on:click="addReply(feed.id, feed.data)">게시</button>
+                        <button class="reply-submit" v-on:click="addReply(feed.id, feed.data, index)">게시</button>
                       </div>
                     </div>
                   </div>
@@ -165,12 +161,18 @@
           </b-row>
         </b-container>
       </div>
+      <div v-if="this.loaded"> 
       <infinite-loading @infinite="infiniteHandler" spinner="bubbles">
+        <div
+          slot="no-results"
+          style="color: rgb(102, 102, 102); font-size: 20px; padding: 10px 0px;"
+        >작성한 피드가 없습니다 :)</div>
         <div
           slot="no-more"
           style="color: rgb(102, 102, 102); font-size: 20px; padding: 10px 0px;"
         >목록의 끝입니다 :)</div>
       </infinite-loading>
+      </div>
       <!-- spinner : default, spiral, circles, bubbles, waveDots -->
     </div>
   </div>
@@ -209,22 +211,34 @@ export default {
       rating : 0,
       plusContent : true,
       index : 0,
+      loaded: false,
+      loading: false
     };
   },
   mounted() {
+    this.loaded = false;
+    this.loading = false;
     this.userId = store.state.userInfo.data.id;
     this.nickname = store.state.userInfo.data.nickname;
     this.isLogin = store.state.isLogin;
     this.$EventBus.$on('updateLike', (data) => {
+      if(this.feeds[data]){
         this.feeds[data].isClick = !this.feeds[data].isClick;
         this.index = data;
+      }
       })
       this.$EventBus.$on('updateLikes', (data) => {
         this.feeds[this.index].likes = data;
     })
     if (!store.state.isLogin) this.$bvModal.show("bv-modal-example");
+    setTimeout(() => {
+      this.timeLoading();
+    }, 700);
   },
   methods: {
+    timeLoading(){
+      this.loaded=true;
+    },
     setRating(rating){
       this.rating = rating;
     },
@@ -269,18 +283,22 @@ export default {
         })
       }
     },
-    addReply(feedId, feedData) {
+    addReply(feedId, feedData, index) {
       let comment = {
         userId: this.userId,
         feedId: feedId,
         content: feedData,
+        nickname: this.nickname,
       };
       http
         .post(`comments/`, comment)
         .then((data) => {
           alert("댓글등록 완료");
+          //this.$router.go(0);
         })
         .catch((err) => {});
+      
+      this.feeds[index].data = "";
     },
     feedWrite(feed) {
       //id를 받아서 펼치게 될 경우를 정해준다.
@@ -330,10 +348,11 @@ export default {
               this.feeds = this.feeds.concat(response.data);
               this.limit += 5;
               $state.loaded();
+              this.loading = true;
             } else {
               $state.complete();
             }
-          }, 800);
+          }, 500);
         })
         .catch((error) => {});
     },

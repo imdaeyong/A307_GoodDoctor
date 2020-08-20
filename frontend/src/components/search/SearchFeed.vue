@@ -74,8 +74,8 @@
                     />
                     <img src="../../assets/images/profile_default.png" alt v-else />
                     
-                    <input type="text" class="reply-content" placeholder="댓글달기..." v-model="feed.data" />
-                    <button class="reply-submit" @click="addReply(feed.id, feed.data)">게시</button>
+                    <input type="text" class="reply-content" @keypress.enter="addReply(feed.id, feed.data, index)"  placeholder="댓글달기..." v-model="feed.data" />
+                    <button class="reply-submit" @click="addReply(feed.id, feed.data, index)">게시</button>
                   </div>
                 </div>
               </div>
@@ -125,6 +125,7 @@ export default {
   },
   mounted() {
     this.userId = store.state.userInfo.data.id;
+    this.nickname = store.state.userInfo.data.nickname;
     this.$EventBus.$on('updateLike', (data) => {
         if(this.feeds[data]){
           this.feeds[data].isClick = !this.feeds[data].isClick;
@@ -168,7 +169,7 @@ export default {
       //공유버튼 클릭시 실행 함수
       alert("하이");
     },
-    addReply(feedId, feedData) {
+    addReply(feedId, feedData, index) {
       let comment = {
         userId: this.userId,
         feedId: feedId,
@@ -182,6 +183,8 @@ export default {
           //this.$router.go(0);
         })
         .catch((err) => {});
+      
+      this.feeds[index].data = "";
     },
     infiniteHandler($state) {
       http
@@ -201,7 +204,7 @@ export default {
             } else {
               $state.complete();
             }
-          }, 800);
+          }, 600);
         })
         .catch((error) => {});
     },

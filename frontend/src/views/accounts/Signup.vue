@@ -29,7 +29,8 @@
             type="text"/>
           <label for="email">이메일</label>
           <label for="email" @click="emailAuthStart" class="right">인증</label>
-          <div class="error-text" v-if="error.email">{{error.email}}</div>
+          <div class="error-text" v-if="error.email &&email.length!=0">{{error.email}}</div>
+          
         </div>
         <div class="three-quarter" v-if="emailAuthinput">
           <div class="auth-input-label">
@@ -54,7 +55,7 @@
             :type="passwordType" 
             placeholder="비밀번호를 입력하세요." />
           <label for="password">비밀번호</label>
-          <div class="error-text" v-if="error.password">{{error.password}}</div>
+          <div class="error-text" v-if="error.password && password.length!=0">{{error.password}}</div>
         </div>
 
         <div class="input-label">
@@ -66,7 +67,7 @@
             placeholder="비밀번호를 다시한번 입력하세요."
           />
           <label for="password-confirm">비밀번호 확인</label>
-          <div class="error-text" v-if="error.passwordConfirm">{{error.passwordConfirm}}</div>
+          <div class="error-text" v-if="error.passwordConfirm && passwordConfirm.length!=0">{{error.passwordConfirm}}</div>
         </div>
       </div>
 
@@ -101,10 +102,9 @@ export default {
       passwordType: "password",
       passwordConfirmType: "password",
       error: {
-        nickName: false,
-        email: false,
-        password: false,
-        passwordConfirm: false,
+        email: true,
+        password: true,
+        passwordConfirm: true,
         authEmail: true,
       },
       isSubmit: false,
@@ -141,9 +141,9 @@ export default {
     error: function() {
       this.signupCheck()
     },
-    emailAuthinput: function() {
-      this.signupCheck()
-    },
+    // emailAuthinput: function() {
+    //   this.signupCheck()
+    // },
   },
   methods: {
     emailAuthCheck() {
@@ -164,7 +164,6 @@ export default {
           this.$store.state.authCode=data.object
         })
         .catch(() => {
-          console.log("emailCheckError");
         });
     },
     emailCheckForm() {
@@ -179,12 +178,14 @@ export default {
       )
         this.error.password = "영문, 숫자 포함 8 자리이상이어야 합니다.";
       else this.error.password = false;
+      this.signupCheck()
     },
     passwordConfirmCheckForm() {
       if (this.password !== this.passwordConfirm) {
         this.error.passwordConfirm = "비밀번호가 일치하지 않습니다."
       }
-      else this.error.passwordConfirm = false;      
+      else this.error.passwordConfirm = false; 
+      this.signupCheck()     
     },
     signupCheck() {
       let isSubmit = true;

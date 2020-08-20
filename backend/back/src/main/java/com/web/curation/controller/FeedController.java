@@ -70,7 +70,7 @@ public class FeedController {
 	   }	
 
 	
-	@GetMapping("/")
+	@GetMapping("")
 	@ApiOperation(value = "메인+검색 피드 infinite Loading")
 	public Object getFeedsLimit(@RequestParam("userId") int userId, @RequestParam("limit") int limit,
 			@RequestParam("word") String word) throws IOException {

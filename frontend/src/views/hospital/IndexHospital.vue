@@ -1,8 +1,8 @@
 <template>
   <div>
     <NavBar/>
-
-    <div class="mt-5">
+    <div style="text-align:center" v-show="!this.loaded"><img src = "../../assets/images/bonoloading.gif"/> </div>
+    <div class="mt-5" v-show="this.loaded">
       <b-container fluid class="bv-example-row bv-example-row-flex-cols" style="width:72%">
         <b-row align-v="stretch">
           <b-col cols="6" class="border-right">
@@ -13,9 +13,7 @@
           </b-col>
         </b-row>
       </b-container>
-
       <PageLink/>
-      
     </div>
   </div>
 </template>
@@ -35,8 +33,22 @@ export default {
     HospitalMap,
     PageLink,
   },
-  mounted(){
+  data: () => {
+    return {
+      loaded:false,
+    };
+   },
+   mounted(){
+    this.loaded=false;
     if(!store.state.isLogin) this.$bvModal.show('bv-modal-example');
+     setTimeout(() => {
+      this.timeLoading();
+    }, 700);
+  },
+  methods: {
+    timeLoading(){
+      this.loaded=true;
+    },
   },
 };
 </script>

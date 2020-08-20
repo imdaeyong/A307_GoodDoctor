@@ -98,6 +98,10 @@
             무엇보다 🤸‍♂️ <span style="color : #17a2b8">심플한</span>디자인으로 사용이 쉽죠.
           </h5>
           <hr>
+          <h5>
+            그리고 <span style="color : #17a2b8">단 한번만❗</span> 수정할 수 있어요!
+          </h5>
+          <hr>
 
 
           </div>

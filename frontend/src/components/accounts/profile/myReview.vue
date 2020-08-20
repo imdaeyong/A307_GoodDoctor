@@ -64,8 +64,9 @@
                     class="reply-content"
                     placeholder="댓글달기..."
                     v-model="feed.data"
+                    @keypress.enter="addReply(feed.id, feed.data, index)"
                   />
-                  <button class="reply-submit" v-on:click="addReply(feed.id, feed.data)">게시</button>
+                  <button class="reply-submit" v-on:click="addReply(feed.id, feed.data, index)">게시</button>
                 </div>
               </div>
             </div>
@@ -164,18 +165,22 @@ export default {
       store.dispatch("openReplyIndex", index);
       this.$bvModal.show("bv-modal-feed");
     },
-    addReply(feedId, feedData) {
+    addReply(feedId, feedData, index) {
       let comment = {
         userId: this.userId,
         feedId: feedId,
         content: feedData,
+        nickname: this.nickname,
       };
       http
         .post(`comments/`, comment)
         .then((data) => {
           alert("댓글등록 완료");
+          //this.$router.go(0);
         })
         .catch((err) => {});
+      
+      this.feeds[index].data = "";
     },
     feedWrite(id) {
       //id를 받아서 펼치게 될 경우를 정해준다.

@@ -16,6 +16,6 @@ public interface HospitalRequestDao extends JpaRepository<HospitalRequest, Strin
 	List<HospitalRequest> selectHospitalSidoAndGuLimitOffset(String sido, String gu, int limit, int offset);
 	
 //	@Query(value = "select h.*,count(f.id) review_cnt, avg(f.star) avg_star from hospital h left JOIN feed f on h.id=f.hospital_id where name like %?1% and f.is_new = 0 group by h.id limit ?2 offset ?3", nativeQuery = true)
-	@Query(value = "select h.*,count(if(f.is_new=0,f.id,null)) review_cnt, avg(f.star) avg_star from hospital h left JOIN feed f on h.id=f.hospital_id where name like %?1% or address like %?1% or sido like %?1% or gu like %?1% or subject like %?1%  group by h.id limit ?2 offset ?3", nativeQuery = true)
+	@Query(value = "select h.*,count(if(f.is_new=0,f.id,null)) review_cnt, avg(f.star) avg_star from hospital h left JOIN feed f on h.id=f.hospital_id where name like %?1% group by h.id limit ?2 offset ?3", nativeQuery = true)
 	List<HospitalRequest> selectHospitalByWord(String word, int limit, int offset);
 }

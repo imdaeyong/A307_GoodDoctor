@@ -1,26 +1,28 @@
 <template>
   <div>
     <NavBar />
-
-    <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
-      <FeedModal />
-    </b-modal>
-
-    <div v-if="!this.$route.query.no">
-      <search-feed />
-    </div>
-    <div v-else class="mt-5">
-      <b-container fluid class="bv-example-row bv-example-row-flex-cols" style="width:72%">
-        <b-row align-v="stretch">
-          <b-col cols="6" class="border-right">
-            <SearchHospital />
-          </b-col>
-          <b-col cols="5">
-            <SearchHospitalMap />
-          </b-col>
-        </b-row>
-      </b-container>
-      <page-link-search />
+    <div style="text-align:center" v-if="!this.loaded"><img src = "../../assets/images/bonoloading.gif"/> </div>
+    <div v-if ="this.loaded">
+      <div v-if="!this.$route.query.no">
+        <b-modal id="bv-modal-feed" size="xl" hide-footer hide-header>
+          <FeedModal />
+        </b-modal>
+          <search-feed />
+      </div>
+      <div v-if="this.$route.query.no" class="mt-5">
+        <b-container fluid class="bv-example-row bv-example-row-flex-cols" style="width:72%">
+          <b-row align-v="stretch">
+            <b-col cols="6" class="border-right">
+              <SearchHospital />
+            </b-col>
+            <b-col cols="5">
+              <SearchHospitalMap />
+            </b-col>
+          </b-row>
+        </b-container>
+        <page-link-search />
+      </div>
+      
     </div>
   </div>
 </template>
@@ -43,13 +45,27 @@ export default {
     SearchFeed,
     FeedModal,
   },
+  data: () => {
+    return {
+      loaded:false,
+    };
+  },
+  mounted() {
+    this.loaded=false;
+    if (!store.state.isLogin) this.$bvModal.show("bv-modal-example");
+    setTimeout(() => {
+      this.timeLoading();
+    }, 600);
+  },
   methods: {
+    timeLoading(){
+      this.loaded=true;
+    },
     onChangePWD() {
       this.$router.push("accounts/changePassword");
     },
+    
   },
-  mounted() {
-    if (!store.state.isLogin) this.$bvModal.show("bv-modal-example");
-  },
+   
 };
 </script>

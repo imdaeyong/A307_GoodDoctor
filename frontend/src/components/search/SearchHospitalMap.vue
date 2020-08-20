@@ -73,7 +73,7 @@ export default {
         })
         .then((response) => {
           this.hospitalLoc = response.data;
-          this.initMap();
+           setTimeout(() => { this.initMap() }, 600)
         })
         .catch((error) => {});
     },
@@ -184,8 +184,8 @@ export default {
     },
     markerClick(marker, map) {
       return function () {
-        map.setCenter(marker.getPosition());
         map.setLevel(3);
+        map.setCenter(marker.getPosition());
       };
     },
   },

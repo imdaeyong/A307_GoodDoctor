@@ -3,8 +3,8 @@
     <b-container fluid class="bv-example-row">
       <b-row align-h="center">
         <b-col xl="5">
-    
-          <div class="feed-wrap" v-if="coronaInfo.length != undefined">
+          <div style="text-align:center" v-if="!this.loaded"><img src = "../../assets/images/bonoloading.gif"/> </div>
+          <div class="feed-wrap" v-show="this.loaded">
             <div class="corona-title"><span>코로나 바이러스 </span>(COVID-19) 국내현황</div>
             <table class="corona-table">
               <tr>
@@ -61,7 +61,7 @@
                       </button>
                     </div>
                     <div class="reply">
-                      <button>
+                      <button style="outline: 0;">
                         <b-icon-chat-square @click="openReply(feed, index)"></b-icon-chat-square>
                       </button>
                     </div>
@@ -94,18 +94,20 @@
                     <img src="../../assets/images/profile_default.png" alt v-else />
 
                     <input @keypress.enter="addReply(feed.id, feed.data, index)" type="text" class="reply-content" placeholder="댓글달기..." v-model="feed.data" />
-                    <button class="reply-submit" @click="addReply(feed.id, feed.data)">게시</button>
+                    <button class="reply-submit" @click="addReply(feed.id, feed.data, index)">게시</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <infinite-loading @infinite="infiniteHandler" spinner="bubbles">
-            <div
-              slot="no-more"
-              style="color: rgb(102, 102, 102); font-size: 20px; padding: 10px 0px;"
-            >목록의 끝입니다 :)</div>
-          </infinite-loading>
+          <div v-if="this.loaded"> 
+            <infinite-loading @infinite="infiniteHandler" spinner="bubbles">
+              <div
+                slot="no-more"
+                style="color: rgb(102, 102, 102); font-size: 20px; padding: 10px 0px;"
+              >목록의 끝입니다 :)</div>
+            </infinite-loading>
+          </div>
           <!-- spinner : default, spiral, circles, bubbles, waveDots -->
 
         </b-col>
@@ -138,7 +140,8 @@ export default {
       rating : 0,
       index : 0,
       coronaInfo : {},
-      user : store.state.userInfo.data
+      user : store.state.userInfo.data,
+      loaded : false
     };
   },
   components: {
@@ -146,6 +149,7 @@ export default {
     StarRating
   },
   mounted() {
+    this.loaded = false;
     this.userId = store.state.userInfo.data.id;
     this.nickname = store.state.userInfo.data.nickname;
     http
@@ -153,6 +157,9 @@ export default {
           .then((data) => {
             this.coronaInfo = data.data.split(" ");
           });
+          setTimeout(() => {
+            this.timeLoading();
+          },500);
     this.$EventBus.$on('updateLike', (data) => {
         if(this.feeds[data]){
           this.feeds[data].isClick = !this.feeds[data].isClick;
@@ -164,6 +171,9 @@ export default {
     })
   },
   methods: {
+    timeLoading(){
+      this.loaded=true;
+    },
     addLike(isClick, feedId, index) {
       //좋아요 버튼 클릭시 실행 함수
       if (this.click) {
@@ -211,7 +221,7 @@ export default {
     },
     infiniteHandler($state) {
       http
-        .get(`feeds/`, {
+        .get(`feeds`, {
           params: {
             userId: this.userId,
             limit: this.limit,
@@ -227,7 +237,7 @@ export default {
             } else {
               $state.complete();
             }
-          }, 800);
+          }, 500);
         })
         .catch((error) => {});
     },
