@@ -36,7 +36,7 @@
               style="height: 470px; width : 380px; margin-left: -10px; background-color: white"
               type="button"
               >
-              <div @click="openReply(hospitalFeeds[i])">
+              <div @click="openReply(hospitalFeeds[i], i)">
               <figure style="" >
                 <div style="padding-top: 1em; margin-left: 1em;">
                   <div class='row'> 
@@ -140,9 +140,19 @@ export default {
         user: store.state.userInfo.data,
         plusContent : true,
         isFavorite:false,
+        index:0,
       } 
     },
  mounted() {
+   this.$EventBus.$on("updateLike", (data) => {
+      if (this.hospitalFeeds[data]) {
+        this.hospitalFeeds[data].isClick = !this.hospitalFeeds[data].isClick;
+        this.index = data;
+      }
+    });
+    this.$EventBus.$on("updateLikes", (data) => {
+      this.hospitalFeeds[this.index].likes = data;
+    }),
       http.get(`/hospitals/${this.hospital.id}`)
       .then(res => {
         this.hospitalDatas = res.data
@@ -172,9 +182,10 @@ export default {
       }
     },
     methods: {
-      openReply(feed) {
+      openReply(feed, i) {
         //댓글 버튼 클릭시 실행 함수
         store.dispatch("openReply", feed);
+        store.dispatch("openReplyIndex", i);
         this.$bvModal.show("bv-modal-feed");
       },
       addFavorites(hospital,event){

@@ -147,14 +147,17 @@ export default {
   },
   mounted() {
     this.userId = store.state.userInfo.data.id;
+    this.nickname = store.state.userInfo.data.nickname;
     http
       .get(`feeds/crawling`)
           .then((data) => {
             this.coronaInfo = data.data.split(" ");
           });
     this.$EventBus.$on('updateLike', (data) => {
-        this.feeds[data].isClick = !this.feeds[data].isClick;
-        this.index = data;
+        if(this.feeds[data]){
+          this.feeds[data].isClick = !this.feeds[data].isClick;
+          this.index = data;
+        }
       })
       this.$EventBus.$on('updateLikes', (data) => {
         this.feeds[this.index].likes = data;

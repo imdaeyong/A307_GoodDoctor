@@ -52,7 +52,6 @@
                   </star-rating>
                   <div class="share">
                     <button>
-                      <b-icon-reply v-on:click="addShare()"></b-icon-reply>
                     </button>
                   </div>
                   <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span>
@@ -60,10 +59,6 @@
                 <div class="reply-list">
                   <img :src="user.imageUrl" v-if="user.imageUrl != null" class="profile-image" />
                   <img src="../../../assets/images/profile_default.png" alt v-else />
-                  <div class="user-info">
-                    <span v-if="isLogin">{{nickname}}</span>
-                    <span v-else>닉네임</span>
-                  </div>
                   <input
                     type="text"
                     class="reply-content"
@@ -168,10 +163,6 @@ export default {
       store.dispatch("openReply", feed);
       store.dispatch("openReplyIndex", index);
       this.$bvModal.show("bv-modal-feed");
-    },
-    addShare() {
-      //공유버튼 클릭시 실행 함수
-      alert("하이");
     },
     addReply(feedId, feedData) {
       let comment = {

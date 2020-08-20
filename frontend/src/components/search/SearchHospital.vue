@@ -4,7 +4,12 @@
       <h2>검색 결과가 없습니다 !!</h2>
     </div>
     <div v-else>
-      <h2>'{{this.$route.query.word}}' 에 대한 검색 결과입니다.</h2>
+      <div v-if="this.$route.query.word == null || this.$route.query.word == '' ">
+      <h2 align="center">전체 병원 검색 결과입니다.</h2>
+    </div>
+    <div v-else>
+      <h2>'{{this.$route.query.word}}' 에 대한 병원 검색 결과입니다.</h2>
+    </div>
       <div v-for="hospital in hospitals.data" v-bind:key="hospital.id">
          <b-card no-body @click="hospitalDataSend(hospital)"
         @mouseover="doMouseOver(hospital)" class="overflow-hidden my-3 btn-left"

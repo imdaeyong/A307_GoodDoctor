@@ -45,7 +45,7 @@ export default {
         var hover_hos = this.$store.getters.hospitalHover;
         var overlay = new kakao.maps.LatLng(hover_hos.lng, hover_hos.lat);
         // this.map.setLevel(3); //마커 눌렀을때
-        this.map.setCenter(overlay);
+        if (this.map != null) this.map.setCenter(overlay);
 
         for (var i = 0; i < this.markers.length; i++) {
           var marker = this.markers[i];

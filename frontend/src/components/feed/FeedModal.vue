@@ -49,9 +49,6 @@
         </div>
         <div class ="share">
           <button>
-              <b-icon-pencil-square v-if="user.id == feed.user.id && feed.modify == 1" @click="modifyContent(feed)"></b-icon-pencil-square>
-              <b-icon-pencil-square v-else-if="user.id == feed.user.id && feed.modify == 0" style="color : rgba(194, 183, 183, 0.9); " @click="modifyContent(feed)"></b-icon-pencil-square>
-              <p v-else-if="user.id != feed.user.id" />
           </button>
         </div>
         <span v-show="feed.likes != 0">{{feed.likes}}명이 이 게시글을 좋아합니다.</span> 
@@ -134,23 +131,10 @@ export default {
         })
       }
     },
-    modifyContent(feed){
-      if (feed.modify == 0){
-        alert("이미 수정한 피드입니다!");
-      }else {
-        http.put(`feeds/`+feed.id)
-        .then((data) => {
-          this.$router.go("../feed/write");
-        })
-        .catch(err => {
-          alert("오류가 발생하였습니다.");
-        })
-      }
-    },
     time(createDate){
         var date1 = new Date(createDate);
         var date2 = new Date();
-        var result = (date2 - date1) / 1000
+        var result = (date2 - date1) / 1000 -32400;
         if(result < 60) {
             return parseInt(result)+"초전"
         }
