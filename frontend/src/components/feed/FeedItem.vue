@@ -150,8 +150,13 @@ export default {
   },
   mounted() {
     this.loaded = false;
-    this.userId = store.state.userInfo.data.id;
-    this.nickname = store.state.userInfo.data.nickname;
+    if (store.state.userInfo.data == undefined){
+      this.userId = "";
+      this.nickname = "";
+    } else {
+      this.userId = store.state.userInfo.data.id;
+      this.nickname = store.state.userInfo.data.nickname;
+    }
     http
       .get(`feeds/crawling`)
           .then((data) => {

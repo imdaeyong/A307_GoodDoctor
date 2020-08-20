@@ -23,7 +23,7 @@
         <div class="input-label">
           <input 
             v-model="email" 
-            v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
+            v-bind:class="{error : error.email&&email.length!=0, complete:!error.email&&email.length!=0}"
             id="email" 
             placeholder="이메일을 입력하세요." 
             type="text"/>
@@ -50,27 +50,25 @@
         <div class="input-label">
           <input 
             v-model="password"
-            v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
+            v-bind:class="{error : error.password&&password.length!=0, complete:!error.password&&password.length!=0}"
             id="password" 
             :type="passwordType" 
             placeholder="비밀번호를 입력하세요." />
           <label for="password">비밀번호</label>
           <div class="error-text" v-if="error.password && password.length!=0">{{error.password}}</div>
         </div>
-
         <div class="input-label">
           <input
             v-model="passwordConfirm"
             :type="passwordConfirmType"
-            v-bind:class="{error : error.passwordConfirm, complete:!error.passwordConfirm&&passwordConfirm.length!==0}"
+            v-bind:class="{error : error.passwordConfirm&&passwordConfirm.length!=0, complete:!error.passwordConfirm&&passwordConfirm.length!=0&&password==passwordConfirm}"
             id="password-confirm"
             placeholder="비밀번호를 다시한번 입력하세요."
           />
           <label for="password-confirm">비밀번호 확인</label>
-          <div class="error-text" v-if="error.passwordConfirm && passwordConfirm.length!=0">{{error.passwordConfirm}}</div>
+          <div class="error-text" v-if="error.passwordConfirm && passwordConfirm.length!=0 && password!=passwordConfirm">{{error.passwordConfirm}}</div>
         </div>
       </div>
-
       <button class="btn-full-center mt-4"
       :disabled="!isSubmit"
       :class="{disabled : !isSubmit}"
@@ -136,14 +134,14 @@ export default {
       this.passwordCheckForm();
     },
     passwordConfirm: function() {
-      this.passwordConfirmCheckForm()
+      this.passwordConfirmCheckForm();
     },
     error: function() {
-      this.signupCheck()
+      this.signupCheck();
     },
-    // emailAuthinput: function() {
-    //   this.signupCheck()
-    // },
+    emailAuthinput: function() {
+      this.signupCheck(); 
+    }
   },
   methods: {
     emailAuthCheck() {

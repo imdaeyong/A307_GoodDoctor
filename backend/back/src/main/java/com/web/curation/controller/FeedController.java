@@ -72,19 +72,22 @@ public class FeedController {
 	
 	@GetMapping("")
 	@ApiOperation(value = "메인+검색 피드 infinite Loading")
-	public Object getFeedsLimit(@RequestParam("userId") int userId, @RequestParam("limit") int limit,
-			@RequestParam("word") String word) throws IOException {
+	public Object getFeedsLimit(@RequestParam("userId") String userId, @RequestParam("limit") int limit,
+			@RequestParam("word") String word) {
 		List<Feed> feeds = null;
 		if (word.equals("")) { // 전체 검색 -> 검색 단어가 없을 때
 			feeds = feedDao.selectMainFeedLimit(limit);
 		} else { // 검색 단어가 있을 때
 			feeds = feedDao.selectSearchFeedByWordLimit(word, limit);
 		}
-
-		imageUpdate(userId, feeds, "main");
-
+		try {
+			if (userId.equals("")) return new ResponseEntity<>(null, HttpStatus.OK);
+			int uid = Integer.parseInt(userId);
+			imageUpdate(uid, feeds, "main");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return new ResponseEntity<>(feeds, HttpStatus.OK);
-
 	}
 
 	@GetMapping("/write")
