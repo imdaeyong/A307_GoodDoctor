@@ -67,10 +67,10 @@ skeleton-back 패키지 우클릭 -> run as -> Spring Boot App
 ## 📜 기획
 
 ### 와이어프레임 
-[이동하기](https://lab.ssafy.com/s03-webmobile2-sub2/s03p12a307/blob/develop/doc/_%EC%84%9C%EC%9A%B8A307_%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84.pdf)
+[이동하기](https://github.com/imdaeyong/A307_GoodDoctor/blob/develop/doc/_%EC%84%9C%EC%9A%B8A307_%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84.pdf)
 
 ### ERD (추후 수정 요망) 
-[이동하기](https://lab.ssafy.com/s03-webmobile2-sub2/s03p12a307/blob/develop/doc/_%EC%84%9C%EC%9A%B8_A307_Database_ERD.png)
+[이동하기](https://github.com/imdaeyong/A307_GoodDoctor/blob/develop/doc/%EC%84%9C%EC%9A%B8_A307_Database_ERD.png)
 
 ---
 
@@ -222,12 +222,12 @@ merge 하기 전에 서로 코드 리뷰하기
 merge 후 브랜치 지우기
 ```
 
-### [commit 메시지](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-GIT-%EC%BB%A4%EB%B0%8B%EB%A9%94%EC%84%B8%EC%A7%80-%EB%B6%84%EB%A5%98)
+### [commit 메시지](https://github.com/imdaeyong/A307_GoodDoctor/wiki/%F0%9F%93%9D-GIT-%EC%BB%A4%EB%B0%8B%EB%A9%94%EC%84%B8%EC%A7%80-%EB%B6%84%EB%A5%98)
 ```
 Emoji / 커밋내용(영문,70자 미만) / JIRA ISSUE No.
 ```
 
-### [개발 컨벤션](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-%EA%B0%9C%EB%B0%9C-%EC%BB%A8%EB%B2%A4%EC%85%98)
+### [개발 컨벤션](https://github.com/imdaeyong/A307_GoodDoctor/wiki/%F0%9F%93%9D-%EA%B0%9C%EB%B0%9C-%EC%BB%A8%EB%B2%A4%EC%85%98)
 ```
 Upper, Lower Camel Case
 
