@@ -238,4 +238,5 @@ findUserAndPassword(), searchFeedsByHospitalId() ...
 
 ## 📆 개발일정
 
-![image](/uploads/3167a12c25f99d267a766323917d9f9d/image.png)
+![image](https://user-images.githubusercontent.com/45128072/91006323-01abeb80-e614-11ea-81e7-080b8f7375e4.png)
+
