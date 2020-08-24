@@ -1,4 +1,4 @@
-﻿![image](/uploads/f9f11cd2cffd91814e928b519f946885/image.png)
+![image](https://user-images.githubusercontent.com/45128072/91006296-f0fb7580-e613-11ea-80e8-a5e0955c4625.png)
 
 ## 🎈 프로젝트 이름 : 굿닥터
 
