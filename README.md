@@ -206,9 +206,9 @@ skeleton-back 패키지 우클릭 -> run as -> Spring Boot App
 
 ## 🔌 Contributing
 
-### [Google 로그인 API](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-Google-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
-### [Kakao 로그인 API](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-Kakao-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
-### [QR코드 API](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a307/wikis/%F0%9F%93%9D-QR%EC%BD%94%EB%93%9C-API)
+### [Google 로그인 API](https://github.com/imdaeyong/A307_GoodDoctor/wiki/%F0%9F%93%9D-Google-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
+### [Kakao 로그인 API](https://github.com/imdaeyong/A307_GoodDoctor/wiki/%F0%9F%93%9D-Kakao-%EB%A1%9C%EA%B7%B8%EC%9D%B8-API)
+### [QR코드 API](https://github.com/imdaeyong/A307_GoodDoctor/wiki/%F0%9F%93%9D-QR%EC%BD%94%EB%93%9C-API)
 
 ## ⭐  Develop Rules
 ### branch
