@@ -75,16 +75,11 @@
 </template>
 
 <script>
-import axios from "axios";
-import store from "@/vuex/store";
+import store from "@/vuex/store"
 import http from '@/util/http-common'
+
 export default {
-  data: () => {
-    return {
-      gEmail: "",
-      gNickname: ""
-    };
-  },
+  name: "Google",
   methods: {
     handleClickGetAuth() {
       this.$gAuth.signIn()
@@ -105,9 +100,7 @@ export default {
               this.$router.go(0);
             })
             .catch(err => {
-              alert("로그인정보가 없습니다 회원가입 해주세요!")
-              //회원가입으로 보내고
-              console.log(err);
+              alert("이미 가입된 이메일입니다")
             });
         })
         .catch(error => {

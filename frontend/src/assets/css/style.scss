@@ -5,251 +5,423 @@
 @import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
 
 * {
-    font-family: 'NanumBarunGothic', sans-serif;
-    word-break: keep-all;
-    padding: 0;
-    margin: 0;
+  font-family: 'NanumBarunGothic', sans-serif;
+  word-break: keep-all;
+  padding: 0;
+  margin: 0;
 }
 
 /*html {margin: 0; padding: 0; height: 100%;}*/
 
 input {
-    outline:none;
-    &[type=button],
-    &[type=submit],
-    &[type=radio] {
-        -webkit-appearance: none;
-    }
+  outline:none;
+  &[type=button],
+  &[type=submit],
+  &[type=radio] {
+    -webkit-appearance: none;
+  }
 }
 
 button {
-    border: none;
-    font-size: 1em;
-    font-weight: 400;
-    background-color: transparent;
-    outline: none;
-    cursor: pointer;
+  border: none;
+  font-size: 1em;
+  font-weight: 400;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
 }
 
 .wrap {
-    width: 100%;
-    float: left;
+  width: 100%;
+  float: left;
 }
 
 .wrapB {
-    padding: 0 10px;
-    box-sizing: border-box;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 .wrapC {
-    padding: 0 20px;
-    box-sizing: border-box;
+  padding: 0 5px;
+  box-sizing: border-box;
 }
+
+.wrapCC {
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
 .half {
-    margin-left: auto;
-    text-align: right;
-    width: 50%;
+  margin-left: auto;
+  text-align: right;
+  width: 50%;
 }   
 
+.three-quarter {
+  margin-left: 30%;
+  text-align: right;
+  width: 50%;
+}
+
 .red {
-    color: red;
+  color: red;
 }
 
 .right {
-    text-align: left;
-    margin-left: 2em;
-   
+  text-align: left;
+  margin-left: 2em;
 }
 .border-right {
-    border-right: 10px solid black;
+  border-right: 10px solid black;
 }
-.hoverMycolor {
+
+.slide {
+  height: 340px; 
+  width : 500px; 
+  margin-left : -75px;
+  box-shadow: 5px 5px 8px rgb(148, 148, 148);
     &:hover {
-        color: $myColor;
+      box-shadow: none;
     }
 }
 
-/*button default*/
-.btn {
-    &:not([disabled]) {
-        &:hover,
-        &:focus,
-        &.active {
-            box-shadow: none;
-            -webkit-box-shadow: none;
-        }
+.Profile {
+  &.abled {
+    border-radius: 10px;
+    width: 100%;
+    height: 44px;
+    color: white;
+    p {
+      margin-top: .5rem;
+      font-size: $font-size__3;
     }
-    font-weight: 500;
-    font-size: 1em;
-    color: red;
-    text-align:center;
-    cursor:pointer;
-    height: 50px;
-    line-height: 58px;
-    border-radius: 3px;
-    box-shadow: 8px 8px 15px rgba(0, 0, 0,
-            0.1);
+  }
+  &.disabled {
+    border-radius: 10px;
+    width: 100%;
+    height: 44px;
+    p {
+      margin-top: .5rem;
+      font-size: $font-size__3;
+    }
+  }
+  
+  &:hover {
+    background-color: $disabledMyColor;
+    color: white;
+  }
+}
+
+.carousel-3d-container figure {
+  margin: 0;
+}
+
+.carousel-3d-container figcaption {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  bottom: 0;
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+  font-size: 12px;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+
+.myProfile {
+  background-color: $disabledMyColor;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-left: 5rem;
+  height: 50px;
+  text-align: center;
+  width: 200px;
+  h3 {        
+    color: white;
+    margin-top: 0.4rem;
+    margin-bottom: 0px;
+  }
+  &:hover {
+    background-color: $myColor;
+    color: white;
+  }
+}
+
+.HospitalDetail {
+  text-align: center;
+  width: 70%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+
+/*button default*/
+.btn {    
+  font-weight: 500;
+  font-size: 1em;
+  color: red;
+  text-align:center;
+  cursor:pointer;
+  height: 50px;
+  line-height: 58px;
+  border-radius: 3px;
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1);
+  &:not([disabled]) {
+    &:hover,
+    &:focus,
+    &.active {
+      box-shadow: none;
+      -webkit-box-shadow: none;
+    }
+  }
+}
+
+.btn-left {
+  font-weight: 500;
+  font-size: 1em;
+  text-align:left;
+  cursor:pointer;
+  height: 120px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.03);
+  &:hover,
+  &:focus,
+  &.active {
+    border: 1px solid $myColor ;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+  };
+
+  h4 {
+    margin-top: 4px;
+    margin-bottom: 7px;
+      
+  }
+  p {
+    margin-bottom: 0em;
+    height: 20px;
+  }
+}
+
+.feed-btn-full-center {
+  width: $c100;
+  // background-color: $myColor;
+  background-color: $disabledMyColor;
+  color: #eee;
+  border-radius: 3px;
+  font-weight: $f600;
+  box-shadow: none;
+  height: 50px;
+  line-height: 50px;
+  cursor: pointer;
+  &:hover {
+    // background: $disabledMyColor;
+    background: $myColor;
+  }
 }
 
 .btn-full-center {
-    width: $c100;
-    background-color: $myColor;
-    color: #eee;
-    border-radius: 3px;
-    font-weight: $f600;
-    box-shadow: none;
-    height: 50px;
-    line-height: 50px;
-    margin-top: 5px;
-    &.disabled {
-        background: $disabledMyColor;
-        cursor: default;
-    }
+  width: $c100;
+  background-color: $myColor;
+  color: #eee;
+  border-radius: 3px;
+  font-weight: $f600;
+  box-shadow: none;
+  height: 50px;
+  line-height: 50px;
+  margin-top: 5px;
+  &.disabled {
+    background: $disabledMyColor;
+    cursor: default;
+  }
 }
 
 .btn-bottom {
-    width: calc(100% - 40px);
-    background: #000;
-    color: #fff;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-    font-weight: $f600;
-    position: fixed;
-    left: 20px;
-    bottom: 17px;
-    cursor: pointer;
-    transform: rotate(.1deg);
+  width: calc(100% - 40px);
+  background: #000;
+  color: #fff;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  font-weight: $f600;
+  position: fixed;
+  left: 20px;
+  bottom: 17px;
+  cursor: pointer;
+  transform: rotate(.1deg);
+  &.disabled {
+    background: $grey;
+    cursor: default;
+  }
+}
+.form-wrap{
+    .input-label{
+        width: 100%;
+    }
+}
+
+.auth-input-label {
+  @include wrap;
+  width: 140%;
+  position: relative;
+  margin-bottom: 10px;
+  input[type="text"],
+  input[type="password"] { 
+    @include wrap;
+    // input-label박스 사이즈
+    height: 45px;
+    line-height: 1;
+    padding: 2px 60px 0 105px;
+    box-sizing: border-box;
+    // 평상시 박스 border
+    border: 1px solid rgb(150, 150, 150);
+    border-radius: 3px;
+    // 마우스 오버 된 경우
+    &:hover, &:focus {
+      border:1px solid rgb(0, 0, 0)
+    }
+    &.error {
+      border-radius: 3;
+      border: 1px solid $red;
+    }
+    &.complete {
+      border-radius: 3;
+      border: 1px solid $myColor;
+    }
     &.disabled {
-        background: $grey;
-        cursor: default;
+      background: #eee;
+      color:#333;
+      font-weight: $f600;
+      &:hover, &:focus {
+        border:1px solid #000;
+      }
     }
-}
-
-.btns-bottom{
-    width: calc(100% - 40px);
-    position: fixed;
-    left: 20px;
-    bottom: 17px;
-    cursor: pointer;
-    button {
-        height: 50px;
-        color:#fff;
-        text-align: center;
-        line-height: 50px;
-        font-weight: $f600;
-        background: #000;
-        @include wrap;
-        &:first-of-type {
-            box-sizing: border-box;
-            color:#000;
-            border:1px solid #000;
-            background: #fff;
-            margin-bottom:10px;
-        }
-        &.half {
-            width: 50%;
-            float:left;
-            background:#fff;
-            color:#000;
-            margin-bottom:0;
-            border:1px solid #000;
-            border-radius: 3px 0 0 3px;
-            &:last-of-type {
-                border-radius: 0 3px 3px 0;
-            }
-            &.highlight {
-                background: #000;
-                color:#fff;
-                font-weight: $f400;
-            }
-            &.disabled {
-                background: $grey;
-                cursor: default;
-                border-color:$grey;
-            }
-        }
-        &.disabled {
-            background: $grey;
-            cursor: default;
-        }
+  }
+  label {
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    color: #000;
+    font-weight: $f700;
+    font-size: 15px;
+    &.right {
+      margin-left: 84%;
+      border: none;
+      font-size: 15px;
+      font-weight: 400;
+      background-color: transparent;
+      outline: none;
+      cursor: pointer;
     }
-}
+    &.authRight {
+      margin-left: 77%;
+      font-weight: 400;
+    }
+  }
 
+  .error-text {
+    @include wrap;
+    color: $red;
+    margin-top: 3px;
+    margin-left: 9px;
+  }
+}
 
 .input-label {
+  @include wrap;
+  width: 100%;
+  position: relative;
+  margin-bottom: 10px;
+  input[type="text"],
+  input[type="password"] { 
     @include wrap;
-    position: relative;
-    margin-bottom: 10px;
-    input[type="text"],
-    input[type="password"] { 
-        @include wrap;
-        // input-label박스 사이즈
-        height: 45px;
-        line-height: 1;
-        padding: 2px 60px 0 105px;
-        box-sizing: border-box;
-        // 평상시 박스 border
-        border: 1px solid rgb(150, 150, 150);
-        border-radius: 3px;
-        // 마우스 오버 된 경우
-        &:hover, &:focus {
-            border:1px solid rgb(0, 0, 0)
-        }
-        &.error {
-            border-radius: 3;
-            border: 1px solid $red;
-        }
-        &.complete {
-            border-radius: 3;
-            border: 1px solid $myColor;
-        }
-        &.disabled {
-            background: #eee;
-            color:#333;
-            font-weight: $f600;
-            &:hover, &:focus {
-                border:1px solid #000;
-            }
+    // input-label박스 사이즈
+    height: 45px;
+    line-height: 1;
+    padding: 2px 60px 0 105px;
+    box-sizing: border-box;
+    // 평상시 박스 border
+    border: 1px solid rgb(150, 150, 150);
+    border-radius: 3px;
+    // 마우스 오버 된 경우
+    &:hover, &:focus {
+      border:1px solid rgb(0, 0, 0)
+    }
+    &.error {
+      border-radius: 3;
+      border: 1px solid $red;
+    }
+    &.complete {
+      border-radius: 3;
+      border: 1px solid $myColor;
+    }
+    &.disabled {
+      background: #eee;
+      color:#333;
+      font-weight: $f600;
+      &:hover, &:focus {
+        border:1px solid #000;
+      }
+    }
+  }
+  label {
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    color: #000;
+    font-weight: $f700;
+    font-size: 15px;
+    &.right {
+      margin-left: 84%;
+      border: none;
+      font-size: 15px;
+      font-weight: 400;
+      background-color: transparent;
+      outline: none;
+      cursor: pointer;
+    }
+    &.authRight {
+      margin-left: 68%;
+      font-weight: 400;
+    }
+  }
 
-        }
-    }
-    label {
-        position: absolute;
-        left: 15px;
-        top: 12px;
-        color: #000;
-        font-weight: $f700;
-        font-size: 15px;
-        &.right {
-            margin-left: 84%;
-            border: none;
-            font-size: 15px;
-            font-weight: 400;
-            background-color: transparent;
-            outline: none;
-            cursor: pointer;
-        }
-        &.authRight {
-            margin-left: 79%;
-            font-weight: 400;
-        }
-    }
-
-    .error-text {
-        @include wrap;
-        color: $red;
-        margin-top: 3px;
-        margin-left: 9px;
-    }
+  .error-text {
+    @include wrap;
+    color: $red;
+    margin-top: 3px;
+    margin-left: 9px;
+  }
 }
 
+@media (min-width: 700px) {
+  .wrapC {
+    .profile-image{
+        float: left;
+        position: relative;
+        width : 28%; 
+        height : 13em;
+        margin-right: 0.5em;
+        border: 1px solid rgb(150, 150, 150);
+        border-radius: 3px;
+        div{
+            height: 11em;
+            img{
+                width: 100%;
+                height: 11em;
+            }
+        }
 
-@media (min-width: 1200px) {
-
-    .wrapC {
-        max-width: 580px;
-        width: 100%;
-        margin:0 auto;
     }
+    max-width: 700px;
+    width: 100%;
+    margin:0 auto;
+  }
+  .wrapCC {
+    max-width: 700px;
+    width: 100%;
+    margin:0 auto;
+  }
 }

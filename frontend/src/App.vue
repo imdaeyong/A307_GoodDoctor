@@ -1,16 +1,13 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div id="app" style="padding-top : 110px;">
+    <router-view />
   </div>
 </template>
 
 <script>
-
 export default {
   name: "app",
-  components: {
-  },
-}
+};
 </script>
 
 <style>
@@ -19,18 +16,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>

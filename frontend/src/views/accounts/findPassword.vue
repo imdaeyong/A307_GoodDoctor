@@ -1,14 +1,13 @@
 <template>
   <div class="user" id="join">
-    <div class="wrapC mt-5">
+    <div class="wrapCC mt-5">
       <h1>비밀번호를 찾아요</h1>
-
       <div class="input-label">
         <input 
           v-model="email" 
           v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
           id="email" 
-          placeholder="가입시 사용한 이메일을 입력하세요." 
+          placeholder="가입시 사용한 이메일을 입력." 
           type="text"/>
         <label for="email">이메일</label>
         <div class="error-text" v-if="error.email">{{error.email}}</div>
@@ -28,10 +27,8 @@
 <script>
 import '../../assets/css/style.scss'
 import '../../assets/css/user.scss'
-import axios from 'axios'
 import http from '@/util/http-common'
 import * as EmailValidator from "email-validator"
-
 
 export default {
   name: "findPassword",
@@ -56,7 +53,7 @@ export default {
           if(res.data.accountType==0){
             alert(this.email+'로 비밀번호를 보냈습니다.')
           }else if(res.data.accountType==1){
-            alert("구글 간편 로그인 계정입니다. 카카오 로그인해주세요!")
+            alert("구글 간편 로그인 계정입니다. 구글 로그인해주세요!")
           }else {
             alert("카카오 간편 로그인 계정입니다. 카카오 로그인해주세요!")
           }

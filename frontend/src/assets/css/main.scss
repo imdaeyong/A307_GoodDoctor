@@ -1,0 +1,171 @@
+
+.header{
+  background-color: #17a2b8;
+ height : 3em;
+ text-align: left;
+ margin-bottom: 1em;
+}
+ 
+/**/
+.navbar-color {
+  color: rgb(241, 241, 241);
+  float: left;
+}
+.navbar-color:hover {
+  color: white;
+}
+
+
+.drop-down-hospital {
+  float: left;
+  width: 100%;
+  width : 560px;
+}
+.header-list, .header-dropdown-list, .dropdown-list{
+ float: left;
+ margin-top: 0.3em;
+}
+.btn-home{
+ color: white;
+ background-color: rgba(0,0,0,0);
+ border: none;
+ float:left;
+ font-size: 1.5em;
+ font-weight: bold;
+ margin-left: 10em;
+ margin-top: 0.1em;
+}
+.search-bar{
+  max-width: 300px;
+  border : 1.5px solid white;
+  margin-top: 0.2em;
+  
+  border-radius: 1em 1em 1em 1em;
+}
+.input-search{
+  border : 1.5px solid #17a2b8;
+  border-right : white;
+  border-left : white;
+  height : 1.7em;
+  width : 10em;
+  padding-left: 0.4rem;
+  border-radius: 0em 1em 1em 0em;
+  float: left;
+}
+
+.btn-search{
+  border : 1.5px solid #17a2b8;
+  color: white;
+  font-weight: 900;
+  border-left : white;
+  background-color : #17a2b8;
+  border-radius: 0em 1em 1em 0em;
+  height : 1.7em;
+  width: 2em;
+}
+.btn-front{
+  border : 1.5px solid #17a2b8;
+  border-right : white;
+  background-color : white;
+  border-radius: 1em 0em 0em 1em;
+  font-weight: 500;
+  font-size: 1em;
+  color: #0e373d;
+  height : 1.7em;
+  float: left;
+  padding-left: 0.38rem;
+}
+/*병원별찾기*/
+
+.btn-hospital-list{
+ margin-left: 23em;
+ float: left;
+}
+.btn-area-list{
+ margin-left: 3em;
+ float: left;   
+}
+.btn-search-hospital, .btn-search-area{
+ font-size: 1em;
+ font-weight: 500;
+ background-color: rgba(0,0,0,0);
+ color: white;
+ border: none;
+ margin-top: 0.5em;
+}
+.header .btn-write-review, .btn-member{
+ font-size: 1em;
+ font-weight: 500;
+ background-color: rgba(0,0,0,0);
+ color: white;
+ border: none;
+ margin-top: 0.5em;    
+}
+
+.dropdown-content {
+ border-radius : 0.8em 0.8em 0.8em 0.8em;
+ border: 1px solid grey;
+  background-color : white;
+ padding : 0.8em;
+ margin-left: -9em;
+  /* display: none; */
+  position: absolute;
+}
+.btn-hospital-list:hover .dropdown-content {display: block;}
+.btn-area-list:hover .dropdown-content {display: block;}
+.btn-member-list:hover .member-dropdown-content {display: block;}
+.dropdown-sub-hospital:hover{border: 0.1em solid #17a2b8; background-color: white;}
+.dropdown-sub-area:hover{border: 0.1em solid #17a2b8;}
+.member-dropdown-btn:hover{border: 0.1em solid #17a2b8;}
+.dropdown-sub-hospital{
+ border : 1px solid #ECE8E8;
+ background-color: white;
+ width: 7em;
+ height: 7em;
+ float: left;
+}
+.dropdown-sub-area{
+ font-size: 1.1em;
+ border : 1px solid #ECE8E8;
+ background-color: white;
+ width: 4em;
+ height: 2em;
+}
+/*지역별찾기*/
+
+.dropdown-sub-gu{ margin-top: 0.5em; }
+.dropdown-sub-gu .area{
+ height: 2em;
+ border-bottom: 2px solid black;
+ margin-bottom: 0.5em;
+}
+.gu-list div{
+ width : 20%;
+ float: left;
+}
+/* 리뷰쓰기 및 회원정보 */
+.btn-review-list{
+ margin-left: 3em;
+ float: left;
+}
+
+.btn-member{
+ margin-left: 3em;
+}
+.btn-member-list{
+ float: left;
+}
+.member-dropdown-content{
+ border-radius : 0.8em 0.8em 0.8em 0.8em;
+ border: 1px solid grey;
+ background-color : white;
+ margin-left: 2.2em;
+ padding : 0.8em;
+  position: absolute;
+ z-index: 1;
+ display: none;
+}
+.member-dropdown-btn{
+ border : 1px solid #ECE8E8;
+ background-color: white;
+}
