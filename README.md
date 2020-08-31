@@ -38,7 +38,7 @@ QR코드를 받은 회원이 자신의 계정을 통해서만 리뷰를 작성�
 
 
 ## 🎞 버전 관리
-++ 깃과 지라를 이용한 연동
+![Generic badge](https://img.shields.io/badge/gitlab-important.svg)
 ![Generic badge](https://img.shields.io/badge/jira-important.svg)
 
 ## 🎮 프로젝트 사용법
