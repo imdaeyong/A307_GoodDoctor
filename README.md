@@ -6,7 +6,7 @@
 ### 👦 김지효(팀장/Frontend) : Front 디자인, 피드
 ### 🧑 문용호(CTO/Backend) : AWS 배포, QR 코드 기능
 ### 🧔 김종관(Frontend) : Front 디자인, 병원 정보
-### 🧑 김대용(Backend) : SNS 로그인, 카카오 맵
+### 🧑 김대용(Backend) : SNS 로그인, 병원 리스트, 카카오 맵
 ### 🧒 방승환(Backend) : SNS 로그인, 페이징
 
 
